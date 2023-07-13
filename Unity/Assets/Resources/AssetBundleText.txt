@@ -1,0 +1,13 @@
+包名	是否为公共资源包(1 true, 0 false)	所依赖的包路径	大小(B 字节)	版本号	Crc	CompressCrc	offset
+textures/back_activity.assetbundle	1		0	0	0	0	42
+textures/sociatyarea2v2bg.assetbundle	0		0	0	0	0	47
+configbyte/configbyte_bundle.assetbundle	0		0	0	0	0	42
+configbyte/language/language_bundle.assetbundle	0		0	0	0	0	37
+sound/bg/city_autumn_bg.assetbundle	0		0	0	0	0	47
+sound/common/simplebutton.assetbundle	0		0	0	0	0	44
+sound/dialog/battlewin.assetbundle	0		0	0	0	0	45
+allshaders.assetbundle	0		0	0	0	0	43
+tsuprefabs/image.assetbundle	0	textures/back_activity.assetbundle	0	0	0	0	47
+tsuprefabs/image1.assetbundle	0	tsuprefabs/image.assetbundle+textures/back_activity.assetbundle	0	0	0	0	47
+tsuprefabs/loginview.assetbundle	0	textures/sociatyarea2v2bg.assetbundle+textures/back_activity.assetbundle	0	0	0	0	47
+tsuprefabs/uisystemroot.assetbundle	0		0	0	0	0	37

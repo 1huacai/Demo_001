@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: _shaderVeriant_284
+  m_Shader: {fileID: 4800000, guid: c9fd504edb20a9647becbe915379eaee, type: 3}
+  m_ShaderKeywords: _FLOWMAP _SCATTERING
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMetaMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlowMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SkinMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AO: 0
+    - _AOCorrect: 4
+    - _AnisoDir: 0
+    - _Anositropy: 1
+    - _Cutoff: 0
+    - _DstBlend: 10
+    - _EdgeOffset: 0.211
+    - _EdgeStrength: 0.5
+    - _FlowMapRadius: 0.301
+    - _FlowMapScale: 17
+    - _FlowMapSpeed: 0.82
+    - _FlowMapStrength: 0.141
+    - _FlowMapUVOffsetU: 0
+    - _FlowMapUVOffsetV: 0
+    - _Metallic: 1
+    - _NormalStrength: 1
+    - _RimRange: 10
+    - _RimStrength: 0.082
+    - _Roughness: 1
+    - _SSSDistortion: 0
+    - _SSSPower: 2
+    - _SSSScale: 0.7
+    - _SSSStrength: 0
+    - _ShadowAlpha: 0
+    - _SkinToneOffset: 0
+    - _SkinToneScale: 0.5
+    - _SparkleColor01: 0.5
+    - _SparkleRange: 1
+    - _SparkleScale: 1
+    - _SparkleShine: 0
+    - _SparkleShineColor: 0
+    - _SparkleSize: 0.5
+    - _SparkleSizeMin: 0.2
+    - _SparkleSpeedU: 0
+    - _SparkleSpeedV: 0
+    - _Spec: 0.782
+    - _Spec2: 1.27
+    - _SpecAnisoScale: 0
+    - _SpecScale: 1.27
+    - _SrcBlend: 5
+    - _VertAlpha: 0
+    - _cull: 2
+    - _dstAlphaBlend: 10
+    - _srcAlphaBlend: 1
+    - _zTest: 4
+    - _zWrite: 1
+    m_Colors:
+    - _AOColor: {r: 0, g: 0, b: 0, a: 1}
+    - _AOSkinColor: {r: 0.4811321, g: 0.28040028, b: 0.14751692, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorEmission: {r: 0, g: 0, b: 0, a: 1}
+    - _FlowColor: {r: 45.035194, g: 60.187206, b: 89.2286, a: 1}
+    - _RimColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SSSColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SparkleColor1: {r: 1, g: 1, b: 1, a: 1}
+    - _SparkleColor2: {r: 1, g: 1, b: 1, a: 1}
+    - _SparkleUVScale: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecAnisoColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

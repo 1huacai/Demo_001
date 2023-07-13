@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{590619B3-A271-4C7D-8CF3-29C0774AC9D7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FrameWork</RootNamespace>
+    <AssemblyName>FrameWork</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\ProjectsDllExports\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <DocumentationFile>
+    </DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CoreFrameWork, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Unity\Assets\Resources\Plugins\CoreFrameWork.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>..\..\UnityDllExprots\DOTween.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DOTween43">
+      <HintPath>..\..\UnityDllExprots\DOTween43.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DOTween46">
+      <HintPath>..\..\UnityDllExprots\DOTween46.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\UnityDllExprots\Current\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>..\..\UnityDllExprots\Current\UnityEngine.AnimationModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>..\..\UnityDllExprots\Current\UnityEngine.AssetBundleModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>..\..\UnityDllExprots\Current\UnityEngine.AudioModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\UnityDllExprots\Current\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.Physics2DModule">
+      <HintPath>..\..\UnityDllExprots\Current\UnityEngine.Physics2DModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>..\..\UnityDllExprots\Current\UnityEngine.PhysicsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainModule">
+      <HintPath>..\..\UnityDllExprots\Current\UnityEngine.TerrainModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>..\..\UnityDllExprots\Current\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\UnityDllExprots\Current\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>..\..\UnityDllExprots\Current\UnityEngine.UIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
+      <HintPath>..\..\UnityDllExprots\Current\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+      <HintPath>..\..\UnityDllExprots\Current\UnityEngine.UnityWebRequestModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+      <HintPath>..\..\UnityDllExprots\Current\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.VideoModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\UnityDllExprots\Current\UnityEngine.VideoModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="zlib.net">
+      <HintPath>dll\zlib.net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Scripts\App\IMonoSwitch.cs" />
+    <Compile Include="Scripts\Graphics\AtmosphereManager.cs" />
+    <Compile Include="Scripts\Graphics\BaseDrawCard.cs" />
+    <Compile Include="Scripts\Graphics\CameraAnimation.cs" />
+    <Compile Include="Scripts\Graphics\EnvironmentSetting.cs" />
+    <Compile Include="Scripts\Graphics\FastShadowProjector\FSPStaticMeshHolder.cs" />
+    <Compile Include="Scripts\Graphics\FastShadowProjector\GlobalProjectorLightCamera.cs" />
+    <Compile Include="Scripts\Graphics\FastShadowProjector\GlobalProjectorManager.cs" />
+    <Compile Include="Scripts\Graphics\FastShadowProjector\IProjector.cs" />
+    <Compile Include="Scripts\Graphics\FastShadowProjector\ModelShadowProjector.cs" />
+    <Compile Include="Scripts\Graphics\FastShadowProjector\ProjectorEyeTexture.cs" />
+    <Compile Include="Scripts\Graphics\FastShadowProjector\ProjectorShadowDummy.cs" />
+    <Compile Include="Scripts\Graphics\FastShadowProjector\ShadowProjector.cs" />
+    <Compile Include="Scripts\Graphics\FastShadowProjector\ShadowReceiver.cs" />
+    <Compile Include="Scripts\Graphics\FastShadowProjector\ShadowTrigger.cs" />
+    <Compile Include="Scripts\Graphics\GraphicDrawObstruction.cs" />
+    <Compile Include="Scripts\Graphics\GraphicsManager.cs" />
+    <Compile Include="Scripts\Graphics\IGraphicDraw.cs" />
+    <Compile Include="Scripts\Graphics\InversionEffect.cs" />
+    <Compile Include="Scripts\Graphics\IPostEffect.cs" />
+    <Compile Include="Scripts\Graphics\LightInfo.cs" />
+    <Compile Include="Scripts\Graphics\LightManager.cs" />
+    <Compile Include="Scripts\Graphics\MainDraw.cs" />
+    <Compile Include="Scripts\Graphics\PanoramicBillbord.cs" />
+    <Compile Include="Scripts\Graphics\PanoramicSprite.cs" />
+    <Compile Include="Scripts\Graphics\PostEffectDraw.cs" />
+    <Compile Include="Scripts\Graphics\RadiaBlurEffect.cs" />
+    <Compile Include="Scripts\Graphics\ScreenshotTool.cs" />
+    <Compile Include="Scripts\Graphics\SubCameraInfo.cs" />
+    <Compile Include="Scripts\Manager\SingletonManager.cs" />
+    <Compile Include="Scripts\Manager\Manager.cs" />
+    <Compile Include="Scripts\Manager\ManagerBase.cs" />
+    <Compile Include="Scripts\ObjPools.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripts\AnimationPlus\AnimationPlus.cs" />
+    <Compile Include="Scripts\AnimationPlus\AnimationPlusClip.cs" />
+    <Compile Include="Scripts\AnimationPlus\AnimationPlusState.cs" />
+    <Compile Include="Scripts\AnimationPlus\CallbackEventInfo.cs" />
+    <Compile Include="Scripts\App\ApplicationCore.cs" />
+    <Compile Include="Scripts\App\MonoSwitch.cs" />
+    <Compile Include="Scripts\Audio\AudioManager.cs" />
+    <Compile Include="Scripts\Component\AorButton.cs" />
+    <Compile Include="Scripts\Component\AorImage.cs" />
+    <Compile Include="Scripts\Component\AorRawImage.cs" />
+    <Compile Include="Scripts\Component\AorScrollRect.cs" />
+    <Compile Include="Scripts\Component\AorText.cs" />
+    <Compile Include="Scripts\Component\core\AorFontUpdateTracker.cs" />
+    <Compile Include="Scripts\Component\core\AorGrayMaterialManager.cs" />
+    <Compile Include="Scripts\Component\core\AorMaterialCreater.cs" />
+    <Compile Include="Scripts\Component\core\SpriteAsset.cs" />
+    <Compile Include="Scripts\Component\core\SpriteAssetInfo.cs" />
+    <Compile Include="Scripts\Component\Gradient.cs" />
+    <Compile Include="Scripts\Component\GrayManager.cs" />
+    <Compile Include="Scripts\Component\MaskPlus.cs" />
+    <Compile Include="Scripts\Component\OutLinePlus.cs" />
+    <Compile Include="Scripts\Component\ScrollView.cs" />
+    <Compile Include="Scripts\Component\SimpleScrollRect.cs" />
+    <Compile Include="Scripts\Component\SpacingText.cs" />
+    <Compile Include="Scripts\Component\textIncSprites\AorEmojiHandler.cs" />
+    <Compile Include="Scripts\Component\textIncSprites\AorTextIncSprites.cs" />
+    <Compile Include="Scripts\Component\textIncSprites\SpriteGraphic.cs" />
+    <Compile Include="Scripts\Component\textIncSprites\TextPlusData.cs" />
+    <Compile Include="Scripts\Component\UIEffects\IGrayMember.cs" />
+    <Compile Include="Scripts\Config\Config.cs" />
+    <Compile Include="Scripts\Config\ConfigManager.cs" />
+    <Compile Include="Scripts\Config\ConfigUtils.cs" />
+    <Compile Include="Scripts\Config\ConfigVaryingNumber.cs" />
+    <Compile Include="Scripts\Config\Extension\BinaryBuffer.cs" />
+    <Compile Include="Scripts\Config\Extension\ConfigLevelVar.cs" />
+    <Compile Include="Scripts\Config\Extension\SmartUT8.cs" />
+    <Compile Include="Scripts\Config\IConfigRef.cs" />
+    <Compile Include="Scripts\Config\IConfigurable.cs" />
+    <Compile Include="Scripts\Config\IParsableConfig.cs" />
+    <Compile Include="Scripts\Config\Lang.cs" />
+    <Compile Include="Scripts\Config\VaryingExtension.cs" />
+    <Compile Include="Scripts\Game\Config\AnimationClipConfig.cs" />
+    <Compile Include="Scripts\Game\Config\DisplayConfig.cs" />
+    <Compile Include="Scripts\Game\Game.cs" />
+    <Compile Include="Scripts\Game\GameEvent.cs" />
+    <Compile Include="Scripts\Game\GameManager.cs" />
+    <Compile Include="Scripts\GUITree\GUIManager.cs" />
+    <Compile Include="Scripts\GUITree\GUIStackManager.cs" />
+    <Compile Include="Scripts\GUITree\GUITreeComponent.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\animation\AorUIAnimator.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\AorUIGlobalLogicBase.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\AorUIManager.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\components\chatView\ChatViewSample.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\components\combobox\ComboBox.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\components\dialoguesSystem\DialogData.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\components\floatingItem\FloatingItemHandler.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\components\floatingItem\HPTip.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\components\renderTXView\RenderTXView.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\components\scrollList\assets\ListItem.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\components\scrollList\ScrollList.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\components\textTyper\TextTyper.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\components\tiledRawImage\TiledRawImage.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\core\AorSwitchableUI.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\core\AorUIAssetLoader.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\core\AorUIComponent.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\core\AorUiRuntimeUtility.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\core\AsyncLoadProcessor.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\core\IAorUILogicInterface.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\core\UprefabUnitBase.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\effects\InjectionMethod.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\events\AorUIEventConfiger.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\events\AorUIEventListener.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\events\AorUIEventListenerForMapArmy.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\layout\AorPage.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\layout\AorWindow.cs" />
+    <Compile Include="Scripts\GUI\AorUI\scripts\layout\AorWindowBase.cs" />
+    <Compile Include="Scripts\GUI\GUITree\GUITreeController.cs" />
+    <Compile Include="Scripts\net\Connect.cs" />
+    <Compile Include="Scripts\net\ConnectFactory.cs" />
+    <Compile Include="Scripts\net\erlang\ErlArray.cs" />
+    <Compile Include="Scripts\net\erlang\ErlAtom.cs" />
+    <Compile Include="Scripts\net\erlang\ErlByte.cs" />
+    <Compile Include="Scripts\net\erlang\ErlByteArray.cs" />
+    <Compile Include="Scripts\net\erlang\ErlDouble.cs" />
+    <Compile Include="Scripts\net\erlang\ErlInt.cs" />
+    <Compile Include="Scripts\net\erlang\ErlList.cs" />
+    <Compile Include="Scripts\net\erlang\ErlLong.cs" />
+    <Compile Include="Scripts\net\erlang\ErlNullList.cs" />
+    <Compile Include="Scripts\net\erlang\ErlString.cs" />
+    <Compile Include="Scripts\net\erlang\ErlType.cs" />
+    <Compile Include="Scripts\net\ErlByteKit.cs" />
+    <Compile Include="Scripts\net\erlio\ErlBytesReader.cs" />
+    <Compile Include="Scripts\net\erlio\ErlBytesWriter.cs" />
+    <Compile Include="Scripts\net\erlnet\ConnectCount.cs" />
+    <Compile Include="Scripts\net\erlnet\ConnectData.cs" />
+    <Compile Include="Scripts\net\erlnet\ConnectManager.cs" />
+    <Compile Include="Scripts\net\erlnet\DataAccess.cs" />
+    <Compile Include="Scripts\net\erlnet\ErlConnect.cs" />
+    <Compile Include="Scripts\net\erlnet\ErlConnectFactory.cs" />
+    <Compile Include="Scripts\net\erlnet\ErlEntry.cs" />
+    <Compile Include="Scripts\net\erlnet\ErlKVMessage.cs" />
+    <Compile Include="Scripts\net\erlnet\ErlPingPort.cs" />
+    <Compile Include="Scripts\net\erlnet\ErlTransmitPort.cs" />
+    <Compile Include="Scripts\net\GameNetBase.cs" />
+    <Compile Include="Scripts\net\NetDef.cs" />
+    <Compile Include="Scripts\net\NetEvent.cs" />
+    <Compile Include="Scripts\net\PingPort.cs" />
+    <Compile Include="Scripts\net\PortHandler.cs" />
+    <Compile Include="Scripts\net\TransmitPort.cs" />
+    <Compile Include="Scripts\QuadTree\UQuadTree.cs" />
+    <Compile Include="Scripts\ResourceLoad\ABRequest.cs" />
+    <Compile Include="Scripts\ResourceLoad\AssetRequest.cs" />
+    <Compile Include="Scripts\ResourceLoad\AsyncRequest.cs" />
+    <Compile Include="Scripts\ResourceLoad\Debug\DebugInfo.cs" />
+    <Compile Include="Scripts\ResourceLoad\Debug\DebugInfoAB.cs" />
+    <Compile Include="Scripts\ResourceLoad\Debug\DebugInfoRes.cs" />
+    <Compile Include="Scripts\ResourceLoad\Debug\DebugResSnapshoot.cs" />
+    <Compile Include="Scripts\ResourceLoad\HAnimationClip.cs" />
+    <Compile Include="Scripts\ResourceLoad\HAssetBundle.cs" />
+    <Compile Include="Scripts\ResourceLoad\HAudioClip.cs" />
+    <Compile Include="Scripts\ResourceLoad\HFont.cs" />
+    <Compile Include="Scripts\ResourceLoad\HMaterial.cs" />
+    <Compile Include="Scripts\ResourceLoad\HPrefab.cs" />
+    <Compile Include="Scripts\ResourceLoad\HRes.cs" />
+    <Compile Include="Scripts\ResourceLoad\HScriptableObject.cs" />
+    <Compile Include="Scripts\ResourceLoad\HShader.cs" />
+    <Compile Include="Scripts\ResourceLoad\HShaderVariantCollection.cs" />
+    <Compile Include="Scripts\ResourceLoad\HSprite.cs" />
+    <Compile Include="Scripts\ResourceLoad\HText.cs" />
+    <Compile Include="Scripts\ResourceLoad\HTexture.cs" />
+    <Compile Include="Scripts\ResourceLoad\HVideoClip.cs" />
+    <Compile Include="Scripts\ResourceLoad\ManiFest.cs" />
+    <Compile Include="Scripts\ResourceLoad\PathManager.cs" />
+    <Compile Include="Scripts\ResourceLoad\PrefabAutoDestory.cs" />
+    <Compile Include="Scripts\ResourceLoad\ResourcesManager.cs" />
+    <Compile Include="Scripts\ResourceLoad\ResRef.cs" />
+    <Compile Include="Scripts\ResourceLoad\ResUtils.cs" />
+    <Compile Include="Scripts\ResourceLoad\StringUtils.cs" />
+    <Compile Include="Scripts\Scene\SceneManager.cs" />
+    <Compile Include="Scripts\Scene\YoukiaScene.cs" />
+    <Compile Include="Scripts\Splines\Bezier.cs" />
+    <Compile Include="Scripts\Splines\Spline.cs" />
+    <Compile Include="Scripts\Splines\SplineAnimation.cs" />
+    <Compile Include="Scripts\Splines\SplineCollector.cs" />
+    <Compile Include="Scripts\Sprite\SpriteItem.cs" />
+    <Compile Include="Scripts\Sprite\SpriteManager.cs" />
+    <Compile Include="Scripts\UI\WindowBase.cs" />
+    <Compile Include="Scripts\Utils\ColorTools.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\UnityDllExprots\Current\UnityEngine.dll" />
+    <Analyzer Include="..\..\UnityDllExprots\Current\UnityEngine.UI.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\Component\UGUISRC\" />
+    <Folder Include="Scripts\GUI\AorUI\scripts\components\imageMapping\" />
+    <Folder Include="Scripts\GUI\AorUI\scripts\components\tips\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\ResourceLoad\ABRequest.cs.meta" />
+    <None Include="Scripts\ResourceLoad\AssetRequest.cs.meta" />
+    <None Include="Scripts\ResourceLoad\AsyncRequest.cs.meta" />
+    <None Include="Scripts\ResourceLoad\Debug.meta" />
+    <None Include="Scripts\ResourceLoad\Debug\DebugInfo.cs.meta" />
+    <None Include="Scripts\ResourceLoad\Debug\DebugInfoAB.cs.meta" />
+    <None Include="Scripts\ResourceLoad\Debug\DebugInfoRes.cs.meta" />
+    <None Include="Scripts\ResourceLoad\Debug\DebugResSnapshoot.cs.meta" />
+    <None Include="Scripts\ResourceLoad\Doc.meta" />
+    <None Include="Scripts\ResourceLoad\Doc\ReadMe.docx" />
+    <None Include="Scripts\ResourceLoad\Doc\ReadMe.docx.meta" />
+    <None Include="Scripts\ResourceLoad\Editor.meta" />
+    <None Include="Scripts\ResourceLoad\HAnimationClip.cs.meta" />
+    <None Include="Scripts\ResourceLoad\HAssetBundle.cs.meta" />
+    <None Include="Scripts\ResourceLoad\HAudioClip.cs.meta" />
+    <None Include="Scripts\ResourceLoad\HFont.cs.meta" />
+    <None Include="Scripts\ResourceLoad\HMaterial.cs.meta" />
+    <None Include="Scripts\ResourceLoad\HPrefab.cs.meta" />
+    <None Include="Scripts\ResourceLoad\HRes.cs.meta" />
+    <None Include="Scripts\ResourceLoad\HScriptableObject.cs.meta" />
+    <None Include="Scripts\ResourceLoad\HShader.cs.meta" />
+    <None Include="Scripts\ResourceLoad\HShaderVariantCollection.cs.meta" />
+    <None Include="Scripts\ResourceLoad\HSprite.cs.meta" />
+    <None Include="Scripts\ResourceLoad\HText.cs.meta" />
+    <None Include="Scripts\ResourceLoad\HTexture.cs.meta" />
+    <None Include="Scripts\ResourceLoad\HVideoClip.cs.meta" />
+    <None Include="Scripts\ResourceLoad\PathManager.cs.meta" />
+    <None Include="Scripts\ResourceLoad\PrefabAutoDestory.cs.meta" />
+    <None Include="Scripts\ResourceLoad\ResRef.cs.meta" />
+    <None Include="Scripts\ResourceLoad\ResUtils.cs.meta" />
+    <None Include="Scripts\ResourceLoad\StringUtils.cs.meta" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>Copy/Y "$(TargetDir)FrameWork.dll" "$(SolutionDir)Assets\Resources\Plugins" 
+Copy/Y "$(TargetDir)FrameWork.pdb" "$(SolutionDir)Assets\Resources\Plugins"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

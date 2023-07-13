@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{576DE319-6E44-4BA6-9EA5-E732264EA513}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CoreFrameWork</RootNamespace>
+    <AssemblyName>CoreFrameWork</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\ProjectsDllExports\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\UnityDllExprots\Current\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\UnityDllExprots\Current\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>..\..\UnityDllExprots\Current\UnityEngine.InputLegacyModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="zlib.net, Version=1.0.3.0, Culture=neutral, PublicKeyToken=47d7877cb3620160">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ProjectsDllExports\zlib.net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripts\Collections\MYList.cs" />
+    <Compile Include="Scripts\Com\ClassStaticEx.cs" />
+    <Compile Include="Scripts\Com\MathEx.cs" />
+    <Compile Include="Scripts\Com\RandomEx.cs" />
+    <Compile Include="Scripts\Com\Runtime.cs" />
+    <Compile Include="Scripts\Delegate\DelegateDef.cs" />
+    <Compile Include="Scripts\Event\FEventManager.cs" />
+    <Compile Include="Scripts\Event\Event.cs" />
+    <Compile Include="Scripts\Event\EventCallBack.cs" />
+    <Compile Include="Scripts\Event\FGameEvent.cs" />
+    <Compile Include="Scripts\Event\IEvent.cs" />
+    <Compile Include="Scripts\GlobalExtends\AorRefExtends.cs" />
+    <Compile Include="Scripts\GlobalExtends\GlobalExtends.cs" />
+    <Compile Include="Scripts\Interface\IDispose.cs" />
+    <Compile Include="Scripts\Event\IGameEvent.cs" />
+    <Compile Include="Scripts\BufferUtils\ByteBuffer.cs" />
+    <Compile Include="Scripts\BufferUtils\ByteKit.cs" />
+    <Compile Include="Scripts\BufferUtils\CharBuffer.cs" />
+    <Compile Include="Scripts\Log\Log.cs" />
+    <Compile Include="Scripts\Log\LoggerUtility.cs" />
+    <Compile Include="Scripts\Log\UnityLoggerUtility.cs" />
+    <Compile Include="Scripts\Math\MYAABB2d.cs" />
+    <Compile Include="Scripts\Math\MYAABB2f.cs" />
+    <Compile Include="Scripts\Math\MYAABB3d.cs" />
+    <Compile Include="Scripts\Math\MYCollision.cs" />
+    <Compile Include="Scripts\Math\MYMath.cs" />
+    <Compile Include="Scripts\Math\MYMatrix4X4.cs" />
+    <Compile Include="Scripts\Math\MYQuaternion.cs" />
+    <Compile Include="Scripts\Math\MYTransform.cs" />
+    <Compile Include="Scripts\Math\MYVector2d.cs" />
+    <Compile Include="Scripts\Math\MYVector2f.cs" />
+    <Compile Include="Scripts\Math\MYVector3d.cs" />
+    <Compile Include="Scripts\Math\MYVector3f.cs" />
+    <Compile Include="Scripts\Com\AsyncCombiner.cs" />
+    <Compile Include="Scripts\Misc\ChecksumUtil.cs" />
+    <Compile Include="Scripts\Misc\CoroutineRuner.cs" />
+    <Compile Include="Scripts\Misc\FlyCamera.cs" />
+    <Compile Include="Scripts\Setting\SettingConfig.cs" />
+    <Compile Include="Scripts\Setting\SettingConfigRef.cs" />
+    <Compile Include="Scripts\TimeLua\TimeCtrl.cs" />
+    <Compile Include="Scripts\TimeLua\TimeHelper.cs" />
+    <Compile Include="Scripts\Time\IGetTime.cs" />
+    <Compile Include="Scripts\Time\SystemGetTime.cs" />
+    <Compile Include="Scripts\Time\TimeKit.cs" />
+    <Compile Include="Scripts\Time\Timer.cs" />
+    <Compile Include="Scripts\Time\TimerManager.cs" />
+    <Compile Include="Scripts\Utils\MathEx.cs" />
+    <Compile Include="Scripts\Utils\MD5Utils.cs" />
+    <Compile Include="Scripts\Misc\MYRandom.cs" />
+    <Compile Include="Scripts\Misc\RandomBase.cs" />
+    <Compile Include="Scripts\Math\MyMathUitls.cs" />
+    <Compile Include="Scripts\Misc\ZIPUtil.cs" />
+    <Compile Include="Scripts\Misc\AllFileMD5.cs" />
+    <Compile Include="Scripts\Misc\PrefabLightmapData.cs" />
+    <Compile Include="Scripts\Misc\SetPropertyAttribute.cs" />
+    <Compile Include="Scripts\Utils\PathUtils.cs" />
+    <Compile Include="Scripts\SingletonManager\FSingletonManager.cs" />
+    <Compile Include="Scripts\SingletonManager\MonoSingleton.cs" />
+    <Compile Include="Scripts\SingletonManager\Singleton.cs" />
+    <Compile Include="Scripts\SingletonManager\SingletonManager.cs" />
+    <Compile Include="Scripts\SingletonManager\TSingleton.cs" />
+    <Compile Include="Scripts\Utils\FUtils.cs" />
+    <Compile Include="Scripts\Utils\MiniJSON.cs" />
+    <Compile Include="Scripts\IO\UIO.cs" />
+    <Compile Include="Scripts\XCoreNet\Collections\SynchronizedQueue.cs" />
+    <Compile Include="Scripts\XCoreNet\Collections\XCoreList.cs" />
+    <Compile Include="Scripts\XCoreNet\Collections\XCoreQueue.cs" />
+    <Compile Include="Scripts\XCoreNet\ErlTcpConnect.cs" />
+    <Compile Include="Scripts\XCoreNet\ErlTcpConnectFactory.cs" />
+    <Compile Include="Scripts\XCoreNet\Event\BaseEvent.cs" />
+    <Compile Include="Scripts\XCoreNet\Event\GameEvent.cs" />
+    <Compile Include="Scripts\XCoreNet\Event\GlobalEvent.cs" />
+    <Compile Include="Scripts\XCoreNet\Event\IEvent.cs" />
+    <Compile Include="Scripts\XCoreNet\Event\IEventHandler.cs" />
+    <Compile Include="Scripts\XCoreNet\TcpConnect.cs" />
+    <Compile Include="Scripts\XCoreNet\TcpConnectFactory.cs" />
+    <Compile Include="Scripts\XCoreNet\Util\ByteBuffer.cs" />
+    <Compile Include="Scripts\XCoreNet\Util\BytesUtils.cs" />
+    <Compile Include="Scripts\XCoreNet\Util\ChecksumUtil.cs" />
+    <Compile Include="Scripts\XCoreNet\Util\EventNumberUtils.cs" />
+    <Compile Include="Scripts\XCoreNet\Util\PkCodeUtils.cs" />
+    <Compile Include="Scripts\XCoreNet\Util\TextUtils.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>Copy/Y "$(TargetDir)CoreFrameWork.dll" "$(SolutionDir)Assets\Resources\Plugins" 
+Copy/Y "$(TargetDir)CoreFrameWork.pdb" "$(SolutionDir)Assets\Resources\Plugins"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

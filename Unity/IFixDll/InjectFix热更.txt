@@ -1,0 +1,63 @@
+
+腾讯官方InjectFix手册地址：https://github.com/Tencent/InjectFix/blob/master/Doc/user_manual.md
+
+
+[IFix.Patch]  ​ 在补丁阶段使用；原生代码修复。如果发现某个函数有错误，就可以使用该标签给函数打补丁，打上这个标签的函数，童鞋们就可以随意修改该函数
+举例
+[IFix.Patch]
+public int Add(int a,int b)
+{
+    return a+b;
+}
+
+
+[IFix.Interpret]   在补丁阶段使用；新增代码。在补丁阶段，童鞋们还有新的需求，想新增个字段，函数或者类，可以用[IFix.Interpret]标签实现。
+
+新增一个字段
+public class Test
+{
+    [IFix.Interpret]
+    public int intValue = 0;
+}
+
+private string name;//这个name字段是原生的
+
+public string Name
+{
+    [IFix.Interpret]
+    set
+    {
+    	name = value;    
+    }
+    [IFix.Interpret]
+    get
+    {
+        return name;
+    }
+}
+
+[IFix.Interpret]
+public string Id
+{
+    set;
+    get;
+}
+​ 新增一个函数
+
+[IFix.Interpret]
+public int Sub(int a,int b)
+{
+    return a-b;
+}
+​ 新增一个类
+
+[IFix.Interpret]
+public class NewClass
+{
+    ...
+}
+
+使用流程：需要修改的代码传patch（注意打上对应的标签），patch编译后 点击InjectFix/Fix 看日志是否成功或者Resources路径下是否有Demo.path.bytes生成或者差异。
+
+
+测试：Launcher 里边的IsNative勾选，点击InjectFix/添加宏定义。点击InjectFix/测试热更代码，就开启刚才打的热更文件（Demo.path.bytes）测试。 

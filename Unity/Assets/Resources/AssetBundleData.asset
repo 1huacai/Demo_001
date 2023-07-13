@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -545349107, guid: 27e8ddef49fea724ea3d2aedec0dbbef, type: 3}
+  m_Name: AssetBundleData
+  m_EditorClassIdentifier: 
+  Path:
+  - allshaders.assetbundle
+  - configbyte/configbyte_bundle.assetbundle
+  - configbyte/language/language_bundle.assetbundle
+  - sound/bg/city_autumn_bg.assetbundle
+  - sound/common/simplebutton.assetbundle
+  - sound/dialog/battlewin.assetbundle
+  - textures/back_activity.assetbundle
+  - textures/sociatyarea2v2bg.assetbundle
+  - tsuprefabs/image.assetbundle
+  - tsuprefabs/image1.assetbundle
+  - tsuprefabs/loginview.assetbundle
+  - tsuprefabs/uisystemroot.assetbundle
+  AssetBundlePathList:
+  - Data: []
+  - Data: []
+  - Data: []
+  - Data: []
+  - Data: []
+  - Data: []
+  - Data: []
+  - Data: []
+  - Data:
+    - textures/back_activity.assetbundle
+  - Data:
+    - tsuprefabs/image.assetbundle
+    - textures/back_activity.assetbundle
+  - Data:
+    - textures/sociatyarea2v2bg.assetbundle
+    - textures/back_activity.assetbundle
+  - Data: []
+  m_key:
+  - AllShaders
+  - ConfigByte/VersionConfig
+  - ConfigByte/Language/Language
+  - ConfigByte/Language/LanguagePackage
+  - Sound/BG/City_Autumn_BG
+  - Sound/Common/SimpleButton
+  - Sound/Dialog/BattleWin
+  - Textures/back_activity
+  - Textures/SociatyArea2V2BG
+  - TSUprefabs/Image
+  - TSUprefabs/Image1
+  - TSUprefabs/LoginView
+  - TSUprefabs/UISystemRoot
+  m_value:
+  - allshaders.assetbundle
+  - configbyte/configbyte_bundle.assetbundle
+  - configbyte/language/language_bundle.assetbundle
+  - configbyte/language/language_bundle.assetbundle
+  - sound/bg/city_autumn_bg.assetbundle
+  - sound/common/simplebutton.assetbundle
+  - sound/dialog/battlewin.assetbundle
+  - textures/back_activity.assetbundle
+  - textures/sociatyarea2v2bg.assetbundle
+  - tsuprefabs/image.assetbundle
+  - tsuprefabs/image1.assetbundle
+  - tsuprefabs/loginview.assetbundle
+  - tsuprefabs/uisystemroot.assetbundle
+  ShaderName: []
+  ShaderAsset: []

@@ -1,0 +1,133 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BagAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 0
+      compressionQuality: 0
+      maxTextureSize: 0
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 48
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    - serializedVersion: 3
+      m_BuildTarget: iPhone
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 48
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    - serializedVersion: 3
+      m_BuildTarget: Standalone
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 4
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 2
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 8f5b6231563b9a449804c8142e26cdda, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: eed5917021f7ff44b8790b85e851973e, type: 3}
+  - {fileID: 21300000, guid: 360a39b0022eb1549b422a890adfcd98, type: 3}
+  - {fileID: 21300000, guid: 61c957e018efcc04b9311aa4b1398165, type: 3}
+  - {fileID: 21300000, guid: f4ac8d5130c33cf4dbe4306a5be4364c, type: 3}
+  - {fileID: 21300000, guid: f7ceb1f1e9581ea4887a28d45b0d3f5e, type: 3}
+  - {fileID: 21300000, guid: 7d16d5425e841694f80ef17b5c5714e5, type: 3}
+  - {fileID: 21300000, guid: 4e9a0dd2c75638f4e82fa7b89cc58d95, type: 3}
+  - {fileID: 21300000, guid: f32a7e03c53411b4f927aee2b63e0c78, type: 3}
+  - {fileID: 21300000, guid: f084f8135815b1b468811967c0abbc4b, type: 3}
+  - {fileID: 21300000, guid: 4911d283f7c6e8f4eb8c7dbf4fdea19f, type: 3}
+  - {fileID: 21300000, guid: 2da3271416337914498402ad661d8923, type: 3}
+  - {fileID: 21300000, guid: f900f4c5a4fa2224699e9b170cabe830, type: 3}
+  - {fileID: 21300000, guid: f526ebf67fa810f4cb0b0127aa87a71e, type: 3}
+  - {fileID: 21300000, guid: aabb02477f314d44db5dc9115e3bc7df, type: 3}
+  - {fileID: 21300000, guid: c1ea62c7ca0a6c94cbe396c5fc7728b2, type: 3}
+  - {fileID: 21300000, guid: 91ab2b585bc90fe4e9137419c9e1e1f8, type: 3}
+  - {fileID: 21300000, guid: a59f9068ffaed0d4098c9b309ebc95bb, type: 3}
+  - {fileID: 21300000, guid: da948709af2edb945aa7018489e2168a, type: 3}
+  - {fileID: 21300000, guid: b7c48ca92995d3f49bbcb0de916c26f0, type: 3}
+  - {fileID: 21300000, guid: c9f11ea9693e6ac45ba87327317bd28d, type: 3}
+  - {fileID: 21300000, guid: ca074bba02a98014c979794866d23786, type: 3}
+  - {fileID: 21300000, guid: 4d0d6edabd0dcff4ca20ab74ef921780, type: 3}
+  - {fileID: 21300000, guid: 0054bcfa0b3c7f84b921bc43511a511b, type: 3}
+  - {fileID: 21300000, guid: f30d6a7c3c3bd574c9bec23e39da716c, type: 3}
+  - {fileID: 21300000, guid: 79acc85e7bed3fd4c876cb785f1dfec2, type: 3}
+  - {fileID: 21300000, guid: 0ae5398e5193ba44c89f8a96fe6d205b, type: 3}
+  - {fileID: 21300000, guid: daec1b2f7a20eaa42998fdd77cdd9f6b, type: 3}
+  - {fileID: 21300000, guid: 0b46404f8fd777d45b6a89a93c21bad7, type: 3}
+  - {fileID: 21300000, guid: 8eeef3efd171c024686c0ab8be05a703, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - ck_btn_01
+  - bb_bar_04
+  - ck_bar_xq
+  - bb_frm_yeqian001
+  - ck_bar_title_bg
+  - ck_icon_jilu
+  - bb_bar_yeqiandi
+  - ck_icon_quchu
+  - bb_bar_bg01
+  - bb_icon_01
+  - bb_frm_001
+  - ck_tag_qc
+  - bb_bar_02
+  - ck_bar_text_bg
+  - ck_icon_kj
+  - ck_bar_bg
+  - bb_bar_daojvkuangdi
+  - ck_btn_xz
+  - ck_bg_zs
+  - ck_icon_zhuanhuan
+  - bb_bar_dadi
+  - ck_but_jl
+  - dyzl_prop_lv_01
+  - bb_bg_iconbg
+  - bb_icon_beibaoge
+  - ck_icon_cunru
+  - ck_tag_cr
+  - ck_icon_xiangqing
+  - bb_bar_03
+  m_Tag: BagAtlas
+  m_IsVariant: 0

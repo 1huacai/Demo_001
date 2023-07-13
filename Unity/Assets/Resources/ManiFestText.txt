@@ -1,0 +1,14 @@
+资源路径	资源类型	是否为公共资源(1 true, 0 false)	不丢包(1 true, 0 false)	资源所属AssetBundle包名
+Textures/back_activity.png	UnityEngine.Texture2D	1	0	textures/back_activity.assetbundle
+Textures/SociatyArea2V2BG.png	UnityEngine.Texture2D	0	1	textures/sociatyarea2v2bg.assetbundle
+ConfigByte/VersionConfig.bytes	UnityEngine.TextAsset	0	0	configbyte/configbyte_bundle.assetbundle
+ConfigByte/Language/Language.bytes	UnityEngine.TextAsset	0	0	configbyte/language/language_bundle.assetbundle
+ConfigByte/Language/LanguagePackage.bytes	UnityEngine.TextAsset	0	0	configbyte/language/language_bundle.assetbundle
+Sound/BG/City_Autumn_BG.ogg	UnityEngine.AudioClip	0	1	sound/bg/city_autumn_bg.assetbundle
+Sound/Common/SimpleButton.ogg	UnityEngine.AudioClip	0	1	sound/common/simplebutton.assetbundle
+Sound/Dialog/BattleWin.ogg	UnityEngine.AudioClip	0	1	sound/dialog/battlewin.assetbundle
+AllShaders.prefab	UnityEngine.GameObject	0	0	allshaders.assetbundle
+TSUprefabs/Image.prefab	UnityEngine.GameObject	0	1	tsuprefabs/image.assetbundle
+TSUprefabs/Image1.prefab	UnityEngine.GameObject	0	0	tsuprefabs/image1.assetbundle
+TSUprefabs/LoginView.prefab	UnityEngine.GameObject	0	0	tsuprefabs/loginview.assetbundle
+TSUprefabs/UISystemRoot.prefab	UnityEngine.GameObject	0	0	tsuprefabs/uisystemroot.assetbundle

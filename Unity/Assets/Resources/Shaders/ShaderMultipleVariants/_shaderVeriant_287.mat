@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: _shaderVeriant_287
+  m_Shader: {fileID: 4800000, guid: 911a4a0b4f45cff4b9824e88d7bebd63, type: 3}
+  m_ShaderKeywords: _ANISOTROPIC _SCATTERING
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AnimMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMetaMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SkinMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AO: 0.361
+    - _AOCorrect: 0
+    - _AnisoDir: 263
+    - _Anositropy: 1
+    - _Cutoff: 0
+    - _DstBlend: 10
+    - _EdgeOffset: 0.306
+    - _EdgeStrength: 0.586
+    - _GPUAnimation: 0
+    - _Metallic: 1
+    - _NormalStrength: 1
+    - _RimRange: 9.13
+    - _RimStrength: 0.883
+    - _Roughness: 1
+    - _ShadowAlpha: 0
+    - _SkinToneOffset: 0
+    - _SkinToneScale: 0.556
+    - _Spec: 1
+    - _Spec2: 0.68
+    - _SpecAnisoScale: 0.567
+    - _SpecScale: 1.685
+    - _SrcBlend: 5
+    - _cull: 0
+    - _dstAlphaBlend: 10
+    - _srcAlphaBlend: 1
+    - _zTest: 4
+    - _zWrite: 1
+    m_Colors:
+    - _AOColor: {r: 0, g: 0, b: 0, a: 1}
+    - _AOSkinColor: {r: 0, g: 0.5283019, b: 0.050742276, a: 1}
+    - _AnimControl: {r: 0, g: 0, b: 0, a: 0}
+    - _AnimStatus: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorEmission: {r: 0.113385595, g: 1.8490566, b: 0.43508342, a: 1}
+    - _RimColor: {r: 0.11124954, g: 0.9433962, b: 0.21335709, a: 1}
+    - _SpecAnisoColor: {r: 0, g: 6.8705883, b: 1.2235295, a: 1}
+  m_BuildTextureStacks: []

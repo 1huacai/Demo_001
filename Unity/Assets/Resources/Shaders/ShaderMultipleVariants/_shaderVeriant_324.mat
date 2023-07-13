@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: _shaderVeriant_324
+  m_Shader: {fileID: 4800000, guid: 2c3787eeb363dec4da7a2e057f66d2f8, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _CUSTOMLIGHT_ON
+  - _SPECULAR2_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _CausticsTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Wave1Tex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Wave2Tex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _CameraLight: 0
+    - _CausticsDistort: 0.5
+    - _CausticsScale: 0.5
+    - _CausticsSpeed: 0.5
+    - _Comp: 8
+    - _CustomLight: 1
+    - _Distort: 0.5
+    - _Envir: 0.453
+    - _FadeDepth: 0
+    - _FadeDepthPower: 0.001
+    - _FoamCut: 0.0055
+    - _FoamFade: 41.9
+    - _FoamNoise: 0.1
+    - _FoamWidth: 3.12
+    - _Fresnel: 0
+    - _MinNdL: 0
+    - _NormalStrength: 0.602
+    - _Pass: 0
+    - _Ref: 0
+    - _RefFactor: 1.179
+    - _SecLightDir: 1
+    - _ShadowIntensity: 1
+    - _Shinniess: 162
+    - _Shinniess2: 3
+    - _Specular2: 1
+    - _SpecularScale: 2
+    - _TextureScale: 30
+    - _Toggle_REFLECT_SS_ON: 0
+    - _UVWorldSpace: 0
+    m_Colors:
+    - _CausticsColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 0.504717, g: 0.9047061, b: 1, a: 1}
+    - _ColorDepth: {r: 0, g: 0.69411755, b: 1, a: 1}
+    - _CustomLightDir: {r: -0.28, g: 0.46, b: -2.1, a: 0}
+    - _Dir: {r: 1, g: 1, b: -1, a: -1}
+    - _FoamColor: {r: 0, g: 0, b: 0, a: 1}
+    - _RefColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecularColor2: {r: 0.4556399, g: 0.91588587, b: 1.399937, a: 1}
+  m_BuildTextureStacks: []

@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!200 &20000000
+ShaderVariantCollection:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: shaderVariant_bigmap
+  m_Shaders:
+  - first: {fileID: 4800000, guid: cf1f635a35c98be4a8b7a60db8ebe2b9, type: 3}
+    second:
+      variants:
+      - keywords: INSTANCING_ON
+        passType: 0
+      - keywords: INSTANCING_ON _SHADOW_SSS
+        passType: 0
+  - first: {fileID: 4800000, guid: c50f2d6df7f36354ca2bc3db25c7c786, type: 3}
+    second:
+      variants:
+      - keywords: DIRECTIONAL INSTANCING_ON LIGHTPROBE_SH _SUB_LIGHT_S
+        passType: 4
+  - first: {fileID: 4800000, guid: 16fa9c7c29117b947bd4b7de58c3b6cc, type: 3}
+    second:
+      variants:
+      - keywords: DIRECTIONAL INSTANCING_ON LIGHTPROBE_SH _EMISSION _HEIGHTFOG _SPARKLE
+          _SUB_LIGHT_S
+        passType: 4
+  - first: {fileID: 4800000, guid: 520e13396114c5046b83a4a314233e57, type: 3}
+    second:
+      variants:
+      - keywords: DIRECTIONAL INSTANCING_ON LIGHTPROBE_SH _EM _GPUAnimation
+          _SUB_LIGHT_C
+        passType: 4
+  - first: {fileID: 4800000, guid: e6100fa935161c34f88ab7fd02dd7968, type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 4800000, guid: b46a1b3729a773847a8a9c15a0a90bc9, type: 3}
+    second:
+      variants:
+      - keywords: DIRECTIONAL INSTANCING_ON LIGHTPROBE_SH _EM _SUB_LIGHT_S
+        passType: 4
+  - first: {fileID: 4800000, guid: e49ff178b8c1298478b1210d98d797ea, type: 3}
+    second:
+      variants:
+      - keywords: DIRECTIONAL INSTANCING_ON LIGHTPROBE_SH _SUB_LIGHT_S
+        passType: 4
+      - keywords: DIRECTIONAL INSTANCING_ON LIGHTPROBE_SH _EM _SUB_LIGHT_S
+        passType: 4
+  - first: {fileID: 4800000, guid: 525470baaff09914ebbf078e0b66df02, type: 3}
+    second:
+      variants:
+      - keywords: DIRECTIONAL INSTANCING_ON LIGHTPROBE_SH _GPUAnimation _SUB_LIGHT_S
+          _TOPTEX
+        passType: 4
+      - keywords: DIRECTIONAL INSTANCING_ON LIGHTPROBE_SH _EM _GPUAnimation _SUB_LIGHT_S
+          _TOPTEX
+        passType: 4
+  - first: {fileID: 4800000, guid: 11424f7f6e21a8344b904f3806923795, type: 3}
+    second:
+      variants:
+      - keywords: DIRECTIONAL LIGHTPROBE_SH _SUB_LIGHT_C
+        passType: 4
+  - first: {fileID: 4800000, guid: 87cccb95c3acc984d9c8147f1e61eb61, type: 3}
+    second:
+      variants:
+      - keywords: INSTANCING_ON
+        passType: 0
+  - first: {fileID: 4800000, guid: 03280fa8713699d418efd9cd5361d3d6, type: 3}
+    second:
+      variants:
+      - keywords: DIRECTIONAL INSTANCING_ON LIGHTPROBE_SH _PP_FOGOFWAR
+        passType: 4
+      - keywords: INSTANCING_ON LIGHTPROBE_SH _EM _PP_FOGOFWAR
+        passType: 4
+  - first: {fileID: 4800000, guid: b13daf8c773e0064aa56ddb40963a711, type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 4800000, guid: 8b4a942bc5de24f43977e7183fbcbfc5, type: 3}
+    second:
+      variants:
+      - keywords: DIRECTIONAL LIGHTPROBE_SH _SUB_LIGHT_C
+        passType: 4
+      - keywords: DIRECTIONAL LIGHTPROBE_SH _EM _SUB_LIGHT_C
+        passType: 4
+  - first: {fileID: 4800000, guid: b0bde506aa40aeb428153910142764c8, type: 3}
+    second:
+      variants:
+      - keywords: INSTANCING_ON
+        passType: 0

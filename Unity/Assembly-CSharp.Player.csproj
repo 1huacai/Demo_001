@@ -1,0 +1,1139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <RootNamespace></RootNamespace>
+    <ProjectGuid>{FACD5813-28DA-3BC4-EC31-84DF6127A781}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <BaseDirectory>.</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\Bin\Debug\Player\</OutputPath>
+    <DefineConstants>UNITY_2021_3_19;UNITY_2021_3;UNITY_2021;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2021_3_OR_NEWER;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_RUNTIME_PERMISSIONS;ENABLE_ENGINE_CODE_STRIPPING;ENABLE_ONSCREEN_KEYBOARD;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;ENABLE_VIDEO;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;PLATFORM_ANDROID;TEXTCORE_1_0_OR_NEWER;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;UNITY_CAN_SHOW_SPLASH_SCREEN;UNITY_HAS_GOOGLEVR;UNITY_HAS_TANGO;ENABLE_SPATIALTRACKING;ENABLE_ETC_COMPRESSION;PLATFORM_EXTENDS_VULKAN_DEVICE;PLATFORM_HAS_MULTIPLE_SWAPCHAINS;UNITY_ANDROID_SUPPORTS_SHADOWFILES;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_4_6;NET_UNITY_4_8;UNITY_PRO_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;TEXTCORE_FONT_ENGINE_1_5_OR_NEWER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Temp\bin\Release\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoConfig>true</NoConfig>
+    <NoStdLib>true</NoStdLib>
+    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
+    <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
+    <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <UnityProjectGenerator>Package</UnityProjectGenerator>
+    <UnityProjectGeneratorVersion>2.0.17</UnityProjectGeneratorVersion>
+    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityBuildTarget>Android:13</UnityBuildTarget>
+    <UnityVersion>2021.3.19f1</UnityVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Assets\XLua\Src\LuaDLL.cs" />
+    <Compile Include="Assets\Scripts\Framework\UI\Tween\UIRootTweener.cs" />
+    <Compile Include="Assets\Scripts\Framework\UI\ExtendText\UIVertexObject.cs" />
+    <Compile Include="Assets\Scripts\LuaCode\LuaCallUnityHelp\TriggerHelp.cs" />
+    <Compile Include="Assets\Scripts\Tools\FPS.cs" />
+    <Compile Include="Assets\Scripts\Framework\Utility\WWWManager.cs" />
+    <Compile Include="Assets\Scripts\Framework\UINodeSingleton.cs" />
+    <Compile Include="Assets\Scripts\Framework\UI\ExtendText\EmojImage.cs" />
+    <Compile Include="Assets\Scripts\SDK\SDKManager.cs" />
+    <Compile Include="Assets\XLua\Src\MethodWarpsCache.cs" />
+    <Compile Include="Assets\Scripts\Framework\Utility\InputManager.cs" />
+    <Compile Include="Assets\Scripts\Framework\LuaBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Tools\SerializableDictionary\SerializableDictionary.cs" />
+    <Compile Include="Assets\Scripts\Framework\UI\ExtendText\ExtendText.cs" />
+    <Compile Include="Assets\Scripts\Framework\GoArray.cs" />
+    <Compile Include="Assets\Scripts\Framework\Utility\Guard.cs" />
+    <Compile Include="Assets\Scripts\Framework\DataNode\DataNode.cs" />
+    <Compile Include="Assets\XLua\Src\LuaFunction.cs" />
+    <Compile Include="Assets\Scripts\Game\Main.cs" />
+    <Compile Include="Assets\XLua\Src\ObjectCasters.cs" />
+    <Compile Include="Assets\Scripts\LuaCode\LuaCallUnityHelp\EventTriggerCsListener.cs" />
+    <Compile Include="Assets\Scripts\Framework\GlobalLuaUpdater.cs" />
+    <Compile Include="Assets\XLua\Src\SignatureLoader.cs" />
+    <Compile Include="Assets\Scripts\Framework\UI\ExtendText\EmojDatabase.cs" />
+    <Compile Include="Assets\XLua\Src\TypeExtensions.cs" />
+    <Compile Include="Assets\Scripts\Framework\UIGoTable.cs" />
+    <Compile Include="Assets\Scripts\Launcher\LauncherLoading.cs" />
+    <Compile Include="Assets\Scripts\Framework\Singleton\Singleton.cs" />
+    <Compile Include="Assets\Scripts\Framework\Utility\StatusMachine.cs" />
+    <Compile Include="Assets\XLua\Src\CodeEmit.cs" />
+    <Compile Include="Assets\XLua\Src\LuaException.cs" />
+    <Compile Include="Assets\Scripts\Framework\UnityEngineObjectExtention.cs" />
+    <Compile Include="Assets\Scripts\Framework\Utility\Yielders.cs" />
+    <Compile Include="Assets\XLua\Src\InternalGlobals.cs" />
+    <Compile Include="Assets\XLua\XLuaManager.cs" />
+    <Compile Include="Assets\XLua\Src\ObjectTranslatorPool.cs" />
+    <Compile Include="Assets\XLua\Src\LuaTable.cs" />
+    <Compile Include="Assets\Scripts\Framework\UI\Tween\UITweenItem.cs" />
+    <Compile Include="Assets\XLua\Src\Utils.cs" />
+    <Compile Include="Assets\XLua\Src\RawObject.cs" />
+    <Compile Include="Assets\XLua\Src\TemplateEngine\TemplateEngine.cs" />
+    <Compile Include="Assets\Scripts\SDK\SDKInterface.cs" />
+    <Compile Include="Assets\Scripts\LuaCode\LuaCallUnityHelp\ClipBoardBridge.cs" />
+    <Compile Include="Assets\Scripts\Framework\DataNode\IDataNode.cs" />
+    <Compile Include="Assets\Scripts\Framework\UI\Emoji\EmojiText.cs" />
+    <Compile Include="Assets\XLua\Src\ObjectPool.cs" />
+    <Compile Include="Assets\Scripts\Framework\VirticalText.cs" />
+    <Compile Include="Assets\Scripts\Framework\DataNode\IDataNodeManager.cs" />
+    <Compile Include="Assets\XLua\Src\LuaBase.cs" />
+    <Compile Include="Assets\Scripts\Launcher\Launcher.cs" />
+    <Compile Include="Assets\Scripts\Framework\GoTable.cs" />
+    <Compile Include="Assets\Scripts\LuaCode\LuaCallUnityHelp\ExtendTextHelp.cs" />
+    <Compile Include="Assets\Scripts\Framework\Utility\EventTriggerListener.cs" />
+    <Compile Include="Assets\Scripts\Framework\UI\Tween\UIRootTweenerManager.cs" />
+    <Compile Include="Assets\Scripts\Framework\Utility\UniqueString.cs" />
+    <Compile Include="Assets\Scripts\Framework\ItemOnDrag.cs" />
+    <Compile Include="Assets\Scripts\Framework\UI\Tween\UITweenBase.cs" />
+    <Compile Include="Assets\XLua\Src\GenAttributes.cs" />
+    <Compile Include="Assets\Scripts\LuaCode\LuaCallUnityHelp\UnityObjectExtends.cs" />
+    <Compile Include="Assets\Scripts\SDK\EBIStep.cs" />
+    <Compile Include="Assets\XLua\Extention.cs" />
+    <Compile Include="Assets\Scripts\Tools\SerializableDictionary\SerializableHashSet.cs" />
+    <Compile Include="Assets\Scripts\PCSDK\PC_SDKHandler.cs" />
+    <Compile Include="Assets\Scripts\SDK\SDKInterfaceDefault.cs" />
+    <Compile Include="Assets\Scripts\LuaCode\LuaAssetHelp.cs" />
+    <Compile Include="Assets\XLua\Src\ObjectTranslator.cs" />
+    <Compile Include="Assets\Scripts\Framework\Utility\SystemTime.cs" />
+    <Compile Include="Assets\XLua\Src\LuaEnv.cs" />
+    <Compile Include="Assets\Scripts\Framework\LuaUpdater.cs" />
+    <Compile Include="Assets\Scripts\SDK\SDKInterfaceAndroid.cs" />
+    <Compile Include="Assets\Scripts\Framework\Utility\ListPool.cs" />
+    <Compile Include="Assets\Scripts\Framework\Utility\StopTime.cs" />
+    <Compile Include="Assets\Scripts\SDK\SDKInterfaceIOS.cs" />
+    <Compile Include="Assets\XLua\Src\DelegateBridge.cs" />
+    <Compile Include="Assets\Scripts\Framework\DataNode\DataNodeManager.cs" />
+    <Compile Include="Assets\Scripts\PCSDK\SDKEvent.cs" />
+    <Compile Include="Assets\XLua\Src\GenericDelegateBridge.cs" />
+    <Compile Include="Assets\XLua\Src\CopyByValue.cs" />
+    <Compile Include="Assets\XLua\Src\StaticLuaCallbacks.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod1-CharacterPBR-Skin.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\xRLib.hlsl" />
+    <None Include="Assets\Resources\Shaders\BigMap\YoukiaPBR-BigMap-UV2-Fade.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Outline\Spine-Skeleton-Lit-Outline.shader" />
+    <None Include="Assets\Resources\Shaders\Obsolete\YoukiaTerrain001.shader" />
+    <None Include="Assets\Resources\Shaders\Environment\YoukiaLingtian.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Outline\Sprite\SpritesVertexLit-Outline.shader" />
+    <None Include="Assets\Resources\Shaders\uSky\uSkyboxPro Panoramic Flowmap.shader" />
+    <None Include="Assets\Resources\Shaders\BigMap\YoukiaBigMap.cginc" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod1-CharacterPBR.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\YoukiaPBR.cginc" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaSurfaceInput.cginc" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\CGIncludes\Spine-Skeleton-Lit-Common.cginc" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\YoukiaHair.cginc" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod2-CharacterPBR-monster.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\API\D3D11.hlsl" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaSelectCircle.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\SkeletonGraphic\Spine-SkeletonGraphic-Fill.shader" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaSceneBg.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod3-CharacterPBR-gpu-bump.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\CGIncludes\Spine-Common.cginc" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaOutline.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod3-CharacterPBR.shader" />
+    <None Include="Assets\Resources\Shaders\Environment\YoukiaGrass.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Youkia\YoukiaSSAO.shader" />
+    <None Include="Assets\Resources\Shaders\ImageEffect\GaussianBlur.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\YoukiaCharacter.cginc" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\FinalPass.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\PostProcessMulti.hlsl" />
+    <None Include="Assets\Resources\Shaders\IBL\YoukiaIBLBaker.shader" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaLightInput.cginc" />
+    <None Include="Assets\Resources\ManiFestText.txt" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Utility\HiddenPass.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod2-CharacterPBR-Uber-gpu.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\SkeletonGraphic\Spine-SkeletonGraphic-Additive.shader" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaTools.cginc" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaSSS.cginc" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\CopyStdFromTexArray.shader" />
+    <None Include="Assets\Resources\Shaders\Particle\YoukiaDistort.shader" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaDecalMarchLine.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Sprite\CGIncludes\ShaderShared.cginc" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Outline\Spine-Skeleton-Fill-Outline.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Sprite\CGIncludes\ShaderMaths.cginc" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Sprite\CGIncludes\SpriteSpecular.cginc" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Youkia\YoukiaVolumetricLight.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Outline\BlendModes\Spine-Skeleton-PMA-Additive-Outline.shader" />
+    <None Include="Assets\Resources\Shaders\UGUI\SpriteUI.shader" />
+    <None Include="Assets\Resources\Shaders\ImageEffect\TailEffect.shader" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaRain.shader" />
+    <None Include="Assets\Resources\Shaders\BigMap\YoukiaPBR-BigMap-Uber.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\Texture2DLerp.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod3-CharacterPBR-monster.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Spine-Skeleton-Tint.shader" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaDepth.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Sampling.hlsl" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaSelect.shader" />
+    <None Include="Assets\Resources\Shaders\BigMap\YoukiaT4PBR-BigMap.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Outline\Sprite\SpritesPixelLit-Outline.shader" />
+    <None Include="Assets\Resources\Shaders\TSW\shuijing5.shader" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaEaryZ.cginc" />
+    <None Include="Assets\Resources\Shaders\UGUI\UIMaskHole.shader" />
+    <None Include="Assets\Resources\Shaders\BigMap\YoukiaWater-BigMap.shader" />
+    <None Include="Assets\Resources\Config\Language\LanguagePackage.txt" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod2-CharacterPBR-Uber-gpu-4bone.shader" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaSkin.cginc" />
+    <None Include="Assets\Resources\Shaders\uSky\uSkyboxPro Flowmap.shader" />
+    <None Include="Assets\Resources\Shaders\UGUI\Default Font.shader" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaLight.cginc" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Sprite\CameraNormalsTexture.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\BlendModes\Spine-Skeleton-PMA-Additive.shader" />
+    <None Include="Assets\Resources\Config\VersionConfig.txt" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\API\OpenGL.hlsl" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\SubpixelMorphologicalAntialiasing.hlsl" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaDisintegration.shader" />
+    <None Include="Assets\Resources\Shaders\Particle\YoukiaDistort-Grabpass.shader" />
+    <None Include="Assets\PackLog_2023_07_03_16_48_03.txt" />
+    <None Include="Assets\Resources\Shaders\Lit\YoukiaPBR-CutOff.shader" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaHologram.shader" />
+    <None Include="Assets\Resources\Shaders\Shadow\CastShadowLib.cginc" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Youkia\YoukiaTAA.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod1-Character-Retina.shader" />
+    <None Include="Assets\Resources\Shaders\Projector\ProjectorLight.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod2-CharacterPBR-monster-Uber.shader" />
+    <None Include="Assets\Resources\Shaders\Library\ParticleLibrary.cginc" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaWave.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\FastApproximateAntialiasing.hlsl" />
+    <None Include="Assets\Resources\Shaders\Projector\ProjectorMultiply.shader" />
+    <None Include="Assets\Resources\Shaders\Particle\YoukiaParticle.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod2-CharacterPBR-gpu-4bone.shader" />
+    <None Include="Assets\Resources\Shaders\Environment\YoukiaParallaxCloud.shader" />
+    <None Include="Assets\Resources\Shaders\UGUI\MaskImage.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\Uber.shader" />
+    <None Include="Assets\Resources\Shaders\Obsolete\YoukiaPlant.shader" />
+    <None Include="Assets\Resources\Shaders\Obsolete\YoukiaObsolete.cginc" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Sprite\SpritesUnlit.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\Lut3DBaker.compute" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\YoukiaCharacterLod2.cginc" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaFreeze.shader" />
+    <None Include="Assets\Resources\Shaders\BigMap\YoukiaPBR-BigMap-Bump-UV2-Fade.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Youkia\Gray.hlsl" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaSector.shader" />
+    <None Include="Assets\Resources\Shaders\Environment\YoukiaClouds.shader" />
+    <None Include="Assets\Resources\Shaders\BigMap\YoukiaPBR-BigMap-Bump.shader" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaBlur.cginc" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Youkia\YoukiaDirectionalBlur.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\YoukiaPBR.shader" />
+    <None Include="Assets\Resources\Shaders\ImageEffect\YoukiaImageEffect.cginc" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Youkia.hlsl" />
+    <None Include="Assets\Resources\Shaders\TSW\Terrain3.shader" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaXRay.cginc" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaTerrainSplatmapCommon.cginc" />
+    <None Include="Assets\Resources\Launcher\Asset\LoadingTip.txt" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaOutline.cginc" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Spine-Skeleton-Fill.shader" />
+    <None Include="Assets\Resources\Shaders\Obsolete\YoukiaParticle-2Sides.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Outline\Spine-Skeleton-Lit-ZWrite-Outline.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Youkia\YoukiaMaskBlur.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\YoukiaT4PBR.shader" />
+    <None Include="Assets\Resources\Shaders\Environment\YoukiaNormalCloud.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod3-CharacterPBRXRay.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\CopyStdFromDoubleWide.shader" />
+    <None Include="Assets\Resources\Shaders\Shadow\CastShadowStaticBlur.shader" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaCommon.cginc" />
+    <None Include="Assets\Resources\Shaders\BigMap\YoukiaPBR-BigMap.shader" />
+    <None Include="Assets\Resources\Config\Language\Language.txt" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Outline\SkeletonGraphic\Spine-SkeletonGraphic-TintBlack-Outline.shader" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaEnvironment.cginc" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\Bloom.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\YoukiaDiffuse.shader" />
+    <None Include="Assets\Resources\Shaders\Environment\YoukiaCrystal.shader" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaSkillWarning_circle.shader" />
+    <None Include="Assets\Resources\Shaders\ImageEffect\KawaseBlur.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod2-CharacterPBR-gpu.shader" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaSmokeFlow.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Utility\Hidden-Spine-Bones.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\CGIncludes\Spine-BlendModes-ShadowCasterPass.cginc" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaBorderEffect.shader" />
+    <None Include="Assets\Resources\Shaders\Environment\YoukiaTree.shader" />
+    <None Include="Assets\Resources\Shaders\TSW\terrain001.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\TemporalAntialiasing.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\SkeletonGraphic\Spine-SkeletonGraphic-Screen.shader" />
+    <None Include="Assets\Resources\Shaders\Environment\YoukiaWaterfall.shader" />
+    <None Include="Assets\Resources\Shaders\UGUI\YoukiaHoleshader.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Outline\BlendModes\Spine-Skeleton-PMA-Screen-Outline.shader" />
+    <None Include="Assets\Resources\Shaders\Environment\YoukiaWater.cginc" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\SkeletonGraphic\Spine-SkeletonGraphic-TintBlack.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Sprite\CGIncludes\SpriteUnlit.cginc" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Outline\Spine-Skeleton-OutlineOnly-ZWrite.shader" />
+    <None Include="Assets\Resources\Shaders\BigMap\YoukiaBigMapHole.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\CGIncludes\Spine-DepthOnlyPass.cginc" />
+    <None Include="Assets\Resources\Plugins\FrameWork.dll" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Outline\Sprite\SpritesUnlit-Outline.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\YoukiaCharacterLod1.cginc" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Sprite\CameraDepthNormalsTexture.shader" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaCloudFlow.shader" />
+    <None Include="Assets\Resources\Shaders\Obsolete\YoukiaIce.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\GrainBaker.shader" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaFowGrid.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Sprite\CGIncludes\SpriteShadows.cginc" />
+    <None Include="Assets\Resources\Shaders\Depth\DepthTexture.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\CGIncludes\Spine-Skeleton-Lit-Common-Shadow.cginc" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Sprite\CGIncludes\SpriteVertexLighting.cginc" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod2-CharacterPBR-monster-change.shader" />
+    <None Include="Assets\link.xml" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\CopyDepth.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod3-CharacterPBR-gpu.shader" />
+    <None Include="Assets\Resources\Shaders\Particle\YoukiaParticle-UI.shader" />
+    <None Include="Assets\Resources\Shaders\Shadow\ShadowPlane.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Sprite\CameraDepthTexture.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\ACES.hlsl" />
+    <None Include="Assets\Resources\Shaders\Particle\YoukiaVertexEffect.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\SubpixelMorphologicalAntialiasing.shader" />
+    <None Include="Assets\Resources\Shaders\Shadow\ShadowCaster.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Youkia\HeightFog.hlsl" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Outline\Spine-Skeleton-Outline.shader" />
+    <None Include="Assets\Resources\Shaders\ShaderReplace\YoukiaReflection.shader" />
+    <None Include="Assets\Resources\Shaders\Obsolete\YoukiaHueChange.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod1-CharacterPBR-EyeUber.shader" />
+    <None Include="Assets\Resources\Shaders\Library\Atmosphere.cginc" />
+    <None Include="Assets\Resources\Shaders\Shadow\ScreenSpaceShadow.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\YoukiaCharacterLod3.cginc" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\CGIncludes\Spine-Outline-Common.cginc" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\CopyStd.shader" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaDecalEffect.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\Distortion.hlsl" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\Dithering.hlsl" />
+    <None Include="Assets\Resources\Shaders\uSky\Precompute Shaders\AtmosphereCommon.cginc" />
+    <None Include="Assets\Resources\Shaders\Library\ShadowLibrary.cginc" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaSH.cginc" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Outline\Spine-Skeleton-TintBlack-Outline.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod2-CharacterPBR.shader" />
+    <None Include="Assets\Resources\Shaders\Environment\YoukiaVolcanoSmoke.shader" />
+    <None Include="Assets\Resources\Plugins\IFix.Core.dll" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Youkia\YoukiaHeightFog.shader" />
+    <None Include="Assets\Resources\Shaders\Unlit\YoukiaCutOff.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\GaussianDownsample.compute" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaGI.cginc" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Blur.hlsl" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod1-CharacterPBR-Uber.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Colors.hlsl" />
+    <None Include="Assets\Resources\Shaders\MarchingLine\lineShader.shader" />
+    <None Include="Assets\Resources\Shaders\Unlit\YoukiaUnlitTexture.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Youkia\YoukiaVolumetricClouds.shader" />
+    <None Include="Assets\Resources\Shaders\uSky\Precompute Shaders\Precompute.shader" />
+    <None Include="Assets\Resources\Shaders\Obsolete\YoukiaBillboard.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod1-CharacterPBR-Crystal.shader" />
+    <None Include="Assets\Resources\Shaders\UGUI\YoukiaWaveUI.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\DiskKernels.hlsl" />
+    <None Include="Assets\Resources\Shaders\NormalTexture\NormalTexture.shader" />
+    <None Include="Assets\Resources\Shaders\Library\GPUSkinningLibrary.cginc" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod1-CharacterPBR-Fur.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod3-CharacterPBR-gpu-bumpXRay.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\Texture3DLerp.compute" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Spine-Special-Skeleton-Grayscale.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\SkeletonGraphic\Spine-SkeletonGraphic.shader" />
+    <None Include="Assets\Resources\Shaders\UGUI\UIDefaultMRT.shader" />
+    <None Include="Assets\Resources\Shaders\Shadow\ShadowBlur.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Youkia\YoukiaBeforeTransparent.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod1-CharacterPBR-Eye.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Outline\BlendModes\Spine-Skeleton-PMA-Multiply-Outline.shader" />
+    <None Include="Assets\Resources\Plugins\Demo.dll" />
+    <None Include="Assets\Resources\Shaders\Environment\YoukiaLava.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod3-CharacterPBR-monster-bump.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\BlendModes\Spine-Skeleton-PMA-Multiply.shader" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaEnvironmentMulti.cginc" />
+    <None Include="Assets\Resources\Shaders\Lit\YoukiaPBR-Reflect.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Sprite\SpriteDepthNormalsTexture.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod1-CharacterPBR-Cloth.shader" />
+    <None Include="Assets\Resources\Shaders\Obsolete\YoukiaPBR.shader" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaSkillWarning_rect.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Youkia\YoukiaFogOfWar.shader" />
+    <None Include="Assets\Resources\Shaders\uSky\Precompute Shaders\AtmospherePrecompute.cginc" />
+    <None Include="Assets\Resources\Shaders\uSky\uSkyboxPro 6 sided.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Sprite\CGIncludes\SpriteLighting.cginc" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Mask.hlsl" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaDecal.cginc" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Sprite\SpritesVertexLit.shader" />
+    <None Include="Assets\Resources\Shaders\Environment\YoukiaWater.shader" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaMarchingLine.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\SubpixelMorphologicalAntialiasingBridge.hlsl" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaSkillWarning_sector.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod2-CharacterPBR-Hair.shader" />
+    <None Include="Assets\Resources\Launcher\UI\LoadingViewtxt.txt" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod2-CharacterPBR-monster-Hair.shader" />
+    <None Include="Assets\Resources\Shaders\BigMap\YoukiaPlant-BigMap.shader" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaCloudMap.shader" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaSkillWarning_ring.shader" />
+    <None Include="Assets\Resources\Shaders\UGUI\YoukiaUIBG.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\DepthOfField.hlsl" />
+    <None Include="Assets\Resources\AssetBundleText.txt" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\CGIncludes\Spine-Skeleton-Tint-Common.cginc" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Youkia\SSAO.hlsl" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Youkia\YoukiaSkinSSS.shader" />
+    <None Include="Assets\Resources\Shaders\Environment\YoukiaPlantGlow.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\StdLib.hlsl" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Outline\Spine-Special-Skeleton-Grayscale-Outline.shader" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaMrt.cginc" />
+    <None Include="Assets\Resources\Plugins\DOTween.dll" />
+    <None Include="Assets\Resources\Shaders\Environment\YoukiaClouds-Light.shader" />
+    <None Include="Assets\Resources\Shaders\Environment\YoukiaTerrainPainter.shader" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaFlowMap.shader" />
+    <None Include="Assets\Resources\Shaders\ShaderReplace\YoukiaSceneView.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod1-CharacterPBR-Polar.shader" />
+    <None Include="Assets\Resources\Shaders\Shadow\CastShadowStatic.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Spine-Skeleton-Lit.shader" />
+    <None Include="Assets\Resources\Shaders\IBL\YoukiaIBLHelper.cginc" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\YoukiaCharacter-Diffuse.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\MRT.hlsl" />
+    <None Include="Assets\Resources\Shaders\TSW\Cloud_Parallax.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Spine-Skeleton-Lit-ZWrite.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\YoukiaPBR-AO-UV2.shader" />
+    <None Include="Assets\Resources\Shaders\Environment\YoukiaFowProj.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Spine-Skeleton.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Outline\CGIncludes\Spine-Outline-Pass.cginc" />
+    <None Include="Assets\Resources\Shaders\Environment\YoukiaMenpaiFog.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\BlendModes\Spine-Skeleton-PMA-Screen.shader" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaEffect.cginc" />
+    <None Include="Assets\Resources\Shaders\ImageEffect\SimpleBlur.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\CGIncludes\Spine-BlendModes-NormalPass.cginc" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod1-CharacterPBR-Hair.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\API\D3D9.hlsl" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\API\Metal.hlsl" />
+    <None Include="Assets\Resources\Plugins\CoreFrameWork.dll" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaReflectPlane.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\DepthOfField.shader" />
+    <None Include="Assets\Resources\Shaders\uSky\uSkyboxPro.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod2-CharacterPBR-HairXRay.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Spine-Skeleton-TintBlack.shader" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaGrid.shader" />
+    <None Include="Assets\Resources\Plugins\zlib.net.dll" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\DiscardAlpha.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Youkia\YoukiaHSV.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod1-CharacterPBR-Aniso.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\YoukiaPBR-UV2-Fade.shader" />
+    <None Include="Assets\Resources\Shaders\UGUI\UIDefaultAlphaChange.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Outline\Spine-Skeleton-Tint-Outline.shader" />
+    <None Include="Assets\Resources\Plugins\DOTween46.dll" />
+    <None Include="Assets\Resources\Plugins\DOTween43.dll" />
+    <None Include="Assets\Resources\Shaders\Obsolete\YoukiaT4Textures.shader" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod2-CharacterPBR-UberXRay.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Sprite\SpritesPixelLit.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\Lut2DBaker.shader" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaLightSpec.cginc" />
+    <None Include="Assets\Resources\Plugins\protobuf-net.dll" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Sprite\CGIncludes\SpritePixelLighting.cginc" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\SkeletonGraphic\CGIncludes\Spine-SkeletonGraphic-NormalPass.cginc" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaStencilPlane.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\Outline\SkeletonGraphic\Spine-SkeletonGraphic-Outline.shader" />
+    <None Include="Assets\Resources\Shaders\Obsolete\YoukiaBumpNoiseCloud.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\ACES_UE4.hlsl" />
+    <None Include="Assets\Resources\Shaders\Lit\Character\Lod2-CharacterPBR-Uber.shader" />
+    <None Include="Assets\Resources\Shaders\Shadow\CastShadow.shader" />
+    <None Include="Assets\Resources\Shaders\Spine\Shaders\SkeletonGraphic\Spine-SkeletonGraphic-Multiply.shader" />
+    <None Include="Assets\Resources\Shaders\Unlit\YoukiaTransparent.shader" />
+    <None Include="Assets\Resources\Shaders\Effect\YoukiaShield.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\Copy.shader" />
+    <None Include="Assets\Resources\Shaders\ShaderReplace\YoukiaTerrainSurface.shader" />
+    <None Include="Assets\Resources\Shaders\PostProcessing\API\D3D12.hlsl" />
+    <None Include="Assets\Resources\Shaders\Library\YoukiaLightPBR.cginc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AIModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.AIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ARModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.ARModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AccessibilityModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.AccessibilityModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AndroidJNIModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.AndroidJNIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClothModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.ClothModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CrashReportingModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.CrashReportingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.DSPGraphModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.DSPGraphModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.DirectorModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.DirectorModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GIModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.GIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GameCenterModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.GameCenterModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GridModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.GridModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HotReloadModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.HotReloadModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.InputModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.LocalizationModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.LocalizationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PerformanceReportingModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.PerformanceReportingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Physics2DModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.Physics2DModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ProfilerModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.ProfilerModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ScreenCaptureModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.ScreenCaptureModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SharedInternalsModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.SharedInternalsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteMaskModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.SpriteMaskModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteShapeModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.SpriteShapeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.StreamingModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.StreamingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SubstanceModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.SubstanceModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SubsystemsModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.SubsystemsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TLSModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.TLSModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.TerrainModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainPhysicsModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.TerrainPhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreFontEngineModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.TextCoreFontEngineModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreTextEngineModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.TextCoreTextEngineModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TilemapModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.TilemapModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.UIElementsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsNativeModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.UIElementsNativeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UNETModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.UNETModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UmbraModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.UmbraModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityAnalyticsModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.UnityAnalyticsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityAnalyticsCommonModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.UnityAnalyticsCommonModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityConnectModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.UnityConnectModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityCurlModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.UnityCurlModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityTestProtocolModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.UnityTestProtocolModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.UnityWebRequestModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAudioModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestTextureModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VFXModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.VFXModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VRModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.VRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VehiclesModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.VehiclesModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VideoModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.VideoModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.WindModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.WindModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.XRModule">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\mono\Managed\UnityEngine.XRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\AOT\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="FrameWork">
+      <HintPath>Assets\Resources\Plugins\FrameWork.dll</HintPath>
+    </Reference>
+    <Reference Include="zlib.net">
+      <HintPath>Assets\Resources\Plugins\zlib.net.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\Resources\Plugins\DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="IFix.Core">
+      <HintPath>Assets\Resources\Plugins\IFix.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Demo">
+      <HintPath>Assets\Resources\Plugins\Demo.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween46">
+      <HintPath>Assets\Resources\Plugins\DOTween46.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>Assets\Resources\Plugins\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween43">
+      <HintPath>Assets\Resources\Plugins\DOTween43.dll</HintPath>
+    </Reference>
+    <Reference Include="CoreFrameWork">
+      <HintPath>Assets\Resources\Plugins\CoreFrameWork.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\mscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Runtime.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Xml.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics.Vectors">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.IO.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Microsoft.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Data.DataSetExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.IO.Compression.FileSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.ComponentModel.Composition.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Transactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Primitives">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\Microsoft.Win32.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="netstandard">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\netstandard.dll</HintPath>
+    </Reference>
+    <Reference Include="System.AppContext">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.AppContext.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Concurrent">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Collections.Concurrent.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.NonGeneric">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Collections.NonGeneric.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Specialized">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Collections.Specialized.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ComponentModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.EventBasedAsync">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ComponentModel.EventBasedAsync.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Primitives">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ComponentModel.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.TypeConverter">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ComponentModel.TypeConverter.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Console">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.Common">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Data.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Contracts">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Debug">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.Debug.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.FileVersionInfo">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.FileVersionInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Process">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.Process.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.StackTrace">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.StackTrace.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.TextWriterTraceListener">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.TextWriterTraceListener.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Tools">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.Tools.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.TraceSource">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.TraceSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing.Primitives">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Drawing.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Dynamic.Runtime">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Dynamic.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Globalization.Calendars">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Globalization.Calendars.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Globalization">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Globalization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Globalization.Extensions">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Globalization.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.ZipFile">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.Compression.ZipFile.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.FileSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.DriveInfo">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.FileSystem.DriveInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Watcher">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.FileSystem.Watcher.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.IsolatedStorage">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.IsolatedStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.MemoryMappedFiles">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.MemoryMappedFiles.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Pipes">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.Pipes.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.UnmanagedMemoryStream">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.UnmanagedMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq.Expressions">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Linq.Expressions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq.Parallel">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Linq.Parallel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq.Queryable">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Linq.Queryable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Rtc">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.Http.Rtc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.NameResolution">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.NameResolution.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.NetworkInformation">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.NetworkInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Ping">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.Ping.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Primitives">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Requests">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.Requests.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Security">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Sockets">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.Sockets.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.WebHeaderCollection">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.WebHeaderCollection.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.WebSockets.Client">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.WebSockets.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.WebSockets">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.WebSockets.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ObjectModel">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.DispatchProxy">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.DispatchProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Emit">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.Emit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Emit.ILGeneration">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.Emit.ILGeneration.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Emit.Lightweight">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.Emit.Lightweight.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Extensions">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Primitives">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Resources.Reader">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Resources.Reader.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Resources.ResourceManager">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Resources.ResourceManager.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Resources.Writer">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Resources.Writer.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.VisualC">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.CompilerServices.VisualC.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Handles">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Handles.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.InteropServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.WindowsRuntime">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.InteropServices.WindowsRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Numerics">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Formatters">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Serialization.Formatters.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Json">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Serialization.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Primitives">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Serialization.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Xml">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Serialization.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Claims">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Claims.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Csp">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Cryptography.Csp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Cryptography.X509Certificates.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Principal.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.SecureString">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.SecureString.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Duplex">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ServiceModel.Duplex.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Http">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ServiceModel.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.NetTcp">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ServiceModel.NetTcp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Primitives">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ServiceModel.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Security">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ServiceModel.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Text.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.Extensions">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Text.Encoding.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.RegularExpressions">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Text.RegularExpressions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Overlapped">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.Overlapped.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Parallel">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.Tasks.Parallel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Thread">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.Thread.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.ThreadPool">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.ThreadPool.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Timer">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.Timer.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.ReaderWriter">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.ReaderWriter.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XDocument">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XDocument.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XmlDocument">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XmlDocument.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XmlSerializer">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XmlSerializer.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XPath">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XPath.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XPath.XDocument">
+      <HintPath>E:\Unity 2021.3.19f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XPath.XDocument.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Purchasing.Common.Player.csproj">
+      <Project>{30D9D339-8F15-6EBD-B9E4-6307A8784E68}</Project>
+      <Name>Purchasing.Common.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.Purchasing.Player.csproj">
+      <Project>{B5AA8483-A5AF-5260-26FE-78B09226211B}</Project>
+      <Name>UnityEngine.Purchasing.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Timeline.Player.csproj">
+      <Project>{C4D51394-1592-D377-3DD8-F6CFAA3FEF5E}</Project>
+      <Name>Unity.Timeline.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.TextMeshPro.Player.csproj">
+      <Project>{A99E6516-73DE-C76A-9407-23F1BD0FBFDB}</Project>
+      <Name>Unity.TextMeshPro.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Services.Analytics.Player.csproj">
+      <Project>{1486D0D3-443E-89A8-46E6-FD955C5283A4}</Project>
+      <Name>Unity.Services.Analytics.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.Advertisements.Player.csproj">
+      <Project>{CAEC5861-F6A0-9199-F341-FD34BB49BBAE}</Project>
+      <Name>UnityEngine.Advertisements.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.Purchasing.Security.Player.csproj">
+      <Project>{DCC70A1C-FDF1-287C-9F14-9B0F5C499503}</Project>
+      <Name>UnityEngine.Purchasing.Security.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.UI.Player.csproj">
+      <Project>{185F6567-1C9B-A334-64D0-0F7247C6B418}</Project>
+      <Name>UnityEngine.UI.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.SpatialTracking.Player.csproj">
+      <Project>{117EBA69-E2BA-CFE0-AABE-2AD887581B61}</Project>
+      <Name>UnityEngine.SpatialTracking.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Services.Core.Player.csproj">
+      <Project>{ABEFB238-7A16-399B-5B63-8656FB5C67BA}</Project>
+      <Name>Unity.Services.Core.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Analytics.DataPrivacy.Player.csproj">
+      <Project>{A39C504E-6B29-ADF0-799B-9B2FD72837AF}</Project>
+      <Name>Unity.Analytics.DataPrivacy.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Services.Core.Analytics.Player.csproj">
+      <Project>{E6C8DBE3-F2AC-6AFD-1384-34F5208FCA4B}</Project>
+      <Name>Unity.Services.Core.Analytics.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.Purchasing.SecurityCore.Player.csproj">
+      <Project>{87C7CD7F-B11F-C51C-2C75-B028D6103987}</Project>
+      <Name>UnityEngine.Purchasing.SecurityCore.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.Purchasing.Codeless.Player.csproj">
+      <Project>{CD1927FE-0617-1816-1FFD-0612798CA1FA}</Project>
+      <Name>UnityEngine.Purchasing.Codeless.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.XR.LegacyInputHelpers.Player.csproj">
+      <Project>{BC4E3AE3-5327-AFEE-8C33-179039853DB7}</Project>
+      <Name>UnityEngine.XR.LegacyInputHelpers.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Services.Core.Environments.Player.csproj">
+      <Project>{BAFCF21A-60F4-0A14-D7E4-E27365F8EA36}</Project>
+      <Name>Unity.Services.Core.Environments.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.Purchasing.Stores.Player.csproj">
+      <Project>{3439F65A-6787-6B7C-B024-D3461AA08A6A}</Project>
+      <Name>UnityEngine.Purchasing.Stores.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.Monetization.Player.csproj">
+      <Project>{9AC77AB1-7216-DACB-7673-11A19FB0D733}</Project>
+      <Name>UnityEngine.Monetization.Player</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="GenerateTargetFrameworkMonikerAttribute" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

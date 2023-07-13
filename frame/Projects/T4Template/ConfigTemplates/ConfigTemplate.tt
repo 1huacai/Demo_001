@@ -1,0 +1,81 @@
+﻿<#@ template language="C#" #>
+<#@ output extension=".cs" #>
+<#@ Assembly Name="System.Core" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Reflection" #>
+#region GinerateByTool!!
+        //-----------------------
+        //该部分代码由工具生成！！！
+        //不要在本段代码中做修改！！！
+        //重新生成会覆盖该代码段！！！
+        //-----------------------
+        public <#= this.TargetType.Name #>(){}
+
+        public <#= this.TargetType.Name #>(<#= this.TargetType.Name #> instance):base(instance)
+        {
+<# foreach (var item in this.FieldInfos)
+{#>
+            this.<#= item.Name #> = <#= GetCloneMethod(item) #>;
+<#}#>
+            this._assets = instance._assets;
+        }
+
+        public <#= this.TargetType.Name #>(BinaryBuffer bf):base(bf)
+        {
+<# foreach (var item in this.FieldInfos)
+{#>
+            this.<#= item.Name #> = bf.Read<#= GetReadMethod(item.FieldType) #>;
+<#}#>
+            this.Add2Asset();
+        }
+
+        public override void Serialize(BinaryBuffer buffer)
+        {
+            base.Serialize(buffer);
+<# foreach (var item in this.FieldInfos)
+{#>
+            buffer.Write<#= GetWriteMethod(item) #>;
+<#}#>
+        }
+
+        protected override void Add2Asset()
+        {
+            base.Add2Asset();
+<# foreach (var item in this.FieldInfos)
+{#>
+<# if (IsAssetField(item))
+{#>
+            this.Add2Asset(this.<#= item.Name #>);
+<#}#>
+<#}#>
+        }
+
+        public override void ApplyVaryingExtension(VaryingExtension ex)
+        {
+            base.ApplyVaryingExtension(ex);
+<# foreach (var item in this.FieldInfos)
+{#>
+<# if (IsVaryingExtensionField(item.FieldType))
+{#>
+            this.FieldApplyVaryingExtension(this.<#= item.Name #>, ex);
+<#}#>
+<#}#>
+        }
+
+<# if (!this.TargetType.IsAbstract)
+{#>
+        public override object Clone(bool force = false)
+        {
+            if (this.HasVariants || force)
+                return new <#= this.TargetType.Name #>(this);
+            else
+                return this.MemberwiseClone();
+        }
+<#} #>
+
+#endregion GinerateByTool!!

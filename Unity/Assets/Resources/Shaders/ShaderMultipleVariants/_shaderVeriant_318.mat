@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: _shaderVeriant_318
+  m_Shader: {fileID: 4800000, guid: 159c4d7a52fd56d4d80d12605b9581be, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _EMISSION
+  - _TOPTEX_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMetaMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AO: 0.535
+    - _AOCorrect: 1.19
+    - _Comp: 8
+    - _Cutoff: 0.5
+    - _DiffThreshold: 0
+    - _DstBlend: 0
+    - _EmissionStrength: 4.43
+    - _Fow: 0
+    - _Metallic: 0
+    - _NormalStrength: 1
+    - _Pass: 0
+    - _ReceiveShadow: 1
+    - _Ref: 0
+    - _Roughness: 0.5
+    - _SSSDistortion: 0
+    - _SSSPower: 0
+    - _SSSScale: 0
+    - _SSSStrength: 0
+    - _SrcBlend: 1
+    - _Toggle_EMISSION_ON: 1
+    - _Toggle_SSS_ON: 0
+    - _TopTex: 1
+    - _TopTexMask: 0
+    - _VertShadow: 1
+    - _cull: 2
+    - _dstAlphaBlend: 10
+    - _srcAlphaBlend: 1
+    - _zTest: 4
+    - _zWrite: 1
+    m_Colors:
+    - _AOColor: {r: 0.14833201, g: 0.33962262, b: 0, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorEmission: {r: 3.1904836, g: 6.853009, b: 25.051203, a: 1}
+    - _GIColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SSSColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

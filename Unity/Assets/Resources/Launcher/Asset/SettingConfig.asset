@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -659030302, guid: be0ca26c6d02ce74c9d8e2297dd089bb, type: 3}
+  m_Name: SettingConfig
+  m_EditorClassIdentifier: 
+  codeType: 1
+  resourceLoadMode: 1
+  isSDK: 0
+  webGL: 0
+  logLevel: 4294967295
+  isShowSplash: 0
+  releaseDate: 
+  isWriteLog: 0
+  isDropRecv: 0
+  isDropSend: 0
+  DEBUG_MODE: 0
+  REPLACE_AB_SHADER: 1
+  ASSETBUNDLE_SUFFIX_NAME: .assetbundle
+  AB_NEST_NAME: StreamingResources
+  SHADER_AB_RELATIVE_PATH: AllShaders
+  RES_LOCAL_ASSETDATABASE_RELATIVE_PATH: 
+  RES_StreamingAssets_PATH: StreamingResources/
+  RES_PERSISTENT_RELATIVE_PATH: ClientRes/Android/
+  RECYBLEBIN_RES_DESTROY_TIME: 10
+  RECYBLEBIN_MAX_DESTROY_AB_COUNT_PER_FRAME: 15
+  ASSETBUNDLE_ENCRYPT: 0

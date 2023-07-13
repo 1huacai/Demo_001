@@ -1,0 +1,11 @@
+.vs
+xiaoxiaole.sln
+.csproj
+.vscode
+Library/
+Logs
+obj
+Temp
+apk
+spine-unity.csproj
+spine-unity-editor.csproj
