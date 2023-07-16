@@ -94,7 +94,7 @@ namespace ResourceLoad
         {
             get
             {
-                if (SingletonManager.GetManager<ResourcesManager>() == null)
+                if (s_inst == null)
                 {
                     SingletonManager.AddManager(CreateInstance());
                     s_inst = SingletonManager.GetManager<ResourcesManager>();
