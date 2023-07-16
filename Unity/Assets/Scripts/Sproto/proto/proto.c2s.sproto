@@ -1,0 +1,222 @@
+.package {
+    type                0 : integer
+    session             1 : integer
+    ud                  2 : string
+}
+
+.key_value {
+    id                  0 : integer
+    value               1 : integer
+}
+
+error 1 {
+    request {
+        id              0 : integer
+        txt             1 : string
+    }
+}
+
+
+#------------------ login 20 - 39 start ------------------
+# 登陆游戏
+game_auth 20 {
+    request {
+        imei                0 : string
+        version             1 : string
+    }
+    response {
+        e                   0 : integer
+        rid                 1 : string
+        server_time         2 : integer
+    }
+}
+
+# 登陆游戏
+login 21 {
+    request {
+        rid                 0 : string
+    }
+    response {
+        e                   0 : integer
+    }
+}
+#------------------ login 20 - 39 end ------------------
+
+
+#------------------ match 40 - 49 start ------------------
+# 参数者数据
+.player_info {
+    rid                     0 : string
+    rname                   1 : string
+    render                  2 : integer
+}
+
+# 开始匹配
+match_start 40 {
+    request {}
+    response {
+        e                   0 : integer
+    }
+}
+
+# 取消匹配
+match_cancel 41 {
+    request {}
+    response {
+        e                   0 : integer
+    }
+}
+# 匹配成功
+match_success 42 {
+    request {
+        players             0 : *player_info # 比赛双方信息
+    }
+}
+
+# 匹配超时
+match_timeout 43 {
+    request {}
+}
+
+# 匹配异常
+match_error 44 {
+    request {
+        type                0 : integer # 异常类型
+    }
+}
+#------------------ match 40 - 49 end ------------------
+
+
+#------------------ game 50 - 69 start ------------------
+# 方块信息
+.block_info {
+    row                     0 : integer
+    col                     1 : integer
+    type                    2 : integer
+}
+
+# 游戏准备
+game_ready 50 {
+    request {
+        matrix              0 : *block_info #初始方块信息
+    }
+}
+
+# 游戏开始
+game_start 51 {
+    request {
+        start_time          0 : integer
+    }
+}
+
+# 交换方块操作
+game_swap 52 {
+    request {
+        block1              0 : block_info
+        block2              1 : block_info
+    }
+    response {
+        e                   0 : integer
+    }
+}
+
+# 交换方块
+game_swap_broadcast 53 {
+    request {
+        block1              0 : block_info
+        block2              1 : block_info
+    }
+}
+
+# 提升一行操作
+game_up_row 54 {
+    request {}
+    response {
+        e                   0 : integer
+    }
+}
+
+# 手动提升一行
+game_up_row_broadcast 55 {
+    request {}
+}
+
+# 使用技能
+game_use_skill 56 {
+    request {
+        skill_id            0 : integer # 技能ID
+    }
+    response {
+        e                   0 : integer
+    }
+}
+
+# 使用技能
+game_use_skill_broadcast 57 {
+    request {
+        skill_id            0 : integer # 技能ID
+    }
+}
+
+# 游戏结束
+game_over 58 {
+    request {}
+    response {
+        e                   0 : integer
+    }
+}
+
+
+# 比赛结束
+game_over_broadcast 59 {
+    request {
+        winner              1 : string
+    }
+}
+
+# 创建新的一行
+game_new_row 60 {
+    request {
+        matrix              0 : *block_info #新的一行
+    }
+    response {
+        e                   0 : integer
+    }
+}
+game_new_row_broadcast 61 {
+    request {
+        matrix              0 : *block_info #新的一行
+    }
+}
+
+#消除了几个
+eliminate 62 {
+    request {
+        count          0 : integer
+    }
+    response {
+        e                   0 : integer
+    }
+}
+#消除了几个
+eliminate_broadcast 63 {
+    request {
+        count          0 : integer
+    }
+}
+#生成的新方块
+createBlock 64 {
+    request {
+        matrix              0 : *block_info #方块信息
+    }
+    response {
+        e                   0 : integer
+    }
+}
+#消除了几个
+createBlock_broadcast 65 {
+    request {
+        matrix              0 : *block_info #方块信息
+    }
+}
+#------------------ game 50 - 69 end ------------------
