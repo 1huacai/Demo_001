@@ -8,7 +8,12 @@ namespace Demo
     {
         public override void InitUI(params object[] msg)
         {
-           
+            var blockDatas = GameManger.Inst.GenBlockDatas();
+            Debug.LogError($"棋子个数{blockDatas.Count}");
+            for (int i = 0; i < blockDatas.Count; i++)
+            {
+                Debug.LogError($"{blockDatas[i].row}----{blockDatas[i].col}---{blockDatas[i].type}");
+            }
         }
 
         public override void RefreshShow(params object[] msg)

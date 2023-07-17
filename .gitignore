@@ -23,3 +23,12 @@ Unity/UnityEditor.TestRunner.csproj
 Unity/UnityEditor.UI.csproj
 Unity/UnityEngine.TestRunner.csproj
 Unity/UnityEngine.UI.csproj
+Unity/Assembly-CSharp-player.csproj
+frame/Projects/FrameWork/.idea/.idea.FrameWork.dir/.idea/workspace.xml
+Unity/spine-unity-player.csproj
+Unity/Unity.TextMeshPro-player.csproj
+Unity/Unity.Timeline-player.csproj
+Unity/UnityEngine.TestRunner-player.csproj
+Unity/UnityEngine.UI-player.csproj
+Unity/.idea/.idea.Unity/riderModule.iml
+frame/Projects/FrameWork/.idea/
