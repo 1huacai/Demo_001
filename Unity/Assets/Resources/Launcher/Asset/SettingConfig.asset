@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SettingConfig
   m_EditorClassIdentifier: 
   codeType: 1
-  resourceLoadMode: 1
+  resourceLoadMode: 0
   isSDK: 0
   webGL: 0
   logLevel: 4294967295
