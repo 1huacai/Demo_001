@@ -95,7 +95,7 @@ public class Main : ApplicationCore
 
         }
         #endregion
-        if (Launcher.settingConfig.codeType != ResourceLoad.codeType.xlua)
+       // if (Launcher.settingConfig.codeType != ResourceLoad.codeType.xlua)
             TimerManager.Update();
         ConnectManager.manager().Update(Time.realtimeSinceStartup);
     }

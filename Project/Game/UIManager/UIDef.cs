@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Demo
 {
+    //window窗口
     public enum UIDef
     {
         LoginView,

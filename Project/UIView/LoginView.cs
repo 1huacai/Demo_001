@@ -4,27 +4,40 @@ using UnityEngine;
 
 namespace Demo
 {
-    public class LoginView : MonoBehaviour
+    public class LoginView : UIBase
     {
         AorImage m_Sprite;
         AorButton m_closeBtn;
-        private void Awake()
-        { 
-            m_closeBtn = transform.Find("Button").GetComponent<AorButton>();
-            m_Sprite = transform.Find("Sprite").GetComponent<AorImage>();
-        }
-        private void Start()
-        {
-            SingletonManager.GetManager<AudioManager>().PlayMusic("Sound/BG/City_Autumn_BG");
-            m_closeBtn.onClick.AddListener(CloseUI);
-        }
         private void CloseUI()
         {
             m_Sprite.LoadImage("Ui/BagAtlas/bb_frm_001");
+        }
 
-            //AorText aorText = transform.gameObject.AddComponent<AorText>();
-            //aorText.text = Lang.get("test1");
-            //UIManager.Inst.CloseUI(UIDef.LoginMainView);
+        public override void InitUI(params object[] msg)
+        {
+            m_closeBtn = transform.Find("Button").GetComponent<AorButton>();
+            m_Sprite = transform.Find("Sprite").GetComponent<AorImage>();
+
+            RefreshShow();
+        }
+
+        public override void RefreshShow(params object[] msg)
+        {
+            SingletonManager.GetManager<AudioManager>().PlayMusic("Sound/BG/City_Autumn_BG");
+        }
+
+        public override void RegisterEvent()
+        {
+            m_closeBtn.onClick.RemoveAllListeners();
+            m_closeBtn.onClick.AddListener(CloseUI);
+        }
+
+        public override void UnRegisterEvent()
+        {
+        }
+
+        public override void Destroy()
+        {
         }
     }
 }

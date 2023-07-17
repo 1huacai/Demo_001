@@ -83,6 +83,7 @@
   <ItemGroup>
     <Compile Include="Config\VersionConfig.cs" />
     <Compile Include="Game\GameManger.cs" />
+    <Compile Include="Game\UIManager\UIBase.cs" />
     <Compile Include="Game\UIManager\UIDef.cs" />
     <Compile Include="Game\UIManager\UIManager.cs" />
     <Compile Include="Model\ModelBase.cs" />
