@@ -9,3 +9,17 @@ Temp
 apk
 spine-unity.csproj
 spine-unity-editor.csproj
+Project/.idea/
+Unity/Unity.CollabProxy.Editor.csproj
+Unity/Unity.PlasticSCM.Editor.csproj
+Unity/Unity.Rider.Editor.csproj
+Unity/Unity.TextMeshPro.csproj
+Unity/Unity.TextMeshPro.Editor.csproj
+Unity/Unity.Timeline.csproj
+Unity/Unity.Timeline.Editor.csproj
+Unity/Unity.VisualStudio.Editor.csproj
+Unity/Unity.VSCode.Editor.csproj
+Unity/UnityEditor.TestRunner.csproj
+Unity/UnityEditor.UI.csproj
+Unity/UnityEngine.TestRunner.csproj
+Unity/UnityEngine.UI.csproj
