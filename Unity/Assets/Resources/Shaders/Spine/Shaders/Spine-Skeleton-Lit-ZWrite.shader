@@ -9,7 +9,6 @@ Shader "Spine/Skeleton Lit ZWrite" {
 		[NoScaleOffset] _MainTex ("Main Texture", 2D) = "black" {}
 		[Toggle(_STRAIGHT_ALPHA_INPUT)] _StraightAlphaInput("Straight Alpha Texture", Int) = 0
 		[Toggle(_DOUBLE_SIDED_LIGHTING)] _DoubleSidedLighting("Double-Sided Lighting", Int) = 0
-		[MaterialToggle(_LIGHT_AFFECTS_ADDITIVE)] _LightAffectsAdditive("Light Affects Additive", Float) = 0
 		[HideInInspector] _StencilRef("Stencil Reference", Float) = 1.0
 		[HideInInspector][Enum(UnityEngine.Rendering.CompareFunction)] _StencilComp("Stencil Comparison", Float) = 8 // Set to Always as default
 
@@ -20,7 +19,6 @@ Shader "Spine/Skeleton Lit ZWrite" {
 		[HideInInspector] _ThresholdEnd("Outline Threshold", Range(0,1)) = 0.25
 		[HideInInspector] _OutlineSmoothness("Outline Smoothness", Range(0,1)) = 1.0
 		[HideInInspector][MaterialToggle(_USE8NEIGHBOURHOOD_ON)] _Use8Neighbourhood("Sample 8 Neighbours", Float) = 1
-		[HideInInspector] _OutlineOpaqueAlpha("Opaque Alpha", Range(0,1)) = 1.0
 		[HideInInspector] _OutlineMipLevel("Outline Mip Level", Range(0,3)) = 0
 	}
 
@@ -46,7 +44,6 @@ Shader "Spine/Skeleton Lit ZWrite" {
 			CGPROGRAM
 			#pragma shader_feature _ _STRAIGHT_ALPHA_INPUT
 			#pragma shader_feature _ _DOUBLE_SIDED_LIGHTING
-			#pragma shader_feature _ _LIGHT_AFFECTS_ADDITIVE
 			#pragma vertex vert
 			#pragma fragment frag
 			#pragma target 2.0

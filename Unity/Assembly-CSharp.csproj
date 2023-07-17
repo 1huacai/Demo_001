@@ -122,12 +122,15 @@
      <None Include="Assets\Resources\Shaders\Spine\Shaders\CGIncludes\Spine-Skeleton-Lit-Common.cginc" />
      <None Include="Assets\Resources\Shaders\Lit\Character\YoukiaHair.cginc" />
      <None Include="Assets\Resources\Shaders\Lit\Character\Lod2-CharacterPBR-monster.shader" />
+     <None Include="Assets\Spine\version.txt" />
+     <None Include="Assets\Resources\spineArt\block\yellow\yellow.atlas.txt" />
      <None Include="Assets\Resources\Shaders\PostProcessing\API\D3D11.hlsl" />
      <None Include="Assets\Resources\Shaders\Effect\YoukiaSelectCircle.shader" />
      <None Include="Assets\Resources\Shaders\Spine\Shaders\SkeletonGraphic\Spine-SkeletonGraphic-Fill.shader" />
      <None Include="Assets\Resources\Shaders\Effect\YoukiaSceneBg.shader" />
      <None Include="Assets\Resources\Shaders\Lit\Character\Lod3-CharacterPBR-gpu-bump.shader" />
      <None Include="Assets\Resources\Shaders\Spine\Shaders\CGIncludes\Spine-Common.cginc" />
+     <None Include="Assets\Resources\spineArt\role1\BunnyMaster.atlas.txt" />
      <None Include="Assets\Resources\Shaders\Effect\YoukiaOutline.shader" />
      <None Include="Assets\Resources\Shaders\Lit\Character\Lod3-CharacterPBR.shader" />
      <None Include="Assets\Resources\Shaders\Environment\YoukiaGrass.shader" />
@@ -137,6 +140,7 @@
      <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\FinalPass.shader" />
      <None Include="Assets\Resources\Shaders\PostProcessing\PostProcessMulti.hlsl" />
      <None Include="Assets\Resources\Shaders\IBL\YoukiaIBLBaker.shader" />
+     <None Include="Assets\Resources\spineArt\effect\dun\shandian.atlas.txt" />
      <None Include="Assets\Resources\ManiFestText.txt" />
      <None Include="Assets\Resources\Shaders\Spine\Shaders\Utility\HiddenPass.shader" />
      <None Include="Assets\Resources\Shaders\Lit\Character\Lod2-CharacterPBR-Uber-gpu.shader" />
@@ -159,9 +163,11 @@
      <None Include="Assets\Resources\Shaders\Spine\Shaders\Spine-Skeleton-Tint.shader" />
      <None Include="Assets\Resources\Shaders\Effect\YoukiaDepth.shader" />
      <None Include="Assets\Resources\Shaders\PostProcessing\Sampling.hlsl" />
+     <None Include="Assets\Resources\spineArt\block\blue\blue.atlas.txt" />
      <None Include="Assets\Resources\Shaders\Effect\YoukiaSelect.shader" />
      <None Include="Assets\Resources\Shaders\BigMap\YoukiaT4PBR-BigMap.shader" />
      <None Include="Assets\Resources\Shaders\Spine\Shaders\Outline\Sprite\SpritesPixelLit-Outline.shader" />
+     <None Include="Assets\Resources\spineArt\block\red\red.atlas.txt" />
      <None Include="Assets\Resources\Shaders\TSW\shuijing5.shader" />
      <None Include="Assets\Resources\Shaders\UGUI\UIMaskHole.shader" />
      <None Include="Assets\Resources\Shaders\BigMap\YoukiaWater-BigMap.shader" />
@@ -198,6 +204,7 @@
      <None Include="Assets\Resources\Shaders\Lit\Character\YoukiaCharacterLod2.cginc" />
      <None Include="Assets\Resources\Shaders\Effect\YoukiaFreeze.shader" />
      <None Include="Assets\Resources\Shaders\BigMap\YoukiaPBR-BigMap-Bump-UV2-Fade.shader" />
+     <None Include="Assets\Resources\spineArt\effect\huoqiu\skeleton.atlas.txt" />
      <None Include="Assets\Resources\Shaders\PostProcessing\Youkia\Gray.hlsl" />
      <None Include="Assets\Resources\Shaders\Effect\YoukiaSector.shader" />
      <None Include="Assets\Resources\Shaders\Environment\YoukiaClouds.shader" />
@@ -274,6 +281,7 @@
      <None Include="Assets\Resources\Shaders\Lit\Character\YoukiaCharacterLod3.cginc" />
      <None Include="Assets\Resources\Shaders\Spine\Shaders\CGIncludes\Spine-Outline-Common.cginc" />
      <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\CopyStd.shader" />
+     <None Include="Assets\Resources\spineArt\block\purple\purple.atlas.txt" />
      <None Include="Assets\Resources\Shaders\Effect\YoukiaDecalEffect.shader" />
      <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\Distortion.hlsl" />
      <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\Dithering.hlsl" />
@@ -297,6 +305,7 @@
      <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\DiskKernels.hlsl" />
      <None Include="Assets\Resources\Shaders\NormalTexture\NormalTexture.shader" />
      <None Include="Assets\Resources\Shaders\Lit\Character\Lod1-CharacterPBR-Fur.shader" />
+     <None Include="Assets\Resources\spineArt\effect\huixue\huixue.atlas.txt" />
      <None Include="Assets\Resources\Shaders\Lit\Character\Lod3-CharacterPBR-gpu-bumpXRay.shader" />
      <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\Texture3DLerp.compute" />
      <None Include="Assets\Resources\Shaders\Spine\Shaders\Spine-Special-Skeleton-Grayscale.shader" />
@@ -315,6 +324,7 @@
      <None Include="Assets\Resources\Shaders\Obsolete\YoukiaPBR.shader" />
      <None Include="Assets\Resources\Shaders\Effect\YoukiaSkillWarning_rect.shader" />
      <None Include="Assets\Resources\Shaders\PostProcessing\Youkia\YoukiaFogOfWar.shader" />
+     <None Include="Assets\Resources\spineArt\pressure\boom\yalikuai.atlas.txt" />
      <None Include="Assets\Resources\Shaders\uSky\Precompute Shaders\AtmospherePrecompute.cginc" />
      <None Include="Assets\Resources\Shaders\uSky\uSkyboxPro 6 sided.shader" />
      <None Include="Assets\Resources\Shaders\Spine\Shaders\Sprite\CGIncludes\SpriteLighting.cginc" />
@@ -346,12 +356,15 @@
      <None Include="Assets\Resources\Shaders\Lit\Character\Lod1-CharacterPBR-Polar.shader" />
      <None Include="Assets\Resources\Shaders\Shadow\CastShadowStatic.shader" />
      <None Include="Assets\Resources\Shaders\Spine\Shaders\Spine-Skeleton-Lit.shader" />
+     <None Include="Assets\Resources\spineArt\effect\dazhao\skeleton.atlas.txt" />
      <None Include="Assets\Resources\Shaders\IBL\YoukiaIBLHelper.cginc" />
      <None Include="Assets\Resources\Shaders\Lit\Character\YoukiaCharacter-Diffuse.shader" />
      <None Include="Assets\Resources\Shaders\PostProcessing\MRT.hlsl" />
      <None Include="Assets\Resources\Shaders\TSW\Cloud_Parallax.shader" />
      <None Include="Assets\Resources\Shaders\Spine\Shaders\Spine-Skeleton-Lit-ZWrite.shader" />
+     <None Include="Assets\Resources\spineArt\block\boom\qizi.atlas.txt" />
      <None Include="Assets\Resources\Shaders\Lit\YoukiaPBR-AO-UV2.shader" />
+     <None Include="Assets\Resources\spineArt\role2\Phoenix.atlas.txt" />
      <None Include="Assets\Resources\Shaders\Environment\YoukiaFowProj.shader" />
      <None Include="Assets\Resources\Shaders\Spine\Shaders\Spine-Skeleton.shader" />
      <None Include="Assets\Resources\Shaders\Spine\Shaders\Outline\CGIncludes\Spine-Outline-Pass.cginc" />
@@ -362,6 +375,7 @@
      <None Include="Assets\Resources\Shaders\Lit\Character\Lod1-CharacterPBR-Hair.shader" />
      <None Include="Assets\Resources\Shaders\PostProcessing\API\D3D9.hlsl" />
      <None Include="Assets\Resources\Shaders\PostProcessing\API\Metal.hlsl" />
+     <None Include="Assets\Resources\spineArt\effect\yanwudan\skeleton.atlas.txt" />
      <None Include="Assets\Resources\Shaders\Effect\YoukiaReflectPlane.shader" />
      <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\DepthOfField.shader" />
      <None Include="Assets\Resources\Shaders\uSky\uSkyboxPro.shader" />
@@ -392,6 +406,7 @@
      <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\Copy.shader" />
      <None Include="Assets\Resources\Shaders\ShaderReplace\YoukiaTerrainSurface.shader" />
      <None Include="Assets\Resources\Shaders\PostProcessing\API\D3D12.hlsl" />
+     <None Include="Assets\Resources\spineArt\block\green\green.atlas.txt" />
  <Reference Include="UnityEngine">
  <HintPath>D:/LUWENHAI/Unity/2019.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
@@ -985,6 +1000,10 @@
       <Project>{23E0B735-A797-DCDB-B926-161520C4DC89}</Project>
       <Name>Unity.Rider.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.DeviceSimulator.Editor.csproj">
+      <Project>{AF759095-2C03-2490-DED3-4FBCFCCDD1A0}</Project>
+      <Name>Unity.DeviceSimulator.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.VisualStudio.Editor.csproj">
       <Project>{1070D62F-5859-59E1-3CC0-C54CBEFA2290}</Project>
       <Name>Unity.VisualStudio.Editor</Name>
@@ -1001,9 +1020,13 @@
       <Project>{C0C5E174-727C-9FFA-CD43-B55BDEF754DA}</Project>
       <Name>UnityEditor.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.DeviceSimulator.Editor.csproj">
-      <Project>{AF759095-2C03-2490-DED3-4FBCFCCDD1A0}</Project>
-      <Name>Unity.DeviceSimulator.Editor</Name>
+    <ProjectReference Include="spine-unity.csproj">
+      <Project>{D9C6BD4E-98B1-2840-CAD8-6AE288C4C16E}</Project>
+      <Name>spine-unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="spine-unity-editor.csproj">
+      <Project>{BD0AF8D8-EC98-6494-F316-0C1F7B74AA00}</Project>
+      <Name>spine-unity-editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

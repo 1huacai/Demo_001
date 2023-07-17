@@ -89,6 +89,7 @@
     <Compile Include="Model\ModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\GameUtils.cs" />
+    <Compile Include="UIView\GameView.cs" />
     <Compile Include="UIView\LoginView.cs" />
   </ItemGroup>
   <ItemGroup>

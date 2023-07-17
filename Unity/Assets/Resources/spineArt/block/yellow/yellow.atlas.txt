@@ -1,0 +1,13 @@
+
+yellow.png
+size: 128,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blue
+  rotate: false
+  xy: 2, 2
+  size: 99, 116
+  orig: 120, 120
+  offset: 11, 2
+  index: -1

@@ -78,8 +78,8 @@ namespace Demo
                 var uibase = UIDic[name];
                 uibase.UnRegisterEvent();
                 uibase.Destroy();
-                UIDic.Remove(name);
                 GameObject.Destroy(UIDic[name]);
+                UIDic.Remove(name);
             }
         }
     }

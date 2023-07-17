@@ -1,0 +1,62 @@
+
+yalikuai.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bai
+  rotate: true
+  xy: 1672, 149
+  size: 102, 101
+  orig: 102, 101
+  offset: 0, 0
+  index: -1
+w1
+  rotate: false
+  xy: 2, 2
+  size: 269, 249
+  orig: 408, 396
+  offset: 77, 80
+  index: -1
+w2
+  rotate: false
+  xy: 273, 2
+  size: 269, 249
+  orig: 408, 396
+  offset: 77, 80
+  index: -1
+w3
+  rotate: false
+  xy: 544, 57
+  size: 268, 194
+  orig: 408, 396
+  offset: 77, 104
+  index: -1
+w4
+  rotate: true
+  xy: 1254, 28
+  size: 223, 214
+  orig: 408, 396
+  offset: 103, 90
+  index: -1
+w5
+  rotate: true
+  xy: 814, 25
+  size: 226, 218
+  orig: 408, 396
+  offset: 102, 88
+  index: -1
+w6
+  rotate: true
+  xy: 1034, 31
+  size: 220, 218
+  orig: 408, 396
+  offset: 116, 91
+  index: -1
+w7
+  rotate: false
+  xy: 1470, 42
+  size: 200, 209
+  orig: 408, 396
+  offset: 138, 97
+  index: -1

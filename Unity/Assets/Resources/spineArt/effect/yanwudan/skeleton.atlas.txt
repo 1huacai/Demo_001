@@ -1,0 +1,321 @@
+
+skeleton.png
+size: 4096,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Smoke 045 Explosion Transition Up.mov Comp 1_00000
+  rotate: false
+  xy: 453, 2
+  size: 343, 75
+  orig: 576, 324
+  offset: 138, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00001
+  rotate: false
+  xy: 3441, 303
+  size: 466, 178
+  orig: 576, 324
+  offset: 46, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00002
+  rotate: false
+  xy: 3461, 483
+  size: 509, 246
+  orig: 576, 324
+  offset: 32, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00003
+  rotate: false
+  xy: 2884, 228
+  size: 555, 283
+  orig: 576, 324
+  offset: 4, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00004
+  rotate: false
+  xy: 2892, 742
+  size: 576, 313
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00005
+  rotate: false
+  xy: 2, 1709
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00006
+  rotate: false
+  xy: 2, 1383
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00007
+  rotate: false
+  xy: 580, 1709
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00008
+  rotate: false
+  xy: 2, 1057
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00009
+  rotate: false
+  xy: 580, 1383
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00010
+  rotate: false
+  xy: 1158, 1709
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00011
+  rotate: false
+  xy: 2, 731
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00012
+  rotate: false
+  xy: 580, 1057
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00013
+  rotate: false
+  xy: 1158, 1383
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00014
+  rotate: false
+  xy: 1736, 1709
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00015
+  rotate: false
+  xy: 2, 405
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00016
+  rotate: false
+  xy: 580, 731
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00017
+  rotate: false
+  xy: 1158, 1057
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00018
+  rotate: false
+  xy: 1736, 1383
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00019
+  rotate: false
+  xy: 2314, 1709
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00020
+  rotate: false
+  xy: 2, 79
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00021
+  rotate: false
+  xy: 580, 405
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00022
+  rotate: false
+  xy: 1158, 731
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00023
+  rotate: false
+  xy: 1736, 1057
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00024
+  rotate: false
+  xy: 2314, 1383
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00025
+  rotate: false
+  xy: 2892, 1709
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00026
+  rotate: false
+  xy: 580, 79
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00027
+  rotate: false
+  xy: 1158, 405
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00028
+  rotate: false
+  xy: 1736, 731
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00029
+  rotate: false
+  xy: 2314, 1057
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00030
+  rotate: false
+  xy: 2892, 1383
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00031
+  rotate: false
+  xy: 3470, 1709
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00032
+  rotate: false
+  xy: 1158, 79
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00033
+  rotate: false
+  xy: 1736, 405
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00034
+  rotate: false
+  xy: 2314, 731
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00035
+  rotate: false
+  xy: 2892, 1057
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00036
+  rotate: false
+  xy: 3470, 1383
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00037
+  rotate: false
+  xy: 1736, 79
+  size: 576, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00038
+  rotate: false
+  xy: 3470, 731
+  size: 553, 324
+  orig: 576, 324
+  offset: 1, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00039
+  rotate: false
+  xy: 3470, 1057
+  size: 564, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00040
+  rotate: false
+  xy: 2314, 405
+  size: 568, 324
+  orig: 576, 324
+  offset: 0, 0
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00041
+  rotate: false
+  xy: 2314, 92
+  size: 568, 311
+  orig: 576, 324
+  offset: 0, 13
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00042
+  rotate: false
+  xy: 2892, 513
+  size: 567, 227
+  orig: 576, 324
+  offset: 0, 97
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00043
+  rotate: false
+  xy: 2884, 97
+  size: 559, 129
+  orig: 576, 324
+  offset: 0, 195
+  index: -1
+Smoke 045 Explosion Transition Up.mov Comp 1_00044
+  rotate: false
+  xy: 2, 7
+  size: 449, 70
+  orig: 576, 324
+  offset: 3, 254
+  index: -1

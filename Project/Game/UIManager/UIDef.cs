@@ -9,5 +9,6 @@ namespace Demo
     public enum UIDef
     {
         LoginView,
+        GameView
     }
 }

@@ -731,6 +731,10 @@
       <Project>{23E0B735-A797-DCDB-B926-161520C4DC89}</Project>
       <Name>Unity.Rider.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.DeviceSimulator.Editor.csproj">
+      <Project>{AF759095-2C03-2490-DED3-4FBCFCCDD1A0}</Project>
+      <Name>Unity.DeviceSimulator.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.VisualStudio.Editor.csproj">
       <Project>{1070D62F-5859-59E1-3CC0-C54CBEFA2290}</Project>
       <Name>Unity.VisualStudio.Editor</Name>
@@ -747,9 +751,13 @@
       <Project>{C0C5E174-727C-9FFA-CD43-B55BDEF754DA}</Project>
       <Name>UnityEditor.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.DeviceSimulator.Editor.csproj">
-      <Project>{AF759095-2C03-2490-DED3-4FBCFCCDD1A0}</Project>
-      <Name>Unity.DeviceSimulator.Editor</Name>
+    <ProjectReference Include="spine-unity.csproj">
+      <Project>{D9C6BD4E-98B1-2840-CAD8-6AE288C4C16E}</Project>
+      <Name>spine-unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="spine-unity-editor.csproj">
+      <Project>{BD0AF8D8-EC98-6494-F316-0C1F7B74AA00}</Project>
+      <Name>spine-unity-editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

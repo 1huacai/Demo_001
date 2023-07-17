@@ -1,23 +1,21 @@
-﻿using FrameWork.Audio;
+﻿using System.Collections;
+using FrameWork.Audio;
 using FrameWork.Manager;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Demo
 {
     public class LoginView : UIBase
     {
-        AorImage m_Sprite;
-        AorButton m_closeBtn;
-        private void CloseUI()
-        {
-            m_Sprite.LoadImage("Ui/BagAtlas/bb_frm_001");
-        }
+        AorButton m_singlePlayerBtn;
+        private AorButton m_multiPlayerBtn;
 
         public override void InitUI(params object[] msg)
         {
-            m_closeBtn = transform.Find("Button").GetComponent<AorButton>();
-            m_Sprite = transform.Find("Sprite").GetComponent<AorImage>();
-
+            m_singlePlayerBtn = transform.Find("SinglePlayerBtn").GetComponent<AorButton>();
+            m_multiPlayerBtn = transform.Find("MultiPlayerBtn").GetComponent<AorButton>();
+            
             RefreshShow();
         }
 
@@ -28,8 +26,11 @@ namespace Demo
 
         public override void RegisterEvent()
         {
-            m_closeBtn.onClick.RemoveAllListeners();
-            m_closeBtn.onClick.AddListener(CloseUI);
+            m_singlePlayerBtn.onClick.RemoveAllListeners();
+            m_singlePlayerBtn.onClick.AddListener(SinglePlayerGame);
+            
+            m_multiPlayerBtn.onClick.RemoveAllListeners();
+            m_multiPlayerBtn.onClick.AddListener(MultiPlayerGame);
         }
 
         public override void UnRegisterEvent()
@@ -39,5 +40,30 @@ namespace Demo
         public override void Destroy()
         {
         }
+        
+        private void CloseUI()
+        {
+            UIManager.Inst.CloseUI(UIDef.LoginView);
+        }
+
+        #region 按钮回调
+        
+        //单人游戏
+        private void SinglePlayerGame()
+        {
+            Debug.LogError("单人游戏");
+            UIManager.Inst.OpenUI(UIDef.GameView);
+            CloseUI();
+        }
+        
+        //多人游戏
+        private void MultiPlayerGame()
+        {
+            Debug.LogError("多人游戏");
+            // UIManager.Inst.OpenUI(UIDef.GameView);
+            // CloseUI();
+        }
+        #endregion
+        
     }
 }

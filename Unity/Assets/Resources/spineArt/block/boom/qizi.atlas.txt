@@ -1,0 +1,62 @@
+
+qizi.png
+size: 1024,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1
+  rotate: true
+  xy: 199, 7
+  size: 97, 89
+  orig: 134, 124
+  offset: 21, 19
+  index: -1
+2
+  rotate: true
+  xy: 105, 2
+  size: 102, 92
+  orig: 134, 124
+  offset: 18, 18
+  index: -1
+3
+  rotate: true
+  xy: 598, 19
+  size: 85, 69
+  orig: 134, 124
+  offset: 21, 36
+  index: -1
+4
+  rotate: true
+  xy: 522, 10
+  size: 94, 74
+  orig: 134, 124
+  offset: 19, 34
+  index: -1
+5
+  rotate: true
+  xy: 366, 8
+  size: 96, 77
+  orig: 134, 124
+  offset: 18, 33
+  index: -1
+6
+  rotate: true
+  xy: 445, 8
+  size: 96, 75
+  orig: 134, 124
+  offset: 20, 35
+  index: -1
+7
+  rotate: true
+  xy: 290, 4
+  size: 100, 74
+  orig: 134, 124
+  offset: 18, 36
+  index: -1
+bai
+  rotate: true
+  xy: 2, 2
+  size: 102, 101
+  orig: 102, 101
+  offset: 0, 0
+  index: -1

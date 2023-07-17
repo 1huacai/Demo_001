@@ -1,0 +1,13 @@
+
+purple.png
+size: 128,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+purple
+  rotate: false
+  xy: 2, 2
+  size: 103, 109
+  orig: 120, 120
+  offset: 8, 4
+  index: -1

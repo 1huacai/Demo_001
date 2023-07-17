@@ -6,7 +6,7 @@ Shader "Spine/SkeletonGraphic Tint Black"
 	{
 		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
 		[Toggle(_STRAIGHT_ALPHA_INPUT)] _StraightAlphaInput("Straight Alpha Texture", Int) = 0
-		[Toggle(_CANVAS_GROUP_COMPATIBLE)] _CanvasGroupCompatible("CanvasGroup Compatible", Int) = 1
+		[Toggle(_CANVAS_GROUP_COMPATIBLE)] _CanvasGroupCompatible("CanvasGroup Compatible", Int) = 0
 
 		_Color ("Tint Color", Color) = (1,1,1,1)
 		_Black ("Dark Color", Color) = (0,0,0,0)
@@ -29,7 +29,6 @@ Shader "Spine/SkeletonGraphic Tint Black"
 		[HideInInspector] _ThresholdEnd("Outline Threshold", Range(0,1)) = 0.25
 		[HideInInspector] _OutlineSmoothness("Outline Smoothness", Range(0,1)) = 1.0
 		[HideInInspector][MaterialToggle(_USE8NEIGHBOURHOOD_ON)] _Use8Neighbourhood("Sample 8 Neighbours", Float) = 1
-		[HideInInspector] _OutlineOpaqueAlpha("Opaque Alpha", Range(0,1)) = 1.0
 		[HideInInspector] _OutlineMipLevel("Outline Mip Level", Range(0,3)) = 0
 	}
 
@@ -74,7 +73,6 @@ Shader "Spine/SkeletonGraphic Tint Black"
 
 			#include "UnityCG.cginc"
 			#include "UnityUI.cginc"
-			#include "../CGIncludes/Spine-Common.cginc"
 
 			#pragma multi_compile __ UNITY_UI_ALPHACLIP
 
@@ -89,19 +87,16 @@ Shader "Spine/SkeletonGraphic Tint Black"
 
 			struct VertexOutput {
 				float4 vertex   : SV_POSITION;
-				half4 color    : COLOR;
+				fixed4 color    : COLOR;
 				half2 texcoord  : TEXCOORD0;
 				float4 darkColor : TEXCOORD1;
 				float4 worldPosition : TEXCOORD2;
-			#ifdef _CANVAS_GROUP_COMPATIBLE
-				float canvasAlpha : TEXCOORD3;
-			#endif
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
-			half4 _Color;
-			half4 _Black;
-			half4 _TextureSampleAdd;
+			fixed4 _Color;
+			fixed4 _Black;
+			fixed4 _TextureSampleAdd;
 			float4 _ClipRect;
 
 			VertexOutput vert (VertexInput IN) {
@@ -114,31 +109,15 @@ Shader "Spine/SkeletonGraphic Tint Black"
 				OUT.vertex = UnityObjectToClipPos(OUT.worldPosition);
 				OUT.texcoord = IN.texcoord;
 
+				OUT.color = IN.color;
 				OUT.darkColor = float4(IN.uv1.r, IN.uv1.g, IN.uv2.r, IN.uv2.g);
-				OUT.darkColor.rgb = GammaToTargetSpace(OUT.darkColor.rgb) + _Black.rgb;
-
-			#ifdef _CANVAS_GROUP_COMPATIBLE
-				// CanvasGroup alpha multiplies existing vertex color alpha, but
-				// does not premultiply it to rgb components. This causes problems
-				// with additive blending (alpha = 0), which is why we store the
-				// alpha value in uv2.g (darkColor.a).
-				float originalAlpha = OUT.darkColor.a;
-				OUT.canvasAlpha = (originalAlpha == 0) ? IN.color.a : IN.color.a / originalAlpha;
-			#else
-				float originalAlpha = IN.color.a;
-			#endif
-				// Note: CanvasRenderer performs a GammaToTargetSpace conversion on vertex color already,
-				// however incorrectly assuming straight alpha color.
-				float4 vertexColor = PMAGammaToTargetSpace(half4(TargetToGammaSpace(IN.color.rgb), originalAlpha));
-
-				OUT.color = vertexColor * float4(_Color.rgb * _Color.a, _Color.a);
 				return OUT;
 			}
 
 			sampler2D _MainTex;
 			#include "../CGIncludes/Spine-Skeleton-Tint-Common.cginc"
 
-			half4 frag(VertexOutput IN) : SV_Target
+			fixed4 frag (VertexOutput IN) : SV_Target
 			{
 				half4 texColor = (tex2D(_MainTex, IN.texcoord) + _TextureSampleAdd);
 				texColor *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
@@ -146,9 +125,19 @@ Shader "Spine/SkeletonGraphic Tint Black"
 				clip(texColor.a - 0.001);
 				#endif
 
-				float4 fragColor = fragTintedColor(texColor, IN.darkColor.rgb, IN.color, _Color.a, _Black.a);
+				float4 vertexColor = IN.color * float4(_Color.rgb * _Color.a, _Color.a);
 			#ifdef _CANVAS_GROUP_COMPATIBLE
-				fragColor.rgba *= IN.canvasAlpha;
+				// CanvasGroup alpha multiplies existing vertex color alpha, but
+				// does not premultiply it to rgb components. This causes problems
+				// with additive blending (alpha = 0), which is why we store the
+				// alpha value in uv2.g (darkColor.a).
+				float originalAlpha = IN.darkColor.a;
+				float canvasAlpha = (originalAlpha == 0) ? IN.color.a : IN.color.a / originalAlpha;
+				vertexColor.a = originalAlpha * _Color.a;
+			#endif
+				float4 fragColor = fragTintedColor(texColor, _Black.rgb + IN.darkColor, vertexColor, _Color.a, _Black.a);
+			#ifdef _CANVAS_GROUP_COMPATIBLE
+				fragColor.rgba *= canvasAlpha;
 			#endif
 				return fragColor;
 			}

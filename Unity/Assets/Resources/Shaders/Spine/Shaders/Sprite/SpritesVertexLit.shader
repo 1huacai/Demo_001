@@ -38,8 +38,6 @@ Shader "Spine/Sprite/Vertex Lit"
 		_BlendTex ("Blend Texture", 2D) = "white" {}
 		_BlendAmount ("Blend", Range(0,1)) = 0.0
 
-		[MaterialToggle(_LIGHT_AFFECTS_ADDITIVE)] _LightAffectsAdditive("Light Affects Additive", Float) = 0
-
 		[HideInInspector] _SrcBlend ("__src", Float) = 1.0
 		[HideInInspector] _DstBlend ("__dst", Float) = 0.0
 		[HideInInspector] _RenderQueue ("__queue", Float) = 0.0
@@ -54,7 +52,6 @@ Shader "Spine/Sprite/Vertex Lit"
 		[HideInInspector] _ThresholdEnd("Outline Threshold", Range(0,1)) = 0.25
 		[HideInInspector] _OutlineSmoothness("Outline Smoothness", Range(0,1)) = 1.0
 		[HideInInspector][MaterialToggle(_USE8NEIGHBOURHOOD_ON)] _Use8Neighbourhood("Sample 8 Neighbours", Float) = 1
-		[HideInInspector] _OutlineOpaqueAlpha("Opaque Alpha", Range(0,1)) = 1.0
 		[HideInInspector] _OutlineMipLevel("Outline Mip Level", Range(0,3)) = 0
 	}
 
@@ -82,7 +79,7 @@ Shader "Spine/Sprite/Vertex Lit"
 			CGPROGRAM
 				#pragma target 3.0
 
-				#pragma shader_feature _ _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON _ALPHAPREMULTIPLY_VERTEX_ONLY _ADDITIVEBLEND _ADDITIVEBLEND_SOFT _MULTIPLYBLEND _MULTIPLYBLEND_X2
+				#pragma shader_feature _ _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON _ADDITIVEBLEND _ADDITIVEBLEND_SOFT _MULTIPLYBLEND _MULTIPLYBLEND_X2
 				#pragma shader_feature _ _FIXED_NORMALS_VIEWSPACE _FIXED_NORMALS_VIEWSPACE_BACKFACE _FIXED_NORMALS_MODELSPACE  _FIXED_NORMALS_MODELSPACE_BACKFACE _FIXED_NORMALS_WORLDSPACE
 				#pragma shader_feature _ _SPECULAR _SPECULAR_GLOSSMAP
 				#pragma shader_feature _NORMALMAP
@@ -95,11 +92,12 @@ Shader "Spine/Sprite/Vertex Lit"
 				#pragma shader_feature _TEXTURE_BLEND
 				#pragma shader_feature _SPHERICAL_HARMONICS
 				#pragma shader_feature _FOG
-				#pragma shader_feature _LIGHT_AFFECTS_ADDITIVE
+
 
 				#pragma fragmentoption ARB_precision_hint_fastest
 				#pragma multi_compile_fog
 				#pragma multi_compile _ PIXELSNAP_ON
+				#pragma multi_compile _ ETC1_EXTERNAL_ALPHA
 
 				#pragma vertex vert
 				#pragma fragment frag
@@ -123,6 +121,7 @@ Shader "Spine/Sprite/Vertex Lit"
 				#pragma fragmentoption ARB_precision_hint_fastest
 				#pragma multi_compile_shadowcaster
 				#pragma multi_compile _ PIXELSNAP_ON
+				#pragma multi_compile _ ETC1_EXTERNAL_ALPHA
 
 				#pragma vertex vert
 				#pragma fragment frag
