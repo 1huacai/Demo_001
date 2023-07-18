@@ -24,6 +24,7 @@ namespace Demo
         public GameManger()
         {
             curCamera = GameObject.Find("UISystemRoot/AorUICamera#").GetComponent<Camera>();
+            Application.targetFrameRate = 60;
         }
         
         //自身所有棋子的初始化数据
@@ -75,9 +76,9 @@ namespace Demo
                     int col = data.col;
                     BlockType type = data.type;
                     
-                    //空方块不生成对象
-                    if(type == BlockType.None)
-                        continue;
+                    // //空方块不生成对象
+                    // if(type == BlockType.None)
+                    //     continue;
                     
                     Block block = Block.CreateBlockObject(obj, row, col, type, boardTran);
                     //设置棋子位置

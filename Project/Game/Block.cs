@@ -25,14 +25,14 @@ namespace Demo
         {
             Debug.LogError("手指按下");
             slectImg.SetActive(true);
-            transform.DOScale(ConstValues.BLOCK_BIG_SCALE, 0.2f);
+            transform.DOScale(ConstValues.BLOCK_BIG_SCALE, ConstValues.BLOCK_BIG_FRAME * Time.deltaTime);
         }
         
         private void OnMouseUp()
         {
             Debug.LogError("手指松开");
             slectImg.SetActive(false);
-            transform.DOScale(1f, 0.2f);
+            transform.DOScale(1f, ConstValues.BLOCK_BIG_FRAME * Time.deltaTime);
         }
 
         public void OnBeginDrag(PointerEventData eventData)

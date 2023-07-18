@@ -9,28 +9,40 @@ namespace Project
     //棋子类型(颜色)
     public enum BlockType
     {
-        None,Red,Green,Blue,Orange,Purple    
+        None,
+        Red,
+        Green,
+        Blue,
+        Orange,
+        Purple
     }
-    
-    public enum BlockOperation { TouchEnter, TouchDown, TouchUp, TouchExit, DragHalf };
-    
-    public static  class ConstValues
-    {
-        public const int BLOCK_X_OFFSET = 175;//棋子横向偏移
-        public const int BLOCK_Y_OFFSET = 170;//棋子纵向偏移
-        public const int BLOCK_X_ORIGINPOS = 100;//棋子原始横向X
-        public const int BLOCK_Y_ORIGINPOS = 100;//棋子原始纵向Y
 
-        public const int MAX_ROW = 11;//最大行数
-        public const int MAX_COL = 6;//最大列数
+    public enum BlockOperation
+    {
+        TouchEnter,
+        TouchDown,
+        TouchUp,
+        TouchExit,
+        DragHalf
+    };
+
+    public static class ConstValues
+    {
+        public const int BLOCK_X_OFFSET = 175; //棋子横向偏移
+        public const int BLOCK_Y_OFFSET = 170; //棋子纵向偏移
+        public const int BLOCK_X_ORIGINPOS = 100; //棋子原始横向X
+        public const int BLOCK_Y_ORIGINPOS = 100; //棋子原始纵向Y
+
+        public const int MAX_ROW = 11; //最大行数
+        public const int MAX_COL = 6; //最大列数
         public const int MAX_MATRIX_ROW = MAX_ROW + 1;
-        public const int MiN_GENROW = 3;//初始化创建的最小行数
-        public const int MAX_GENROW = 6;//初始化创建的最大行数
+        public const int MiN_GENROW = 3; //初始化创建的最小行数
+        public const int MAX_GENROW = 6; //初始化创建的最大行数
 
         public const int MAX_BLOCKTYPE = 6;
 
         private const string textureBlockPath = "Texture/block/panel";
-        
+
         private static List<Texture2D> _texture = new List<Texture2D>
         {
             Resources.Load(textureBlockPath + "01") as Texture2D,
@@ -60,21 +72,42 @@ namespace Project
             Resources.Load(textureBlockPath + "47") as Texture2D,
             Resources.Load(textureBlockPath + "57") as Texture2D,
         };
+
         public static Dictionary<int, Sprite> _lockSprites = new Dictionary<int, Sprite>
         {
-            {0, Sprite.Create(_lockTexture[0], new Rect(0, 0, _lockTexture[0].width, _lockTexture[0].height), new Vector2(1f, 1f)) },
-            {1, Sprite.Create(_lockTexture[1], new Rect(0, 0, _lockTexture[1].width, _lockTexture[1].height), new Vector2(1f, 1f)) },
-            {2, Sprite.Create(_lockTexture[2], new Rect(0, 0, _lockTexture[2].width, _lockTexture[2].height), new Vector2(1f, 1f)) },
-            {3, Sprite.Create(_lockTexture[3], new Rect(0, 0, _lockTexture[3].width, _lockTexture[3].height), new Vector2(1f, 1f)) },
-            {4, Sprite.Create(_lockTexture[4], new Rect(0, 0, _lockTexture[4].width, _lockTexture[4].height), new Vector2(1f, 1f)) },
-            {5, Sprite.Create(_lockTexture[5], new Rect(0, 0, _lockTexture[5].width, _lockTexture[5].height), new Vector2(1f, 1f)) },
+            {
+                0,
+                Sprite.Create(_lockTexture[0], new Rect(0, 0, _lockTexture[0].width, _lockTexture[0].height),
+                    new Vector2(1f, 1f))
+            },
+            {
+                1,
+                Sprite.Create(_lockTexture[1], new Rect(0, 0, _lockTexture[1].width, _lockTexture[1].height),
+                    new Vector2(1f, 1f))
+            },
+            {
+                2,
+                Sprite.Create(_lockTexture[2], new Rect(0, 0, _lockTexture[2].width, _lockTexture[2].height),
+                    new Vector2(1f, 1f))
+            },
+            {
+                3,
+                Sprite.Create(_lockTexture[3], new Rect(0, 0, _lockTexture[3].width, _lockTexture[3].height),
+                    new Vector2(1f, 1f))
+            },
+            {
+                4,
+                Sprite.Create(_lockTexture[4], new Rect(0, 0, _lockTexture[4].width, _lockTexture[4].height),
+                    new Vector2(1f, 1f))
+            },
+            {
+                5,
+                Sprite.Create(_lockTexture[5], new Rect(0, 0, _lockTexture[5].width, _lockTexture[5].height),
+                    new Vector2(1f, 1f))
+            },
         };
 
         public const float BLOCK_BIG_SCALE = 1.2f;
-
-
+        public const int BLOCK_BIG_FRAME = 12;
     }
-    
-    
-    
 }
