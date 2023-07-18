@@ -43,6 +43,9 @@
       <HintPath>..\frame\ProjectsDllExports\CoreFrameWork.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="DOTween, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\Unity\Assets\Resources\Plugins\DOTween.dll</HintPath>
+    </Reference>
     <Reference Include="FrameWork, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\frame\ProjectsDllExports\FrameWork.dll</HintPath>
