@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using Project;
 using FrameWork.Manager;
@@ -11,7 +12,6 @@ namespace Demo
     public class GameManger
     {
         private static GameManger s_inst;
-        public Camera curCamera;
         public static GameManger Inst
         {
             get
@@ -21,9 +21,10 @@ namespace Demo
             }
         }
 
+        public Block selectBlock;
+        
         public GameManger()
         {
-            curCamera = GameObject.Find("UISystemRoot/AorUICamera#").GetComponent<Camera>();
             Application.targetFrameRate = 60;
         }
         
@@ -80,7 +81,7 @@ namespace Demo
                     // if(type == BlockType.None)
                     //     continue;
                     
-                    Block block = Block.CreateBlockObject(obj, row, col, type, boardTran);
+                    Block block = Block.CreateBlockObject(obj, row, col, type, boardTran,this);
                     //设置棋子位置
                     block.transform.localPosition = new Vector3(
                         ConstValues.BLOCK_X_ORIGINPOS + (col - 1) * ConstValues.BLOCK_X_OFFSET,
@@ -95,9 +96,51 @@ namespace Demo
             });
         }
 
-        private void OnBlockOperation(int row, int column, BlockOperation operation)
+        private void OnBlockOperation(int row, int col, BlockOperation operation)
+        {   
+            //执行拖拽操作
+            if (operation == BlockOperation.DragHalf)
+            {   
+                //待交换的block
+                var otherBlock = blockMatrix[row, col - 1];
+                if(otherBlock == null || swaping)
+                    return;
+                DoSwap(selectBlock, otherBlock);
+            }
+        }
+
+        private bool swaping = false;
+
+        private void DoSwap(Block block_1, Block block_2)
         {
-            
+            var block_1_Pos = block_1.transform.localPosition;
+            var block_2_Pos = block_2.transform.localPosition;
+
+            swaping = true;
+            block_1.transform.DOLocalMove(block_2_Pos, 10 * Time.deltaTime).OnComplete(() =>
+            {
+                block_1.dragBeginPos = block_1.transform.localPosition;
+            });
+            block_2.transform.DOScale(0.9f, 5 * Time.deltaTime);
+            block_2.transform.DOLocalMove(block_1_Pos, 10 * Time.deltaTime).OnComplete(() =>
+            {
+                block_2.transform.DOScale(ConstValues.BLOCK_BIG_SCALE, 5 * Time.deltaTime);
+                block_2.transform.DOScale(1f, 5 * Time.deltaTime);
+
+                blockMatrix[block_1.Row, block_1.Col - 1] = block_2;
+                blockMatrix[block_2.Row, block_2.Col - 1] = block_1;
+                int tempRow = block_1.Row;
+                int tempCol = block_1.Col;
+
+                block_1.Row = block_2.Row;
+                block_1.Col = block_2.Col;
+                block_1.ChangeBlockObjName();
+
+                block_2.Row = tempRow;
+                block_2.Col = tempCol;
+                block_2.ChangeBlockObjName();
+                swaping = false;
+            });
         }
     }
 }

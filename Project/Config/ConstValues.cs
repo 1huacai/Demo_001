@@ -26,13 +26,21 @@ namespace Project
         DragHalf
     };
 
+    public enum BlockState
+    {
+        Normal,Swapping,Matched,Dimmed,Hovering,Falling,Landing,Popping,Popped
+    }
+    
+    
     public static class ConstValues
     {
         public const int BLOCK_X_OFFSET = 175; //棋子横向偏移
         public const int BLOCK_Y_OFFSET = 170; //棋子纵向偏移
         public const int BLOCK_X_ORIGINPOS = 100; //棋子原始横向X
         public const int BLOCK_Y_ORIGINPOS = 100; //棋子原始纵向Y
-
+        public const int BLOCK_WIDTH = 140;
+        public const int BLOCK_HEIGHT = 140;
+        
         public const int MAX_ROW = 11; //最大行数
         public const int MAX_COL = 6; //最大列数
         public const int MAX_MATRIX_ROW = MAX_ROW + 1;
@@ -40,7 +48,7 @@ namespace Project
         public const int MAX_GENROW = 6; //初始化创建的最大行数
 
         public const int MAX_BLOCKTYPE = 6;
-
+        
         private const string textureBlockPath = "Texture/block/panel";
 
         private static List<Texture2D> _texture = new List<Texture2D>
