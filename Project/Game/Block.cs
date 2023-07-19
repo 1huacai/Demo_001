@@ -9,10 +9,8 @@ namespace Demo
 {
     public class Block : MonoBehaviour, IDragHandler
     {
-        [SerializeField]
-        private int row;
-        [SerializeField]
-        private int col;
+        [SerializeField] private int row;
+        [SerializeField] private int col;
         public BlockType type;
         public Image image;
         public GameObject slectImg;
@@ -37,31 +35,28 @@ namespace Demo
                 BlockOperationEvent(row, col, BlockOperation.TouchDown);
                 dragBeginPos = transform.localPosition;
             }
-                
         }
 
+        private bool moved = false;
         private void OnMouseUp()
         {
-            if (!Moved)
-            {
-                transform.localPosition = dragBeginPos;
-                return;
-            }
-            
             if (type != BlockType.None && BlockOperationEvent != null)
             {
                 IsSelected = false;
+                if (!moved)
+                {
+                    transform.localPosition = dragBeginPos;
+                }
                 BlockOperationEvent(row, col, BlockOperation.TouchUp);
                 dragBeginPos = Vector3.zero;
-                Moved = false;
+                moved = false;
             }
         }
 
 
-        private bool Moved = false;
         public void OnDrag(PointerEventData eventData)
         {
-            if (type!= BlockType.None && BlockOperationEvent != null)
+            if (type != BlockType.None && BlockOperationEvent != null)
             {
                 Vector3 curPosition = eventData.position;
 
@@ -69,47 +64,55 @@ namespace Demo
                 float yOffset = Math.Abs(curPosition.y - dragBeginPos.y);
                 if (xOffset >= ConstValues.BLOCK_WIDTH / 2f)
                 {
-                    Moved = true;
                     // if (xOffset > ConstValues.BLOCK_WIDTH)
                     //     return;
-                    if (curPosition.x > dragBeginPos.x && col < ConstValues.MAX_COL)
+                    if (curPosition.x >= dragBeginPos.x && col < ConstValues.MAX_COL)
                     {
-                        Debug.LogError("向右拖");
                         BlockOperationEvent(row, col + 1, BlockOperation.DragHalf);
-                        dragBeginPos = transform.localPosition;
+                        moved = true;
                     }
+
                     if (curPosition.x < dragBeginPos.x && col > 1)
                     {
-                        Debug.LogError("向左拖");
                         BlockOperationEvent(row, col - 1, BlockOperation.DragHalf);
-                        dragBeginPos = transform.localPosition;
+                        moved = true;
                     }
                 }
-                
-                else if (yOffset >= ConstValues.BLOCK_HEIGHT / 2f)
+                else if (xOffset < ConstValues.BLOCK_WIDTH / 2f && !GameManger.Inst.swaping)
                 {
-                    Moved = true;
-                    // if (yOffset > ConstValues.BLOCK_HEIGHT)
-                    //     return;
-                    
-                    if (curPosition.y > dragBeginPos.y && row < ConstValues.MAX_ROW - 1)
-                    {
-                        Debug.LogError("向上拖");
-                        BlockOperationEvent(row + 1, col, BlockOperation.DragHalf);
-                        dragBeginPos = transform.localPosition;
-                    }
-                    if (curPosition.y < dragBeginPos.y && row > 1)
-                    {
-                        Debug.LogError("向下拖");
-                        BlockOperationEvent(row - 1, col, BlockOperation.DragHalf);
-                        dragBeginPos = transform.localPosition;
-                    }
+                    transform.localPosition = new Vector3(curPosition.x, dragBeginPos.y, 0f);
                 }
+
+                #region 纵向
+                // else if (yOffset >= ConstValues.BLOCK_HEIGHT / 2f)
+                // {
+                //     // if (yOffset > ConstValues.BLOCK_HEIGHT)
+                //     //     return;
+                //
+                //     if (curPosition.y > dragBeginPos.y && row < ConstValues.MAX_ROW - 1)
+                //     {
+                //         BlockOperationEvent(row + 1, col, BlockOperation.DragHalf);
+                //         moved = true;
+                //     }
+                //
+                //     if (curPosition.y < dragBeginPos.y && row > 1)
+                //     {
+                //         BlockOperationEvent(row - 1, col, BlockOperation.DragHalf);
+                //         moved = true;
+                //     }
+                // }
+                // else if (yOffset < ConstValues.BLOCK_WIDTH / 2f && xOffset < yOffset && !GameManger.Inst.swaping)
+                // {
+                //     transform.localPosition = new Vector3(dragBeginPos.x, curPosition.y, 0f);
+                // }
+                #endregion
+                
             }
         }
-        
+
         //单独创建block
-        public static Block CreateBlockObject(GameObject obj, int row, int col, BlockType type, Transform parent,GameManger mag)
+        public static Block CreateBlockObject(GameObject obj, int row, int col, BlockType type, Transform parent,
+            GameManger mag)
         {
             GameObject blockObj = Instantiate(obj, parent);
             if (blockObj == null)
@@ -117,7 +120,7 @@ namespace Demo
                 Debug.LogError("构建棋子失败");
                 return null;
             }
-            
+
             Block block = blockObj.GetComponent<Block>();
             block.row = row;
             block.col = col;
@@ -134,7 +137,7 @@ namespace Demo
 
         public int Row
         {
-            get { return row;}
+            get { return row; }
             set
             {
                 row = value;
@@ -151,7 +154,7 @@ namespace Demo
             get { return col; }
             set { col = value; }
         }
-        
+
         //选中
         public bool IsSelected
         {
@@ -174,7 +177,7 @@ namespace Demo
                 }
             }
         }
-        
+
         //检测两个方块是否相邻
         public bool CheckAdjacent(Block other)
         {
@@ -189,7 +192,7 @@ namespace Demo
         {
             gameObject.name = $"{row}-{col}";
         }
-        
+
         private void OnDestroy()
         {
             manger.blockMatrix[Row, Col] = null;

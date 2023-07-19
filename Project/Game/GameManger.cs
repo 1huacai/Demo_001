@@ -109,11 +109,11 @@ namespace Demo
             }
         }
 
-        private bool swaping = false;
+        public bool swaping = false;
 
         private void DoSwap(Block block_1, Block block_2)
         {
-            var block_1_Pos = block_1.transform.localPosition;
+            var block_1_Pos = block_1.dragBeginPos;
             var block_2_Pos = block_2.transform.localPosition;
 
             swaping = true;
