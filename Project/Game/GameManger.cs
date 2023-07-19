@@ -117,30 +117,36 @@ namespace Demo
             var block_2_Pos = block_2.transform.localPosition;
 
             swaping = true;
+            //表现部分
             block_1.transform.DOLocalMove(block_2_Pos, 10 * Time.deltaTime).OnComplete(() =>
             {
-                block_1.dragBeginPos = block_1.transform.localPosition;
+               
             });
             block_2.transform.DOScale(0.9f, 5 * Time.deltaTime);
             block_2.transform.DOLocalMove(block_1_Pos, 10 * Time.deltaTime).OnComplete(() =>
             {
-                block_2.transform.DOScale(ConstValues.BLOCK_BIG_SCALE, 5 * Time.deltaTime);
-                block_2.transform.DOScale(1f, 5 * Time.deltaTime);
-
-                blockMatrix[block_1.Row, block_1.Col - 1] = block_2;
-                blockMatrix[block_2.Row, block_2.Col - 1] = block_1;
-                int tempRow = block_1.Row;
-                int tempCol = block_1.Col;
-
-                block_1.Row = block_2.Row;
-                block_1.Col = block_2.Col;
-                block_1.ChangeBlockObjName();
-
-                block_2.Row = tempRow;
-                block_2.Col = tempCol;
-                block_2.ChangeBlockObjName();
-                swaping = false;
+                block_2.transform.DOScale(ConstValues.BLOCK_BIG_SCALE, 5 * Time.deltaTime).OnComplete(() =>
+                {
+                    block_2.transform.DOScale(1f, 5 * Time.deltaTime).OnComplete((() =>
+                    {
+                        swaping = false;
+                    }));
+                });
             });
+            //数据部分
+            block_1.dragBeginPos = block_2_Pos;
+            blockMatrix[block_1.Row, block_1.Col - 1] = block_2;
+            blockMatrix[block_2.Row, block_2.Col - 1] = block_1;
+            int tempRow = block_1.Row;
+            int tempCol = block_1.Col;
+
+            block_1.Row = block_2.Row;
+            block_1.Col = block_2.Col;
+            block_1.ChangeBlockObjName();
+
+            block_2.Row = tempRow;
+            block_2.Col = tempCol;
+            block_2.ChangeBlockObjName();
         }
     }
 }

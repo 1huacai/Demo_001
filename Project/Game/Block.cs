@@ -81,6 +81,7 @@ namespace Demo
                 else if (xOffset < ConstValues.BLOCK_WIDTH / 2f && !GameManger.Inst.swaping)
                 {
                     transform.localPosition = new Vector3(curPosition.x, dragBeginPos.y, 0f);
+                    moved = false;
                 }
 
                 #region 纵向
