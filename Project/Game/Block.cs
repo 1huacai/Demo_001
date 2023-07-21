@@ -21,7 +21,7 @@ namespace Demo
         public bool isDimmed = false;
         private BlockState state = BlockState.Normal;
         private bool selected = false;
-        
+
         public delegate void BlockOperationHandler(int row, int column, BlockOperation operation);
 
         public event BlockOperationHandler BlockOperationEvent;
@@ -38,6 +38,7 @@ namespace Demo
         }
 
         private bool moved = false;
+
         private void OnMouseUp()
         {
             if (type != BlockType.None && BlockOperationEvent != null)
@@ -47,6 +48,7 @@ namespace Demo
                 {
                     transform.localPosition = dragBeginPos;
                 }
+
                 BlockOperationEvent(row, col, BlockOperation.TouchUp);
                 dragBeginPos = Vector3.zero;
                 moved = false;
@@ -85,6 +87,7 @@ namespace Demo
                 }
 
                 #region 纵向
+
                 // else if (yOffset >= ConstValues.BLOCK_HEIGHT / 2f)
                 // {
                 //     // if (yOffset > ConstValues.BLOCK_HEIGHT)
@@ -106,8 +109,8 @@ namespace Demo
                 // {
                 //     transform.localPosition = new Vector3(dragBeginPos.x, curPosition.y, 0f);
                 // }
+
                 #endregion
-                
             }
         }
 
@@ -196,8 +199,9 @@ namespace Demo
 
         private void OnDestroy()
         {
-            manger.blockMatrix[Row, Col] = null;
-            Destroy(gameObject);
+            // Destroy(gameObject);
+            // manger.blockMatrix[Row, Col - 1] = null;
+            // Debug.LogError($"已删除{Row}-{Col}");
         }
     }
 }

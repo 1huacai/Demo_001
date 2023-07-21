@@ -50,7 +50,7 @@ namespace Project
         public const int MAX_BLOCKTYPE = 6;
         
         private const string textureBlockPath = "Texture/block/panel";
-
+        
         private static List<Texture2D> _texture = new List<Texture2D>
         {
             Resources.Load(textureBlockPath + "01") as Texture2D,
@@ -117,5 +117,26 @@ namespace Project
 
         public const float BLOCK_BIG_SCALE = 1.2f;
         public const int BLOCK_BIG_FRAME = 12;
+
+        public static string[] stage_1 =
+        {
+            "c", "0", "c", "c", "c", "c",
+            "1", "0", "1", "1", "1", "1",
+            "1", "0", "1", "1", "1", "1",
+            "1", "0", "1", "1", "1", "1",
+            "1", "0", "1", "1", "1", "1",
+            "1", "0", "1", "1", "1", "1",
+        };
+
+        public static string[] stage_2 =
+        {
+            "0", "c", "c", "c", "0", "c",
+            "0", "1", "1", "1", "0", "1",
+            "0", "1", "1", "1", "0", "1",
+            "1", "1", "1", "1", "1", "1",
+            "1", "1", "1", "1", "1", "1",
+            "1", "1", "1", "1", "1", "1",
+        };
+
     }
 }

@@ -10,22 +10,19 @@ namespace Demo
         private Transform blockBoard;//block棋盘
         private Transform pressureBoard;//压力块棋盘
 
+        private AorButton reGenBlockBtn;
+        
         public override void InitUI(params object[] msg)
         {
             boards = transform.Find("PlayerArea/Boards");
             blockBoard = boards.Find("BlockBoard");
             pressureBoard = boards.Find("PressureBoard");
+            reGenBlockBtn = boards.Find("ReGenBlockBtn").GetComponent<AorButton>();
             
             var blockDatas = GameManger.Inst.GenBlockDatas();
             //根据数据构建所有棋子obj
             GameManger.Inst.GenBlocks(blockDatas,blockBoard);
             
-            // Debug.LogError($"棋子个数{blockDatas.Count}");
-            // for (int i = 0; i < blockDatas.Count; i++)
-            // {
-            //     Debug.LogError($"{blockDatas[i].row}----{blockDatas[i].col}---{blockDatas[i].type}");
-            // }
-
         }
 
         public override void RefreshShow(params object[] msg)
@@ -35,7 +32,8 @@ namespace Demo
 
         public override void RegisterEvent()
         {
-            
+            reGenBlockBtn.onClick.RemoveAllListeners();
+            reGenBlockBtn.onClick.AddListener(ReGenBlockBtnCallback);
         }
 
         public override void UnRegisterEvent()
@@ -47,5 +45,31 @@ namespace Demo
         {
            
         }
+        
+        //重新刷新棋盘按钮回调
+        private void ReGenBlockBtnCallback()
+        {
+            DestroyAllBlocks();
+        }
+        
+        public void DestroyAllBlocks()
+        {
+            for (int i = 0; i < GameManger.Inst.blockMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < GameManger.Inst.blockMatrix.GetLength(1); j++)
+                {
+                    if (GameManger.Inst.blockMatrix[i, j] != null)
+                    {
+                        GameObject.Destroy(GameManger.Inst.blockMatrix[i,j].gameObject);
+                        GameManger.Inst.blockMatrix[i, j] = null;
+                    }
+                }
+            }
+            
+            var blockDatas = GameManger.Inst.GenBlockDatas(4);
+            //根据数据构建所有棋子obj
+            GameManger.Inst.GenBlocks(blockDatas,blockBoard);
+        }
+
     }
 }
