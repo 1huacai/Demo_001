@@ -28,6 +28,17 @@ namespace Demo
         {
             Application.targetFrameRate = 60;
         }
+        
+        //初始化游戏
+        public void InitGame()
+        {
+            StateManger._instance.Init(this);
+            var gameView = UIManager.Inst.GetUI<GameView>(UIDef.GameView);
+            var blockDatas = GameManger.Inst.GenBlockDatas();
+            //根据数据构建所有棋子obj
+            GameManger.Inst.GenBlocks(blockDatas,gameView.BlockBoard);
+        }
+        
 
         //自身所有棋子的初始化数据
         public Block[,] blockMatrix = new Block[ConstValues.MAX_MATRIX_ROW, ConstValues.MAX_COL];
@@ -184,46 +195,13 @@ namespace Demo
             //执行拖拽操作
             if (operation == BlockOperation.DragHalf)
             {
-                //待交换的block
-                var otherBlock = blockMatrix[row, col - 1];
-                if (otherBlock == null || swaping)
-                    return;
-                DoSwap(selectBlock, otherBlock);
+                StateManger._instance.StateHandlers[BlockState.Swapping].OnBlockOperation(row,col,operation);
             }
-        }
 
-        public bool swaping = false;
-
-        private void DoSwap(Block block_1, Block block_2)
-        {
-            var block_1_Pos = block_1.dragBeginPos;
-            var block_2_Pos = block_2.transform.localPosition;
-
-            swaping = true;
-            //表现部分
-            block_1.transform.DOLocalMove(block_2_Pos, 10 * Time.deltaTime).OnComplete(() => { });
-            block_2.transform.DOScale(0.9f, 5 * Time.deltaTime);
-            block_2.transform.DOLocalMove(block_1_Pos, 10 * Time.deltaTime).OnComplete(() =>
+            if (operation == BlockOperation.TouchUp || operation == BlockOperation.TouchDown)
             {
-                block_2.transform.DOScale(ConstValues.BLOCK_BIG_SCALE, 5 * Time.deltaTime).OnComplete(() =>
-                {
-                    block_2.transform.DOScale(1f, 5 * Time.deltaTime).OnComplete((() => { swaping = false; }));
-                });
-            });
-            //数据部分
-            block_1.dragBeginPos = block_2_Pos;
-            blockMatrix[block_1.Row, block_1.Col - 1] = block_2;
-            blockMatrix[block_2.Row, block_2.Col - 1] = block_1;
-            int tempRow = block_1.Row;
-            int tempCol = block_1.Col;
-
-            block_1.Row = block_2.Row;
-            block_1.Col = block_2.Col;
-            block_1.ChangeBlockObjName();
-
-            block_2.Row = tempRow;
-            block_2.Col = tempCol;
-            block_2.ChangeBlockObjName();
+                StateManger._instance.StateHandlers[BlockState.Normal].OnBlockOperation(row,col,operation);
+            }
         }
     }
 }

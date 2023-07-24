@@ -21,7 +21,8 @@ namespace Demo
         public bool isDimmed = false;
         private BlockState state = BlockState.Normal;
         private bool selected = false;
-
+        private bool swaping = false;
+        
         public delegate void BlockOperationHandler(int row, int column, BlockOperation operation);
 
         public event BlockOperationHandler BlockOperationEvent;
@@ -29,9 +30,12 @@ namespace Demo
 
         private void OnMouseDown()
         {
+            if(BlockNotInteractByState())
+                return;
+            
             if (type != BlockType.None && BlockOperationEvent != null)
             {
-                IsSelected = true;
+                // IsSelected = true;
                 BlockOperationEvent(row, col, BlockOperation.TouchDown);
                 dragBeginPos = transform.localPosition;
             }
@@ -41,9 +45,12 @@ namespace Demo
 
         private void OnMouseUp()
         {
+            if(BlockNotInteractByState())
+                return;
+            
             if (type != BlockType.None && BlockOperationEvent != null)
             {
-                IsSelected = false;
+                // IsSelected = false;
                 if (!moved)
                 {
                     transform.localPosition = dragBeginPos;
@@ -58,6 +65,9 @@ namespace Demo
 
         public void OnDrag(PointerEventData eventData)
         {
+            if(BlockNotInteractByState())
+                return;
+            
             if (type != BlockType.None && BlockOperationEvent != null)
             {
                 Vector3 curPosition = eventData.position;
@@ -80,13 +90,13 @@ namespace Demo
                         moved = true;
                     }
                 }
-                else if (xOffset < ConstValues.BLOCK_WIDTH / 2f && !GameManger.Inst.swaping)
+                else if (xOffset < ConstValues.BLOCK_WIDTH / 2f && State != BlockState.Swapping)
                 {
                     transform.localPosition = new Vector3(curPosition.x, dragBeginPos.y, 0f);
                     moved = false;
                 }
 
-                #region 纵向
+                #region 纵向(弃用)
 
                 // else if (yOffset >= ConstValues.BLOCK_HEIGHT / 2f)
                 // {
@@ -139,6 +149,7 @@ namespace Demo
             return block;
         }
 
+        #region 变量Get/Set属性器
         public int Row
         {
             get { return row; }
@@ -182,6 +193,19 @@ namespace Demo
             }
         }
 
+        public bool IsSwaping
+        {
+            get { return swaping; }
+            set { swaping = value; }
+        }
+
+        public BlockState State
+        {
+            get { return state; }
+            set { state = value; }
+        }
+        #endregion
+        
         //检测两个方块是否相邻
         public bool CheckAdjacent(Block other)
         {
@@ -196,7 +220,17 @@ namespace Demo
         {
             gameObject.name = $"{row}-{col}";
         }
-
+        
+        /// <summary>
+        /// 根据限定状态决定Block不可交互
+        /// </summary>
+        /// <returns></returns>
+        private bool BlockNotInteractByState()
+        {
+            return  State == BlockState.Matched || state == BlockState.Dimmed || state == BlockState.Popping;
+        }
+        
+        
         private void OnDestroy()
         {
             // Destroy(gameObject);

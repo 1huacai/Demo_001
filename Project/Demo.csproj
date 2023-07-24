@@ -89,6 +89,17 @@
     <Compile Include="Game\Block.cs" />
     <Compile Include="Game\BlockData.cs" />
     <Compile Include="Game\GameManger.cs" />
+    <Compile Include="Game\States\Statebase.cs" />
+    <Compile Include="Game\States\StateHandle\DimmedState.cs" />
+    <Compile Include="Game\States\StateHandle\FallingState.cs" />
+    <Compile Include="Game\States\StateHandle\HoveringState.cs" />
+    <Compile Include="Game\States\StateHandle\LandingState.cs" />
+    <Compile Include="Game\States\StateHandle\MatchedState.cs" />
+    <Compile Include="Game\States\StateHandle\NormalState.cs" />
+    <Compile Include="Game\States\StateHandle\PoppedState.cs" />
+    <Compile Include="Game\States\StateHandle\PoppingState.cs" />
+    <Compile Include="Game\States\StateHandle\SwappingState.cs" />
+    <Compile Include="Game\States\StateManger.cs" />
     <Compile Include="Game\UIManager\UIBase.cs" />
     <Compile Include="Game\UIManager\UIDef.cs" />
     <Compile Include="Game\UIManager\UIManager.cs" />
@@ -101,7 +112,6 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

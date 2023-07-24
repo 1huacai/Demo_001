@@ -10,6 +10,16 @@ namespace Demo
         private Transform blockBoard;//block棋盘
         private Transform pressureBoard;//压力块棋盘
 
+        public Transform BlockBoard
+        {
+            get { return blockBoard; }
+        }
+
+        public Transform PressureBoard
+        {
+            get { return pressureBoard; }
+        }
+        
         private AorButton reGenBlockBtn;
         
         public override void InitUI(params object[] msg)
@@ -19,10 +29,7 @@ namespace Demo
             pressureBoard = boards.Find("PressureBoard");
             reGenBlockBtn = boards.Find("ReGenBlockBtn").GetComponent<AorButton>();
             
-            var blockDatas = GameManger.Inst.GenBlockDatas();
-            //根据数据构建所有棋子obj
-            GameManger.Inst.GenBlocks(blockDatas,blockBoard);
-            
+            GameManger.Inst.InitGame();
         }
 
         public override void RefreshShow(params object[] msg)

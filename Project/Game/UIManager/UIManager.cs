@@ -82,5 +82,16 @@ namespace Demo
                 UIDic.Remove(name);
             }
         }
+
+        public T GetUI<T>(UIDef name) where T : UIBase
+        {
+            T ui = null;
+            if (UIDic.ContainsKey(name))
+            {
+                ui = UIDic[name] as T;
+            }
+
+            return ui;
+        }
     }
 }
