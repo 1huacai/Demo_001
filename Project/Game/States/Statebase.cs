@@ -5,7 +5,8 @@ namespace Demo
     public class Statebase
     {
         protected GameManger _gameManger;
-
+        //对应的计时器id，唯一
+        protected int timerID = 0;
         public Statebase(GameManger manger)
         {
             _gameManger = manger;
@@ -36,7 +37,8 @@ namespace Demo
 
         public virtual void Exit(Block block)
         {
-            
+            if(timerID != 0)
+                TimerMgr._Instance.Unschedule(timerID);
         }
 
         #endregion

@@ -17,18 +17,15 @@ namespace Demo
         public override void Update(Block block)
         {
             base.Update(block);
-            //倒计时结束popedTimer
-            // if (popedTimer == 0)
-            // {
-            //     Exit(block);
-            // }
+            //block类型变为空棋子
+            block.type = BlockType.None;
+            StateManger._instance.ChangeState(BlockState.Normal,block);
         }
 
         public override void Exit(Block block)
         {
             base.Exit(block);
-            //block类型变为空棋子
-            block.type = BlockType.None;
+            
         }
     }
 }

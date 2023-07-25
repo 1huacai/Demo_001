@@ -5,6 +5,7 @@ using UnityEngine;
 using Project;
 using FrameWork.Manager;
 using ResourceLoad;
+using UnityEngine.Experimental.PlayerLoop;
 using Random = UnityEngine.Random;
 
 namespace Demo
@@ -17,16 +18,21 @@ namespace Demo
         {
             get
             {
-                if (s_inst == null) s_inst = new GameManger();
+                if (s_inst == null)
+                {
+                    s_inst = new GameManger();
+                }
                 return s_inst;
             }
         }
 
         public Block selectBlock;
-
+        public bool gameStart = false;//游戏开始标志
+        
+        
         public GameManger()
         {
-            Application.targetFrameRate = 60;
+            Application.targetFrameRate = ConstValues.targetPlatformFps;
         }
         
         //初始化游戏
@@ -36,7 +42,9 @@ namespace Demo
             var gameView = UIManager.Inst.GetUI<GameView>(UIDef.GameView);
             var blockDatas = GameManger.Inst.GenBlockDatas();
             //根据数据构建所有棋子obj
-            GameManger.Inst.GenBlocks(blockDatas,gameView.BlockBoard);
+            GenBlocks(blockDatas,gameView.BlockBoard);
+            gameStart = true;
+            TimerMgr._Instance.Init();
         }
         
 
@@ -44,6 +52,7 @@ namespace Demo
         public Block[,] blockMatrix = new Block[ConstValues.MAX_MATRIX_ROW, ConstValues.MAX_COL];
 
         #region 初始化blockStageData部分
+        
         //所有stage的样式的配置
         List<string[]> stageConfigs = new List<string[]>
         {
@@ -203,5 +212,41 @@ namespace Demo
                 StateManger._instance.StateHandlers[BlockState.Normal].OnBlockOperation(row,col,operation);
             }
         }
+
+        public void FiexdUpdate()
+        {
+            if (!gameStart)
+                return;
+
+            UpDateBlockArea();
+        }
+        
+        //更新棋盘区域逻辑
+        private void UpDateBlockArea()
+        {
+            for (int row = 0; row < ConstValues.MAX_MATRIX_ROW; row++)
+            {
+                for (int col = 0; col < ConstValues.MAX_COL; col++)
+                {
+                    var block = blockMatrix[row, col];
+                    if (block != null)
+                    {
+                        block.LogicUpdate();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 获取当前block在横向纵向上与自己相邻的相同type(非None)的block
+        /// </summary>
+        /// <param name="block"></param>
+        /// <returns></returns>
+        public List<Block> GetSameBlocksWith(Block block)
+        {
+
+            return new List<Block>();
+        }
+        
     }
 }

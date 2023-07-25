@@ -138,5 +138,14 @@ namespace Project
             "1", "1", "1", "1", "1", "1",
         };
 
+        public const int targetPlatformFps = 50;
+        //棋子的转状态参数
+        public const int fallingFps = 2;
+        public const int hoveringFps = 9;
+        public const int landingFps = 13;
+        public const int matchedFps = 64;
+        public const int poppingFps = 8;
+
+        public static readonly float fpsTime = Time.deltaTime;
     }
 }

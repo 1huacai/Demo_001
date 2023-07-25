@@ -17,17 +17,17 @@ namespace Demo
         public override void Update(Block block)
         {
             base.Update(block);
-            //popingTimer计时结束
-            // if (poptingTime == 0)
-            // {
-            //     Exit(block);
-            // }
+            timerID = TimerMgr._Instance.Schedule(() =>
+            {
+                StateManger._instance.ChangeState(BlockState.Popped, block);
+                Exit(block);
+            }, ConstValues.poppingFps * ConstValues.fpsTime);
+
         }
 
         public override void Exit(Block block)
         {
             base.Exit(block);
-            StateManger._instance.ChangeState(BlockState.Popped,block);
         }
     }
 }

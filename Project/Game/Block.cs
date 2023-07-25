@@ -22,12 +22,14 @@ namespace Demo
         private BlockState state = BlockState.Normal;
         private bool selected = false;
         private bool swaping = false;
+        private bool needFall = false;
         
         public delegate void BlockOperationHandler(int row, int column, BlockOperation operation);
 
         public event BlockOperationHandler BlockOperationEvent;
 
-
+        #region block操作部分
+        
         private void OnMouseDown()
         {
             if(BlockNotInteractByState())
@@ -123,7 +125,8 @@ namespace Demo
                 #endregion
             }
         }
-
+        #endregion
+        
         //单独创建block
         public static Block CreateBlockObject(GameObject obj, int row, int col, BlockType type, Transform parent,
             GameManger mag)
@@ -199,6 +202,13 @@ namespace Demo
             set { swaping = value; }
         }
 
+        public bool IsNeedFall
+        {
+            get { return needFall; }
+            set { needFall = value; }
+        }
+        
+        
         public BlockState State
         {
             get { return state; }
@@ -221,15 +231,51 @@ namespace Demo
             gameObject.name = $"{row}-{col}";
         }
         
-        /// <summary>
+        /// <summary> 
         /// 根据限定状态决定Block不可交互
         /// </summary>
         /// <returns></returns>
         private bool BlockNotInteractByState()
         {
-            return  State == BlockState.Matched || state == BlockState.Dimmed || state == BlockState.Popping;
+            return State == BlockState.Matched || state == BlockState.Dimmed || state == BlockState.Popping ||
+                   state == BlockState.Falling || state == BlockState.Hovering;
         }
-        
+
+        public void LogicUpdate()
+        {
+            if (IsNeedFall)
+            {
+                if(Row <= 1)
+                    return;
+                
+                var downBlock = GameManger.Inst.blockMatrix[Row - 1, Col - 1];
+                var pos1 = transform.localPosition;
+                var pos2 = downBlock.transform.localPosition;
+                // transform.DOLocalMove(pos2, ConstValues.fallingFps * ConstValues.fpsTime).SetEase(Ease.Linear);
+                // downBlock.transform.DOLocalMove(pos1, ConstValues.fallingFps * ConstValues.fpsTime).SetEase(Ease.Linear);
+                transform.localPosition = pos2;
+                downBlock.transform.localPosition = pos1;
+
+                // float speed = ConstValues.BLOCK_WIDTH;
+                // transform.localPosition = Vector3.Lerp(transform.localPosition, pos2, speed);
+                // downBlock.transform.localPosition = Vector3.Lerp(downBlock.transform.localPosition, pos1, speed);
+                
+                int tempRow = Row;
+                int tempCol = Col;
+
+                Row = downBlock.Row;
+                Col = downBlock.Col;
+                ChangeBlockObjName();
+                GameManger.Inst.blockMatrix[Row, Col - 1] = this;
+                
+                downBlock.Row = tempRow;
+                downBlock.Col = tempCol;
+                downBlock.ChangeBlockObjName();
+                GameManger.Inst.blockMatrix[downBlock.Row, downBlock.Col - 1] = downBlock;
+                
+                
+            }
+        }
         
         private void OnDestroy()
         {

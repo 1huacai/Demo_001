@@ -20,9 +20,29 @@ namespace Demo
         public override void Update(Block block)
         {
             base.Update(block);
-            
-            
-            
+            if(block.type == BlockType.None)
+                return;
+            //获取在当前block下面的格子的状态
+            var downBlock = _gameManger.blockMatrix[block.Row - 1, block.Col - 1];
+            var downBlockState = downBlock.State; 
+            if (downBlock.type != BlockType.None && downBlockState != BlockState.Hovering &&
+                downBlockState != BlockState.Falling)
+            {
+                StateManger._instance.ChangeState(BlockState.Normal,block);
+            }
+            else if (downBlock.type == BlockType.None)
+            {
+                StateManger._instance.ChangeState(BlockState.Hovering,block);
+            }
+            else if (downBlock.type != BlockType.None && downBlockState == BlockState.Hovering)
+            {
+                StateManger._instance.ChangeState(BlockState.Hovering,block);
+            }
+            else if (downBlock.type != BlockType.None && downBlockState != BlockState.Hovering &&
+                     downBlockState == BlockState.Falling)
+            {
+                StateManger._instance.ChangeState(BlockState.Hovering,block);
+            }
         }
 
         public override void Exit(Block block)
@@ -55,17 +75,17 @@ namespace Demo
             StateManger._instance.ChangeStageEnter(BlockState.Swapping,block_1,block_2);
             
             //表现部分
-            block_1.transform.DOLocalMove(block_2_Pos, 10 * Time.deltaTime).OnComplete(() => { });
-            block_2.transform.DOScale(0.9f, 5 * Time.deltaTime);
-            block_2.transform.DOLocalMove(block_1_Pos, 10 * Time.deltaTime).OnComplete(() =>
+            block_1.transform.DOLocalMove(block_2_Pos, 10 * ConstValues.fpsTime).OnComplete(() => { });
+            block_2.transform.DOScale(0.9f, 5 * ConstValues.fpsTime);
+            block_2.transform.DOLocalMove(block_1_Pos, 10 * ConstValues.fpsTime).OnComplete(() =>
             {
-                block_2.transform.DOScale(ConstValues.BLOCK_BIG_SCALE, 5 * Time.deltaTime).OnComplete(() =>
+                block_2.transform.DOScale(ConstValues.BLOCK_BIG_SCALE, 5 * ConstValues.fpsTime).OnComplete(() =>
                 {
-                    block_2.transform.DOScale(1f, 5 * Time.deltaTime).OnComplete((() =>
+                    block_2.transform.DOScale(1f, 5 * ConstValues.fpsTime).OnComplete((() =>
                     {   
-                        //swaping 状态下的状态更新
-                        //StateManger._instance.ChangeStageUpdate(BlockState.Swapping,block_1,block_2);
-                        StateManger._instance.ChangeStageEnter(BlockState.Normal,block_1,block_2);
+                        //swaping 状态下的状态更新   
+                        StateManger._instance.ChangeStageUpdate(BlockState.Swapping,block_1,block_2);
+                        //StateManger._instance.ChangeStageEnter(BlockState.Normal,block_1,block_2);
                     }));
                 });
             });

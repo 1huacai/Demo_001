@@ -100,11 +100,13 @@
     <Compile Include="Game\States\StateHandle\PoppingState.cs" />
     <Compile Include="Game\States\StateHandle\SwappingState.cs" />
     <Compile Include="Game\States\StateManger.cs" />
+    <Compile Include="Game\UIManager\TimerMgr.cs" />
     <Compile Include="Game\UIManager\UIBase.cs" />
     <Compile Include="Game\UIManager\UIDef.cs" />
     <Compile Include="Game\UIManager\UIManager.cs" />
     <Compile Include="Model\ModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\GameLogic.cs" />
     <Compile Include="Tools\GameUtils.cs" />
     <Compile Include="UIView\GameView.cs" />
     <Compile Include="UIView\LoginView.cs" />
