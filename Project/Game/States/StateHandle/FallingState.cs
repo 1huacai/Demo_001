@@ -22,6 +22,7 @@ namespace Demo
             base.Update(block);
             timerID = TimerMgr._Instance.Schedule(() =>
             {
+                Exit(block);
                 var downBlock = _gameManger.blockMatrix[block.Row - 1, block.Col - 1];
                 if (block.Row == 1)
                 {
@@ -42,10 +43,12 @@ namespace Demo
                 else if (downBlock.type != BlockType.None && downBlock.State != BlockState.Hovering)
                 {
                     StateManger._instance.ChangeState(BlockState.Landing, block);
+                }else if (downBlock.type != BlockType.None && downBlock.State == BlockState.Normal)
+                {
+                    StateManger._instance.ChangeState(BlockState.Landing, block);
                 }
                 
-                Exit(block);
-            },ConstValues.fallingFps * ConstValues.fpsTime);
+            }, ConstValues.fallingFps * ConstValues.fpsTime);
             
         }
 

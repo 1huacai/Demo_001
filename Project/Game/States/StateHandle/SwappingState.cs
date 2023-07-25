@@ -20,8 +20,6 @@ namespace Demo
         public override void Update(Block block)
         {
             base.Update(block);
-            if(block.type == BlockType.None)
-                return;
             //获取在当前block下面的格子的状态
             var downBlock = _gameManger.blockMatrix[block.Row - 1, block.Col - 1];
             var downBlockState = downBlock.State; 

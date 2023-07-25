@@ -1,12 +1,15 @@
 ﻿using Project;
+using UnityEngine;
 
 namespace Demo
 {
     public class Statebase
     {
         protected GameManger _gameManger;
+
         //对应的计时器id，唯一
         protected int timerID = 0;
+
         public Statebase(GameManger manger)
         {
             _gameManger = manger;
@@ -14,7 +17,6 @@ namespace Demo
 
         public virtual void OnBlockOperation(int row, int col, BlockOperation operation)
         {
-            
         }
 
         public virtual void OnDestroy()
@@ -27,21 +29,26 @@ namespace Demo
 
         public virtual void Enter(Block block)
         {
-            
+            if (block.type == BlockType.None)
+                return;
         }
 
         public virtual void Update(Block block)
         {
-            
+            if (block.type == BlockType.None)
+                return;
+           
         }
 
         public virtual void Exit(Block block)
         {
-            if(timerID != 0)
+            if (block.type == BlockType.None)
+                return;
+            
+            if (timerID != 0)
                 TimerMgr._Instance.Unschedule(timerID);
         }
 
         #endregion
-        
     }
 }

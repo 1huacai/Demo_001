@@ -32,18 +32,19 @@ namespace Demo
         
         public GameManger()
         {
-            Application.targetFrameRate = ConstValues.targetPlatformFps;
+           
         }
         
         //初始化游戏
         public void InitGame()
         {
-            StateManger._instance.Init(this);
+            Application.targetFrameRate = ConstValues.targetPlatformFps;
             var gameView = UIManager.Inst.GetUI<GameView>(UIDef.GameView);
             var blockDatas = GameManger.Inst.GenBlockDatas();
             //根据数据构建所有棋子obj
             GenBlocks(blockDatas,gameView.BlockBoard);
             gameStart = true;
+            StateManger._instance.Init(this);
             TimerMgr._Instance.Init();
         }
         
