@@ -252,15 +252,14 @@ namespace Demo
 
             if (IsNeedFall)
             {
+                IsNeedFall = false;
                 if (Row <= 1)
                     return;
-
+                Debug.LogError(1111);
                 var downBlock = GameManger.Inst.blockMatrix[Row - 1, Col - 1];
                 var pos1 = transform.localPosition;
                 var pos2 = downBlock.transform.localPosition;
-
-                // transform.localPosition = pos2;
-                // downBlock.transform.localPosition = pos1;
+                
                 transform.DOLocalMove(pos2, ConstValues.fallingFps * ConstValues.fpsTime);
                 downBlock.transform.DOLocalMove(pos1, ConstValues.fallingFps * ConstValues.fpsTime);
 

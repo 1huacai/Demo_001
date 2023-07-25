@@ -55,7 +55,6 @@ namespace Demo
         public override void Exit(Block block)
         {
             base.Exit(block);
-            block.IsNeedFall = false;
         }
     }
 }
