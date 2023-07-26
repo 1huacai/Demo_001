@@ -254,6 +254,10 @@ namespace Demo
 
             CheckBlockNotInteractWithState();
 
+            //实时监测自己自身的状态，除去swaping
+            if(state != BlockState.Swapping)
+                StateManger._instance.ChangeStageUpdate(state,this);
+            
             if (IsNeedFall)
             {
                 IsNeedFall = false;
