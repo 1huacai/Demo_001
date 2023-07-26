@@ -10,25 +10,27 @@ namespace Demo
 
         public override void Enter(Block block)
         {
-            base.Enter(block);
+            if (block.Type == BlockType.None)
+                return;
             block.State = BlockState.Hovering;
         }
 
         public override void Update(Block block)
         {
-            base.Update(block);
+            if (block.Type == BlockType.None)
+                return;
             timerID = TimerMgr._Instance.Schedule(() =>
             {
                 var downBlock = _gameManger.blockMatrix[block.Row - 1, block.Col - 1];
-                if (downBlock.type == BlockType.None)
+                if (downBlock.Type == BlockType.None)
                 {
                     StateManger._instance.ChangeState(BlockState.Falling, block);
                 }
-                else if (downBlock.type != BlockType.None && downBlock.State == BlockState.Hovering)
+                else if (downBlock.Type != BlockType.None && downBlock.State == BlockState.Hovering)
                 {
                     StateManger._instance.ChangeState(BlockState.Hovering, block);
                 }
-                else if (downBlock.type != BlockType.None && downBlock.State == BlockState.Normal)
+                else if (downBlock.Type != BlockType.None && downBlock.State == BlockState.Normal)
                 {
                     StateManger._instance.ChangeState(BlockState.Landing, block);
                 }
@@ -36,11 +38,6 @@ namespace Demo
                 Exit(block);
             }, ConstValues.hoveringFps * ConstValues.fpsTime);
            
-        }
-
-        public override void Exit(Block block)
-        {
-            base.Exit(block);
         }
     }
 }

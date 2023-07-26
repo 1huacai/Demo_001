@@ -11,19 +11,18 @@ namespace Demo
 
         public override void Enter(Block block)
         {
-            base.Enter(block);
+            if (block.Type == BlockType.None)
+                return;
             block.State = BlockState.Normal;
         }
 
         public override void Update(Block block)
         {
-            base.Update(block);
+            if (block.Type == BlockType.None)
+                return;
+            //下方棋子Type为None且block的row = 1
         }
-
-        public override void Exit(Block block)
-        {
-            base.Exit(block);
-        }
+        
         
         public override void OnBlockOperation(int row, int col, BlockOperation operation)
         {

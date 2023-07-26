@@ -10,22 +10,19 @@ namespace Demo
 
         public override void Enter(Block block)
         {
-            base.Enter(block);
+            if (block.Type == BlockType.None)
+                return;
             block.State = BlockState.Popped;
         }
 
         public override void Update(Block block)
         {
-            base.Update(block);
+            if (block.Type == BlockType.None)
+                return;
             //block类型变为空棋子
-            block.type = BlockType.None;
             StateManger._instance.ChangeState(BlockState.Normal,block);
+            block.Type = BlockType.None;
         }
-
-        public override void Exit(Block block)
-        {
-            base.Exit(block);
-            
-        }
+        
     }
 }

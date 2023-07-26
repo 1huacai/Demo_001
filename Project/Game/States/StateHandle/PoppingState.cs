@@ -10,13 +10,15 @@ namespace Demo
 
         public override void Enter(Block block)
         {
-            base.Enter(block);
+            if (block.Type == BlockType.None)
+                return;
             block.State = BlockState.Popping;
         }
 
         public override void Update(Block block)
         {
-            base.Update(block);
+            if (block.Type == BlockType.None)
+                return;
             timerID = TimerMgr._Instance.Schedule(() =>
             {
                 StateManger._instance.ChangeState(BlockState.Popped, block);

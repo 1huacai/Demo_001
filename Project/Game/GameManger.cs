@@ -5,7 +5,6 @@ using UnityEngine;
 using Project;
 using FrameWork.Manager;
 using ResourceLoad;
-using UnityEngine.Experimental.PlayerLoop;
 using Random = UnityEngine.Random;
 
 namespace Demo
@@ -73,25 +72,25 @@ namespace Demo
             {
                 for (int col = 0; col < maxCol; col++)
                 {
-                    BlockType type = BlockType.None;
+                    BlockType Type = BlockType.None;
 
                     if (blockDataList.Count < 30)
                     {
                         do
                         {
-                            type = (BlockType) Random.Range(1, 6); // Randomly generate a BlockType that is not None
-                        } while ((speedLevel > 3 && IsSameAsAdjacent(blockDataMatrix, row, col, type))
-                                 || (row >= 2 && blockDataMatrix[row - 1, col].type == type &&
-                                     blockDataMatrix[row - 2, col].type == type)
-                                 || (col >= 2 && blockDataMatrix[row, col - 1].type == type &&
-                                     blockDataMatrix[row, col - 2].type == type));
+                            Type = (BlockType) Random.Range(1, 6); // Randomly generate a BlockType that is not None
+                        } while ((speedLevel > 3 && IsSameAsAdjacent(blockDataMatrix, row, col, Type))
+                                 || (row >= 2 && blockDataMatrix[row - 1, col].type == Type &&
+                                     blockDataMatrix[row - 2, col].type == Type)
+                                 || (col >= 2 && blockDataMatrix[row, col - 1].type == Type &&
+                                     blockDataMatrix[row, col - 2].type == Type));
                     }
                     else if (row > 0 && blockDataMatrix[row - 1, col].type == BlockType.None)
                     {
-                        type = BlockType.None;
+                        Type = BlockType.None;
                     }
 
-                    blockDataMatrix[row, col] = new BlockData(row + 1, col + 1, type);
+                    blockDataMatrix[row, col] = new BlockData(row + 1, col + 1, Type);
                     blockDataList.Add(blockDataMatrix[row, col]);
                 }
             }
@@ -104,10 +103,10 @@ namespace Demo
             return blockDataList;
         }
 
-        private bool IsSameAsAdjacent(BlockData[,] blockDataMatrix, int row, int col, BlockType type)
+        private bool IsSameAsAdjacent(BlockData[,] blockDataMatrix, int row, int col, BlockType Type)
         {
-            return (row > 0 && blockDataMatrix[row - 1, col].type == type) ||
-                   (col > 0 && blockDataMatrix[row, col - 1].type == type);
+            return (row > 0 && blockDataMatrix[row - 1, col].type == Type) ||
+                   (col > 0 && blockDataMatrix[row, col - 1].type == Type);
         }
 
         //根据模板随机选择地图沟壑配置
@@ -145,7 +144,7 @@ namespace Demo
             return blockDatas;
         }
 
-        //获取与之前不同的blocktype
+        //获取与之前不同的blockType
         private BlockType GetDiffTypeFrom(params BlockType[] oldTypes)
         {
             BlockType newType = BlockType.None;
@@ -179,13 +178,13 @@ namespace Demo
                     var data = datas[i];
                     int row = data.row;
                     int col = data.col;
-                    BlockType type = data.type;
+                    BlockType Type = data.type;
 
                     // //空方块不生成对象
-                    // if(type == BlockType.None)
+                    // if(Type == BlockType.None)
                     //     continue;
 
-                    Block block = Block.CreateBlockObject(obj, row, col, type, boardTran, this);
+                    Block block = Block.CreateBlockObject(obj, row, col, Type, boardTran, this);
                     //设置棋子位置
                     block.transform.localPosition = new Vector3(
                         ConstValues.BLOCK_X_ORIGINPOS + (col - 1) * ConstValues.BLOCK_X_OFFSET,
@@ -239,14 +238,88 @@ namespace Demo
         }
 
         /// <summary>
-        /// 获取当前block在横向纵向上与自己相邻的相同type(非None)的block
+        /// 获取当前block在横向纵向上与自己相邻的相同Type(非None)的block
         /// </summary>
         /// <param name="block"></param>
         /// <returns></returns>
         public List<Block> GetSameBlocksWith(Block block)
         {
+            //纵向上相邻且相同Type的集合
+            List<Block> v_blocks = new List<Block>();
+            //横向上相邻且相同Type的集合
+            List<Block> h_blocks = new List<Block>();
+            List<Block> sameBlocks = new List<Block>();
 
-            return new List<Block>();
+            //向上找
+            int curRow = block.Row;
+            int curCol = block.Col - 1;
+            for (int row = curRow; row < ConstValues.MAX_ROW - 1; row++)
+            {
+                var targetBlock = blockMatrix[row + 1, curCol];
+                var curBlock = blockMatrix[row, curCol];
+                if (targetBlock.Type == BlockType.None)
+                    break;
+                if ((curBlock.Type == targetBlock.Type) && (curBlock.Type == block.Type))
+                {
+                    v_blocks.Add(targetBlock);
+                }
+            }
+
+            //向下找
+            for (int row = curRow; row > 1; row--)
+            {
+                var targetBlock = blockMatrix[row - 1, curCol];
+                var curBlock = blockMatrix[row, curCol];
+                if (targetBlock.Type == BlockType.None)
+                    break;
+                if ((curBlock.Type == targetBlock.Type) && (curBlock.Type == block.Type))
+                {
+                    v_blocks.Add(targetBlock);
+                }
+            }
+
+            //向左找
+            for (int col = curCol; col > 0; col--)
+            {
+                var targetBlock = blockMatrix[curRow, col - 1];
+                var curBlock = blockMatrix[curRow, col];
+                if (targetBlock.Type == BlockType.None)
+                    break;
+                if ((curBlock.Type == targetBlock.Type) && (curBlock.Type == block.Type))
+                {
+                    h_blocks.Add(targetBlock);
+                }
+            }
+
+            //向右找
+            for (int col = curCol; col < ConstValues.MAX_COL - 1; col++)
+            {
+                var targetBlock = blockMatrix[curRow, col + 1];
+                var curBlock = blockMatrix[curRow, col];
+                if (targetBlock.Type == BlockType.None)
+                    break;
+                if ((curBlock.Type == targetBlock.Type) && (curBlock.Type == block.Type))
+                {
+                    h_blocks.Add(targetBlock);
+                }
+            }
+
+            sameBlocks.Add(block); //自己本身添加在内
+            if (v_blocks.Count >= 2 && h_blocks.Count < 2)
+            {
+                sameBlocks.AddRange(v_blocks);
+            }
+            else if (v_blocks.Count < 2 && h_blocks.Count >= 2)
+            {
+                sameBlocks.AddRange(h_blocks);
+            }
+            else if (v_blocks.Count >= 2 && h_blocks.Count >= 2)
+            {
+                sameBlocks.AddRange(v_blocks);
+                sameBlocks.AddRange(h_blocks);
+            }
+
+            return sameBlocks;
         }
         
     }

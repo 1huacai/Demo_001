@@ -29,22 +29,18 @@ namespace Demo
 
         public virtual void Enter(Block block)
         {
-            if (block.type == BlockType.None)
-                return;
+            
         }
 
         public virtual void Update(Block block)
         {
-            if (block.type == BlockType.None)
+            if (block.Type == BlockType.None)
                 return;
            
         }
 
         public virtual void Exit(Block block)
         {
-            if (block.type == BlockType.None)
-                return;
-            
             if (timerID != 0)
                 TimerMgr._Instance.Unschedule(timerID);
         }

@@ -13,39 +13,42 @@ namespace Demo
 
         public override void Enter(Block block)
         {
-            base.Enter(block);
+            if (block.Type == BlockType.None)
+                return;
+            
             block.State = BlockState.Swapping;
         }
 
         public override void Update(Block block)
         {
-            base.Update(block);
+            if (block.Type == BlockType.None)
+                return;
+            if (block.Row == 1)
+            {
+                StateManger._instance.ChangeState(BlockState.Normal,block);
+                return;
+            }
             //获取在当前block下面的格子的状态
             var downBlock = _gameManger.blockMatrix[block.Row - 1, block.Col - 1];
             var downBlockState = downBlock.State; 
-            if (downBlock.type != BlockType.None && downBlockState != BlockState.Hovering &&
+            if (downBlock.Type != BlockType.None && downBlockState != BlockState.Hovering &&
                 downBlockState != BlockState.Falling)
             {
                 StateManger._instance.ChangeState(BlockState.Normal,block);
             }
-            else if (downBlock.type == BlockType.None)
+            else if (downBlock.Type == BlockType.None)
             {
                 StateManger._instance.ChangeState(BlockState.Hovering,block);
             }
-            else if (downBlock.type != BlockType.None && downBlockState == BlockState.Hovering)
+            else if (downBlock.Type != BlockType.None && downBlockState == BlockState.Hovering)
             {
                 StateManger._instance.ChangeState(BlockState.Hovering,block);
             }
-            else if (downBlock.type != BlockType.None && downBlockState != BlockState.Hovering &&
+            else if (downBlock.Type != BlockType.None && downBlockState != BlockState.Hovering &&
                      downBlockState == BlockState.Falling)
             {
                 StateManger._instance.ChangeState(BlockState.Hovering,block);
             }
-        }
-
-        public override void Exit(Block block)
-        {
-            base.Exit(block);
         }
         
         public override void OnBlockOperation(int row, int col, BlockOperation operation)
@@ -56,8 +59,11 @@ namespace Demo
                 if(_gameManger.selectBlock == null)
                     return;
                 var otherBlock = _gameManger.blockMatrix[row, col - 1];
-                if (otherBlock == null || _gameManger.selectBlock.State == BlockState.Swapping)
+                if (otherBlock == null || _gameManger.selectBlock.State == BlockState.Swapping || otherBlock.State == BlockState.Swapping)
+                {
                     return;
+                }
+                
                 DoSwap(_gameManger.selectBlock, otherBlock);
             }
         }

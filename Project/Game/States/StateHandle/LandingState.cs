@@ -12,15 +12,18 @@ namespace Demo
 
         public override void Enter(Block block)
         {
-            base.Enter(block);
+            if (block.Type == BlockType.None)
+                return;
             block.State = BlockState.Landing;
         }
 
         public override void Update(Block block)
         {
-            base.Update(block);
+            if (block.Type == BlockType.None)
+                return;
             timerID = TimerMgr._Instance.Schedule(() =>
             {
+                 
                 //横向和纵向没有可消除的相邻block
                 var sameBlocks = _gameManger.GetSameBlocksWith(block);
                 if (sameBlocks.Count < 3)
@@ -40,10 +43,6 @@ namespace Demo
             },ConstValues.landingFps * ConstValues.fpsTime);
            
         }
-
-        public override void Exit(Block block)
-        {
-            base.Exit(block);
-        }
+        
     }
 }

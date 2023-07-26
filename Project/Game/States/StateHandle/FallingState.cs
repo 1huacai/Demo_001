@@ -12,14 +12,16 @@ namespace Demo
 
         public override void Enter(Block block)
         {
-            base.Enter(block);
+            if (block.Type == BlockType.None)
+                return;
             block.State = BlockState.Falling;
             block.IsNeedFall = true;
         }
 
         public override void Update(Block block)
         {
-            base.Update(block);
+            if (block.Type == BlockType.None)
+                return;
             timerID = TimerMgr._Instance.Schedule(() =>
             {
                 Exit(block);
@@ -28,22 +30,22 @@ namespace Demo
                 {
                     StateManger._instance.ChangeState(BlockState.Landing, block);
                 }
-                else if (downBlock.type == BlockType.None)
+                else if (downBlock.Type == BlockType.None)
                 {
                     StateManger._instance.ChangeState(BlockState.Falling, block);
                 }
-                else if (downBlock.type != BlockType.None && downBlock.State == BlockState.Falling)
+                else if (downBlock.Type != BlockType.None && downBlock.State == BlockState.Falling)
                 {
                     StateManger._instance.ChangeState(BlockState.Falling, block);
                 }
-                else if (downBlock.type != BlockType.None && downBlock.State == BlockState.Hovering)
+                else if (downBlock.Type != BlockType.None && downBlock.State == BlockState.Hovering)
                 {
                     StateManger._instance.ChangeState(BlockState.Hovering, block);
                 }
-                else if (downBlock.type != BlockType.None && downBlock.State != BlockState.Hovering)
+                else if (downBlock.Type != BlockType.None && downBlock.State != BlockState.Hovering)
                 {
                     StateManger._instance.ChangeState(BlockState.Landing, block);
-                }else if (downBlock.type != BlockType.None && downBlock.State == BlockState.Normal)
+                }else if (downBlock.Type != BlockType.None && downBlock.State == BlockState.Normal)
                 {
                     StateManger._instance.ChangeState(BlockState.Landing, block);
                 }
@@ -51,10 +53,6 @@ namespace Demo
             }, ConstValues.fallingFps * ConstValues.fpsTime);
             
         }
-
-        public override void Exit(Block block)
-        {
-            base.Exit(block);
-        }
+        
     }
 }

@@ -11,19 +11,20 @@ namespace Demo
 
         public override void Enter(Block block)
         {
-            base.Enter(block);
+            if (block.Type == BlockType.None)
+                return;
             block.State = BlockState.Matched;
            
         }
 
         public override void Update(Block block)
         {
-            base.Update(block);
-            // if (matchedTimer == 0)
-            // {
-            //     //匹配时间结束，退出当前状态,进入下一状态
-            //     Exit(block);
-            // }
+            if (block.Type == BlockType.None)
+                return;
+            TimerMgr._Instance.Schedule(() =>
+            {
+                Exit(block);
+            }, ConstValues.matchedFps * ConstValues.fpsTime);
         }
 
         public override void Exit(Block block)

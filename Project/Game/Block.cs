@@ -11,7 +11,7 @@ namespace Demo
     {
         [SerializeField] private int row;
         [SerializeField] private int col;
-        public BlockType type;
+        private BlockType type;
         public Image image;
         public GameObject slectImg;
 
@@ -22,7 +22,7 @@ namespace Demo
         [SerializeField] private BlockState state = BlockState.Normal;
         private bool selected = false;
         private bool swaping = false;
-        [SerializeField] private bool needFall = false;
+        private bool needFall = false;
 
         public delegate void BlockOperationHandler(int row, int column, BlockOperation operation);
 
@@ -40,21 +40,16 @@ namespace Demo
             }
         }
 
-        private bool moved = false;
-
         private void OnMouseUp()
         {
+            if (!IsSelected)
+                return;
+            
             if (type != BlockType.None && BlockOperationEvent != null)
             {
-                // IsSelected = false;
-                if (!moved)
-                {
-                    transform.localPosition = dragBeginPos;
-                }
-
+                transform.localPosition = dragBeginPos;
                 BlockOperationEvent(row, col, BlockOperation.TouchUp);
                 dragBeginPos = Vector3.zero;
-                moved = false;
             }
         }
 
@@ -63,7 +58,7 @@ namespace Demo
         {
             if (!IsSelected)
                 return;
-
+            
             if (type != BlockType.None && BlockOperationEvent != null)
             {
                 Vector3 curPosition = eventData.position;
@@ -72,24 +67,20 @@ namespace Demo
                 float yOffset = Math.Abs(curPosition.y - dragBeginPos.y);
                 if (xOffset >= ConstValues.BLOCK_WIDTH / 2f)
                 {
-                    // if (xOffset > ConstValues.BLOCK_WIDTH)
-                    //     return;
                     if (curPosition.x >= dragBeginPos.x && col < ConstValues.MAX_COL)
                     {
                         BlockOperationEvent(row, col + 1, BlockOperation.DragHalf);
-                        moved = true;
                     }
 
                     if (curPosition.x < dragBeginPos.x && col > 1)
                     {
                         BlockOperationEvent(row, col - 1, BlockOperation.DragHalf);
-                        moved = true;
                     }
                 }
                 else if (xOffset < ConstValues.BLOCK_WIDTH / 2f && State != BlockState.Swapping)
                 {
                     transform.localPosition = new Vector3(curPosition.x, dragBeginPos.y, 0f);
-                    moved = false;
+                  
                 }
 
                 #region 纵向(弃用)
@@ -136,11 +127,11 @@ namespace Demo
             Block block = blockObj.GetComponent<Block>();
             block.row = row;
             block.col = col;
-            block.type = type;
+            block.Type = type;
             block.slectImg = blockObj.transform.Find("Select").gameObject;
-            block.image = blockObj.GetComponent<Image>();
-
-            block.image.sprite = ConstValues._sprites[(int) block.type];
+            // block.image = blockObj.GetComponent<Image>();
+            //
+            // block.image.sprite = ConstValues._sprites[(int) block.type];
             blockObj.name = $"{row}-{col}";
 
             block.manger = mag;
@@ -203,14 +194,26 @@ namespace Demo
             get { return needFall; }
             set { needFall = value; }
         }
-
-
+        
         public BlockState State
         {
             get { return state; }
             set { state = value; }
         }
 
+        public BlockType Type
+        {
+            get { return type; }
+            set
+            {
+                type = value;
+                if(image == null)
+                    image = GetComponent<Image>();
+                image.sprite = ConstValues._sprites[(int) value];
+            }
+        }
+        
+        
         #endregion
 
         //检测两个方块是否相邻
@@ -232,20 +235,21 @@ namespace Demo
         /// 检查block状态来决定当前block是否可以交互
         /// </summary>
         /// <returns></returns>
-        private void CheckBlockNotInteractWithState()
+        public void CheckBlockNotInteractWithState()
         {
             if (State == BlockState.Matched || state == BlockState.Dimmed || state == BlockState.Popping ||
-                state == BlockState.Falling || state == BlockState.Hovering)
+                state == BlockState.Falling || state == BlockState.Hovering || state == BlockState.Landing)
             {
                 IsSelected = false;
             }
+            
         }
 
 
         public void LogicUpdate()
         {
             //空牌就直接跳过
-            if (type == BlockType.None)
+            if (type == BlockType.None)  
                 return;
 
             CheckBlockNotInteractWithState();
@@ -255,7 +259,6 @@ namespace Demo
                 IsNeedFall = false;
                 if (Row <= 1)
                     return;
-                Debug.LogError(1111);
                 var downBlock = GameManger.Inst.blockMatrix[Row - 1, Col - 1];
                 var pos1 = transform.localPosition;
                 var pos2 = downBlock.transform.localPosition;
