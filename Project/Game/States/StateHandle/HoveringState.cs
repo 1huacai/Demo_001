@@ -1,8 +1,9 @@
 ﻿using Project;
+using UnityEngine;
 
 namespace Demo
 {
-    public class HoveringState:Statebase
+    public class HoveringState : Statebase
     {
         public HoveringState(GameManger manger) : base(manger)
         {
@@ -34,10 +35,7 @@ namespace Demo
                 {
                     StateManger._instance.ChangeState(BlockState.Landing, block);
                 }
-
-                Exit(block);
             }, ConstValues.hoveringFps * ConstValues.fpsTime);
-           
         }
     }
 }

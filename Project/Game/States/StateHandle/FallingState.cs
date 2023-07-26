@@ -3,11 +3,10 @@ using UnityEngine;
 
 namespace Demo
 {
-    public class FallingState:Statebase
+    public class FallingState : Statebase
     {
         public FallingState(GameManger manger) : base(manger)
         {
-            
         }
 
         public override void Enter(Block block)
@@ -24,7 +23,6 @@ namespace Demo
                 return;
             timerID = TimerMgr._Instance.Schedule(() =>
             {
-                Exit(block);
                 var downBlock = _gameManger.blockMatrix[block.Row - 1, block.Col - 1];
                 if (block.Row == 1)
                 {
@@ -45,14 +43,12 @@ namespace Demo
                 else if (downBlock.Type != BlockType.None && downBlock.State != BlockState.Hovering)
                 {
                     StateManger._instance.ChangeState(BlockState.Landing, block);
-                }else if (downBlock.Type != BlockType.None && downBlock.State == BlockState.Normal)
+                }
+                else if (downBlock.Type != BlockType.None && downBlock.State == BlockState.Normal)
                 {
                     StateManger._instance.ChangeState(BlockState.Landing, block);
                 }
-                
             }, ConstValues.fallingFps * ConstValues.fpsTime);
-            
         }
-        
     }
 }

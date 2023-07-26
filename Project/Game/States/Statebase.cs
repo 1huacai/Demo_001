@@ -41,8 +41,7 @@ namespace Demo
 
         public virtual void Exit(Block block)
         {
-            if (timerID != 0)
-                TimerMgr._Instance.Unschedule(timerID);
+           
         }
 
         #endregion

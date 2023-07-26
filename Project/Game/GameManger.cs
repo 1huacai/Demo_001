@@ -259,7 +259,10 @@ namespace Demo
                 var curBlock = blockMatrix[row, curCol];
                 if (targetBlock.Type == BlockType.None)
                     break;
-                if ((curBlock.Type == targetBlock.Type) && (curBlock.Type == block.Type))
+                if ((curBlock.Type == targetBlock.Type) 
+                    && (curBlock.Type == block.Type)
+                    && (targetBlock.State == BlockState.Normal ||
+                        targetBlock.State == BlockState.Landing))
                 {
                     v_blocks.Add(targetBlock);
                 }
@@ -272,7 +275,10 @@ namespace Demo
                 var curBlock = blockMatrix[row, curCol];
                 if (targetBlock.Type == BlockType.None)
                     break;
-                if ((curBlock.Type == targetBlock.Type) && (curBlock.Type == block.Type))
+                if ((curBlock.Type == targetBlock.Type) 
+                    && (curBlock.Type == block.Type)
+                    && (targetBlock.State == BlockState.Normal ||
+                        targetBlock.State == BlockState.Landing))
                 {
                     v_blocks.Add(targetBlock);
                 }
@@ -285,7 +291,10 @@ namespace Demo
                 var curBlock = blockMatrix[curRow, col];
                 if (targetBlock.Type == BlockType.None)
                     break;
-                if ((curBlock.Type == targetBlock.Type) && (curBlock.Type == block.Type))
+                if ((curBlock.Type == targetBlock.Type) 
+                    && (curBlock.Type == block.Type)
+                    && (targetBlock.State == BlockState.Normal ||
+                        targetBlock.State == BlockState.Landing))
                 {
                     h_blocks.Add(targetBlock);
                 }
@@ -298,7 +307,10 @@ namespace Demo
                 var curBlock = blockMatrix[curRow, col];
                 if (targetBlock.Type == BlockType.None)
                     break;
-                if ((curBlock.Type == targetBlock.Type) && (curBlock.Type == block.Type))
+                if ((curBlock.Type == targetBlock.Type) 
+                    && (curBlock.Type == block.Type)
+                    && (targetBlock.State == BlockState.Normal ||
+                        targetBlock.State == BlockState.Landing))
                 {
                     h_blocks.Add(targetBlock);
                 }

@@ -2,7 +2,7 @@
 
 namespace Demo
 {
-    public class PoppingState:Statebase
+    public class PoppingState : Statebase
     {
         public PoppingState(GameManger manger) : base(manger)
         {
@@ -19,12 +19,9 @@ namespace Demo
         {
             if (block.Type == BlockType.None)
                 return;
-            timerID = TimerMgr._Instance.Schedule(() =>
-            {
-                StateManger._instance.ChangeState(BlockState.Popped, block);
-                Exit(block);
-            }, ConstValues.poppingFps * ConstValues.fpsTime);
-
+            timerID = TimerMgr._Instance.Schedule(
+                () => { StateManger._instance.ChangeState(BlockState.Popped, block); },
+                ConstValues.poppingFps * ConstValues.fpsTime);
         }
 
         public override void Exit(Block block)

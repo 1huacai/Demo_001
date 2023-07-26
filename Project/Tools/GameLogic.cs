@@ -18,12 +18,12 @@ namespace Demo.Tools
         private void Update()
         {
             TimerMgr._Instance.Update();
-            GameManger.Inst.FiexdUpdate();
+            // GameManger.Inst.FiexdUpdate();
         }
 
         private void FixedUpdate()
         {
-            // GameManger.Inst.FiexdUpdate();
+            GameManger.Inst.FiexdUpdate();
         }
     }
 }
