@@ -35,6 +35,7 @@ namespace Demo
                     for (int i = 0; i < sameBlocks.Count; i++)
                     {
                         var targetBlock = sameBlocks[i];
+                        Debug.LogError($"{targetBlock.name}-{targetBlock.Type}-{sameBlocks.Count}");
                         StateManger._instance.ChangeState(BlockState.Matched, targetBlock);
                     }
                 }

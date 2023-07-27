@@ -17,6 +17,9 @@ namespace Demo
 
         public override void Update(Block block)
         {
+            //暂时
+            if(block == null)
+                return;
             if (block.Type == BlockType.None)
                 return;
             //block类型变为空棋子

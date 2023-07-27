@@ -14,6 +14,17 @@ namespace Demo
             if (block.Type == BlockType.None)
                 return;
             block.State = BlockState.Normal;
+            
+            var sameBlocks = _gameManger.GetSameBlocksWith(block);
+            if (sameBlocks.Count >= 3)//有可以匹配消除的block
+            {
+                for (int i = 0; i < sameBlocks.Count; i++)
+                {
+                    var targetBlock = sameBlocks[i];
+                    Debug.LogError($"{targetBlock.name}-{targetBlock.Type}-{sameBlocks.Count}");
+                    StateManger._instance.ChangeState(BlockState.Matched,targetBlock);
+                }
+            }
         }
 
         public override void Update(Block block)
@@ -30,18 +41,7 @@ namespace Demo
                     return;
                 }
             }
-
-
-            // var sameBlocks = _gameManger.GetSameBlocksWith(block);
-            // Debug.LogError(sameBlocks.Count);
-            // if (sameBlocks.Count > 3)//有可以匹配消除的block
-            // {
-            //     for (int i = 0; i < sameBlocks.Count; i++)
-            //     {
-            //         var targetBlock = sameBlocks[i];
-            //         StateManger._instance.ChangeState(BlockState.Matched,targetBlock);
-            //     }
-            // }
+            
         }
 
 

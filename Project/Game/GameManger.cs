@@ -257,7 +257,7 @@ namespace Demo
             {
                 var targetBlock = blockMatrix[row + 1, curCol];
                 var curBlock = blockMatrix[row, curCol];
-                if (targetBlock.Type == BlockType.None)
+                if ((targetBlock && targetBlock.Type == BlockType.None) || !targetBlock)
                     break;
                 if ((curBlock.Type == targetBlock.Type) 
                     && (curBlock.Type == block.Type)

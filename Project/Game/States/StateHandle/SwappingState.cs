@@ -34,7 +34,7 @@ namespace Demo
             if (downBlock.Type != BlockType.None && downBlockState != BlockState.Hovering &&
                 downBlockState != BlockState.Falling)
             {
-                StateManger._instance.ChangeState(BlockState.Normal, block);
+                StateManger._instance.ChangeStageEnter(BlockState.Normal, block);
             }
             else if (downBlock.Type == BlockType.None)
             {
