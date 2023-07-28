@@ -18,8 +18,11 @@ namespace Demo
             var sameBlocks = _gameManger.GetSameBlocksWith(block);
             if (sameBlocks.Count >= 3)//有可以匹配消除的block
             {
+                Debug.LogError($"效果帧数-{TimerMgr._Instance.Frame}");
                 Debug.LogError("进入normal待转matched");
-                if (sameBlocks.Count >= 4)
+                _gameManger.BlocksInSameFrame.Add(sameBlocks);
+                
+                if (sameBlocks.Count >= 4 && _gameManger.BlocksInSameFrame.Count < 2)
                 {
                     //combo效果
                     _gameManger.GenComboObj(sameBlocks.Count,sameBlocks[0].transform.localPosition);

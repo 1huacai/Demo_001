@@ -25,5 +25,10 @@ namespace Demo.Tools
         {
             GameManger.Inst.FiexdUpdate();
         }
+
+        private void LateUpdate()
+        {
+            GameManger.Inst.LateUpdate();
+        }
     }
 }

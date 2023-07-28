@@ -220,6 +220,15 @@ namespace Demo
 
             UpDateBlockArea();
         }
+
+        public void LateUpdate()
+        {
+            if(!gameStart)
+                return;
+            
+            LateUpdateBlockArea();
+        }
+        
         
         //更新棋盘区域逻辑
         private void UpDateBlockArea()
@@ -236,6 +245,33 @@ namespace Demo
                 }
             }
         }
+
+        
+        public List<List<Block>> BlocksInSameFrame = new List<List<Block>>();
+
+        private int count = 0;
+        private void LateUpdateBlockArea()
+        {
+            if (BlocksInSameFrame.Count < 2)
+            {
+                count = 0;
+                BlocksInSameFrame.Clear();
+            }
+            else
+            {
+                Debug.LogError("同帧率多消组合FPS-"+TimerMgr._Instance.Frame);
+                for (int i = 0; i < BlocksInSameFrame.Count; i++)
+                {
+                    for (int j = 0; j < BlocksInSameFrame[i].Count; j++)
+                    {
+                        count++;
+                    }
+                }
+                GenComboObj(count, BlocksInSameFrame[0][0].transform.localPosition);
+                BlocksInSameFrame.Clear();
+            }
+        }
+        
 
         /// <summary>
         /// 获取当前block在横向纵向上与自己相邻的相同Type(非None)的block

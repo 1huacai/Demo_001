@@ -25,6 +25,7 @@ namespace Demo
         private int autoIncId = 1; //每个Timer的唯一标示
         private static TimerMgr _ins;
 
+        public int Frame;//当前游戏进行到的帧数--总帧数
         public static TimerMgr _Instance
         {
             get
@@ -83,8 +84,12 @@ namespace Demo
         public void Update()
         {
             if (!GameManger.Inst.gameStart)
+            {
+                Frame = 0;
                 return;
-            
+            }
+
+            Frame++;
             float dt = Time.deltaTime;
             // 添加新的Timers
             for (int i = 0; i < newAddTimers.Count; i++)
