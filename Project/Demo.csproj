@@ -88,6 +88,7 @@
     <Compile Include="Config\VersionConfig.cs" />
     <Compile Include="Game\Block.cs" />
     <Compile Include="Game\BlockData.cs" />
+    <Compile Include="Game\Combo.cs" />
     <Compile Include="Game\GameManger.cs" />
     <Compile Include="Game\States\Statebase.cs" />
     <Compile Include="Game\States\StateHandle\DimmedState.cs" />

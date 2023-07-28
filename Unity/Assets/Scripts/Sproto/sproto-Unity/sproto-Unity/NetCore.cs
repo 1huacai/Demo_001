@@ -27,7 +27,7 @@ public class NetCore
     private static SprotoStream sendStream = new SprotoStream();
     private static SprotoStream recvStream = new SprotoStream();
 
-    private static ProtocolFunctionDictionary protocol = Protocol.Instance.Protocol;
+    private static ProtocolFunctionDictionary protocol = C2S_Protocol.Instance.Protocol;
     private static Dictionary<long, ProtocolFunctionDictionary.typeFunc> sessionDict;
 
     private static AsyncCallback connectCallback = new AsyncCallback(Connected);
@@ -98,7 +98,7 @@ public class NetCore
             return;
         }
 
-        package pkg = new package();
+        C2S_SprotoType.package pkg = new C2S_SprotoType.package();
         pkg.type = tag;
 
         if (session != null)
@@ -195,7 +195,7 @@ public class NetCore
 
     public static void Dispatch()
     {
-        package pkg = new package();
+        C2S_SprotoType.package pkg = new C2S_SprotoType.package();
 
         if (recvQueue.Count > 20)
         {

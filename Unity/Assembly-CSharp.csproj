@@ -90,6 +90,7 @@
      <Compile Include="Assets\Scripts\SDK\SDKInterfaceIOS.cs" />
      <Compile Include="Assets\Scripts\SDK\SDKManager.cs" />
      <Compile Include="Assets\Scripts\Sproto\proto\gen_cs\proto_c2s.cs" />
+     <Compile Include="Assets\Scripts\Sproto\proto\gen_cs\proto_s2c.cs" />
      <Compile Include="Assets\Scripts\Sproto\sproto-Csharp\src\Package.cs" />
      <Compile Include="Assets\Scripts\Sproto\sproto-Csharp\src\ProtocolBase.cs" />
      <Compile Include="Assets\Scripts\Sproto\sproto-Csharp\src\ProtocolFunctionDictionary.cs" />

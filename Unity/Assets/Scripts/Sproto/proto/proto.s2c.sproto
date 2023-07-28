@@ -1,0 +1,138 @@
+.package {
+    type                0 : integer
+    session             1 : integer
+    ud                  2 : string
+}
+
+.key_value {
+    id                  0 : integer
+    value               1 : integer
+}
+
+error 1 {
+    request {
+        id              0 : integer
+        txt             1 : string
+    }
+}
+
+
+#------------------ 登录 20 - 39 start ------------------
+
+#------------------ 登录 20 - 39 end ------------------
+
+
+#------------------ 匹配 40 - 59 start ------------------
+# 参赛者数据
+.player_info {
+    rid                     0 : string # 玩家ID（唯一标识）
+    rname                   1 : string # 玩家名
+    side                    2 : integer # 归属方
+}
+
+# 匹配成功
+match_success 40 {
+    request {
+        players             0 : *player_info # 比赛双方信息
+    }
+}
+
+# 匹配超时
+match_timeout 41 {
+    request {}
+}
+
+# 匹配异常
+match_error 42 {
+    request {
+        type                0 : integer # 异常类型
+    }
+}
+#------------------ 匹配 40 - 59 end ------------------
+
+
+#------------------ 比赛 60 - 89 start ------------------
+# 方块信息
+.block_info {
+    row                     0 : integer # 行
+    col                     1 : integer # 列
+    shape                   2 : integer # 类型
+    state                   3 : integer # 状态
+    frame                   4 : integer # 状态帧计数
+}
+
+# 推送比赛信息
+game_info 60 {
+    request {
+        e                   0 : integer
+        frame               1 : integer # 当前逻辑帧
+        blocks              2 : *block_info # 方块区所有方块
+    }
+}
+
+# 游戏准备
+game_ready 61 {
+    request {
+        blocks              0 : *block_info # 初始方块信息
+    }
+}
+
+# 游戏开始
+game_start 62 {
+    request {
+        start_time          0 : integer
+    }
+}
+
+# 数据同步：交换方块
+game_swap 65 {
+    request {
+        frame               0 : integer # 当前逻辑帧
+        block1              1 : block_info # 交换方块1
+        block2              2 : block_info # 交换方块2
+    }
+}
+
+# 数据同步：提升一行
+game_raise 66 {
+    request {        
+        frame               0 : integer # 当前逻辑帧
+    }
+}
+
+# 数据同步：匹配消除
+game_matched 67 {
+    request {
+        frame               0 : integer # 当前逻辑帧
+        matched_blocks      1 : *block_info # 匹配待消除的方块列表
+    }
+}
+
+# 数据同步：生成新的一行方块
+game_new_row 68 {
+    request {
+        frame               0 : integer # 当前逻辑帧
+        row_blocks          1 : *block_info # 一行方块列表
+    }
+}
+
+# 数据同步：回退
+game_rollback 75 {
+    request {
+        frame               0 : integer # 当前逻辑帧
+    }
+}
+
+# 比赛结束
+game_over 80 {
+    request {
+        frame               0 : integer # 当前逻辑帧
+        winner              1 : string
+    }
+}
+#------------------ 比赛 60 - 89 end ------------------
+
+
+#------------------ 技能 90 - 109 start ------------------
+
+#------------------ 技能 90 - 109 end ------------------

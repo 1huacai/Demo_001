@@ -4,22 +4,22 @@
     ud                  2 : string
 }
 
+ping 1 {
+    request {}
+    response {
+        server_time     0 : integer
+    }
+}
+
 .key_value {
     id                  0 : integer
     value               1 : integer
 }
 
-error 1 {
-    request {
-        id              0 : integer
-        txt             1 : string
-    }
-}
 
-
-#------------------ login 20 - 39 start ------------------
+#------------------ 登录 20 - 39 start ------------------
 # 登陆游戏
-game_auth 20 {
+auth 20 {
     request {
         imei                0 : string
         version             1 : string
@@ -38,19 +38,14 @@ login 21 {
     }
     response {
         e                   0 : integer
+        rname               1 : string # 角色名
+        render              2 : integer # 角色外观ID
     }
 }
-#------------------ login 20 - 39 end ------------------
+#------------------ 登录 20 - 39 end ------------------
 
 
-#------------------ match 40 - 49 start ------------------
-# 参数者数据
-.player_info {
-    rid                     0 : string
-    rname                   1 : string
-    render                  2 : integer
-}
-
+#------------------ 匹配 40 - 59 start ------------------
 # 开始匹配
 match_start 40 {
     request {}
@@ -66,157 +61,145 @@ match_cancel 41 {
         e                   0 : integer
     }
 }
-# 匹配成功
-match_success 42 {
-    request {
-        players             0 : *player_info # 比赛双方信息
-    }
-}
-
-# 匹配超时
-match_timeout 43 {
-    request {}
-}
-
-# 匹配异常
-match_error 44 {
-    request {
-        type                0 : integer # 异常类型
-    }
-}
-#------------------ match 40 - 49 end ------------------
+#------------------ 匹配 40 - 59 end ------------------
 
 
-#------------------ game 50 - 69 start ------------------
+#------------------ 比赛 60 - 89 start ------------------
 # 方块信息
 .block_info {
-    row                     0 : integer
-    col                     1 : integer
-    type                    2 : integer
+    row                     0 : integer # 行
+    col                     1 : integer # 列
+    shape                   2 : integer # 类型
+    state                   3 : integer # 状态
+    frame                   4 : integer # 状态帧计数
 }
 
-# 游戏准备
-game_ready 50 {
-    request {
-        matrix              0 : *block_info #初始方块信息
+# 请求比赛信息
+game_info 60 {
+    request {}
+    response {
+        e                   0 : integer
+        frame               1 : integer # 当前逻辑帧
+        blocks              2 : *block_info # 方块区所有方块
     }
 }
 
-# 游戏开始
-game_start 51 {
-    request {
-        start_time          0 : integer
+# 准备开始（开始倒计时结束）
+game_ready 61 {
+    request {}
+    response {
+        e                   0 : integer
     }
 }
 
 # 交换方块操作
-game_swap 52 {
+game_swap 65 {
     request {
-        block1              0 : block_info
-        block2              1 : block_info
+        frame               0 : integer # 当前逻辑帧
+        block1              1 : block_info # 交换方块1
+        block2              2 : block_info # 交换方块2
     }
     response {
         e                   0 : integer
-    }
-}
-
-# 交换方块
-game_swap_broadcast 53 {
-    request {
-        block1              0 : block_info
-        block2              1 : block_info
     }
 }
 
 # 提升一行操作
-game_up_row 54 {
-    request {}
-    response {
-        e                   0 : integer
-    }
-}
-
-# 手动提升一行
-game_up_row_broadcast 55 {
-    request {}
-}
-
-# 使用技能
-game_use_skill 56 {
+game_raise 66 {
     request {
-        skill_id            0 : integer # 技能ID
+        frame               0 : integer # 当前逻辑帧
     }
     response {
         e                   0 : integer
     }
 }
 
-# 使用技能
-game_use_skill_broadcast 57 {
+# 匹配消除
+game_matched 67 {
     request {
-        skill_id            0 : integer # 技能ID
+        frame               0 : integer # 当前逻辑帧
+        matched_blocks      2 : *block_info # 匹配待消除的方块列表
+    }
+    response {
+        e                   0 : integer
+    }
+}
+
+# 生成新的一行方块
+game_new_row 68 {
+    request {
+        frame               0 : integer # 当前逻辑帧
+    }
+    response {
+        e                   0 : integer
+        row_blocks          1 : *block_info # 一行方块列表
+    }
+}
+
+# 回退操作
+game_rollback 75 {
+    request {
+        frame               0 : integer # 当前逻辑帧
+    }
+    response {
+        e                   0 : integer
+    }
+}
+
+# 玩家退出比赛（认输）操作
+game_give_up 80 {
+    request {
+        frame               0 : integer # 当前逻辑帧
+    }
+    response {
+        e                   0 : integer
     }
 }
 
 # 游戏结束
-game_over 58 {
+game_over 81 {
+    request {
+        frame               0 : integer # 当前逻辑帧
+    }
+    response {
+        e                   0 : integer
+    }
+}
+#------------------ 比赛 60 - 89 end ------------------
+
+
+#------------------ 技能 90 - 109 start ------------------
+# 获取技能信息
+skill_info 90 {
     request {}
     response {
         e                   0 : integer
     }
 }
 
-
-# 比赛结束
-game_over_broadcast 59 {
-    request {
-        winner              1 : string
+# 技能学习
+skill_learn 91 {
+    request {}
+    response {
+        e                   0 : integer
     }
 }
 
-# 创建新的一行
-game_new_row 60 {
+# 技能升级
+skill_level_up 92 {
+    request {}
+    response {
+        e                   0 : integer
+    }
+}
+
+# 使用技能
+skill_use 100 {
     request {
-        matrix              0 : *block_info #新的一行
+        skill_id            0 : integer # 技能ID
     }
     response {
         e                   0 : integer
     }
 }
-game_new_row_broadcast 61 {
-    request {
-        matrix              0 : *block_info #新的一行
-    }
-}
-
-#消除了几个
-eliminate 62 {
-    request {
-        count          0 : integer
-    }
-    response {
-        e                   0 : integer
-    }
-}
-#消除了几个
-eliminate_broadcast 63 {
-    request {
-        count          0 : integer
-    }
-}
-#生成的新方块
-createBlock 64 {
-    request {
-        matrix              0 : *block_info #方块信息
-    }
-    response {
-        e                   0 : integer
-    }
-}
-#消除了几个
-createBlock_broadcast 65 {
-    request {
-        matrix              0 : *block_info #方块信息
-    }
-}
-#------------------ game 50 - 69 end ------------------
+#------------------ 技能 90 - 109 end ------------------

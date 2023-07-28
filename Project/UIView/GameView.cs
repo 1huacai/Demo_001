@@ -9,7 +9,8 @@ namespace Demo
         private Transform boards;//棋盘
         private Transform blockBoard;//block棋盘
         private Transform pressureBoard;//压力块棋盘
-
+        private Transform effectArea;//特效区域
+        
         public Transform BlockBoard
         {
             get { return blockBoard; }
@@ -19,6 +20,13 @@ namespace Demo
         {
             get { return pressureBoard; }
         }
+
+        public Transform EffectArea
+        {
+            get { return effectArea; }
+        }
+        
+        
         
         private AorButton reGenBlockBtn;
         
@@ -27,6 +35,7 @@ namespace Demo
             boards = transform.Find("PlayerArea/Boards");
             blockBoard = boards.Find("BlockBoard");
             pressureBoard = boards.Find("PressureBoard");
+            effectArea = boards.Find("EffectArea");
             reGenBlockBtn = boards.Find("ReGenBlockBtn").GetComponent<AorButton>();
             
             GameManger.Inst.InitGame();

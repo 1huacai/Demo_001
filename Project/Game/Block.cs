@@ -80,9 +80,7 @@ namespace Demo
                 else if (xOffset < ConstValues.BLOCK_WIDTH / 2f && State != BlockState.Swapping)
                 {
                     transform.localPosition = new Vector3(curPosition.x, dragBeginPos.y, 0f);
-                  
                 }
-
                 #region 纵向(弃用)
 
                 // else if (yOffset >= ConstValues.BLOCK_HEIGHT / 2f)

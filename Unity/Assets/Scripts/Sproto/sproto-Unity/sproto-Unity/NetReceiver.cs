@@ -5,7 +5,7 @@ public delegate SprotoTypeBase RpcReqHandler(SprotoTypeBase rpcReq);
 
 public class NetReceiver
 {
-    private static ProtocolFunctionDictionary protocol = Protocol.Instance.Protocol;
+    private static ProtocolFunctionDictionary protocol = C2S_Protocol.Instance.Protocol;
     private static Dictionary<int, RpcReqHandler> rpcReqHandlerDict;
 
     public static void Init()

@@ -48,8 +48,13 @@ namespace Project
         public const int MAX_GENROW = 6; //初始化创建的最大行数
 
         public const int MAX_BLOCKTYPE = 6;
-        
+
+        public const string blockPrefabPath = "Prefabs/Block";
+        public const string comboPrefabPath = "Prefabs/Combo";
+
+
         private const string textureBlockPath = "Texture/block/panel";
+        public const string textureComboPath = "Texture/combo/combo";
         
         private static List<Texture2D> _texture = new List<Texture2D>
         {

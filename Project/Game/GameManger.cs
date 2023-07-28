@@ -165,7 +165,7 @@ namespace Demo
         /// <param name="boardTran"></param>
         public void GenBlocks(List<BlockData> datas, Transform boardTran)
         {
-            SingletonManager.GetManager<ResourcesManager>().LoadPrefab($"Prefabs/Block", (obj, l) =>
+            SingletonManager.GetManager<ResourcesManager>().LoadPrefab(ConstValues.blockPrefabPath, (obj, l) =>
             {
                 if (null == obj)
                 {
@@ -330,8 +330,34 @@ namespace Demo
                 sameBlocks.AddRange(v_blocks);
                 sameBlocks.AddRange(h_blocks);
             }
-
+            
+            //给获取的sameblocks排序，从上到下，从左到右，方便后面的按顺序播放效果
+            //left-right
+            sameBlocks.Sort((block1, block2) => block1.Col.CompareTo(block2.Col));
+            //up-down
+            sameBlocks.Sort((block1, block2) => block2.Row.CompareTo(block1.Row));
+            
             return sameBlocks;
+        }
+
+        /// <summary>
+        /// 构建并显示combo物体
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="localPos"></param>
+        public void GenComboObj(int num, Vector3 localPos)
+        {
+            SingletonManager.GetManager<ResourcesManager>().LoadPrefab(
+                ConstValues.comboPrefabPath,
+                (originObj, l) =>
+                {
+                    Transform effectArea = UIManager.Inst.GetUI<GameView>(UIDef.GameView).EffectArea;
+                    GameObject obj = GameObject.Instantiate(originObj,effectArea);
+                    obj.transform.localPosition = new Vector3(localPos.x - ConstValues.BLOCK_WIDTH / 2f,
+                        localPos.y + ConstValues.BLOCK_WIDTH / 2f, 0f);
+                    Combo comb = obj.gameObject.GetComponent<Combo>();
+                    comb.Show(num);
+                });
         }
         
     }

@@ -18,8 +18,15 @@ namespace Demo
             var sameBlocks = _gameManger.GetSameBlocksWith(block);
             if (sameBlocks.Count >= 3)//有可以匹配消除的block
             {
-                for (int i = 0; i < sameBlocks.Count; i++)
+                Debug.LogError("进入normal待转matched");
+                if (sameBlocks.Count >= 4)
                 {
+                    //combo效果
+                    _gameManger.GenComboObj(sameBlocks.Count,sameBlocks[0].transform.localPosition);
+                }
+                
+                for (int i = 0; i < sameBlocks.Count; i++)
+                {  
                     var targetBlock = sameBlocks[i];
                     Debug.LogError($"{targetBlock.name}-{targetBlock.Type}-{sameBlocks.Count}");
                     StateManger._instance.ChangeState(BlockState.Matched,targetBlock);
