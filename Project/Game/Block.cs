@@ -23,7 +23,8 @@ namespace Demo
         private bool selected = false;
         private bool swaping = false;
         private bool needFall = false;
-
+        private bool dimmed = false;
+        
         public delegate void BlockOperationHandler(int row, int column, BlockOperation operation);
 
         public event BlockOperationHandler BlockOperationEvent;
@@ -112,7 +113,7 @@ namespace Demo
         #endregion
 
         //单独创建block
-        public static Block CreateBlockObject(GameObject obj, int row, int col, BlockType type, Transform parent,
+        public static Block CreateBlockObject(GameObject obj, int row, int col,bool dimmed,BlockType type,BlockState state, Transform parent,
             GameManger mag)
         {
             GameObject blockObj = Instantiate(obj, parent);
@@ -125,11 +126,13 @@ namespace Demo
             Block block = blockObj.GetComponent<Block>();
             block.row = row;
             block.col = col;
+            block.isDimmed = dimmed;
             block.Type = type;
             block.slectImg = blockObj.transform.Find("Select").gameObject;
-            // block.image = blockObj.GetComponent<Image>();
-            //
-            // block.image.sprite = ConstValues._sprites[(int) block.type];
+            block.State = state;
+            block.image = blockObj.GetComponent<Image>();
+            block.image.sprite = block.isDimmed ? ConstValues._lockSprites[(int) block.type] : ConstValues._sprites[(int) block.type];
+            
             blockObj.name = $"{row}-{col}";
 
             block.manger = mag;
@@ -147,7 +150,11 @@ namespace Demo
                 if (row == 0)
                 {
                     isDimmed = true;
-                    image.sprite = ConstValues._lockSprites[(int) type];
+                }
+                else
+                {
+                    if(image == null)
+                        image = GetComponent<Image>();
                 }
             }
         }
@@ -192,6 +199,12 @@ namespace Demo
             get { return needFall; }
             set { needFall = value; }
         }
+
+        public bool IsDimmed
+        {
+            get { return dimmed; }
+            set { dimmed = value; }
+        }
         
         public BlockState State
         {
@@ -205,9 +218,6 @@ namespace Demo
             set
             {
                 type = value;
-                if(image == null)
-                    image = GetComponent<Image>();
-                image.sprite = ConstValues._sprites[(int) value];
             }
         }
         

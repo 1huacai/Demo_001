@@ -10,6 +10,11 @@ namespace Demo
         private Transform blockBoard;//block棋盘
         private Transform pressureBoard;//压力块棋盘
         private Transform effectArea;//特效区域
+
+        public Transform Boards
+        {
+            get { return boards; }
+        }
         
         public Transform BlockBoard
         {
@@ -36,7 +41,7 @@ namespace Demo
             blockBoard = boards.Find("BlockBoard");
             pressureBoard = boards.Find("PressureBoard");
             effectArea = boards.Find("EffectArea");
-            reGenBlockBtn = boards.Find("ReGenBlockBtn").GetComponent<AorButton>();
+            reGenBlockBtn = transform.Find("PlayerArea/ReGenBlockBtn").GetComponent<AorButton>();
             
             GameManger.Inst.InitGame();
         }

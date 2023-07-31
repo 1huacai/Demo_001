@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Demo;
 using FrameWork.Manager;
 using ResourceLoad;
 using UnityEngine;
@@ -48,7 +49,12 @@ namespace Project
         public const int MAX_GENROW = 6; //初始化创建的最大行数
 
         public const int MAX_BLOCKTYPE = 6;
-
+        
+        //棋盘上升参数
+        public const int offset_y = 175;
+        public const int unit_Offset_y = 1;
+        public static int[] Rise_Times = {15, 14,13, 11, 10, 8, 6,5, 3, 1};
+        
         public const string blockPrefabPath = "Prefabs/Block";
         public const string comboPrefabPath = "Prefabs/Combo";
 
@@ -65,7 +71,7 @@ namespace Project
             Resources.Load(textureBlockPath + "41") as Texture2D,
             Resources.Load(textureBlockPath + "51") as Texture2D,
         };
-
+        
         public static Dictionary<int, Sprite> _sprites = new Dictionary<int, Sprite>
         {
             {0, Sprite.Create(_texture[0], new Rect(0, 0, _texture[0].width, _texture[0].height), new Vector2(1f, 1f))},
@@ -75,7 +81,7 @@ namespace Project
             {4, Sprite.Create(_texture[4], new Rect(0, 0, _texture[4].width, _texture[4].height), new Vector2(1f, 1f))},
             {5, Sprite.Create(_texture[5], new Rect(0, 0, _texture[5].width, _texture[5].height), new Vector2(1f, 1f))},
         };
-
+        
         public static List<Texture2D> _lockTexture = new List<Texture2D>
         {
             Resources.Load(textureBlockPath + "07") as Texture2D,

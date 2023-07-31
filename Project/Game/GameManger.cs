@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
- using DG.Tweening;
+using System.Text;
+using DG.Tweening;
 using UnityEngine;
 using Project;
 using FrameWork.Manager;
@@ -32,19 +33,6 @@ namespace Demo
         public GameManger()
         {
            
-        }
-        
-        //初始化游戏
-        public void InitGame()
-        {
-            Application.targetFrameRate = ConstValues.targetPlatformFps;
-            var gameView = UIManager.Inst.GetUI<GameView>(UIDef.GameView);
-            var blockDatas = GameManger.Inst.GenBlockDatas();
-            //根据数据构建所有棋子obj
-            GenBlocks(blockDatas,gameView.BlockBoard);
-            gameStart = true;
-            StateManger._instance.Init(this);
-            TimerMgr._Instance.Init();
         }
         
 
@@ -108,7 +96,7 @@ namespace Demo
             return (row > 0 && blockDataMatrix[row - 1, col].type == Type) ||
                    (col > 0 && blockDataMatrix[row, col - 1].type == Type);
         }
-
+        
         //根据模板随机选择地图沟壑配置
         private List<BlockData> MatchStageBlockDatas(List<BlockData> blockDatas,string[] stage)
         {
@@ -145,12 +133,12 @@ namespace Demo
         }
 
         //获取与之前不同的blockType
-        private BlockType GetDiffTypeFrom(params BlockType[] oldTypes)
+        private BlockType GetDiffTypeFrom(BlockType oldType)
         {
-            BlockType newType = BlockType.None;
-            while (Array.IndexOf(oldTypes, newType) > 0)
+            BlockType newType = (BlockType) Random.Range(1, ConstValues.MAX_BLOCKTYPE);
+            while (oldType == newType)
             {
-                newType = (BlockType) Random.Range(0, ConstValues.MAX_BLOCKTYPE);
+                newType = (BlockType) Random.Range(1, ConstValues.MAX_BLOCKTYPE);
             }
 
             return newType;
@@ -184,7 +172,7 @@ namespace Demo
                     // if(Type == BlockType.None)
                     //     continue;
 
-                    Block block = Block.CreateBlockObject(obj, row, col, Type, boardTran, this);
+                    Block block = Block.CreateBlockObject(obj, row, col, false,Type, BlockState.Normal,boardTran, this);
                     //设置棋子位置
                     block.transform.localPosition = new Vector3(
                         ConstValues.BLOCK_X_ORIGINPOS + (col - 1) * ConstValues.BLOCK_X_OFFSET,
@@ -199,6 +187,98 @@ namespace Demo
             });
         }
 
+
+        private List<Block> newRowBlocks = new List<Block>();
+        /// <summary>
+        /// 创建新的一行blocks
+        /// </summary>
+        public void GenNewRowBlocks(int genCount = 1)
+        {
+            BlockData[] newRowBlockData = new BlockData[6];
+            BlockType oldType = (BlockType) Random.Range(1, 6);
+            for (int i = 0; i < 6; i++)
+            {
+                oldType = GetDiffTypeFrom(oldType);
+                newRowBlockData[i] = new BlockData(0, i+1, oldType);
+            }
+
+            newRowBlocks.Clear();
+            var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).BlockBoard;
+            SingletonManager.GetManager<ResourcesManager>().LoadPrefab(ConstValues.blockPrefabPath, ((obj, length) =>
+            {
+                //遍历生成新的block
+                for (int i = 0; i < newRowBlockData.Length; i++)
+                {
+                    var data = newRowBlockData[i];
+                    int row = data.row;
+                    int col = data.col;
+                    BlockType Type = data.type;
+
+                    Block block = Block.CreateBlockObject(obj, row, col, true, Type,BlockState.Dimmed, boardTran, this);
+                    //设置棋子位置
+                    block.transform.localPosition = new Vector3(
+                        ConstValues.BLOCK_X_ORIGINPOS + (col - 1) * ConstValues.BLOCK_X_OFFSET,
+                        ConstValues.BLOCK_Y_ORIGINPOS + (row - genCount) * ConstValues.BLOCK_Y_OFFSET,
+                        0f
+                    );
+                    newRowBlocks.Add(block);
+                }
+            }));
+
+            //OutputBlockDataMatrix();
+            if (genCount == 1)
+            {
+                //给第一行赋值
+                for (int i = 0; i < newRowBlocks.Count; i++)
+                {
+                    blockMatrix[0, i] = newRowBlocks[i];
+                }
+            }
+            else
+            {
+                //后面就先把原先每row的值上移
+                for (int row = ConstValues.MAX_MATRIX_ROW - 1; row > 0; row--)
+                {
+                    for (int col = 0; col < ConstValues.MAX_COL; col++)
+                    {
+                        var targetBlock = blockMatrix[row, col];
+                        targetBlock = blockMatrix[row - 1, col];
+                        if (targetBlock)
+                        {
+                            targetBlock.Row = row;
+                            targetBlock.Col = col + 1;
+                            targetBlock.ChangeBlockObjName();
+                        }
+                    }
+                }
+                
+                for (int i = 0; i < newRowBlocks.Count; i++)
+                {
+                    blockMatrix[0, i] = newRowBlocks[i];
+                }
+            }
+        }
+
+        private void OutputBlockDataMatrix()
+        {
+            StringBuilder stb = new StringBuilder();
+            for (int row = 0; row < ConstValues.MAX_MATRIX_ROW; row++)
+            {
+                for (int col = 0; col < ConstValues.MAX_COL; col++)
+                {
+                    if (blockMatrix[row, col])
+                    {
+                        stb.Append(blockMatrix[row, col].name);
+                        stb.Append(",\t");
+                    }
+                    
+                }
+                stb.Append("\n");
+            }
+            Debug.LogError(stb.ToString());
+        }
+        
+        
         private void OnBlockOperation(int row, int col, BlockOperation operation)
         {
             //执行拖拽操作
@@ -213,11 +293,30 @@ namespace Demo
             }
         }
 
+        private Transform boards = null;
+
+        private int genNewRowCount = 1;//构建新行的次数
+        //初始化游戏
+        public void InitGame()
+        {
+            Application.targetFrameRate = ConstValues.targetPlatformFps;
+            var gameView = UIManager.Inst.GetUI<GameView>(UIDef.GameView);
+            var blockDatas = GameManger.Inst.GenBlockDatas();
+            boards = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Boards;
+            //根据数据构建所有棋子obj
+            GenBlocks(blockDatas,gameView.BlockBoard);
+            StateManger._instance.Init(this);
+            TimerMgr._Instance.Init();
+            gameStart = true;
+        }
+        
         public void FiexdUpdate()
         {
             if (!gameStart)
+            {
+                genNewRowCount = 1;
                 return;
-
+            }
             UpDateBlockArea();
         }
 
@@ -233,6 +332,11 @@ namespace Demo
         //更新棋盘区域逻辑
         private void UpDateBlockArea()
         {
+            //棋盘上升
+            BoardRise();
+           
+            OutputBlockDataMatrix();
+            //检测每个block的自有逻辑
             for (int row = 0; row < ConstValues.MAX_MATRIX_ROW; row++)
             {
                 for (int col = 0; col < ConstValues.MAX_COL; col++)
@@ -269,6 +373,22 @@ namespace Demo
                 }
                 GenComboObj(count, BlocksInSameFrame[0][0].transform.localPosition);
                 BlocksInSameFrame.Clear();
+            }
+        }
+        
+        private void BoardRise()
+        {
+            //到达顶部，就不上升了
+
+            if (TimerMgr._Instance.Frame % ConstValues.Rise_Times[7] == 0)
+            {
+                if (boards.transform.localPosition.y % ConstValues.offset_y == 0)
+                {
+                    Debug.LogError("生成一行新的blocks");
+                    GenNewRowBlocks(genNewRowCount);
+                    genNewRowCount++;
+                }
+                boards.transform.localPosition += new Vector3(0,1,0);
             }
         }
         
