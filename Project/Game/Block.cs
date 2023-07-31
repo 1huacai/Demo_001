@@ -37,10 +37,7 @@ namespace Demo
                 // IsSelected = true;
                 BlockOperationEvent(row, col, BlockOperation.TouchDown);
                 dragBeginPos = transform.localPosition;
-                slectImg.SetActive(true);
-                transform.DOScale(ConstValues.BLOCK_BIG_SCALE, ConstValues.BLOCK_BIG_FRAME * Time.deltaTime);
                 GameManger.Inst.selectBlock = this;
-                Debug.LogError(GameManger.Inst.selectBlock.name);
             }
         }
 
@@ -54,8 +51,6 @@ namespace Demo
                 transform.localPosition = dragBeginPos;
                 BlockOperationEvent(row, col, BlockOperation.TouchUp);
                 dragBeginPos = Vector3.zero;
-                slectImg.SetActive(false);
-                transform.DOScale(1f, ConstValues.BLOCK_BIG_FRAME * Time.deltaTime);
                 GameManger.Inst.selectBlock = null;
             }
         }
@@ -74,7 +69,6 @@ namespace Demo
                 float yOffset = Math.Abs(curPosition.y - dragBeginPos.y);
                 if (xOffset >= ConstValues.BLOCK_WIDTH / 2f)
                 {
-                    Debug.LogError("可以交换");
                     if (curPosition.x >= dragBeginPos.x && col < ConstValues.MAX_COL)
                     {
                         BlockOperationEvent(row, col + 1, BlockOperation.DragHalf);
@@ -87,9 +81,10 @@ namespace Demo
                 }
                 else if (xOffset < ConstValues.BLOCK_WIDTH / 2f && State != BlockState.Swapping)
                 {
-                    Debug.LogError("不可以交换");
                     transform.localPosition = new Vector3(curPosition.x, dragBeginPos.y, 0f);
+                  
                 }
+
                 #region 纵向(弃用)
 
                 // else if (yOffset >= ConstValues.BLOCK_HEIGHT / 2f)
@@ -169,7 +164,18 @@ namespace Demo
             get { return selected; }
             set
             {
-                selected = value;
+                if (value)
+                {
+                    selected = true;
+                    slectImg.SetActive(true);
+                    transform.DOScale(ConstValues.BLOCK_BIG_SCALE, ConstValues.BLOCK_BIG_FRAME * Time.deltaTime);
+                }
+                else
+                {
+                    selected = false;
+                    slectImg.SetActive(false);
+                    transform.DOScale(1f, ConstValues.BLOCK_BIG_FRAME * Time.deltaTime);
+                }
             }
         }
 
