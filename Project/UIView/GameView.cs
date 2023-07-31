@@ -86,7 +86,9 @@ namespace Demo
                     }
                 }
             }
-            
+
+            GameManger.Inst.GenNewRowCount = 1;
+            boards.localPosition = Vector3.zero;
             var blockDatas = GameManger.Inst.GenBlockDatas(4);
             //根据数据构建所有棋子obj
             GameManger.Inst.GenBlocks(blockDatas,blockBoard);

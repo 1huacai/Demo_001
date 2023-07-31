@@ -62,13 +62,11 @@ namespace Demo
             if (operation == BlockOperation.TouchDown)
             {
                 block.IsSelected = true;
-                Debug.LogError("选中block");
             }
 
             if (operation == BlockOperation.TouchUp)
             {
                 block.IsSelected = false;
-                Debug.LogError("没选中block");
             }
         }
     }

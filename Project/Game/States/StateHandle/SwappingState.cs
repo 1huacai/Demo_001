@@ -56,15 +56,12 @@ namespace Demo
             base.OnBlockOperation(row, col, operation);
             if (operation == BlockOperation.DragHalf)
             {
-                Debug.LogError(11111);
-                Debug.LogError(_gameManger.selectBlock);
                 if (_gameManger.selectBlock == null)
                     return;
                 var otherBlock = _gameManger.blockMatrix[row, col - 1];
                 if (otherBlock == null || _gameManger.selectBlock.State == BlockState.Swapping ||
                     otherBlock.State == BlockState.Swapping)
                 {
-                    Debug.LogError(22222);
                     return;
                 }
 
@@ -75,7 +72,6 @@ namespace Demo
 
         private void DoSwap(Block block_1, Block block_2)
         {
-            Debug.LogError("进入doswap");
             var block_1_Pos = block_1.dragBeginPos;
             var block_2_Pos = block_2.transform.localPosition;
 

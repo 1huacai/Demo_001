@@ -226,6 +226,7 @@ namespace Demo
                         ConstValues.BLOCK_Y_ORIGINPOS + (row - genCount) * ConstValues.BLOCK_Y_OFFSET,
                         0f
                     );
+                    block.BlockOperationEvent += OnBlockOperation;
                     newRowBlocks.Add(block);
                 }
 
@@ -267,7 +268,6 @@ namespace Demo
             if (operation == BlockOperation.DragHalf)
             {
                 StateManger._instance.StateHandlers[BlockState.Swapping].OnBlockOperation(row, col, operation);
-                Debug.LogError("33333");
             }
 
             if (operation == BlockOperation.TouchUp || operation == BlockOperation.TouchDown)
@@ -279,6 +279,12 @@ namespace Demo
         private Transform boards = null;
 
         private int genNewRowCount = 1; //构建新行的次数
+
+        public int GenNewRowCount
+        {
+            get => genNewRowCount;
+            set => genNewRowCount = value;
+        }
 
         //初始化游戏
         public void InitGame()
@@ -364,11 +370,11 @@ namespace Demo
 
         private void BoardRise()
         {
-            //到达顶部，就不上升了
-
-            if (TimerMgr._Instance.Frame % ConstValues.Rise_Times[1] == 0)
+            //TODO 到达顶部，就不上升了
+            
+            if (TimerMgr._Instance.Frame % ConstValues.Rise_Times[7] == 0)
             {
-                if (boards.transform.localPosition.y % ConstValues.offset_y == 0)
+                if (boards.transform.localPosition.y % ConstValues.BLOCK_Y_OFFSET == 0)
                 {
                     GenNewRowBlocks(genNewRowCount);
                     genNewRowCount++;
