@@ -18,9 +18,8 @@ namespace Demo
         public Vector3 dragBeginPos; //拖拽的起始位置
 
         private GameManger manger;
-        public bool isDimmed = false;
         [SerializeField] private BlockState state = BlockState.Normal;
-        private bool selected = false;
+        [SerializeField] private bool selected = false;
         private bool swaping = false;
         private bool needFall = false;
         private bool dimmed = false;
@@ -38,6 +37,10 @@ namespace Demo
                 // IsSelected = true;
                 BlockOperationEvent(row, col, BlockOperation.TouchDown);
                 dragBeginPos = transform.localPosition;
+                slectImg.SetActive(true);
+                transform.DOScale(ConstValues.BLOCK_BIG_SCALE, ConstValues.BLOCK_BIG_FRAME * Time.deltaTime);
+                GameManger.Inst.selectBlock = this;
+                Debug.LogError(GameManger.Inst.selectBlock.name);
             }
         }
 
@@ -51,6 +54,9 @@ namespace Demo
                 transform.localPosition = dragBeginPos;
                 BlockOperationEvent(row, col, BlockOperation.TouchUp);
                 dragBeginPos = Vector3.zero;
+                slectImg.SetActive(false);
+                transform.DOScale(1f, ConstValues.BLOCK_BIG_FRAME * Time.deltaTime);
+                GameManger.Inst.selectBlock = null;
             }
         }
 
@@ -68,6 +74,7 @@ namespace Demo
                 float yOffset = Math.Abs(curPosition.y - dragBeginPos.y);
                 if (xOffset >= ConstValues.BLOCK_WIDTH / 2f)
                 {
+                    Debug.LogError("可以交换");
                     if (curPosition.x >= dragBeginPos.x && col < ConstValues.MAX_COL)
                     {
                         BlockOperationEvent(row, col + 1, BlockOperation.DragHalf);
@@ -80,6 +87,7 @@ namespace Demo
                 }
                 else if (xOffset < ConstValues.BLOCK_WIDTH / 2f && State != BlockState.Swapping)
                 {
+                    Debug.LogError("不可以交换");
                     transform.localPosition = new Vector3(curPosition.x, dragBeginPos.y, 0f);
                 }
                 #region 纵向(弃用)
@@ -126,12 +134,10 @@ namespace Demo
             Block block = blockObj.GetComponent<Block>();
             block.row = row;
             block.col = col;
-            block.isDimmed = dimmed;
             block.Type = type;
             block.slectImg = blockObj.transform.Find("Select").gameObject;
             block.State = state;
-            block.image = blockObj.GetComponent<Image>();
-            block.image.sprite = block.isDimmed ? ConstValues._lockSprites[(int) block.type] : ConstValues._sprites[(int) block.type];
+            
             
             blockObj.name = $"{row}-{col}";
 
@@ -147,15 +153,7 @@ namespace Demo
             set
             {
                 row = value;
-                if (row == 0)
-                {
-                    isDimmed = true;
-                }
-                else
-                {
-                    if(image == null)
-                        image = GetComponent<Image>();
-                }
+               
             }
         }
 
@@ -171,20 +169,7 @@ namespace Demo
             get { return selected; }
             set
             {
-                if (value)
-                {
-                    selected = true;
-                    slectImg.SetActive(true);
-                    transform.DOScale(ConstValues.BLOCK_BIG_SCALE, ConstValues.BLOCK_BIG_FRAME * Time.deltaTime);
-                    GameManger.Inst.selectBlock = this;
-                }
-                else
-                {
-                    selected = false;
-                    slectImg.SetActive(false);
-                    transform.DOScale(1f, ConstValues.BLOCK_BIG_FRAME * Time.deltaTime);
-                    GameManger.Inst.selectBlock = null;
-                }
+                selected = value;
             }
         }
 
@@ -209,7 +194,14 @@ namespace Demo
         public BlockState State
         {
             get { return state; }
-            set { state = value; }
+            set
+            {
+                state = value;
+                if (image == null)
+                    image = transform.GetComponent<Image>();
+                image.sprite = state == BlockState.Dimmed ? ConstValues._lockSprites[(int) Type] : ConstValues._sprites[(int) Type];
+                
+            }
         }
 
         public BlockType Type
@@ -218,6 +210,9 @@ namespace Demo
             set
             {
                 type = value;
+                if (image == null)
+                    image = GetComponent<Image>();
+                image.sprite = ConstValues._sprites[(int) value];
             }
         }
         
