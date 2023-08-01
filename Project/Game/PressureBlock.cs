@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Framework;
-using FrameWork.Splines;
+using DG.Tweening;
+using Project;
 
 namespace Demo
 {
@@ -51,12 +51,17 @@ namespace Demo
             for (int i = 0; i < singleBlocks.Count; i++)
             {
                 var block = singleBlocks[i];
-                block.GetComponent<Image>().enabled = false;
                 //播放解锁动画特效
-                
-                //生成新的压力块
-                
+                //临时动画
+                block.DOScale(0, 10 * ConstValues.fpsTime).OnComplete(() =>
+                {
+                    block.gameObject.SetActive(false);
+                    //生成新的block
+                });
             }
+            
+            //把自己压力块移除
+            _gameManger.pressureBlocks.Remove(this);
             
             //自己触发完成后，四个方向查找解锁先临的压力块
             var adjancentBlocks = GetAdjacentPressureBlocks();
@@ -65,7 +70,7 @@ namespace Demo
             {
                 adjancentBlocks[i].UnlockPressureBlock(0);
             }
-
+            Destroy(gameObject);
         }
         
         //获取四个方向的相邻压力块
