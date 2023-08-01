@@ -125,6 +125,7 @@
     <None Include="Assets\Resources\Shaders\Spine\Shaders\CGIncludes\Spine-Skeleton-Lit-Common.cginc" />
     <None Include="Assets\Resources\Shaders\Lit\Character\YoukiaHair.cginc" />
     <None Include="Assets\Resources\Shaders\Lit\Character\Lod2-CharacterPBR-monster.shader" />
+    <None Include="Assets\Spine\version.txt" />
     <None Include="Assets\Resources\Shaders\PostProcessing\API\D3D11.hlsl" />
     <None Include="Assets\Resources\Shaders\Effect\YoukiaSelectCircle.shader" />
     <None Include="Assets\Resources\Shaders\Spine\Shaders\SkeletonGraphic\Spine-SkeletonGraphic-Fill.shader" />
@@ -999,6 +1000,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="spine-unity.csproj">
+      <Project>{D9C6BD4E-98B1-2840-CAD8-6AE288C4C16E}</Project>
+      <Name>spine-unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="spine-csharp.csproj">
+      <Project>{60D0CA9B-F149-C0F5-5CFC-2D5ED55E987E}</Project>
+      <Name>spine-csharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="spine-unity-editor.csproj">
+      <Project>{BD0AF8D8-EC98-6494-F316-0C1F7B74AA00}</Project>
+      <Name>spine-unity-editor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
