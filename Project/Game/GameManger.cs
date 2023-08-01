@@ -38,6 +38,8 @@ namespace Demo
 
         //自身所有棋子的初始化数据
         public Block[,] blockMatrix = new Block[ConstValues.MAX_MATRIX_ROW, ConstValues.MAX_COL];
+        //压力块列表
+        public List<PressureBlock> PressureBlocks = new List<PressureBlock>();
 
         #region 初始化blockStageData部分
 
@@ -324,7 +326,7 @@ namespace Demo
         private void UpDateBlockArea()
         {
             //棋盘上升
-            BoardRise();
+           // BoardRise();
 
             //检测每个block的自有逻辑
             for (int row = 0; row < ConstValues.MAX_MATRIX_ROW; row++)

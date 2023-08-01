@@ -48,7 +48,7 @@ namespace Demo
             
             if (type != BlockType.None && BlockOperationEvent != null)
             {
-                transform.localPosition = dragBeginPos;
+                transform.localPosition = dragBeginPos;  
                 BlockOperationEvent(row, col, BlockOperation.TouchUp);
                 dragBeginPos = Vector3.zero;
                 GameManger.Inst.selectBlock = null;
