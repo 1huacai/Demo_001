@@ -34,6 +34,12 @@ namespace Demo
         {
             get { return originCol + x_Num - 1; }
         }
+
+        //自身逻辑更新
+        public void LogicUpdate()
+        {
+            
+        }
         
         
         public void UnlockPressureBlock(int targetCol)
@@ -66,10 +72,9 @@ namespace Demo
         private List<PressureBlock> GetAdjacentPressureBlocks()
         {
             List<PressureBlock> adjancentBlocks = new List<PressureBlock>();
-            //up and down
-            for (int i = 0; i < _gameManger.PressureBlocks.Count; i++)
+            for (int i = 0; i < _gameManger.pressureBlocks.Count; i++)
             {
-                var pressureBlock = _gameManger.PressureBlocks[i];
+                var pressureBlock = _gameManger.pressureBlocks[i];
                 //up/down
                 if((pressureBlock.Row == Row + 1 || pressureBlock.Row == Row - 1)&& pressureBlock.OriginCol <= TriggerRange)
                     adjancentBlocks.Add(pressureBlock);
@@ -80,7 +85,6 @@ namespace Demo
 
             return adjancentBlocks;
         }
-        
         
     }
 }

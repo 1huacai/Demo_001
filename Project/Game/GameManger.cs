@@ -38,8 +38,8 @@ namespace Demo
 
         //自身所有棋子的初始化数据
         public Block[,] blockMatrix = new Block[ConstValues.MAX_MATRIX_ROW, ConstValues.MAX_COL];
-        //压力块列表
-        public List<PressureBlock> PressureBlocks = new List<PressureBlock>();
+        //压力块列表(场上显示出的压力块)
+        public List<PressureBlock> pressureBlocks = new List<PressureBlock>();
 
         #region 初始化blockStageData部分
 
@@ -339,6 +339,12 @@ namespace Demo
                         block.LogicUpdate();
                     }
                 }
+            }
+            
+            //检测每个压力块的自有逻辑
+            for (int i = 0; i < pressureBlocks.Count; i++)
+            {
+                pressureBlocks[i].LogicUpdate();
             }
         }
 
