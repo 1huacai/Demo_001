@@ -39,6 +39,8 @@ namespace Demo
         public Transform m_TopUI;
         public Transform m_BackUI;
 
+        private readonly string nameSpace = "Demo.";
+
         public void OpenUI(UIDef name,params object[] msg) 
         {
             if (!UIDic.ContainsKey(name))
@@ -52,7 +54,7 @@ namespace Demo
                     var _UIbase = obj.GetComponent(name.ToString());
                     if (_UIbase == null)
                     {
-                        _UIbase = obj.AddComponent(Type.GetType(name.ToString()));
+                        _UIbase = obj.AddComponent(Type.GetType(string.Format("{0}{1}", nameSpace, name.ToString())));
                     }
                     var uibase = (UIBase)_UIbase;
                     UIDic[name] = uibase;

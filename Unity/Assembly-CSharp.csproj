@@ -1029,6 +1029,10 @@
       <Project>{C0C5E174-727C-9FFA-CD43-B55BDEF754DA}</Project>
       <Name>UnityEditor.UI</Name>
     </ProjectReference>
+    <ProjectReference Include="spine-csharp.csproj">
+      <Project>{60D0CA9B-F149-C0F5-5CFC-2D5ED55E987E}</Project>
+      <Name>spine-csharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
