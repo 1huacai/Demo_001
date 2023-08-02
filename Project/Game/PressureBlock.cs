@@ -134,11 +134,13 @@ namespace Demo
             pressureBlockCom.Row = row;
             pressureBlockCom.OriginCol = col;
             pressureBlockCom.x_Num = obj.transform.childCount;
+            Debug.LogError(GameManger.Inst.GenNewRowCount);
             pressureBlockCom.transform.localPosition = new Vector3(
                 15 + (col - 1) * ConstValues.BLOCK_X_OFFSET,
-                ConstValues.BLOCK_Y_ORIGINPOS + (row - 1) * ConstValues.PRESSURE_Y_OFFSET,
+                ConstValues.BLOCK_Y_ORIGINPOS + (row - (GameManger.Inst.GenNewRowCount - 1)) * ConstValues.PRESSURE_Y_OFFSET,
                 0f
             );
+            
             pressureBlockCom.State = BlockState.Normal;
             for (int i = 0; i < pressureBlockCom.transform.childCount; i++)
             {

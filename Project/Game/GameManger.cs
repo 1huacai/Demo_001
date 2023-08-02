@@ -299,7 +299,8 @@ namespace Demo
             }
         }
 
-        private Transform boards = null;
+        public Transform boards = null;
+        private Transform blockBoard = null;
         private Transform pressureBoard = null;
         private int genNewRowCount = 1; //构建新行的次数
 
@@ -316,6 +317,7 @@ namespace Demo
             var gameView = UIManager.Inst.GetUI<GameView>(UIDef.GameView);
             var blockDatas = GameManger.Inst.GenBlockDatas();
             boards = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Boards;
+            blockBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).BlockBoard;
             pressureBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).PressureBoard;
             //根据数据构建所有棋子obj
             GenBlocks(blockDatas, gameView.BlockBoard);
@@ -343,12 +345,14 @@ namespace Demo
             LateUpdateBlockArea();
         }
 
-
+        private bool boardStopRise = false;
         //更新棋盘区域逻辑
         private void UpDateBlockArea()
         {
-            //棋盘上升
-            //BoardRise();
+            if(!boardStopRise)
+                //棋盘上升
+                BoardRise();
+            
 
             //检测每个block的自有逻辑
             for (int row = 0; row < ConstValues.MAX_MATRIX_ROW; row++)
@@ -374,7 +378,6 @@ namespace Demo
         public List<List<Block>> BlocksInSameFrame = new List<List<Block>>();
 
         private int count = 0;
-
         private void LateUpdateBlockArea()
         {
             
@@ -395,6 +398,12 @@ namespace Demo
                     GenComboObj(count, BlocksInSameFrame[0][0].transform.localPosition);
                     //兴建压力块
                     PressureBlock.CreatePressureBlock(true,count,pressureBoard);
+                    //Combo达成，棋盘暂停移动
+                    boardStopRise = true;
+                    TimerMgr._Instance.Schedule(() =>
+                    {
+                        boardStopRise = false;
+                    }, 60 * ConstValues.fpsTime);
                 }
                 BlocksInSameFrame.Clear();
             }
