@@ -235,7 +235,7 @@ namespace Demo
                 var pressureBlock = GameManger.Inst.pressureBlocks[i];
                 if (pressureBlock.Row == downRow && pressureBlock != this)
                 {
-                    if (pressureBlock.TriggerRange >= OriginCol && pressureBlock.OriginCol <= TriggerRange && pressureBlock.State != BlockState.Falling)
+                    if (pressureBlock.TriggerRange >= OriginCol && pressureBlock.OriginCol <= TriggerRange)
                     {
                         hasDownPressureBlock = true;
                         break;
@@ -245,5 +245,6 @@ namespace Demo
             
             return hasDownBlock || hasDownPressureBlock;
         }
+        
     }
 }

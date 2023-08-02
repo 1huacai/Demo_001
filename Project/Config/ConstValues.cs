@@ -185,7 +185,7 @@ namespace Project
         //压力块初始col
         public static Dictionary<string, int> pressureOriginCol = new Dictionary<string, int>()
         {
-            {"3b", 4}, {"4b", 3}, {"5b", 2}, {"Rb", 1}
+            {"3b", 0}, {"4b", 3}, {"5b", 2}, {"Rb", 1}
         };
 
     }

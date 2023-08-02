@@ -36,9 +36,13 @@ namespace Demo
             {
                 StateManger._instance.ChangeStageEnter(BlockState.Normal, block);
             }
-            else if (downBlock.Type == BlockType.None)
+            else if (downBlock.Type == BlockType.None && !GameManger.Inst.CheckPressureBlockIncludeBlock(downBlock))
             {
                 StateManger._instance.ChangeState(BlockState.Hovering, block);
+            }
+            else if (downBlock.Type == BlockType.None && GameManger.Inst.CheckPressureBlockIncludeBlock(downBlock))
+            {
+                StateManger._instance.ChangeStageEnter(BlockState.Normal, block);
             }
             else if (downBlock.Type != BlockType.None && downBlockState == BlockState.Hovering)
             {
@@ -60,7 +64,7 @@ namespace Demo
                     return;
                 var otherBlock = _gameManger.blockMatrix[row, col - 1];
                 if (otherBlock == null || _gameManger.selectBlock.State == BlockState.Swapping ||
-                    otherBlock.State == BlockState.Swapping)
+                    otherBlock.State == BlockState.Swapping || _gameManger.CheckPressureBlockIncludeBlock(otherBlock))
                 {
                     return;
                 }

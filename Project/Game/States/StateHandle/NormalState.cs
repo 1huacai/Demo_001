@@ -38,7 +38,7 @@ namespace Demo
             if (block.Row > 1)
             {
                 var downBlock = _gameManger.blockMatrix[block.Row - 1, block.Col - 1];
-                if (downBlock.Type == BlockType.None)
+                if (downBlock.Type == BlockType.None && !GameManger.Inst.CheckPressureBlockIncludeBlock(downBlock))
                 {
                     StateManger._instance.ChangeState(BlockState.Hovering, block);
                 }

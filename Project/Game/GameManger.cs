@@ -579,8 +579,26 @@ namespace Demo
 
             Debug.LogError(stb.ToString());
         }
+        
+        /// <summary>
+        /// 获取block是否在和压力块重合(横向row)
+        /// </summary>
+        /// <param name="block"></param>
+        /// <returns></returns>
+        public bool CheckPressureBlockIncludeBlock(Block block)
+        {
+            bool result = false;
+            for (int i = 0; i < pressureBlocks.Count; i++)
+            {
+                if(result)
+                    break;
+                
+                var pressureBlock = pressureBlocks[i];
+                result = block.PressureBlockIncludeBlock(pressureBlock);
+            }
 
-
+            return result;
+        }
         
         #endregion
     }

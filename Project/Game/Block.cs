@@ -255,6 +255,18 @@ namespace Demo
         }
 
 
+        /// <summary>
+        /// block是否与压力块重合
+        /// </summary>
+        /// <param name="block"></param>
+        /// <returns></returns>
+        public bool PressureBlockIncludeBlock(PressureBlock pressureBlock)
+        {
+            return ((Col >= pressureBlock.OriginCol && Col <= pressureBlock.TriggerRange) && Row == pressureBlock.Row);
+        }
+
+
+        
         public void LogicUpdate()
         {
             //空牌就直接跳过
@@ -277,6 +289,13 @@ namespace Demo
                 if (Row <= 1)
                     return;
                 var downBlock = GameManger.Inst.blockMatrix[Row - 1, Col - 1];
+                //下落过程中遇到压力块，那么就变成landing
+                if (GameManger.Inst.CheckPressureBlockIncludeBlock(downBlock))
+                {
+                    StateManger._instance.ChangeState(BlockState.Landing, this);
+                    return;
+                }
+                
                 var pos1 = transform.localPosition;
                 var pos2 = downBlock.transform.localPosition;
                 
