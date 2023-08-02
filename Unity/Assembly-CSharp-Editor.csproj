@@ -84,6 +84,7 @@
      <Compile Include="Assets\Scripts\Editor\SetWindowText.cs" />
      <Compile Include="Assets\Scripts\Editor\ShaderVariant\ShaderVariantCollector.cs" />
      <Compile Include="Assets\Scripts\Editor\UI\SpriteAtlasTool.cs" />
+     <Compile Include="Assets\Spine\Editor\spine-unity\Editor\Windows\SpinePreferences.cs" />
      <None Include="Assets\Resources\Shaders\PostProcessing\Editor\CurveGrid.shader" />
      <None Include="Assets\Resources\Shaders\PostProcessing\Editor\Trackball.shader" />
      <None Include="Assets\Resources\Shaders\PostProcessing\Editor\ConvertToLog.shader" />
@@ -715,10 +716,6 @@
       <Project>{F63CEAD4-2145-A864-65F2-FF3CC0A4E30C}</Project>
       <Name>Unity.VSCode.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="spine-unity.csproj">
-      <Project>{D9C6BD4E-98B1-2840-CAD8-6AE288C4C16E}</Project>
-      <Name>spine-unity</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
       <Project>{23921B65-491D-5235-FADE-892E6E843C3F}</Project>
       <Name>Unity.TextMeshPro.Editor</Name>
@@ -743,10 +740,6 @@
       <Project>{1070D62F-5859-59E1-3CC0-C54CBEFA2290}</Project>
       <Name>Unity.VisualStudio.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="spine-unity-editor.csproj">
-      <Project>{BD0AF8D8-EC98-6494-F316-0C1F7B74AA00}</Project>
-      <Name>spine-unity-editor</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.csproj">
       <Project>{9C01D7DF-86BB-9834-4973-5D336B1F52EF}</Project>
       <Name>Unity.TextMeshPro</Name>
@@ -759,9 +752,13 @@
       <Project>{C0C5E174-727C-9FFA-CD43-B55BDEF754DA}</Project>
       <Name>UnityEditor.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="spine-csharp.csproj">
-      <Project>{60D0CA9B-F149-C0F5-5CFC-2D5ED55E987E}</Project>
-      <Name>spine-csharp</Name>
+    <ProjectReference Include="spine-unity.csproj">
+      <Project>{D9C6BD4E-98B1-2840-CAD8-6AE288C4C16E}</Project>
+      <Name>spine-unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="spine-unity-editor.csproj">
+      <Project>{BD0AF8D8-EC98-6494-F316-0C1F7B74AA00}</Project>
+      <Name>spine-unity-editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

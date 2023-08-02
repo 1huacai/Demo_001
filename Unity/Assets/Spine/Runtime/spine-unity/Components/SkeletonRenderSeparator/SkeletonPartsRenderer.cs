@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated January 1, 2020. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2020, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -94,12 +94,12 @@ namespace Spine.Unity {
 			LazyIntialize();
 
 			// STEP 1: Create instruction
-			MeshRendererBuffers.SmartMesh smartMesh = buffers.GetNextMesh();
+			var smartMesh = buffers.GetNextMesh();
 			currentInstructions.SetWithSubset(instructions, startSubmesh, endSubmesh);
 			bool updateTriangles = SkeletonRendererInstruction.GeometryNotEqual(currentInstructions, smartMesh.instructionUsed);
 
 			// STEP 2: Generate mesh buffers.
-			SubmeshInstruction[] currentInstructionsSubmeshesItems = currentInstructions.submeshInstructions.Items;
+			var currentInstructionsSubmeshesItems = currentInstructions.submeshInstructions.Items;
 			meshGenerator.Begin();
 			if (currentInstructions.hasActiveClipping) {
 				for (int i = 0; i < currentInstructions.submeshInstructions.Count; i++)
@@ -111,7 +111,7 @@ namespace Spine.Unity {
 			buffers.UpdateSharedMaterials(currentInstructions.submeshInstructions);
 
 			// STEP 3: modify mesh.
-			Mesh mesh = smartMesh.mesh;
+			var mesh = smartMesh.mesh;
 
 			if (meshGenerator.VertexCount <= 0) { // Clear an empty mesh
 				updateTriangles = false;
@@ -140,9 +140,9 @@ namespace Spine.Unity {
 		}
 
 		public static SkeletonPartsRenderer NewPartsRendererGameObject (Transform parent, string name, int sortingOrder = 0) {
-			GameObject go = new GameObject(name, typeof(MeshFilter), typeof(MeshRenderer));
+			var go = new GameObject(name, typeof(MeshFilter), typeof(MeshRenderer));
 			go.transform.SetParent(parent, false);
-			SkeletonPartsRenderer returnComponent = go.AddComponent<SkeletonPartsRenderer>();
+			var returnComponent = go.AddComponent<SkeletonPartsRenderer>();
 			returnComponent.MeshRenderer.sortingOrder = sortingOrder;
 
 			return returnComponent;

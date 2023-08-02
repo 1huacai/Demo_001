@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated January 1, 2020. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2020, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -30,20 +30,12 @@
 using System;
 
 namespace Spine {
-
-	/// <summary>The base class for all attachments.</summary>
 	abstract public class Attachment {
-		/// <summary>The attachment's name.</summary>
-		public string Name { get; }
+		public string Name { get; private set; }
 
 		protected Attachment (string name) {
 			if (name == null) throw new ArgumentNullException("name", "name cannot be null");
-			this.Name = name;
-		}
-
-		/// <summary>Copy constructor.</summary>
-		protected Attachment (Attachment other) {
-			Name = other.Name;
+			Name = name;
 		}
 
 		override public string ToString () {
@@ -52,5 +44,9 @@ namespace Spine {
 
 		///<summary>Returns a copy of the attachment.</summary>
 		public abstract Attachment Copy ();
+	}
+
+	public interface IHasRendererObject {
+		object RendererObject { get; set; }
 	}
 }

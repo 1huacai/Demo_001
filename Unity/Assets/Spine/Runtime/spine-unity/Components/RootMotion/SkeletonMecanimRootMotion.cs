@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated January 1, 2020. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2020, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -27,9 +27,9 @@
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-using Spine.Unity.AnimationTools;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+using Spine.Unity.AnimationTools;
 
 namespace Spine.Unity {
 
@@ -53,7 +53,6 @@ namespace Spine.Unity {
 		#endregion
 
 		protected Vector2 movementDelta;
-		protected float rotationDelta;
 
 		SkeletonMecanim skeletonMecanim;
 		public SkeletonMecanim SkeletonMecanim {
@@ -63,21 +62,21 @@ namespace Spine.Unity {
 		}
 
 		public override Vector2 GetRemainingRootMotion (int layerIndex) {
-			KeyValuePair<Animation, float> pair = skeletonMecanim.Translator.GetActiveAnimationAndTime(layerIndex);
-			Animation animation = pair.Key;
-			float time = pair.Value;
+			var pair = skeletonMecanim.Translator.GetActiveAnimationAndTime(layerIndex);
+			var animation = pair.Key;
+			var time = pair.Value;
 			if (animation == null)
 				return Vector2.zero;
 
 			float start = time;
-			float end = animation.Duration;
+			float end = animation.duration;
 			return GetAnimationRootMotion(start, end, animation);
 		}
 
 		public override RootMotionInfo GetRootMotionInfo (int layerIndex) {
-			KeyValuePair<Animation, float> pair = skeletonMecanim.Translator.GetActiveAnimationAndTime(layerIndex);
-			Animation animation = pair.Key;
-			float time = pair.Value;
+			var pair = skeletonMecanim.Translator.GetActiveAnimationAndTime(layerIndex);
+			var animation = pair.Key;
+			var time = pair.Value;
 			if (animation == null)
 				return new RootMotionInfo();
 			return GetAnimationRootMotionInfo(animation, time);
@@ -97,39 +96,25 @@ namespace Spine.Unity {
 			}
 		}
 
-		void OnClipApplied (Spine.Animation animation, int layerIndex, float weight,
+		void OnClipApplied(Spine.Animation animation, int layerIndex, float weight,
 				float time, float lastTime, bool playsBackward) {
 
-			if (((mecanimLayerFlags & 1 << layerIndex) == 0) || weight == 0)
+			if (((mecanimLayerFlags & 1<<layerIndex) == 0) || weight == 0)
 				return;
 
 			if (!playsBackward) {
 				movementDelta += weight * GetAnimationRootMotion(lastTime, time, animation);
-			} else {
-				movementDelta -= weight * GetAnimationRootMotion(time, lastTime, animation);
 			}
-			if (transformRotation) {
-				if (!playsBackward) {
-					rotationDelta += weight * GetAnimationRootMotionRotation(lastTime, time, animation);
-				} else {
-					rotationDelta -= weight * GetAnimationRootMotionRotation(time, lastTime, animation);
-				}
+			else {
+				movementDelta -= weight * GetAnimationRootMotion(time, lastTime, animation);
 			}
 		}
 
 		protected override Vector2 CalculateAnimationsMovementDelta () {
-			// Note: movement delta is not gathered after animation but
+			// Note: movement delta is not gather after animation but
 			// in OnClipApplied after every applied animation.
 			Vector2 result = movementDelta;
 			movementDelta = Vector2.zero;
-			return result;
-		}
-
-		protected override float CalculateAnimationsRotationDelta () {
-			// Note: movement delta is not gathered after animation but
-			// in OnClipApplied after every applied animation.
-			float result = rotationDelta;
-			rotationDelta = 0;
 			return result;
 		}
 	}
