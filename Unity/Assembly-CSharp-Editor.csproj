@@ -84,7 +84,6 @@
      <Compile Include="Assets\Scripts\Editor\SetWindowText.cs" />
      <Compile Include="Assets\Scripts\Editor\ShaderVariant\ShaderVariantCollector.cs" />
      <Compile Include="Assets\Scripts\Editor\UI\SpriteAtlasTool.cs" />
-     <Compile Include="Assets\Spine\Editor\spine-unity\Editor\Windows\SpinePreferences.cs" />
      <None Include="Assets\Resources\Shaders\PostProcessing\Editor\CurveGrid.shader" />
      <None Include="Assets\Resources\Shaders\PostProcessing\Editor\Trackball.shader" />
      <None Include="Assets\Resources\Shaders\PostProcessing\Editor\ConvertToLog.shader" />

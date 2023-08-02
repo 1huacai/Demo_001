@@ -44,6 +44,21 @@ namespace Demo
            
         }
 
+        public virtual void Enter(PressureBlock pressureBlock)
+        {
+            
+        }
+
+        public virtual void Update(PressureBlock pressureBlock)
+        {
+            
+        }
+        
+        public virtual void Exit(PressureBlock block)
+        {
+           
+        }
+        
         #endregion
     }
 }

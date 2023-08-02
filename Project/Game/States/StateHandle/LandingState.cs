@@ -32,12 +32,8 @@ namespace Demo
                 else
                 {
                     Debug.LogError("进入Landing待转matched");
-                    if (sameBlocks.Count >= 4)
-                    {
-                        //combo效果
-                        _gameManger.GenComboObj(sameBlocks.Count,sameBlocks[0].transform.localPosition);
-                    }                                                         
-  
+                    _gameManger.BlocksInSameFrame.Add(sameBlocks);
+                    
                     //所有相同的棋子都要变为matched状态
                     for (int i = 0; i < sameBlocks.Count; i++)
                     {

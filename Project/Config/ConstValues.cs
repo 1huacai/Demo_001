@@ -41,6 +41,8 @@ namespace Project
         public const int BLOCK_Y_ORIGINPOS = 100; //棋子原始纵向Y
         public const int BLOCK_WIDTH = 140;
         public const int BLOCK_HEIGHT = 140;
+        public const int PRESSURE_Y_OFFSET = 172;
+        
         
         public const int MAX_ROW = 11; //最大行数
         public const int MAX_COL = 6; //最大列数
@@ -57,8 +59,8 @@ namespace Project
         
         public const string blockPrefabPath = "Prefabs/Block";
         public const string comboPrefabPath = "Prefabs/Combo";
-
-
+        public const string pressurePrefabPath = "Prefabs/PressureBlock/";
+        
         private const string textureBlockPath = "Texture/block/panel";
         public const string textureComboPath = "Texture/combo/combo";
         
@@ -158,5 +160,33 @@ namespace Project
         public const int poppingFps = 8;
 
         public static readonly float fpsTime = Time.deltaTime;
+
+        public static List<GameObject> pressureBlcokObjs = new List<GameObject>()
+        {
+            Resources.Load<GameObject>(pressurePrefabPath + "3B"),
+            Resources.Load<GameObject>(pressurePrefabPath + "4B"),
+            Resources.Load<GameObject>(pressurePrefabPath + "5B"),
+            Resources.Load<GameObject>(pressurePrefabPath + "RB")
+        };
+        
+        public static Dictionary<string, GameObject> pressureBlocks = new Dictionary<string, GameObject>()
+        {
+            {"3b",pressureBlcokObjs[0]},{"4b",pressureBlcokObjs[1]},{"5b",pressureBlcokObjs[2]},{"Rb",pressureBlcokObjs[3]}
+        };
+
+        public static Dictionary<int, string> pressureConfWithCombo = new Dictionary<int, string>()
+        {
+            {4, "3b"},{5, "4b"},{6, "5b"},{7, "Rb"},{8, "3b+4b"},{9, "2*4b"},{10, "2*5b"},{11, "5b+Rb"},
+            {12,"2*Rb"}, {13,"3*Rb"}, {14,"4*Rb"},{15,"4*Rb"},{16,"4*Rb"},{17,"4*Rb"},{18,"4*Rb"},{19,"4*Rb"},
+            {20,"4*Rb"},{21,"4*Rb"},{22,"4*Rb"},{23,"4*Rb"},{24,"4*Rb"},{25,"4*Rb"},{26,"4*Rb"},{27,"4*Rb"},
+            {28,"8*Rb"},
+        };
+        
+        //压力块初始col
+        public static Dictionary<string, int> pressureOriginCol = new Dictionary<string, int>()
+        {
+            {"3b", 4}, {"4b", 3}, {"5b", 2}, {"Rb", 1}
+        };
+
     }
 }

@@ -50,5 +50,33 @@ namespace Demo
                 }
             }, ConstValues.fallingFps * ConstValues.fpsTime);
         }
+
+        public override void Enter(PressureBlock pressureBlock)
+        {
+            base.Enter(pressureBlock);
+            pressureBlock.State = BlockState.Falling;
+            pressureBlock.IsNeedFall = true;
+        }
+
+        public override void Update(PressureBlock pressureBlock)
+        {
+            base.Update(pressureBlock);
+            TimerMgr._Instance.Schedule(() =>
+            {
+                if (!pressureBlock.HasObstacleWithDown())
+                {
+                    StateManger._instance.ChangeState(BlockState.Falling, pressureBlock);
+                }
+                else
+                {
+                    StateManger._instance.ChangeState(BlockState.Normal, pressureBlock);
+                }
+            }, ConstValues.fallingFps * ConstValues.fpsTime);
+        }
+        
+        public override void Exit(PressureBlock block)
+        {
+            base.Exit(block);
+        }
     }
 }

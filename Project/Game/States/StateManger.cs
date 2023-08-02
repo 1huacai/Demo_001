@@ -76,5 +76,49 @@ namespace Demo
             }
         }
         
+        
+        // <summary>
+        /// 通用状态改变处理
+        /// </summary>
+        /// <param name="newState"></param>
+        /// <param name="blocks"></param>
+        public void ChangeState(BlockState newState,params PressureBlock[] blocks)
+        {
+            for (int i = 0; i < blocks.Length; i++)
+            {
+                var block = blocks[i];
+                StateHandlers[newState].Enter(block);
+                StateHandlers[newState].Update(block);
+            }
+        }
+        
+        /// <summary>
+        /// 只执行block改变状态的进入
+        /// </summary>
+        /// <param name="newState"></param>
+        /// <param name="blocks"></param>
+        public void ChangeStageEnter(BlockState newState,params PressureBlock[] blocks)
+        {
+            for (int i = 0; i < blocks.Length; i++)
+            {
+                var block = blocks[i];
+                StateHandlers[newState].Enter(block);
+            }
+        }
+        
+        /// <summary>
+        /// 只执行block改变状态的Update
+        /// </summary>
+        /// <param name="newState"></param>
+        /// <param name="blocks"></param>
+        public void ChangeStageUpdate(BlockState newState,params PressureBlock[] blocks)
+        {
+            for (int i = 0; i < blocks.Length; i++)
+            {
+                var block = blocks[i];
+                StateHandlers[newState].Update(block);
+            }
+        }
+        
     }
 }

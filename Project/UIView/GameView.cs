@@ -75,6 +75,9 @@ namespace Demo
         
         public void DestroyAllBlocks()
         {
+            //预先清空所有计时器
+            TimerMgr._Instance.RemoveAllTimer();
+            
             for (int i = 0; i < GameManger.Inst.blockMatrix.GetLength(0); i++)
             {
                 for (int j = 0; j < GameManger.Inst.blockMatrix.GetLength(1); j++)
@@ -87,6 +90,14 @@ namespace Demo
                 }
             }
 
+            for (int i = 0; i < GameManger.Inst.pressureBlocks.Count; i++)
+            {
+                var pressureBlockObj = GameManger.Inst.pressureBlocks[i].gameObject;
+                Destroy(pressureBlockObj);
+            }
+            GameManger.Inst.pressureBlocks.Clear();
+            
+            
             GameManger.Inst.GenNewRowCount = 1;
             boards.localPosition = Vector3.zero;
             var blockDatas = GameManger.Inst.GenBlockDatas(4);

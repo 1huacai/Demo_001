@@ -18,15 +18,8 @@ namespace Demo
             var sameBlocks = _gameManger.GetSameBlocksWith(block);
             if (sameBlocks.Count >= 3)//有可以匹配消除的block
             {
-                Debug.LogError($"效果帧数-{TimerMgr._Instance.Frame}");
                 Debug.LogError("进入normal待转matched");
                 _gameManger.BlocksInSameFrame.Add(sameBlocks);
-                
-                if (sameBlocks.Count >= 4 && _gameManger.BlocksInSameFrame.Count < 2)
-                {
-                    //combo效果
-                    _gameManger.GenComboObj(sameBlocks.Count,sameBlocks[0].transform.localPosition);
-                }
                 
                 for (int i = 0; i < sameBlocks.Count; i++)
                 {  
@@ -48,7 +41,6 @@ namespace Demo
                 if (downBlock.Type == BlockType.None)
                 {
                     StateManger._instance.ChangeState(BlockState.Hovering, block);
-                    return;
                 }
             }
             
@@ -68,6 +60,27 @@ namespace Demo
             {
                 block.IsSelected = false;
             }
+        }
+
+        public override void Enter(PressureBlock pressureBlock)
+        {
+            base.Enter(pressureBlock);
+            pressureBlock.State = BlockState.Normal;
+        }
+
+        public override void Update(PressureBlock pressureBlock)
+        {
+            base.Update(pressureBlock);
+            if (!pressureBlock.HasObstacleWithDown())
+            {
+                StateManger._instance.ChangeState(BlockState.Falling,pressureBlock);
+            }
+            
+        }
+
+        public override void Exit(PressureBlock block)
+        {
+            base.Exit(block);
         }
     }
 }

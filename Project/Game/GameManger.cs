@@ -261,6 +261,27 @@ namespace Demo
             }));
         }
 
+        public Block GenNewBlock(int row,int col)
+        {
+            Block block = null;
+            var type = (BlockType) Random.Range(1, 6);
+            var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).BlockBoard;
+            SingletonManager.GetManager<ResourcesManager>().LoadPrefab(ConstValues.blockPrefabPath, ((obj, length) =>
+            {
+                block = Block.CreateBlockObject(obj, row, col, true, type, BlockState.Normal, boardTran, this);
+                //设置棋子位置
+                block.transform.localPosition = new Vector3(
+                    ConstValues.BLOCK_X_ORIGINPOS + (col - 1) * ConstValues.BLOCK_X_OFFSET,
+                    ConstValues.BLOCK_Y_ORIGINPOS + (row - 1) * ConstValues.BLOCK_Y_OFFSET,
+                    0f
+                );
+                blockMatrix[row, col - 1] = block;
+                block.BlockOperationEvent += OnBlockOperation;
+            }));
+            return block;
+        }
+        
+        
         #endregion
         
         
@@ -279,7 +300,7 @@ namespace Demo
         }
 
         private Transform boards = null;
-
+        private Transform pressureBoard = null;
         private int genNewRowCount = 1; //构建新行的次数
 
         public int GenNewRowCount
@@ -295,6 +316,7 @@ namespace Demo
             var gameView = UIManager.Inst.GetUI<GameView>(UIDef.GameView);
             var blockDatas = GameManger.Inst.GenBlockDatas();
             boards = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Boards;
+            pressureBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).PressureBoard;
             //根据数据构建所有棋子obj
             GenBlocks(blockDatas, gameView.BlockBoard);
             StateManger._instance.Init(this);
@@ -326,7 +348,7 @@ namespace Demo
         private void UpDateBlockArea()
         {
             //棋盘上升
-           // BoardRise();
+            //BoardRise();
 
             //检测每个block的自有逻辑
             for (int row = 0; row < ConstValues.MAX_MATRIX_ROW; row++)
@@ -355,14 +377,11 @@ namespace Demo
 
         private void LateUpdateBlockArea()
         {
-            if (BlocksInSameFrame.Count < 2)
-            {
-                count = 0;
-                BlocksInSameFrame.Clear();
-            }
-            else
+            
+            if (BlocksInSameFrame.Count > 0)
             {
                 Debug.LogError("同帧率多消组合FPS-" + TimerMgr._Instance.Frame);
+                count = 0;
                 for (int i = 0; i < BlocksInSameFrame.Count; i++)
                 {
                     for (int j = 0; j < BlocksInSameFrame[i].Count; j++)
@@ -371,7 +390,12 @@ namespace Demo
                     }
                 }
 
-                GenComboObj(count, BlocksInSameFrame[0][0].transform.localPosition);
+                if (count >= 4)
+                {
+                    GenComboObj(count, BlocksInSameFrame[0][0].transform.localPosition);
+                    //兴建压力块
+                    PressureBlock.CreatePressureBlock(true,count,pressureBoard);
+                }
                 BlocksInSameFrame.Clear();
             }
         }
@@ -386,6 +410,12 @@ namespace Demo
                 {
                     GenNewRowBlocks(genNewRowCount);
                     genNewRowCount++;
+                    //压力块的Row也更新+1
+                    for (int i = 0; i < pressureBlocks.Count; i++)
+                    {
+                        pressureBlocks[i].Row++;
+                    }
+                    
                 }
 
                 boards.transform.localPosition += new Vector3(0, 1, 0);

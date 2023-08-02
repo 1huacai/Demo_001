@@ -258,8 +258,12 @@ namespace Demo
         public void LogicUpdate()
         {
             //空牌就直接跳过
-            if (type == BlockType.None)  
+            if (type == BlockType.None)
+            {
+                State = BlockState.Normal;
                 return;
+            }
+               
 
             CheckBlockNotInteractWithState();
 

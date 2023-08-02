@@ -46,6 +46,12 @@
     <Reference Include="DOTween, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\Unity\Assets\Resources\Plugins\DOTween.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween43, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\Unity\Assets\Resources\Plugins\DOTween43.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween46, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\Unity\Assets\Resources\Plugins\DOTween46.dll</HintPath>
+    </Reference>
     <Reference Include="FrameWork, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\frame\ProjectsDllExports\FrameWork.dll</HintPath>
@@ -54,6 +60,10 @@
     <Reference Include="IFix.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Unity\Assets\Resources\Plugins\IFix.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="spine-unity, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\Unity\Temp\bin\Debug\spine-unity.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
