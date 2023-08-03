@@ -136,7 +136,7 @@ namespace Demo
         }
 
         //获取与之前不同的blockType
-        private BlockType GetDiffTypeFrom(BlockType oldType)
+        public BlockType GetDiffTypeFrom(BlockType oldType)
         {
             BlockType newType = (BlockType) Random.Range(1, ConstValues.MAX_BLOCKTYPE);
             while (oldType == newType)
@@ -261,20 +261,25 @@ namespace Demo
             }));
         }
 
-        public Block GenNewBlock(int row,int col)
+        public Block GenNewBlock(int row,int col,BlockType type,bool genByGarbage)
         {
             Block block = null;
-            var type = (BlockType) Random.Range(1, 6);
             var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).BlockBoard;
             SingletonManager.GetManager<ResourcesManager>().LoadPrefab(ConstValues.blockPrefabPath, ((obj, length) =>
             {
-                block = Block.CreateBlockObject(obj, row, col, true, type, BlockState.Normal, boardTran, this);
+                block = Block.CreateBlockObject(obj, row, col, false, type, BlockState.Normal, boardTran, this);
                 //设置棋子位置
                 block.transform.localPosition = new Vector3(
                     ConstValues.BLOCK_X_ORIGINPOS + (col - 1) * ConstValues.BLOCK_X_OFFSET,
-                    ConstValues.BLOCK_Y_ORIGINPOS + (row - 1) * ConstValues.BLOCK_Y_OFFSET,
+                    ConstValues.BLOCK_Y_ORIGINPOS + (row - genNewRowCount + 1) * ConstValues.BLOCK_Y_OFFSET,
                     0f
                 );
+                block.GenByGenByGarbage = genByGarbage;
+                if (blockMatrix[row, col - 1] != null)
+                {
+                    GameObject.Destroy(blockMatrix[row, col - 1].gameObject);
+                    blockMatrix[row, col - 1] = null;
+                }
                 blockMatrix[row, col - 1] = block;
                 block.BlockOperationEvent += OnBlockOperation;
             }));
@@ -333,7 +338,6 @@ namespace Demo
                 genNewRowCount = 1;
                 return;
             }
-
             UpDateBlockArea();
         }
 
@@ -341,7 +345,6 @@ namespace Demo
         {
             if (!gameStart)
                 return;
-
             LateUpdateBlockArea();
         }
 
@@ -350,10 +353,8 @@ namespace Demo
         private void UpDateBlockArea()
         {
             if(!boardStopRise)
-                //棋盘上升
                 BoardRise();
             
-
             //检测每个block的自有逻辑
             for (int row = 0; row < ConstValues.MAX_MATRIX_ROW; row++)
             {
@@ -385,30 +386,41 @@ namespace Demo
             {
                 Debug.LogError("同帧率多消组合FPS-" + TimerMgr._Instance.Frame);
                 count = 0;
+                
                 for (int i = 0; i < BlocksInSameFrame.Count; i++)
                 {
                     for (int j = 0; j < BlocksInSameFrame[i].Count; j++)
                     {
                         count++;
+                        var block = BlocksInSameFrame[i][j];
+                        
+                        for (int k = 0; k < pressureBlocks.Count; k++)
+                        {
+                            var pressureBlock = pressureBlocks[k];
+                            pressureBlock.UnlockPressureBlock(block.Row,block.Col);
+                        }
                     }
                 }
-
+                
                 if (count >= 4)
                 {
                     GenComboObj(count, BlocksInSameFrame[0][0].transform.localPosition);
-                    //兴建压力块
-                    PressureBlock.CreatePressureBlock(true,count,pressureBoard);
+                    
                     //Combo达成，棋盘暂停移动
                     boardStopRise = true;
                     TimerMgr._Instance.Schedule(() =>
                     {
                         boardStopRise = false;
+                        //兴建压力块
+                        PressureBlock.CreatePressureBlock(true,count,pressureBoard);
+
                     }, 60 * ConstValues.fpsTime);
                 }
                 BlocksInSameFrame.Clear();
             }
         }
-
+        
+        //棋盘上升
         private void BoardRise()
         {
             //TODO 到达顶部，就不上升了
@@ -424,7 +436,6 @@ namespace Demo
                     {
                         pressureBlocks[i].Row++;
                     }
-                    
                 }
 
                 boards.transform.localPosition += new Vector3(0, 1, 0);
@@ -581,7 +592,7 @@ namespace Demo
         }
         
         /// <summary>
-        /// 获取block是否在和压力块重合(横向row)
+        /// 获取block是否在和压力块重合
         /// </summary>
         /// <param name="block"></param>
         /// <returns></returns>

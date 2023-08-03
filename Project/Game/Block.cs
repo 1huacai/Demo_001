@@ -19,10 +19,11 @@ namespace Demo
 
         private GameManger manger;
         [SerializeField] private BlockState state = BlockState.Normal;
-        [SerializeField] private bool selected = false;
+        [SerializeField] private bool selected = false; 
         private bool swaping = false;
-        private bool needFall = false;
-        private bool dimmed = false;
+        [SerializeField]private bool needFall = false;
+        [SerializeField]private bool dimmed = false;
+        [SerializeField]private bool genByGarbage = false;//由garbage生成的标志
         
         public delegate void BlockOperationHandler(int row, int column, BlockOperation operation);
 
@@ -221,6 +222,12 @@ namespace Demo
                 image.sprite = ConstValues._sprites[(int) value];
             }
         }
+
+        public bool GenByGenByGarbage
+        {
+            get { return genByGarbage; }
+            set { genByGarbage = value; }
+        }
         
         
         #endregion
@@ -269,14 +276,17 @@ namespace Demo
         
         public void LogicUpdate()
         {
+            //由压力块生成时暂时不下落
+            if(GenByGenByGarbage)
+                return;
+            
             //空牌就直接跳过
             if (type == BlockType.None)
             {
                 State = BlockState.Normal;
                 return;
             }
-               
-
+            
             CheckBlockNotInteractWithState();
 
             //实时监测自己自身的状态，除去swaping

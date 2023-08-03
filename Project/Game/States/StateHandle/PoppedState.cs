@@ -13,6 +13,12 @@ namespace Demo
             if (block.Type == BlockType.None)
                 return;
             block.State = BlockState.Popped;
+            block.Type = BlockType.None;
+            // for (int i = 0; i < _gameManger.pressureBlocks.Count; i++)
+            // {
+            //     var pressureBlock = _gameManger.pressureBlocks[i];
+            //     pressureBlock.UnlockPressureBlock(block.Row,block.Col);
+            // }
         }
 
         public override void Update(Block block)
@@ -24,7 +30,6 @@ namespace Demo
                 return;
             //block类型变为空棋子
             StateManger._instance.ChangeState(BlockState.Normal, block);
-            block.Type = BlockType.None;
         }
     }
 }

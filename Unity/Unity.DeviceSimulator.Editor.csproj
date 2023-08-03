@@ -321,17 +321,41 @@
  <Reference Include="T4Template">
  <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Scripts/Editor/ConfigTool/T4Template.dll</HintPath>
  </Reference>
- <Reference Include="log4netPlastic">
- <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Library/PackageCache/com.unity.collab-proxy@1.14.18/Lib/Editor/PlasticSCM/log4netPlastic.dll</HintPath>
+ <Reference Include="System.Net.Sockets">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Net.Sockets.dll</HintPath>
  </Reference>
- <Reference Include="Unity.Plastic.Antlr3.Runtime">
- <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Library/PackageCache/com.unity.collab-proxy@1.14.18/Lib/Editor/PlasticSCM/Unity.Plastic.Antlr3.Runtime.dll</HintPath>
+ <Reference Include="System.Diagnostics.StackTrace">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Diagnostics.StackTrace.dll</HintPath>
  </Reference>
- <Reference Include="Unity.Plastic.Newtonsoft.Json">
- <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Library/PackageCache/com.unity.collab-proxy@1.14.18/Lib/Editor/PlasticSCM/Unity.Plastic.Newtonsoft.Json.dll</HintPath>
+ <Reference Include="System.Threading.Overlapped">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Threading.Overlapped.dll</HintPath>
  </Reference>
- <Reference Include="unityplastic">
- <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Library/PackageCache/com.unity.collab-proxy@1.14.18/Lib/Editor/PlasticSCM/unityplastic.dll</HintPath>
+ <Reference Include="System.Globalization.Extensions">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Globalization.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.SecureString">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Security.SecureString.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.Compression">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.IO.Compression.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Data.Common">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Data.Common.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Xml.XPath.XDocument">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Xml.XPath.XDocument.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.Cryptography.Algorithms">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Security.Cryptography.Algorithms.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.Http">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Net.Http.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.Tracing">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Diagnostics.Tracing.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Serialization.Primitives">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Runtime.Serialization.Primitives.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
  <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>

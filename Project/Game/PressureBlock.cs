@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using Spine.Unity;
 using Project;
+using Random = UnityEngine.Random;
 
 namespace Demo
 {
@@ -152,38 +154,16 @@ namespace Demo
             GameManger.Inst.pressureBlocks.Add(pressureBlockCom);
         }
         
-        public void UnlockPressureBlock(int targetCol)
+        public void UnlockPressureBlock(int targetRow,int targetCol)
         {
-            if(targetCol > TriggerRange)
+            //没有相邻接触的压力块
+            if(!HasAdjacentBlock(targetRow,targetCol))
                 return;
-            //有接触开始解锁block
-            //先解锁自身
-            for (int i = 0; i < singleBlocks.Count; i++)
-            {
-                var block = singleBlocks[i];
-                //播放解锁动画特效
-                var s_anim = block.Find("LockAnim").GetComponent<SkeletonGraphic>();
-                s_anim.gameObject.SetActive(true);
-                s_anim.AnimationState.SetAnimation(0, "animation", false);
-                s_anim.AnimationState.Complete += (entry =>
-                {
-                    block.gameObject.SetActive(false);
-                    s_anim.gameObject.SetActive(false);
-                    
-                    //生成新的压力块
-                    var newBlock =  GameManger.Inst.GenNewBlock(Row,originCol + i);
-                    genBlocks.Add(newBlock);
-                });
-            }
             
-            //自己触发完成后，四个方向查找解锁先临的压力块
-            var adjancentBlocks = GetAdjacentPressureBlocks();
-            //分别触发自己压力块的解锁
-            for (int i = 0; i < adjancentBlocks.Count; i++)
-            {
-                adjancentBlocks[i].UnlockPressureBlock(0);
-            }
-
+            Debug.LogError("压力块生成新的block");
+            //有接触开始解锁block
+            StartCoroutine(UnlockPressureAnim());
+            
         }
         
         //获取四个方向的相邻压力块
@@ -205,6 +185,72 @@ namespace Demo
         }
         
         /// <summary>
+        /// 压力块解锁动画
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator UnlockPressureAnim()
+        {
+            //自身解锁或生成新的块
+            BlockType oldType = (BlockType) Random.Range(1, ConstValues.MAX_BLOCKTYPE);
+            float animTime = 0f;
+            for (int i = 0; i < singleBlocks.Count; i++)
+            {
+                var block = singleBlocks[i];
+                //播放解锁动画特效
+                var s_anim = block.Find("LockAnim").GetComponent<SkeletonGraphic>();
+                s_anim.gameObject.SetActive(true);
+                animTime = s_anim.AnimationState.SetAnimation(0, "animation", false).Animation.Duration;
+                s_anim.AnimationState.Complete += (entry =>
+                { 
+                    block.gameObject.SetActive(false);
+                    s_anim.gameObject.SetActive(false);
+                    //生成新的压力块
+                    var newBlock =  GameManger.Inst.GenNewBlock(Row,originCol + i,oldType,true);
+                    genBlocks.Add(newBlock);
+                });
+                oldType = GameManger.Inst.GetDiffTypeFrom(oldType);
+                yield return new WaitForSeconds(animTime);
+            }
+            
+            //自己触发完成后，四个方向查找解锁先临的压力块
+            var adjancentBlocks = GetAdjacentPressureBlocks();
+            float totalTime = 0f;
+            //获取动画总时间
+            for (int i = 0; i < adjancentBlocks.Count; i++)
+            {
+                totalTime += animTime * adjancentBlocks[i].singleBlocks.Count;
+            }
+            //分别触发自己压力块的解锁
+            for (int i = 0; i < adjancentBlocks.Count; i++)
+            {
+                float time = animTime * adjancentBlocks[i].singleBlocks.Count;
+                StartCoroutine(adjancentBlocks[i].UnlockPressureAnim());
+                yield return new WaitForSeconds(time);
+            }
+            
+            yield return new WaitForSeconds(totalTime);
+            
+            foreach (var block in genBlocks)
+            {
+                block.GenByGenByGarbage = false;
+            }
+            
+            GameManger.Inst.pressureBlocks.Remove(this);
+            //Destroy(gameObject); -- 问题所在，估计是被删除了导致协程没处理完
+
+        }
+        
+        
+        //检测是否有block与压力块相邻
+        private bool HasAdjacentBlock(int targetRow, int targetCol)
+        {
+            return (targetRow == Row && (targetCol == OriginCol - 1 || targetCol == TriggerRange + 1)) ||
+                   
+                   ((targetCol >= OriginCol && targetCol <= TriggerRange) && (targetRow == Row + 1 || targetRow == Row - 1));
+        }
+        
+        
+        /// <summary>
         /// 判断当前压力块下方是否有障碍物
         /// </summary>
         /// <returns></returns>
@@ -212,19 +258,18 @@ namespace Demo
         {
             bool hasDownBlock = false;
             int downRow = Row - 1;
+            
             //检测下方block
             for (int i = 0; i < ConstValues.MAX_COL; i++)
             {
-                if (i + 1 >= OriginCol && i + 1 <= TriggerRange)
+                var block = GameManger.Inst.blockMatrix[downRow, i];
+                if (block)
                 {
-                    var block = GameManger.Inst.blockMatrix[downRow, i];
-                    if (block)
+                    if (block.Type != BlockType.None &&
+                        block.State != BlockState.Falling &&
+                        (block.Col >= OriginCol && block.Col <= TriggerRange))
                     {
-                        if (block.Type != BlockType.None && block.State != BlockState.Falling)
-                        {
-                            hasDownBlock = true;
-                            break;
-                        }
+                        hasDownBlock = true;
                     }
                 }
             }

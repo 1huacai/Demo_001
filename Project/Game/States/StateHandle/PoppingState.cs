@@ -10,6 +10,8 @@ namespace Demo
 
         public override void Enter(Block block)
         {
+            if(block == null)
+                return;
             if (block.Type == BlockType.None)
                 return;
             block.State = BlockState.Popping;
