@@ -18,6 +18,7 @@ namespace Demo.Tools
         private void Update()
         {
             TimerMgr._Instance.Update();
+            NetManager.Instance.Update();
             // GameManger.Inst.FiexdUpdate();
         }
 

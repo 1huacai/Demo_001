@@ -17,7 +17,7 @@ namespace Demo
             block.State = BlockState.Popping;
         }
 
-        public override void Update(Block block)
+        public override void Update(Block block) 
         {
             if (block.Type == BlockType.None)
                 return;

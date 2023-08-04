@@ -309,47 +309,47 @@
  <Reference Include="protobuf-net">
  <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/protobuf-net.dll</HintPath>
  </Reference>
+ <Reference Include="System.Data.Common">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Data.Common.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.StackTrace">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Diagnostics.StackTrace.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.Tracing">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Diagnostics.Tracing.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Globalization.Extensions">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Globalization.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.Compression">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.IO.Compression.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.Http">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Net.Http.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.Sockets">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Net.Sockets.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Serialization.Primitives">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Runtime.Serialization.Primitives.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.Cryptography.Algorithms">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Security.Cryptography.Algorithms.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.SecureString">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Security.SecureString.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Threading.Overlapped">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Threading.Overlapped.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Xml.XPath.XDocument">
+ <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Xml.XPath.XDocument.dll</HintPath>
+ </Reference>
  <Reference Include="zlib.net">
  <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/zlib.net.dll</HintPath>
  </Reference>
  <Reference Include="T4Template">
  <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Scripts/Editor/ConfigTool/T4Template.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.Sockets">
- <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Net.Sockets.dll</HintPath>
- </Reference>
- <Reference Include="System.Diagnostics.StackTrace">
- <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Diagnostics.StackTrace.dll</HintPath>
- </Reference>
- <Reference Include="System.Threading.Overlapped">
- <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Threading.Overlapped.dll</HintPath>
- </Reference>
- <Reference Include="System.Globalization.Extensions">
- <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Globalization.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="System.Security.SecureString">
- <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Security.SecureString.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.Compression">
- <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.IO.Compression.dll</HintPath>
- </Reference>
- <Reference Include="System.Data.Common">
- <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Data.Common.dll</HintPath>
- </Reference>
- <Reference Include="System.Xml.XPath.XDocument">
- <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Xml.XPath.XDocument.dll</HintPath>
- </Reference>
- <Reference Include="System.Security.Cryptography.Algorithms">
- <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Security.Cryptography.Algorithms.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.Http">
- <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Net.Http.dll</HintPath>
- </Reference>
- <Reference Include="System.Diagnostics.Tracing">
- <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Diagnostics.Tracing.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.Serialization.Primitives">
- <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Assets/Resources/Plugins/System.Runtime.Serialization.Primitives.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
  <HintPath>D:/LUWENHAI/UProject/PanelDemo/Unity/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
@@ -739,6 +739,10 @@
       <Project>{F63CEAD4-2145-A864-65F2-FF3CC0A4E30C}</Project>
       <Name>Unity.VSCode.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="spine-unity.csproj">
+      <Project>{D9C6BD4E-98B1-2840-CAD8-6AE288C4C16E}</Project>
+      <Name>spine-unity</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
       <Project>{23921B65-491D-5235-FADE-892E6E843C3F}</Project>
       <Name>Unity.TextMeshPro.Editor</Name>
@@ -763,6 +767,10 @@
       <Project>{1070D62F-5859-59E1-3CC0-C54CBEFA2290}</Project>
       <Name>Unity.VisualStudio.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="spine-unity-editor.csproj">
+      <Project>{BD0AF8D8-EC98-6494-F316-0C1F7B74AA00}</Project>
+      <Name>spine-unity-editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.csproj">
       <Project>{9C01D7DF-86BB-9834-4973-5D336B1F52EF}</Project>
       <Name>Unity.TextMeshPro</Name>
@@ -770,14 +778,6 @@
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{C0C5E174-727C-9FFA-CD43-B55BDEF754DA}</Project>
       <Name>UnityEditor.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="spine-unity.csproj">
-      <Project>{D9C6BD4E-98B1-2840-CAD8-6AE288C4C16E}</Project>
-      <Name>spine-unity</Name>
-    </ProjectReference>
-    <ProjectReference Include="spine-unity-editor.csproj">
-      <Project>{BD0AF8D8-EC98-6494-F316-0C1F7B74AA00}</Project>
-      <Name>spine-unity-editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -20,18 +20,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a12c11a7-165f-4840-b9df-b4423b4f00ea" name="默认的" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.spine-unity.dir/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.spine-unity.dir/.idea/contentModel.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.spine-unity.dir/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.spine-unity.dir/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.spine-unity.dir/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.spine-unity.dir/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.spine-unity.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project/Game/PressureBlock.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Project/Game/PressureBlock.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project/Demo.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../Project/Demo.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project/Folder.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/../Project/Folder.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project/Game/States/StateHandle/PoppingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Project/Game/States/StateHandle/PoppingState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.spine-unity.dir/.idea/contentModel.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.spine-unity.dir/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.spine-unity.dir/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.spine-unity.dir/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.spine-unity.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.spine-unity.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assembly-CSharp-Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp-Editor.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Plugins/Demo.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Plugins/Demo.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Plugins/Demo.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Plugins/Demo.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Sproto/sproto-Unity/sproto-Unity/NetCore.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Sproto/sproto-Unity/sproto-Unity/NetCore.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Sproto/sproto-Unity/sproto-Unity/NetReceiver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Sproto/sproto-Unity/sproto-Unity/NetReceiver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Unity.DeviceSimulator.Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Unity.DeviceSimulator.Editor.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Unity.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Unity.sln" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,15 +52,18 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
+      <option name="projectPathOnTarget" />
       <option name="selectedOptions">
-        <set />
+        <list />
       </option>
       <method v="2" />
     </configuration>
@@ -66,8 +71,9 @@
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
+      <option name="projectPathOnTarget" />
       <option name="selectedOptions">
-        <set />
+        <list />
       </option>
       <method v="2" />
     </configuration>
@@ -81,13 +87,14 @@
       <option name="presentableId" value="Default" />
       <updated>1690988103814</updated>
       <workItem from="1690988114009" duration="234000" />
+      <workItem from="1691116537232" duration="241000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="UnityProjectConfiguration" hasMinimizedUI="null" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -99,6 +106,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />

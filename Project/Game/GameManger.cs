@@ -324,6 +324,7 @@ namespace Demo
             boards = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Boards;
             blockBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).BlockBoard;
             pressureBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).PressureBoard;
+            
             //根据数据构建所有棋子obj
             GenBlocks(blockDatas, gameView.BlockBoard);
             StateManger._instance.Init(this);

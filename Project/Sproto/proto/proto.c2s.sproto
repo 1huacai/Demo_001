@@ -1,0 +1,205 @@
+.package {
+    type                0 : integer
+    session             1 : integer
+    ud                  2 : string
+}
+
+ping 1 {
+    request {}
+    response {
+        server_time     0 : integer
+    }
+}
+
+.key_value {
+    id                  0 : integer
+    value               1 : integer
+}
+
+
+#------------------ 登录 20 - 39 start ------------------
+# 登陆游戏
+auth 20 {
+    request {
+        imei                0 : string
+        version             1 : string
+    }
+    response {
+        e                   0 : integer
+        rid                 1 : string
+        server_time         2 : integer
+    }
+}
+
+# 登陆游戏
+login 21 {
+    request {
+        rid                 0 : string
+    }
+    response {
+        e                   0 : integer
+        rname               1 : string # 角色名
+        render              2 : integer # 角色外观ID
+    }
+}
+#------------------ 登录 20 - 39 end ------------------
+
+
+#------------------ 匹配 40 - 59 start ------------------
+# 开始匹配
+match_start 40 {
+    request {}
+    response {
+        e                   0 : integer
+    }
+}
+
+# 取消匹配
+match_cancel 41 {
+    request {}
+    response {
+        e                   0 : integer
+    }
+}
+#------------------ 匹配 40 - 59 end ------------------
+
+
+#------------------ 比赛 60 - 89 start ------------------
+# 方块信息
+.block_info {
+    row                     0 : integer # 行
+    col                     1 : integer # 列
+    shape                   2 : integer # 类型
+    state                   3 : integer # 状态
+    frame                   4 : integer # 状态帧计数
+}
+
+# 请求比赛信息
+game_info 60 {
+    request {}
+    response {
+        e                   0 : integer
+        frame               1 : integer # 当前逻辑帧
+        blocks              2 : *block_info # 方块区所有方块
+    }
+}
+
+# 准备开始（开始倒计时结束）
+game_ready 61 {
+    request {}
+    response {
+        e                   0 : integer
+    }
+}
+
+# 交换方块操作
+game_swap 65 {
+    request {
+        frame               0 : integer # 当前逻辑帧
+        block1              1 : block_info # 交换方块1
+        block2              2 : block_info # 交换方块2
+    }
+    response {
+        e                   0 : integer
+    }
+}
+
+# 提升一行操作
+game_raise 66 {
+    request {
+        frame               0 : integer # 当前逻辑帧
+    }
+    response {
+        e                   0 : integer
+    }
+}
+
+# 匹配消除
+game_matched 67 {
+    request {
+        frame               0 : integer # 当前逻辑帧
+        matched_blocks      2 : *block_info # 匹配待消除的方块列表
+    }
+    response {
+        e                   0 : integer
+    }
+}
+
+# 生成新的一行方块
+game_new_row 68 {
+    request {
+        frame               0 : integer # 当前逻辑帧
+    }
+    response {
+        e                   0 : integer
+        row_blocks          1 : *block_info # 一行方块列表
+    }
+}
+
+# 回退操作
+game_rollback 75 {
+    request {
+        frame               0 : integer # 当前逻辑帧
+    }
+    response {
+        e                   0 : integer
+    }
+}
+
+# 玩家退出比赛（认输）操作
+game_give_up 80 {
+    request {
+        frame               0 : integer # 当前逻辑帧
+    }
+    response {
+        e                   0 : integer
+    }
+}
+
+# 游戏结束
+game_over 81 {
+    request {
+        frame               0 : integer # 当前逻辑帧
+    }
+    response {
+        e                   0 : integer
+    }
+}
+#------------------ 比赛 60 - 89 end ------------------
+
+
+#------------------ 技能 90 - 109 start ------------------
+# 获取技能信息
+skill_info 90 {
+    request {}
+    response {
+        e                   0 : integer
+    }
+}
+
+# 技能学习
+skill_learn 91 {
+    request {}
+    response {
+        e                   0 : integer
+    }
+}
+
+# 技能升级
+skill_level_up 92 {
+    request {}
+    response {
+        e                   0 : integer
+    }
+}
+
+# 使用技能
+skill_use 100 {
+    request {
+        skill_id            0 : integer # 技能ID
+    }
+    response {
+        e                   0 : integer
+    }
+}
+#------------------ 技能 90 - 109 end ------------------

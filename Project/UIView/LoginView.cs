@@ -2,7 +2,7 @@
 using FrameWork.Audio;
 using FrameWork.Manager;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Project;
 
 namespace Demo
 {
@@ -17,6 +17,8 @@ namespace Demo
             m_multiPlayerBtn = transform.Find("MultiPlayerBtn").GetComponent<AorButton>();
             
             RefreshShow();
+            NetManager.Instance.Init();
+            NetManager.Instance.ConnetServer();
         }
 
         public override void RefreshShow(params object[] msg)
@@ -60,6 +62,24 @@ namespace Demo
         private void MultiPlayerGame()
         {
             Debug.LogError("多人游戏");
+            // if (NetCore.connected == false)
+            // {
+            //     Debug.LogError("开始链接");
+            //     NetManager.Instance.Server_Logined = false;
+            //     NetCore.Connect(ConstValues.serverIp, ConstValues.serverPort, () =>
+            //     {
+            //         Debug.Log("connect server success");
+            //     });
+            // }
+            // else
+            // {
+            //     Debug.LogError("链接成功");
+            //     NetManager.Instance.Server_Logined = true;
+            //     //TODO 链接服务器
+            //     NetManager.Instance.GameBattle();
+            // }
+            
+            
             // UIManager.Inst.OpenUI(UIDef.GameView);
             // CloseUI();
         }

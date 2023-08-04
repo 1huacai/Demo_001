@@ -63,7 +63,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="spine-unity, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\Unity\Temp\bin\Debug\spine-unity.dll</HintPath>
+      <HintPath>..\Unity\DLL\spine-unity.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -100,6 +100,8 @@
     <Compile Include="Game\BlockData.cs" />
     <Compile Include="Game\Combo.cs" />
     <Compile Include="Game\GameManger.cs" />
+    <Compile Include="Game\MsgHandler.cs" />
+    <Compile Include="Game\NetManager.cs" />
     <Compile Include="Game\PressureBlock.cs" />
     <Compile Include="Game\States\Statebase.cs" />
     <Compile Include="Game\States\StateHandle\DimmedState.cs" />
@@ -118,6 +120,23 @@
     <Compile Include="Game\UIManager\UIManager.cs" />
     <Compile Include="Model\ModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sproto\proto\gen_cs\proto_c2s.cs" />
+    <Compile Include="Sproto\proto\gen_cs\proto_s2c.cs" />
+    <Compile Include="Sproto\sproto-Csharp\src\Package.cs" />
+    <Compile Include="Sproto\sproto-Csharp\src\ProtocolBase.cs" />
+    <Compile Include="Sproto\sproto-Csharp\src\ProtocolFunctionDictionary.cs" />
+    <Compile Include="Sproto\sproto-Csharp\src\SprotoPack.cs" />
+    <Compile Include="Sproto\sproto-Csharp\src\SprotoRpc.cs" />
+    <Compile Include="Sproto\sproto-Csharp\src\SprotoStream.cs" />
+    <Compile Include="Sproto\sproto-Csharp\src\SprotoTypeBase.cs" />
+    <Compile Include="Sproto\sproto-Csharp\src\SprotoTypeDeserialize.cs" />
+    <Compile Include="Sproto\sproto-Csharp\src\SprotoTypeFieldOP.cs" />
+    <Compile Include="Sproto\sproto-Csharp\src\SprotoTypeReader.cs" />
+    <Compile Include="Sproto\sproto-Csharp\src\SprotoTypeSerialize.cs" />
+    <Compile Include="Sproto\sproto-Csharp\src\SprotoTypeSize.cs" />
+    <Compile Include="Sproto\sproto-Unity\sproto-Unity\NetCore.cs" />
+    <Compile Include="Sproto\sproto-Unity\sproto-Unity\NetReceiver.cs" />
+    <Compile Include="Sproto\sproto-Unity\sproto-Unity\NetSender.cs" />
     <Compile Include="Tools\GameLogic.cs" />
     <Compile Include="Tools\GameUtils.cs" />
     <Compile Include="UIView\GameView.cs" />
@@ -125,6 +144,60 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Sproto\proto\gen_cs.bat" />
+    <Content Include="Sproto\proto\gen_cs\proto_c2s.cs.meta" />
+    <Content Include="Sproto\proto\gen_cs\proto_s2c.cs.meta" />
+    <Content Include="Sproto\proto\proto.c2s.sproto" />
+    <Content Include="Sproto\proto\proto.s2c.sproto" />
+    <Content Include="Sproto\sproto-Csharp\README.md" />
+    <Content Include="Sproto\sproto-Csharp\README.md.meta" />
+    <Content Include="Sproto\sproto-Csharp\src.meta" />
+    <Content Include="Sproto\sproto-Csharp\src\Package.cs.meta" />
+    <Content Include="Sproto\sproto-Csharp\src\ProtocolBase.cs.meta" />
+    <Content Include="Sproto\sproto-Csharp\src\ProtocolFunctionDictionary.cs.meta" />
+    <Content Include="Sproto\sproto-Csharp\src\SprotoPack.cs.meta" />
+    <Content Include="Sproto\sproto-Csharp\src\SprotoRpc.cs.meta" />
+    <Content Include="Sproto\sproto-Csharp\src\SprotoStream.cs.meta" />
+    <Content Include="Sproto\sproto-Csharp\src\SprotoTypeBase.cs.meta" />
+    <Content Include="Sproto\sproto-Csharp\src\SprotoTypeDeserialize.cs.meta" />
+    <Content Include="Sproto\sproto-Csharp\src\SprotoTypeFieldOP.cs.meta" />
+    <Content Include="Sproto\sproto-Csharp\src\SprotoTypeReader.cs.meta" />
+    <Content Include="Sproto\sproto-Csharp\src\SprotoTypeSerialize.cs.meta" />
+    <Content Include="Sproto\sproto-Csharp\src\SprotoTypeSize.cs.meta" />
+    <Content Include="Sproto\sproto-Unity\.editorconfig" />
+    <Content Include="Sproto\sproto-Unity\LICENSE" />
+    <Content Include="Sproto\sproto-Unity\LICENSE.meta" />
+    <Content Include="Sproto\sproto-Unity\README.md" />
+    <Content Include="Sproto\sproto-Unity\README.md.meta" />
+    <Content Include="Sproto\sproto-Unity\sproto-Unity.meta" />
+    <Content Include="Sproto\sproto-Unity\sproto-Unity\NetCore.cs.meta" />
+    <Content Include="Sproto\sproto-Unity\sproto-Unity\NetReceiver.cs.meta" />
+    <Content Include="Sproto\sproto-Unity\sproto-Unity\NetSender.cs.meta" />
+    <Content Include="Sproto\sprotodump\core.lua" />
+    <Content Include="Sproto\sprotodump\core.lua.meta" />
+    <Content Include="Sproto\sprotodump\module.meta" />
+    <Content Include="Sproto\sprotodump\module\cSharp.lua" />
+    <Content Include="Sproto\sprotodump\module\cSharp.lua.meta" />
+    <Content Include="Sproto\sprotodump\module\go.lua" />
+    <Content Include="Sproto\sprotodump\module\go.lua.meta" />
+    <Content Include="Sproto\sprotodump\module\md.lua" />
+    <Content Include="Sproto\sprotodump\module\md.lua.meta" />
+    <Content Include="Sproto\sprotodump\module\spb.lua" />
+    <Content Include="Sproto\sprotodump\module\spb.lua.meta" />
+    <Content Include="Sproto\sprotodump\module\table.lua" />
+    <Content Include="Sproto\sprotodump\module\table.lua.meta" />
+    <Content Include="Sproto\sprotodump\param.lua" />
+    <Content Include="Sproto\sprotodump\param.lua.meta" />
+    <Content Include="Sproto\sprotodump\README.md" />
+    <Content Include="Sproto\sprotodump\README.md.meta" />
+    <Content Include="Sproto\sprotodump\serpent.lua" />
+    <Content Include="Sproto\sprotodump\serpent.lua.meta" />
+    <Content Include="Sproto\sprotodump\sprotodump.lua" />
+    <Content Include="Sproto\sprotodump\sprotodump.lua.meta" />
+    <Content Include="Sproto\sprotodump\util.lua" />
+    <Content Include="Sproto\sprotodump\util.lua.meta" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

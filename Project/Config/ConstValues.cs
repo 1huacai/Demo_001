@@ -35,6 +35,9 @@ namespace Project
     
     public static class ConstValues
     {
+        public const string serverIp = "101.201.116.189";
+        public const int serverPort = 23001;
+        
         public const int BLOCK_X_OFFSET = 175; //棋子横向偏移
         public const int BLOCK_Y_OFFSET = 170; //棋子纵向偏移
         public const int BLOCK_X_ORIGINPOS = 100; //棋子原始横向X
