@@ -264,7 +264,6 @@ namespace Demo
         private bool HasAdjacentBlock(int targetRow, int targetCol)
         {
             return (targetRow == Row && (targetCol == OriginCol - 1 || targetCol == TriggerRange + 1)) ||
-                   
                    ((targetCol >= OriginCol && targetCol <= TriggerRange) && (targetRow == Row + 1 || targetRow == Row - 1));
         }
         
