@@ -18,6 +18,10 @@ namespace Demo
         public void Show(int num)
         {
             _image = GetComponent<Image>();
+            //测试用
+            if (num == 3)
+                num = 4;
+            
             Texture2D _textrue = Resources.Load(ConstValues.textureComboPath + num.ToString("D2")) as Texture2D;
             _image.sprite = Sprite.Create(_textrue, new Rect(0, 0, _textrue.width, _textrue.height), new Vector2(1f, 1f));
 

@@ -223,7 +223,7 @@ namespace Demo
             }
         }
 
-        public bool GenByGenByGarbage
+        public bool GenByGarbage
         {
             get { return genByGarbage; }
             set { genByGarbage = value; }
@@ -277,7 +277,7 @@ namespace Demo
         public void LogicUpdate()
         {
             //由压力块生成时暂时不下落
-            if(GenByGenByGarbage)
+            if(GenByGarbage)
                 return;
             
             //空牌就直接跳过

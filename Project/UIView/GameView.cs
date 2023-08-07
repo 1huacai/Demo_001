@@ -41,7 +41,7 @@ namespace Demo
             blockBoard = boards.Find("BlockBoard");
             pressureBoard = boards.Find("PressureBoard");
             effectArea = boards.Find("EffectArea");
-            reGenBlockBtn = transform.Find("PlayerArea/ReGenBlockBtn").GetComponent<AorButton>();
+            reGenBlockBtn = transform.Find("ReGenBlockBtn").GetComponent<AorButton>();
             
             GameManger.Inst.InitGame();
         }

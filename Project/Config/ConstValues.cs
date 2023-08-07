@@ -51,7 +51,7 @@ namespace Project
         public const int MAX_COL = 6; //最大列数
         public const int MAX_MATRIX_ROW = MAX_ROW + 1;
         public const int MiN_GENROW = 3; //初始化创建的最小行数
-        public const int MAX_GENROW = 6; //初始化创建的最大行数
+        public const int MAX_GENROW = 11; //初始化创建的最大行数
 
         public const int MAX_BLOCKTYPE = 6;
         
@@ -179,6 +179,8 @@ namespace Project
 
         public static Dictionary<int, string> pressureConfWithCombo = new Dictionary<int, string>()
         {
+            // {3, "3b"},//测试用
+            
             {4, "3b"},{5, "4b"},{6, "5b"},{7, "Rb"},{8, "3b+4b"},{9, "2*4b"},{10, "2*5b"},{11, "5b+Rb"},
             {12,"2*Rb"}, {13,"3*Rb"}, {14,"4*Rb"},{15,"4*Rb"},{16,"4*Rb"},{17,"4*Rb"},{18,"4*Rb"},{19,"4*Rb"},
             {20,"4*Rb"},{21,"4*Rb"},{22,"4*Rb"},{23,"4*Rb"},{24,"4*Rb"},{25,"4*Rb"},{26,"4*Rb"},{27,"4*Rb"},
@@ -188,7 +190,7 @@ namespace Project
         //压力块初始col
         public static Dictionary<string, int> pressureOriginCol = new Dictionary<string, int>()
         {
-            {"3b", 0}, {"4b", 3}, {"5b", 2}, {"Rb", 1}
+            {"3b", 4}, {"4b", 3}, {"5b", 2}, {"Rb", 1}
         };
 
     }

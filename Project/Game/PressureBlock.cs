@@ -19,7 +19,7 @@ namespace Demo
         private List<Transform> singleBlocks = new List<Transform>();
         [SerializeField]private BlockState _state;
         private bool isNeedFall = false;
-        
+        private bool isUnlocking = false;
         
         public int Row
         {
@@ -49,16 +49,35 @@ namespace Demo
             get { return isNeedFall; }
             set { isNeedFall = value; }
         }
+
+        public bool IsUnlocking
+        {
+            get { return isUnlocking; }
+            set { isUnlocking = value; }
+        }
+
+        public List<Transform> SingleBlocks
+        {
+            get { return singleBlocks; }
+        }
         
         //自身逻辑更新
         public void LogicUpdate()
         {
+            
+            if (isUnlocking)
+            {
+                isUnlocking = false;
+                StartCoroutine(UnlockPressureAnim());
+                return;
+            }
+
+            
             if (State == BlockState.Normal)
             {
                 StateManger._instance.ChangeStageUpdate(BlockState.Normal,this);
             }
-                
-
+            
             if (IsNeedFall)
             {
                 isNeedFall = false;
@@ -70,7 +89,9 @@ namespace Demo
                 
                 // transform.DOLocalMoveY(transform.localPosition.y - ConstValues.PRESSURE_Y_OFFSET, ConstValues.fallingFps * ConstValues.fpsTime);
                 Row--;
+                gameObject.name = $"{x_Num}B - {Row}";
             }
+            
         }
 
         public static void CreatePressureBlock(bool isCombo, int c_count, Transform parent)
@@ -130,18 +151,29 @@ namespace Demo
         {
             GameObject obj = Instantiate(prefab, parent);
             int maxCol = ConstValues.pressureOriginCol[key];
-            int col = UnityEngine.Random.Range(1, maxCol + 1);
+            int col = 0;
+         
+            if (key == "3b")
+            {   //3b的压力块 Origincol特殊处理
+                int[] ranges = {1,4};
+                col = ranges[Random.Range(0, ranges.Length)];
+            }
+            else
+            {
+                col = Random.Range(1, maxCol + 1);
+            }
+            
             int row = ConstValues.MAX_ROW;
             var pressureBlockCom = obj.GetComponent<PressureBlock>();
             pressureBlockCom.Row = row;
             pressureBlockCom.OriginCol = col;
             pressureBlockCom.x_Num = obj.transform.childCount;
-            Debug.LogError(GameManger.Inst.GenNewRowCount);
             pressureBlockCom.transform.localPosition = new Vector3(
                 15 + (col - 1) * ConstValues.BLOCK_X_OFFSET,
                 ConstValues.BLOCK_Y_ORIGINPOS + (row - (GameManger.Inst.GenNewRowCount - 1)) * ConstValues.PRESSURE_Y_OFFSET,
                 0f
             );
+            pressureBlockCom.name = $"{pressureBlockCom.x_Num}B - {pressureBlockCom.Row}";
             
             pressureBlockCom.State = BlockState.Normal;
             for (int i = 0; i < pressureBlockCom.transform.childCount; i++)
@@ -159,29 +191,8 @@ namespace Demo
             //没有相邻接触的压力块
             if(!HasAdjacentBlock(targetRow,targetCol))
                 return;
-            
-            Debug.LogError("压力块生成新的block");
-            //有接触开始解锁block
-            StartCoroutine(UnlockPressureAnim());
-            
-        }
-        
-        //获取四个方向的相邻压力块
-        private List<PressureBlock> GetAdjacentPressureBlocks()
-        {
-            List<PressureBlock> adjancentBlocks = new List<PressureBlock>();
-            for (int i = 0; i < GameManger.Inst.pressureBlocks.Count; i++)
-            {
-                var pressureBlock = GameManger.Inst.pressureBlocks[i];
-                //up/down
-                if((pressureBlock.Row == Row + 1 || pressureBlock.Row == Row - 1)&& pressureBlock.OriginCol <= TriggerRange)
-                    adjancentBlocks.Add(pressureBlock);
-                //right/left
-                if((pressureBlock.OriginCol == TriggerRange + 1 || pressureBlock.originCol == OriginCol -1) && pressureBlock.Row == Row)
-                    adjancentBlocks.Add(pressureBlock);
-            }
-
-            return adjancentBlocks;
+            //获取相邻压力块的数据
+            GetAdjacentPressureBlocks();
         }
         
         /// <summary>
@@ -198,6 +209,7 @@ namespace Demo
                 var block = singleBlocks[i];
                 //播放解锁动画特效
                 var s_anim = block.Find("LockAnim").GetComponent<SkeletonGraphic>();
+                s_anim.timeScale = 2f;
                 s_anim.gameObject.SetActive(true);
                 animTime = s_anim.AnimationState.SetAnimation(0, "animation", false).Animation.Duration;
                 s_anim.AnimationState.Complete += (entry =>
@@ -212,34 +224,41 @@ namespace Demo
                 yield return new WaitForSeconds(animTime);
             }
             
-            //自己触发完成后，四个方向查找解锁先临的压力块
-            var adjancentBlocks = GetAdjacentPressureBlocks();
-            float totalTime = 0f;
-            //获取动画总时间
-            for (int i = 0; i < adjancentBlocks.Count; i++)
-            {
-                totalTime += animTime * adjancentBlocks[i].singleBlocks.Count;
-            }
-            //分别触发自己压力块的解锁
-            for (int i = 0; i < adjancentBlocks.Count; i++)
-            {
-                float time = animTime * adjancentBlocks[i].singleBlocks.Count;
-                StartCoroutine(adjancentBlocks[i].UnlockPressureAnim());
-                yield return new WaitForSeconds(time);
-            }
-            
-            yield return new WaitForSeconds(totalTime);
-            
-            foreach (var block in genBlocks)
-            {
-                block.GenByGenByGarbage = false;
-            }
-            
-            GameManger.Inst.pressureBlocks.Remove(this);
-            //Destroy(gameObject); -- 问题所在，估计是被删除了导致协程没处理完
-
         }
         
+        //获取四个方向的相邻压力块
+        public void GetAdjacentPressureBlocks()
+        {
+            if (!GameManger.Inst.unlockPressBlocks.Contains(this))
+            {
+                GameManger.Inst.unlockPressBlocks.Add(this);
+            }
+            
+            for (int i = 0; i < GameManger.Inst.pressureBlocks.Count; i++)
+            {
+                var pressureBlock = GameManger.Inst.pressureBlocks[i];
+                //up/down
+                if ((pressureBlock.Row == Row + 1 || pressureBlock.Row == Row - 1) &&
+                    pressureBlock.OriginCol <= TriggerRange)
+                {
+                    if (!GameManger.Inst.unlockPressBlocks.Contains(pressureBlock))
+                    {
+                        GameManger.Inst.unlockPressBlocks.Add(pressureBlock);
+                        pressureBlock.GetAdjacentPressureBlocks();
+                    }
+                }
+                //right/left
+                if ((pressureBlock.OriginCol == TriggerRange + 1 || pressureBlock.originCol == OriginCol - 1) &&
+                    pressureBlock.Row == Row)
+                {
+                    if (!GameManger.Inst.unlockPressBlocks.Contains(pressureBlock))
+                    {
+                        GameManger.Inst.unlockPressBlocks.Add(pressureBlock);
+                        pressureBlock.GetAdjacentPressureBlocks();
+                    }
+                }
+            }
+        }
         
         //检测是否有block与压力块相邻
         private bool HasAdjacentBlock(int targetRow, int targetCol)

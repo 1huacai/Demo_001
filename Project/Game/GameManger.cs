@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using DG.Tweening;
 using UnityEngine;
 using Project;
 using FrameWork.Manager;
 using ResourceLoad;
 using Random = UnityEngine.Random;
+using Spine.Unity;
 
 namespace Demo
 {
@@ -40,6 +41,7 @@ namespace Demo
         public Block[,] blockMatrix = new Block[ConstValues.MAX_MATRIX_ROW, ConstValues.MAX_COL];
         //压力块列表(场上显示出的压力块)
         public List<PressureBlock> pressureBlocks = new List<PressureBlock>();
+        public List<PressureBlock> unlockPressBlocks = new List<PressureBlock>();
 
         #region 初始化blockStageData部分
 
@@ -105,12 +107,12 @@ namespace Demo
         {
             List<int> startChangeIndexs = new List<int>(); //起始需要交换的位置
             List<int> endChangeIndexs = new List<int>(); //结束需要交换的位置
-            for (int row = ConstValues.MAX_GENROW - 1; row >= 0; row--)
+            for (int row = ConstValues.MAX_GENROW -5 - 1; row >= 0; row--)
             {
                 for (int col = 0; col < ConstValues.MAX_COL; col++)
                 {
                     int index = row * 6 + col;
-                    int indexOfBlockDatas = (ConstValues.MAX_GENROW - 1 - row) * ConstValues.MAX_COL + col;
+                    int indexOfBlockDatas = (ConstValues.MAX_GENROW - 5 - 1 - row) * ConstValues.MAX_COL + col;
 
                     if (stage[index].Equals("0") && row >= 1)
                     {
@@ -274,7 +276,7 @@ namespace Demo
                     ConstValues.BLOCK_Y_ORIGINPOS + (row - genNewRowCount + 1) * ConstValues.BLOCK_Y_OFFSET,
                     0f
                 );
-                block.GenByGenByGarbage = genByGarbage;
+                block.GenByGarbage = genByGarbage;
                 if (blockMatrix[row, col - 1] != null)
                 {
                     GameObject.Destroy(blockMatrix[row, col - 1].gameObject);
@@ -285,10 +287,6 @@ namespace Demo
             }));
             return block;
         }
-        
-        
-        #endregion
-        
         
         private void OnBlockOperation(int row, int col, BlockOperation operation)
         {
@@ -303,7 +301,9 @@ namespace Demo
                 StateManger._instance.StateHandlers[BlockState.Normal].OnBlockOperation(row, col, operation);
             }
         }
-
+        #endregion
+        
+        
         public Transform boards = null;
         private Transform blockBoard = null;
         private Transform pressureBoard = null;
@@ -315,9 +315,11 @@ namespace Demo
             set => genNewRowCount = value;
         }
 
+        #region 游戏逻辑部分
+        
         //初始化游戏
         public void InitGame()
-        {
+        {  
             Application.targetFrameRate = ConstValues.targetPlatformFps;
             var gameView = UIManager.Inst.GetUI<GameView>(UIDef.GameView);
             var blockDatas = GameManger.Inst.GenBlockDatas();
@@ -350,10 +352,25 @@ namespace Demo
         }
 
         private bool boardStopRise = false;
+
+        public bool BoardStopRise
+        {
+            get { return boardStopRise; }
+            set { boardStopRise = value; }
+        }
+
+        private bool preussUnlocking = false;// 一堆压力块正在解锁的标志
+
+        public bool PreussUnlocking
+        {
+            get { return preussUnlocking; }
+            set { preussUnlocking = value; }
+        }
+        
         //更新棋盘区域逻辑
         private void UpDateBlockArea()
         {
-            if(!boardStopRise)
+            if(!BoardStopRise&&!PreussUnlocking)
                 BoardRise();
             
             //检测每个block的自有逻辑
@@ -403,15 +420,15 @@ namespace Demo
                     }
                 }
                 
-                if (count >= 4)
+                if (count >= 4)//原数字是4，暂时换3测试
                 {
                     GenComboObj(count, BlocksInSameFrame[0][0].transform.localPosition);
                     
                     //Combo达成，棋盘暂停移动
-                    boardStopRise = true;
+                    BoardStopRise = true;
                     TimerMgr._Instance.Schedule(() =>
                     {
-                        boardStopRise = false;
+                        BoardStopRise = false;
                         //兴建压力块
                         PressureBlock.CreatePressureBlock(true,count,pressureBoard);
 
@@ -442,7 +459,10 @@ namespace Demo
                 boards.transform.localPosition += new Vector3(0, 1, 0);
             }
         }
-
+        
+        
+        #endregion
+        
         #region 工具部分
         /// <summary>
         /// 获取当前block在横向纵向上与自己相邻的相同Type(非None)的block
