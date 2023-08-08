@@ -14,6 +14,7 @@ namespace Demo
                 return;
             block.State = BlockState.Popped;
             block.Type = BlockType.None;
+            block.Chain = false;
             // for (int i = 0; i < _gameManger.pressureBlocks.Count; i++)
             // {
             //     var pressureBlock = _gameManger.pressureBlocks[i];

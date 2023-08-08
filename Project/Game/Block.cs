@@ -24,6 +24,7 @@ namespace Demo
         [SerializeField]private bool needFall = false;
         [SerializeField]private bool dimmed = false;
         [SerializeField]private bool genByGarbage = false;//由garbage生成的标志
+        [SerializeField]private bool chain = false;
         
         public delegate void BlockOperationHandler(int row, int column, BlockOperation operation);
 
@@ -227,6 +228,12 @@ namespace Demo
         {
             get { return genByGarbage; }
             set { genByGarbage = value; }
+        }
+
+        public bool Chain
+        {
+            get { return chain; }
+            set { chain = value; }
         }
         
         

@@ -26,6 +26,8 @@ namespace Demo
                     var targetBlock = sameBlocks[i];
                     Debug.LogError($"{targetBlock.name}-{targetBlock.Type}-{sameBlocks.Count}");
                     StateManger._instance.ChangeState(BlockState.Matched,targetBlock);
+                    //设置上方的棋子chain为true
+                    _gameManger.SetUpRowBlockChain(targetBlock);
                 }
             }
         }

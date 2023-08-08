@@ -62,10 +62,12 @@ namespace Project
         
         public const string blockPrefabPath = "Prefabs/Block";
         public const string comboPrefabPath = "Prefabs/Combo";
+        public const string chainPrefabPath = "Prefabs/Chain";
         public const string pressurePrefabPath = "Prefabs/PressureBlock/";
         
         private const string textureBlockPath = "Texture/block/panel";
         public const string textureComboPath = "Texture/combo/combo";
+        public const string textureChainPath = "Texture/chain/chain";
         
         private static List<Texture2D> _texture = new List<Texture2D>
         {

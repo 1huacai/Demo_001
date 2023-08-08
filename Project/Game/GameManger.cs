@@ -396,21 +396,25 @@ namespace Demo
 
         public List<List<Block>> BlocksInSameFrame = new List<List<Block>>();
 
-        private int count = 0;
+        private int comboCount = 0;
+        private int chainCount = 0;
         private void LateUpdateBlockArea()
         {
             
             if (BlocksInSameFrame.Count > 0)
             {
                 Debug.LogError("同帧率多消组合FPS-" + TimerMgr._Instance.Frame);
-                count = 0;
+                comboCount = 0;
+                chainCount = 0;
                 
                 for (int i = 0; i < BlocksInSameFrame.Count; i++)
                 {
                     for (int j = 0; j < BlocksInSameFrame[i].Count; j++)
                     {
-                        count++;
+                        comboCount++;
                         var block = BlocksInSameFrame[i][j];
+                        if (block.Chain)
+                            chainCount++;
                         
                         for (int k = 0; k < pressureBlocks.Count; k++)
                         {
@@ -420,9 +424,10 @@ namespace Demo
                     }
                 }
                 
-                if (count >= 4)//原数字是4，暂时换3测试
+                // combo压力块
+                if (comboCount >= 4)//原数字是4，暂时换3测试
                 {
-                    GenComboObj(count, BlocksInSameFrame[0][0].transform.localPosition);
+                    GenComboObj(comboCount, BlocksInSameFrame[0][0].transform.localPosition);
                     
                     //Combo达成，棋盘暂停移动
                     BoardStopRise = true;
@@ -430,10 +435,28 @@ namespace Demo
                     {
                         BoardStopRise = false;
                         //兴建压力块
-                        PressureBlock.CreatePressureBlock(true,count,pressureBoard);
+                        PressureBlock.CreatePressureBlock(true,comboCount,pressureBoard);
 
-                    }, 60 * ConstValues.fpsTime);
+                    }, (20 * comboCount -20) * ConstValues.fpsTime);
                 }
+                
+                //chain压力块
+                if (chainCount >= 2)
+                {
+                    GenChainObj(chainCount, BlocksInSameFrame[0][0].transform.localPosition);
+                    
+                    //chain达成
+                    BoardStopRise = true;
+                    TimerMgr._Instance.Schedule(() =>
+                    {
+                        Debug.LogError("生成chain的压力块");
+                        BoardStopRise = false;
+                        //兴建压力块
+                        PressureBlock.CreatePressureBlock(false,chainCount,pressureBoard);
+
+                    }, (20 * chainCount + 80) * ConstValues.fpsTime);
+                }
+                
                 BlocksInSameFrame.Clear();
             }
         }
@@ -583,7 +606,41 @@ namespace Demo
 
             return sameBlocks;
         }
+        
+        /// <summary>
+        /// 设置当前block上方同列所有非None的block的chain为True
+        /// </summary>
+        /// <param name="block"></param>
+        public void SetUpRowBlockChain(Block block)
+        {
+            int beginRow = block.Row;
+            int beginCol = block.Col - 1;
+            for (int row = beginRow + 1; row <= ConstValues.MAX_ROW; row++)
+            {
+                var targetBlock = blockMatrix[row, beginCol];
+                if(targetBlock.Type == BlockType.None || IsBlockInSameFrame(targetBlock))
+                    break;
+                targetBlock.Chain = true;
+                Debug.LogError($"{targetBlock.name}-chain-{targetBlock.Chain}");
+            }
+        }
+        
+        // 判断要找额block是否在同一帧要消除的棋子集合中
+        private bool IsBlockInSameFrame(Block targetBlock)
+        {
+            bool result = false;
+            foreach (var sameBlocks in BlocksInSameFrame)
+            {
+                if (sameBlocks.Contains(targetBlock))
+                {
+                    result = true;
+                    break;
+                }
+            }
 
+            return result;
+        }
+        
         /// <summary>
         /// 构建并显示combo物体
         /// </summary>
@@ -603,6 +660,28 @@ namespace Demo
                     comb.Show(num);
                 });
         }
+        
+        /// <summary>
+        /// 构建并显示chain物体
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="localPos"></param>
+        public void GenChainObj(int num, Vector3 localPos)
+        {
+            SingletonManager.GetManager<ResourcesManager>().LoadPrefab(
+                ConstValues.chainPrefabPath,
+                (originObj, l) =>
+                {
+                    Transform effectArea = UIManager.Inst.GetUI<GameView>(UIDef.GameView).EffectArea;
+                    GameObject obj = GameObject.Instantiate(originObj, effectArea);
+                    obj.transform.localPosition = new Vector3(localPos.x - ConstValues.BLOCK_WIDTH / 2f,
+                        localPos.y + ConstValues.BLOCK_WIDTH / 2f, 0f);
+                    Chain comb = obj.gameObject.GetComponent<Chain>();
+                    Debug.LogError(comb);
+                    comb.Show(num);
+                });
+        }
+        
         
         private void OutputBlockDataMatrix()
         {

@@ -27,6 +27,7 @@ namespace Demo
                 var sameBlocks = _gameManger.GetSameBlocksWith(block);
                 if (sameBlocks.Count < 3)
                 {
+                    block.Chain = false;
                     StateManger._instance.ChangeState(BlockState.Normal, block);
                 }
                 else
@@ -40,7 +41,11 @@ namespace Demo
                         var targetBlock = sameBlocks[i];
                         Debug.LogError($"{targetBlock.name}-{targetBlock.Type}-{sameBlocks.Count}");
                         StateManger._instance.ChangeState(BlockState.Matched, targetBlock);
+                        //设置该棋子上方的棋子chain为true
+                        _gameManger.SetUpRowBlockChain(targetBlock);
                     }
+                    
+
                 }
             }, ConstValues.landingFps * ConstValues.fpsTime);
         }

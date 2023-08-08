@@ -96,7 +96,6 @@ namespace Demo
 
         public static void CreatePressureBlock(bool isCombo, int c_count, Transform parent)
         {
-            Debug.LogError("进入garbage生成");
             if (isCombo)
             {
                 //combo 生成
