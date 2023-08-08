@@ -181,7 +181,6 @@ namespace Demo
                 pressureBlockCom.singleBlocks.Add(childBlockTran);
             }
             
-            
             GameManger.Inst.pressureBlocks.Add(pressureBlockCom);
         }
         

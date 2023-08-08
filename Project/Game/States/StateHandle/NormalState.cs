@@ -30,7 +30,7 @@ namespace Demo
                     _gameManger.SetUpRowBlockChain(targetBlock);
                 }
             }
-        }
+        } 
 
         public override void Update(Block block)
         {

@@ -277,6 +277,7 @@ namespace Demo
                     0f
                 );
                 block.GenByGarbage = genByGarbage;
+                block.Chain = true;
                 if (blockMatrix[row, col - 1] != null)
                 {
                     GameObject.Destroy(blockMatrix[row, col - 1].gameObject);
