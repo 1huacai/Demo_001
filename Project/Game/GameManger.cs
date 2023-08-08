@@ -486,12 +486,17 @@ namespace Demo
                 var curBlock = blockMatrix[row, curCol];
                 if ((targetBlock && targetBlock.Type == BlockType.None) || !targetBlock)
                     break;
+                
                 if ((curBlock.Type == targetBlock.Type)
                     && (curBlock.Type == block.Type)
                     && (targetBlock.State == BlockState.Normal ||
                         targetBlock.State == BlockState.Landing))
                 {
                     v_blocks.Add(targetBlock);
+                }
+                else
+                {
+                    break;
                 }
             }
 
@@ -509,6 +514,10 @@ namespace Demo
                 {
                     v_blocks.Add(targetBlock);
                 }
+                else
+                {
+                    break;
+                }
             }
 
             //向左找
@@ -525,6 +534,10 @@ namespace Demo
                 {
                     h_blocks.Add(targetBlock);
                 }
+                else
+                {
+                    break;
+                }
             }
 
             //向右找
@@ -540,6 +553,10 @@ namespace Demo
                         targetBlock.State == BlockState.Landing))
                 {
                     h_blocks.Add(targetBlock);
+                }
+                else
+                {
+                    break;
                 }
             }
 
