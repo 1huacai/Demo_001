@@ -1,9 +1,11 @@
 ﻿using System;
+using Demo.Tools;
 using UnityEngine;
 using Project;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
+using FrameWork.View;
 
 namespace Demo
 {
@@ -11,12 +13,12 @@ namespace Demo
     {
         [SerializeField] private int row;
         [SerializeField] private int col;
-        private BlockType type;
+        [SerializeField]private BlockType type;
         public Image image;
         public GameObject slectImg;
-
         public Vector3 dragBeginPos; //拖拽的起始位置
-
+        private FrameAnimation _animation;
+        
         private GameManger manger;
         [SerializeField] private BlockState state = BlockState.Normal;
         [SerializeField] private bool selected = false; 
@@ -25,7 +27,7 @@ namespace Demo
         [SerializeField]private bool dimmed = false;
         [SerializeField]private bool genByGarbage = false;//由garbage生成的标志
         [SerializeField]private bool chain = false;
-        
+
         public delegate void BlockOperationHandler(int row, int column, BlockOperation operation);
 
         public event BlockOperationHandler BlockOperationEvent;
@@ -135,10 +137,11 @@ namespace Demo
             block.slectImg = blockObj.transform.Find("Select").gameObject;
             block.State = state;
             
-            
             blockObj.name = $"{row}-{col}";
-
             block.manger = mag;
+            block._animation = blockObj.GetComponent<FrameAnimation>();
+            block.image = block.GetComponent<Image>();
+            block._animation.Init(block.image);
             return block;
         }
 
@@ -205,10 +208,11 @@ namespace Demo
             set
             {
                 state = value;
+               
                 if (image == null)
                     image = transform.GetComponent<Image>();
-                image.sprite = state == BlockState.Dimmed ? ConstValues._lockSprites[(int) Type] : ConstValues._sprites[(int) Type];
                 
+                image.sprite = state == BlockState.Dimmed ? ConstValues._lockSprites[(int)Type] : ConstValues._sprites[(int)Type];
             }
         }
 
@@ -234,6 +238,11 @@ namespace Demo
         {
             get { return chain; }
             set { chain = value; }
+        }
+
+        public FrameAnimation _Animation
+        {
+            get { return _animation; }
         }
         
         

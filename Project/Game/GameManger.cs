@@ -159,39 +159,43 @@ namespace Demo
         /// <param name="boardTran"></param>
         public void GenBlocks(List<BlockData> datas, Transform boardTran)
         {
-            SingletonManager.GetManager<ResourcesManager>().LoadPrefab(ConstValues.blockPrefabPath, (obj, l) =>
+            // SingletonManager.GetManager<ResourcesManager>().LoadPrefab(ConstValues.blockPrefabPath, (obj, l) =>
+            // {
+            //     if (null == obj)
+            //     {
+            //         return;
+            //     }
+            //
+            //    
+            // });
+
+            //遍历所有数据新建棋子
+            for (int i = 0; i < datas.Count; i++)
             {
-                if (null == obj)
-                {
-                    return;
-                }
+                var data = datas[i];
+                int row = data.row;
+                int col = data.col;
+                BlockType Type = data.type;
 
-                //遍历所有数据新建棋子
-                for (int i = 0; i < datas.Count; i++)
-                {
-                    var data = datas[i];
-                    int row = data.row;
-                    int col = data.col;
-                    BlockType Type = data.type;
+                // //空方块不生成对象
+                // if(Type == BlockType.None)
+                //     continue;
 
-                    // //空方块不生成对象
-                    // if(Type == BlockType.None)
-                    //     continue;
+                GameObject prefabObj = ConstValues.BlockPrefabs[(int) Type];
 
-                    Block block =
-                        Block.CreateBlockObject(obj, row, col, false, Type, BlockState.Normal, boardTran, this);
-                    //设置棋子位置
-                    block.transform.localPosition = new Vector3(
-                        ConstValues.BLOCK_X_ORIGINPOS + (col - 1) * ConstValues.BLOCK_X_OFFSET,
-                        ConstValues.BLOCK_Y_ORIGINPOS + (row - 1) * ConstValues.BLOCK_Y_OFFSET,
-                        0f
-                    );
-                    // Debug.LogError(row + "-" + col);
-                    // Debug.LogError(row + "-" + col);
-                    blockMatrix[row, col - 1] = block;
-                    block.BlockOperationEvent += OnBlockOperation;
-                }
-            });
+                Block block =
+                    Block.CreateBlockObject(prefabObj, row, col, false, Type, BlockState.Normal, boardTran, this);
+                //设置棋子位置
+                block.transform.localPosition = new Vector3(
+                    ConstValues.BLOCK_X_ORIGINPOS + (col - 1) * ConstValues.BLOCK_X_OFFSET,
+                    ConstValues.BLOCK_Y_ORIGINPOS + (row - 1) * ConstValues.BLOCK_Y_OFFSET,
+                    0f
+                );
+                // Debug.LogError(row + "-" + col);
+                // Debug.LogError(row + "-" + col);
+                blockMatrix[row, col - 1] = block;
+                block.BlockOperationEvent += OnBlockOperation;
+            }
         }
 
 
@@ -212,80 +216,88 @@ namespace Demo
 
             newRowBlocks.Clear();
             var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).BlockBoard;
-            SingletonManager.GetManager<ResourcesManager>().LoadPrefab(ConstValues.blockPrefabPath, ((obj, length) =>
+
+            //遍历生成新的block
+            for (int i = 0; i < newRowBlockData.Length; i++)
             {
-                //遍历生成新的block
-                for (int i = 0; i < newRowBlockData.Length; i++)
-                {
-                    var data = newRowBlockData[i];
-                    int row = data.row;
-                    int col = data.col;
-                    BlockType Type = data.type;
+                var data = newRowBlockData[i];
+                int row = data.row;
+                int col = data.col;
+                BlockType Type = data.type;
 
-                    Block block =
-                        Block.CreateBlockObject(obj, row, col, true, Type, BlockState.Dimmed, boardTran, this);
-                    //设置棋子位置
-                    block.transform.localPosition = new Vector3(
-                        ConstValues.BLOCK_X_ORIGINPOS + (col - 1) * ConstValues.BLOCK_X_OFFSET,
-                        ConstValues.BLOCK_Y_ORIGINPOS + (row - genCount) * ConstValues.BLOCK_Y_OFFSET,
-                        0f
-                    );
-                    block.BlockOperationEvent += OnBlockOperation;
-                    newRowBlocks.Add(block);
-                }
-
-                if (genCount > 1)
-                {
-                    //后面就先把原先每row的值上移
-                    for (int row = ConstValues.MAX_MATRIX_ROW - 1; row > 0; row--)
-                    {
-                        for (int col = 0; col < ConstValues.MAX_COL; col++)
-                        {
-                            var targetBlock = blockMatrix[row, col];
-                            targetBlock = blockMatrix[row - 1, col];
-                            if (targetBlock)
-                            {
-                                targetBlock.Row = row;
-                                targetBlock.Col = col + 1;
-                                targetBlock.ChangeBlockObjName();
-                                if(targetBlock.State == BlockState.Dimmed)
-                                    StateManger._instance.ChangeState(BlockState.Normal, targetBlock);
-                                blockMatrix[row, col] = targetBlock;
-                            }
-                        }
-                    }
-                }
-
-                for (int i = 0; i < newRowBlocks.Count; i++)
-                {
-                    blockMatrix[0, i] = newRowBlocks[i];
-                }
-            }));
-        }
-
-        public Block GenNewBlock(int row,int col,BlockType type,bool genByGarbage)
-        {
-            Block block = null;
-            var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).BlockBoard;
-            SingletonManager.GetManager<ResourcesManager>().LoadPrefab(ConstValues.blockPrefabPath, ((obj, length) =>
-            {
-                block = Block.CreateBlockObject(obj, row, col, false, type, BlockState.Normal, boardTran, this);
+                GameObject prefabObj = ConstValues.BlockPrefabs[(int) Type];
+                Block block =
+                    Block.CreateBlockObject(prefabObj, row, col, true, Type, BlockState.Dimmed, boardTran, this);
                 //设置棋子位置
                 block.transform.localPosition = new Vector3(
                     ConstValues.BLOCK_X_ORIGINPOS + (col - 1) * ConstValues.BLOCK_X_OFFSET,
-                    ConstValues.BLOCK_Y_ORIGINPOS + (row - genNewRowCount + 1) * ConstValues.BLOCK_Y_OFFSET,
+                    ConstValues.BLOCK_Y_ORIGINPOS + (row - genCount) * ConstValues.BLOCK_Y_OFFSET,
                     0f
                 );
-                block.GenByGarbage = genByGarbage;
-                block.Chain = true;
-                if (blockMatrix[row, col - 1] != null)
-                {
-                    GameObject.Destroy(blockMatrix[row, col - 1].gameObject);
-                    blockMatrix[row, col - 1] = null;
-                }
-                blockMatrix[row, col - 1] = block;
                 block.BlockOperationEvent += OnBlockOperation;
-            }));
+                newRowBlocks.Add(block);
+            }
+
+            if (genCount > 1)
+            {
+                //后面就先把原先每row的值上移
+                for (int row = ConstValues.MAX_MATRIX_ROW - 1; row > 0; row--)
+                {
+                    for (int col = 0; col < ConstValues.MAX_COL; col++)
+                    {
+                        var targetBlock = blockMatrix[row, col];
+                        targetBlock = blockMatrix[row - 1, col];
+                        if (targetBlock)
+                        {
+                            targetBlock.Row = row;
+                            targetBlock.Col = col + 1;
+                            targetBlock.ChangeBlockObjName();
+                            if (targetBlock.State == BlockState.Dimmed)
+                                StateManger._instance.ChangeState(BlockState.Normal, targetBlock);
+                            blockMatrix[row, col] = targetBlock;
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < newRowBlocks.Count; i++)
+            {
+                blockMatrix[0, i] = newRowBlocks[i];
+            }
+
+            // SingletonManager.GetManager<ResourcesManager>().LoadPrefab(ConstValues.blockPrefabPath, ((obj, length) =>
+            // {
+            //     
+            // }));
+        }
+
+        public Block GenNewBlock(int row, int col, BlockType type, bool genByGarbage)
+        {
+            Block block = null;
+            var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).BlockBoard;
+            GameObject prefabObj = ConstValues.BlockPrefabs[(int) type];
+
+            block = Block.CreateBlockObject(prefabObj, row, col, false, type, BlockState.Normal, boardTran, this);
+            //设置棋子位置
+            block.transform.localPosition = new Vector3(
+                ConstValues.BLOCK_X_ORIGINPOS + (col - 1) * ConstValues.BLOCK_X_OFFSET,
+                ConstValues.BLOCK_Y_ORIGINPOS + (row - genNewRowCount + 1) * ConstValues.BLOCK_Y_OFFSET,
+                0f
+            );
+            block.GenByGarbage = genByGarbage;
+            block.Chain = true;
+            if (blockMatrix[row, col - 1] != null)
+            {
+                GameObject.Destroy(blockMatrix[row, col - 1].gameObject);
+                blockMatrix[row, col - 1] = null;
+            }
+
+            blockMatrix[row, col - 1] = block;
+            block.BlockOperationEvent += OnBlockOperation;
+            // SingletonManager.GetManager<ResourcesManager>().LoadPrefab(ConstValues.blockPrefabPath, ((obj, length) =>
+            // {
+            //     
+            // }));
             return block;
         }
         

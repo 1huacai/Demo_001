@@ -15,6 +15,7 @@ namespace Demo
             if (block.Type == BlockType.None)
                 return;
             block.State = BlockState.Landing;
+            block._Animation.PlayAnimation(string.Format("{0}_{1}",block.Type,block.State),2,false);
         }
 
         public override void Update(Block block)

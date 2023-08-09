@@ -59,8 +59,8 @@ namespace Project
         public const int offset_y = 175;
         public const int unit_Offset_y = 1;
         public static int[] Rise_Times = {15, 14,13, 11, 10, 8, 6,5, 3, 1};
-        
-        public const string blockPrefabPath = "Prefabs/Block";
+
+        public const string blockPrefabsPath = "Prefabs/Blocks/";
         public const string comboPrefabPath = "Prefabs/Combo";
         public const string chainPrefabPath = "Prefabs/Chain";
         public const string pressurePrefabPath = "Prefabs/PressureBlock/";
@@ -69,70 +69,145 @@ namespace Project
         public const string textureComboPath = "Texture/combo/combo";
         public const string textureChainPath = "Texture/chain/chain";
         
-        private static List<Texture2D> _texture = new List<Texture2D>
-        {
-            Resources.Load(textureBlockPath + "01") as Texture2D,
-            Resources.Load(textureBlockPath + "11") as Texture2D,
-            Resources.Load(textureBlockPath + "21") as Texture2D,
-            Resources.Load(textureBlockPath + "31") as Texture2D,
-            Resources.Load(textureBlockPath + "41") as Texture2D,
-            Resources.Load(textureBlockPath + "51") as Texture2D,
-        };
-        
+      
         public static Dictionary<int, Sprite> _sprites = new Dictionary<int, Sprite>
         {
-            {0, Sprite.Create(_texture[0], new Rect(0, 0, _texture[0].width, _texture[0].height), new Vector2(1f, 1f))},
-            {1, Sprite.Create(_texture[1], new Rect(0, 0, _texture[1].width, _texture[1].height), new Vector2(1f, 1f))},
-            {2, Sprite.Create(_texture[2], new Rect(0, 0, _texture[2].width, _texture[2].height), new Vector2(1f, 1f))},
-            {3, Sprite.Create(_texture[3], new Rect(0, 0, _texture[3].width, _texture[3].height), new Vector2(1f, 1f))},
-            {4, Sprite.Create(_texture[4], new Rect(0, 0, _texture[4].width, _texture[4].height), new Vector2(1f, 1f))},
-            {5, Sprite.Create(_texture[5], new Rect(0, 0, _texture[5].width, _texture[5].height), new Vector2(1f, 1f))},
+            {0, Resources.Load<Sprite>(textureBlockPath + "01")},
+            {1, Resources.Load<Sprite>(textureBlockPath + "11")},
+            {2, Resources.Load<Sprite>(textureBlockPath + "21")},
+            {3, Resources.Load<Sprite>(textureBlockPath + "31")},
+            {4, Resources.Load<Sprite>(textureBlockPath + "41")},
+            {5, Resources.Load<Sprite>(textureBlockPath + "51")},
         };
         
-        public static List<Texture2D> _lockTexture = new List<Texture2D>
-        {
-            Resources.Load(textureBlockPath + "07") as Texture2D,
-            Resources.Load(textureBlockPath + "17") as Texture2D,
-            Resources.Load(textureBlockPath + "27") as Texture2D,
-            Resources.Load(textureBlockPath + "37") as Texture2D,
-            Resources.Load(textureBlockPath + "47") as Texture2D,
-            Resources.Load(textureBlockPath + "57") as Texture2D,
-        };
-
         public static Dictionary<int, Sprite> _lockSprites = new Dictionary<int, Sprite>
         {
-            {
-                0,
-                Sprite.Create(_lockTexture[0], new Rect(0, 0, _lockTexture[0].width, _lockTexture[0].height),
-                    new Vector2(1f, 1f))
-            },
-            {
-                1,
-                Sprite.Create(_lockTexture[1], new Rect(0, 0, _lockTexture[1].width, _lockTexture[1].height),
-                    new Vector2(1f, 1f))
-            },
-            {
-                2,
-                Sprite.Create(_lockTexture[2], new Rect(0, 0, _lockTexture[2].width, _lockTexture[2].height),
-                    new Vector2(1f, 1f))
-            },
-            {
-                3,
-                Sprite.Create(_lockTexture[3], new Rect(0, 0, _lockTexture[3].width, _lockTexture[3].height),
-                    new Vector2(1f, 1f))
-            },
-            {
-                4,
-                Sprite.Create(_lockTexture[4], new Rect(0, 0, _lockTexture[4].width, _lockTexture[4].height),
-                    new Vector2(1f, 1f))
-            },
-            {
-                5,
-                Sprite.Create(_lockTexture[5], new Rect(0, 0, _lockTexture[5].width, _lockTexture[5].height),
-                    new Vector2(1f, 1f))
-            },
+            { 0, Resources.Load<Sprite>(textureBlockPath + "01")},
+            { 1, Resources.Load<Sprite>(textureBlockPath + "17")},
+            { 2, Resources.Load<Sprite>(textureBlockPath + "27")},
+            { 3, Resources.Load<Sprite>(textureBlockPath + "37")},
+            { 4, Resources.Load<Sprite>(textureBlockPath + "47")},
+            { 5, Resources.Load<Sprite>(textureBlockPath + "57")},
         };
 
+        public static Dictionary<int, Sprite> _popingSprites = new Dictionary<int, Sprite>()
+        {
+            {1, Resources.Load<Sprite>(textureBlockPath + "16")},
+            {2, Resources.Load<Sprite>(textureBlockPath + "26")},
+            {3, Resources.Load<Sprite>(textureBlockPath + "36")},
+            {4, Resources.Load<Sprite>(textureBlockPath + "46")},
+            {5, Resources.Load<Sprite>(textureBlockPath + "56")},
+        };
+
+        public static Dictionary<int, GameObject> BlockPrefabs = new Dictionary<int, GameObject>()
+        {
+            {0, Resources.Load<GameObject>(blockPrefabsPath + "None")},
+            {1, Resources.Load<GameObject>(blockPrefabsPath + "Red")},
+            {2, Resources.Load<GameObject>(blockPrefabsPath + "Green")},
+            {3, Resources.Load<GameObject>(blockPrefabsPath + "Blue")},
+            {4, Resources.Load<GameObject>(blockPrefabsPath + "Orange")},
+            {5, Resources.Load<GameObject>(blockPrefabsPath + "Purple")}
+        };
+
+        public static Dictionary<string, Sprite[]> blockFrameAnimatons = new Dictionary<string, Sprite[]>()
+        {
+            {"Red_Matched",new []
+            {
+                Resources.Load<Sprite>(textureBlockPath + "15"),
+                Resources.Load<Sprite>(textureBlockPath + "11"),
+                Resources.Load<Sprite>(textureBlockPath + "15")
+            }},
+            {"Red_Landing",new []
+            {
+                Resources.Load<Sprite>(textureBlockPath + "14"),
+                Resources.Load<Sprite>(textureBlockPath + "11"),
+                Resources.Load<Sprite>(textureBlockPath + "12"),
+                Resources.Load<Sprite>(textureBlockPath + "11")
+            }},
+            
+            {"Red_Popping",new []
+            {
+                Resources.Load<Sprite>(textureBlockPath + "16"),
+            }},
+            
+            
+            {"Green_Matched",new []
+            {
+                Resources.Load<Sprite>(textureBlockPath + "25"),
+                Resources.Load<Sprite>(textureBlockPath + "21"),
+                Resources.Load<Sprite>(textureBlockPath + "25")
+            }},
+            {"Green_Landing",new []
+            {
+                Resources.Load<Sprite>(textureBlockPath + "24"),
+                Resources.Load<Sprite>(textureBlockPath + "21"),
+                Resources.Load<Sprite>(textureBlockPath + "22"),
+                Resources.Load<Sprite>(textureBlockPath + "21")
+            }},
+            {"Green_Popping",new []
+            {
+                Resources.Load<Sprite>(textureBlockPath + "26"),
+            }},
+            
+            {"Blue_Matched",new []
+            {
+                Resources.Load<Sprite>(textureBlockPath + "35"),
+                Resources.Load<Sprite>(textureBlockPath + "31"),
+                Resources.Load<Sprite>(textureBlockPath + "35")
+            }},
+            {"Blue_Landing",new []
+            {
+                Resources.Load<Sprite>(textureBlockPath + "34"),
+                Resources.Load<Sprite>(textureBlockPath + "31"),
+                Resources.Load<Sprite>(textureBlockPath + "32"),
+                Resources.Load<Sprite>(textureBlockPath + "31")
+            }},
+            {"Blue_Popping",new []
+            {
+                Resources.Load<Sprite>(textureBlockPath + "36"),
+            }},
+            
+            
+            {"Orange_Matched",new []
+            {
+                Resources.Load<Sprite>(textureBlockPath + "45"),
+                Resources.Load<Sprite>(textureBlockPath + "41"),
+                Resources.Load<Sprite>(textureBlockPath + "45")
+            }},
+            {"Orange_Landing",new []
+            {
+                Resources.Load<Sprite>(textureBlockPath + "44"),
+                Resources.Load<Sprite>(textureBlockPath + "41"),
+                Resources.Load<Sprite>(textureBlockPath + "42"),
+                Resources.Load<Sprite>(textureBlockPath + "41")
+            }},
+            {"Orange_Popping",new []
+            {
+                Resources.Load<Sprite>(textureBlockPath + "46"),
+            }},
+            
+            {"Purple_Matched",new []
+            {
+                Resources.Load<Sprite>(textureBlockPath + "55"),
+                Resources.Load<Sprite>(textureBlockPath + "51"),
+                Resources.Load<Sprite>(textureBlockPath + "55")
+            }},
+            {"Purple_Landing",new []
+            {
+                Resources.Load<Sprite>(textureBlockPath + "54"),
+                Resources.Load<Sprite>(textureBlockPath + "51"),
+                Resources.Load<Sprite>(textureBlockPath + "52"),
+                Resources.Load<Sprite>(textureBlockPath + "51")
+            }},
+            {"Purple_Popping",new []
+            {
+                Resources.Load<Sprite>(textureBlockPath + "56"),
+            }},
+            
+            
+        };
+       
+        
         public const float BLOCK_BIG_SCALE = 1.2f;
         public const int BLOCK_BIG_FRAME = 12;
 
@@ -162,7 +237,7 @@ namespace Project
         public const int hoveringFps = 9;
         public const int landingFps = 13;
         public const int matchedFps = 64;
-        public const int poppingFps = 8;
+        public const int poppingFps = 8 * 2;
 
         public static readonly float fpsTime = Time.deltaTime;
 

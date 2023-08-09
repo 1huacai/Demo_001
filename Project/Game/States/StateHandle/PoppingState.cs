@@ -1,4 +1,5 @@
 ﻿using Project;
+using UnityEngine;
 
 namespace Demo
 {
@@ -15,6 +16,7 @@ namespace Demo
             if (block.Type == BlockType.None)
                 return;
             block.State = BlockState.Popping;
+            block._Animation.PlayAnimation(string.Format("{0}_{1}",block.Type,block.State),2,false);
         }
 
         public override void Update(Block block) 
@@ -22,7 +24,11 @@ namespace Demo
             if (block.Type == BlockType.None)
                 return;
             timerID = TimerMgr._Instance.Schedule(
-                () => { StateManger._instance.ChangeState(BlockState.Popped, block); },
+                () =>
+                {
+                    block._Animation.stop = true;
+                    StateManger._instance.ChangeState(BlockState.Popped, block);
+                },
                 ConstValues.poppingFps * ConstValues.fpsTime);
         }
 

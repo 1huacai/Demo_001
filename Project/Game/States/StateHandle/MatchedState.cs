@@ -14,6 +14,7 @@ namespace Demo
             if (block.Type == BlockType.None)
                 return;
             block.State = BlockState.Matched;
+            block._Animation.PlayAnimation(string.Format("{0}_{1}",block.Type,block.State));
         }
 
         public override void Update(Block block)
@@ -27,6 +28,7 @@ namespace Demo
         {
             base.Exit(block);
             StateManger._instance.ChangeState(BlockState.Popping, block);
+            block._Animation.stop = true;
         }
     }
 }

@@ -207,7 +207,7 @@ namespace Demo
                 var block = singleBlocks[i];
                 //播放解锁动画特效
                 var s_anim = block.Find("LockAnim").GetComponent<SkeletonGraphic>();
-                s_anim.timeScale = 2f;
+                s_anim.timeScale = 2f; 
                 s_anim.gameObject.SetActive(true);
                 animTime = s_anim.AnimationState.SetAnimation(0, "animation", false).Animation.Duration;
                 s_anim.AnimationState.Complete += (entry =>

@@ -138,6 +138,7 @@
     <Compile Include="Sproto\sproto-Unity\sproto-Unity\NetCore.cs" />
     <Compile Include="Sproto\sproto-Unity\sproto-Unity\NetReceiver.cs" />
     <Compile Include="Sproto\sproto-Unity\sproto-Unity\NetSender.cs" />
+    <Compile Include="Tools\FrameAnimation.cs" />
     <Compile Include="Tools\GameLogic.cs" />
     <Compile Include="Tools\GameUtils.cs" />
     <Compile Include="UIView\GameView.cs" />
