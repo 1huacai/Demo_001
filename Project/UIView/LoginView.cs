@@ -2,19 +2,20 @@
 using FrameWork.Audio;
 using FrameWork.Manager;
 using UnityEngine;
+using UnityEngine.UI;
 using Project;
 
 namespace Demo
 {
     public class LoginView : UIBase
     {
-        AorButton m_singlePlayerBtn;
-        private AorButton m_multiPlayerBtn;
+        Button m_singlePlayerBtn;
+        private Button m_multiPlayerBtn;
 
         public override void InitUI(params object[] msg)
         {
-            m_singlePlayerBtn = transform.Find("SinglePlayerBtn").GetComponent<AorButton>();
-            m_multiPlayerBtn = transform.Find("MultiPlayerBtn").GetComponent<AorButton>();
+            m_singlePlayerBtn = transform.Find("SinglePlayerBtn").GetComponent<Button>();
+            m_multiPlayerBtn = transform.Find("MultiPlayerBtn").GetComponent<Button>();
             
             RefreshShow();
             NetManager.Instance.Init();

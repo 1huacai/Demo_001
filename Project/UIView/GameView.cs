@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
-using FrameWork.Manager;
-using FrameWork.Audio;
+using UnityEngine.UI;
 
 namespace Demo
 {
@@ -33,7 +32,7 @@ namespace Demo
         
         
         
-        private AorButton reGenBlockBtn;
+        private Button reGenBlockBtn;
         
         public override void InitUI(params object[] msg)
         {
@@ -41,7 +40,7 @@ namespace Demo
             blockBoard = boards.Find("BlockBoard");
             pressureBoard = boards.Find("PressureBoard");
             effectArea = boards.Find("EffectArea");
-            reGenBlockBtn = transform.Find("ReGenBlockBtn").GetComponent<AorButton>();
+            reGenBlockBtn = transform.Find("ReGenBlockBtn").GetComponent<Button>();
             
             GameManger.Inst.InitGame();
         }

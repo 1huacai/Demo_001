@@ -5,7 +5,6 @@ using Project;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
-using FrameWork.View;
 
 namespace Demo
 {

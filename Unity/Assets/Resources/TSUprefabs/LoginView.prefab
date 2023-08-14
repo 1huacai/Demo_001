@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7662237683154145824}
   - component: {fileID: 8367097867745480272}
   - component: {fileID: 5193593870772212715}
-  - component: {fileID: 8252714880510838812}
+  - component: {fileID: 7549083654989473107}
   m_Layer: 5
   m_Name: SinglePlayerBtn
   m_TagString: Untagged
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8252714880510838812
+--- !u!114 &7549083654989473107
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2961272317921295561}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -882297493, guid: 27e8ddef49fea724ea3d2aedec0dbbef, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -118,10 +118,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  EnableClickSound: 1
-  IgnoreClickThreshold: 0
-  IgnoreClickInterval: 0
-  ClickThreshold: 40
 --- !u!1 &3460282018150234221
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +180,7 @@ GameObject:
   - component: {fileID: 2168487183253335892}
   - component: {fileID: 662643049865327005}
   - component: {fileID: 1062986778219971988}
-  - component: {fileID: 6693980458888601498}
+  - component: {fileID: 7740514255067812423}
   m_Layer: 5
   m_Name: MultiPlayerBtn
   m_TagString: Untagged
@@ -248,7 +244,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6693980458888601498
+--- !u!114 &7740514255067812423
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -257,7 +253,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4234019958029903635}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -882297493, guid: 27e8ddef49fea724ea3d2aedec0dbbef, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -291,10 +287,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  EnableClickSound: 1
-  IgnoreClickThreshold: 0
-  IgnoreClickInterval: 0
-  ClickThreshold: 40
 --- !u!1 &8373379280097259948
 GameObject:
   m_ObjectHideFlags: 0

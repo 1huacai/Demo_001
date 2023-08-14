@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 3952691939612921875}
   - component: {fileID: 3974302898400941416}
   - component: {fileID: 614488320049790420}
-  - component: {fileID: 9141327816712749834}
+  - component: {fileID: 2281267714882078090}
   m_Layer: 5
   m_Name: ReGenBlockBtn
   m_TagString: Untagged
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &9141327816712749834
+--- !u!114 &2281267714882078090
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -289,7 +289,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5048776253546631851}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -882297493, guid: 27e8ddef49fea724ea3d2aedec0dbbef, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -323,10 +323,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  EnableClickSound: 1
-  IgnoreClickThreshold: 0
-  IgnoreClickInterval: 0
-  ClickThreshold: 40
 --- !u!1 &6100356845115897663
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ namespace Demo
     public class NetManager
     {
         private static NetManager _instance;
-
+        
         public static NetManager Instance
         {
             get
@@ -22,10 +22,19 @@ namespace Demo
         
         public bool Server_Logined
         {
-            get { return server_logined; }
+            get { return server_logined; }  
             set { server_logined = value; }
         }
 
+        private bool _multiPlayer;//多人游戏标签
+
+        public bool Multiplayer
+        {
+            set { _multiPlayer = value; }
+            get { return _multiPlayer; }
+        }
+        
+        
         public void Init()
         {
             NetCore.Init();
