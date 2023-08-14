@@ -159,16 +159,6 @@ namespace Demo
         /// <param name="boardTran"></param>
         public void GenBlocks(List<BlockData> datas, Transform boardTran)
         {
-            // SingletonManager.GetManager<ResourcesManager>().LoadPrefab(ConstValues.blockPrefabPath, (obj, l) =>
-            // {
-            //     if (null == obj)
-            //     {
-            //         return;
-            //     }
-            //
-            //    
-            // });
-
             //遍历所有数据新建棋子
             for (int i = 0; i < datas.Count; i++)
             {
@@ -264,11 +254,6 @@ namespace Demo
             {
                 blockMatrix[0, i] = newRowBlocks[i];
             }
-
-            // SingletonManager.GetManager<ResourcesManager>().LoadPrefab(ConstValues.blockPrefabPath, ((obj, length) =>
-            // {
-            //     
-            // }));
         }
 
         public Block GenNewBlock(int row, int col, BlockType type, bool genByGarbage)
@@ -385,12 +370,20 @@ namespace Demo
             get { return preussUnlocking; }
             set { preussUnlocking = value; }
         }
+
+        private bool pressRiseUpBtn = false;
+
+        public bool PressRiseUpBtn
+        {
+            get { return pressRiseUpBtn; }
+            set { pressRiseUpBtn = value; }
+        }
         
         //更新棋盘区域逻辑
         private void UpDateBlockArea()
         {
             if(!BoardStopRise&&!PreussUnlocking)
-                BoardRise();
+                BoardRise(PressRiseUpBtn);
             
             //检测每个block的自有逻辑
             for (int row = 0; row < ConstValues.MAX_MATRIX_ROW; row++)
@@ -481,11 +474,10 @@ namespace Demo
         }
         
         //棋盘上升
-        private void BoardRise()
+        private void BoardRise(bool btnRise = false)
         {
             //TODO 到达顶部，就不上升了
-            
-            if (TimerMgr._Instance.Frame % ConstValues.Rise_Times[7] == 0)
+            if (btnRise)
             {
                 if (boards.transform.localPosition.y % ConstValues.BLOCK_Y_OFFSET == 0)
                 {
@@ -500,6 +492,25 @@ namespace Demo
 
                 boards.transform.localPosition += new Vector3(0, 1, 0);
             }
+            else
+            {
+                if (TimerMgr._Instance.Frame % ConstValues.Rise_Times[7] == 0)
+                {
+                    if (boards.transform.localPosition.y % ConstValues.BLOCK_Y_OFFSET == 0)
+                    {
+                        GenNewRowBlocks(genNewRowCount);
+                        genNewRowCount++;
+                        //压力块的Row也更新+1
+                        for (int i = 0; i < pressureBlocks.Count; i++)
+                        {
+                            pressureBlocks[i].Row++;
+                        }
+                    }
+
+                    boards.transform.localPosition += new Vector3(0, 1, 0);
+                }
+            }
+            
         }
         
         

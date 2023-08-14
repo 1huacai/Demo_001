@@ -141,6 +141,7 @@
     <Compile Include="Tools\FrameAnimation.cs" />
     <Compile Include="Tools\GameLogic.cs" />
     <Compile Include="Tools\GameUtils.cs" />
+    <Compile Include="Tools\LongPressBtn.cs" />
     <Compile Include="UIView\GameView.cs" />
     <Compile Include="UIView\LoginView.cs" />
   </ItemGroup>
