@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Demo.Tools;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Demo
@@ -33,7 +34,7 @@ namespace Demo
         
         
         private Button reGenBlockBtn;
-        private Button riseBoardBtn;
+        private LongPressBtn riseBoardBtn;
         
         public override void InitUI(params object[] msg)
         {
@@ -42,7 +43,7 @@ namespace Demo
             pressureBoard = boards.Find("PressureBoard");
             effectArea = boards.Find("EffectArea");
             reGenBlockBtn = transform.Find("ReGenBlockBtn").GetComponent<Button>();
-            riseBoardBtn = transform.Find("RiseBoardBtn").GetComponent<Button>();
+            riseBoardBtn = transform.Find("RiseBoardBtn").GetComponent<LongPressBtn>();
             GameManger.Inst.InitGame();
         }
 
@@ -55,8 +56,8 @@ namespace Demo
         {
             reGenBlockBtn.onClick.RemoveAllListeners();
             reGenBlockBtn.onClick.AddListener(ReGenBlockBtnCallback);
-            riseBoardBtn.onClick.RemoveAllListeners();
-            // riseBoardBtn.
+            riseBoardBtn.pointDownAction = () => { GameManger.Inst.PressRiseUpBtn = true;};
+            riseBoardBtn.pointUpAction = () => { GameManger.Inst.PressRiseUpBtn = false;};
         }
 
         public override void UnRegisterEvent()
