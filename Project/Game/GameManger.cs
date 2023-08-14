@@ -274,30 +274,36 @@ namespace Demo
         public Block GenNewBlock(int row, int col, BlockType type, bool genByGarbage)
         {
             Block block = null;
-            var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).BlockBoard;
-            GameObject prefabObj = ConstValues.BlockPrefabs[(int) type];
-
-            block = Block.CreateBlockObject(prefabObj, row, col, false, type, BlockState.Normal, boardTran, this);
-            //设置棋子位置
-            block.transform.localPosition = new Vector3(
-                ConstValues.BLOCK_X_ORIGINPOS + (col - 1) * ConstValues.BLOCK_X_OFFSET,
-                ConstValues.BLOCK_Y_ORIGINPOS + (row - genNewRowCount + 1) * ConstValues.BLOCK_Y_OFFSET,
-                0f
-            );
-            block.GenByGarbage = genByGarbage;
-            block.Chain = true;
             if (blockMatrix[row, col - 1] != null)
             {
-                GameObject.Destroy(blockMatrix[row, col - 1].gameObject);
-                blockMatrix[row, col - 1] = null;
+                block = blockMatrix[row, col - 1];
+                // GameObject.Destroy(blockMatrix[row, col - 1].gameObject);
+                // blockMatrix[row, col - 1] = null;
+                block.State = BlockState.Normal;
+                block.Type = type;
+                block.GenByGarbage = genByGarbage;
+                block.Chain = true;
             }
+            else
+            {
+                
+                var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).BlockBoard;
+                GameObject prefabObj = ConstValues.BlockPrefabs[(int) type];
 
-            blockMatrix[row, col - 1] = block;
-            block.BlockOperationEvent += OnBlockOperation;
-            // SingletonManager.GetManager<ResourcesManager>().LoadPrefab(ConstValues.blockPrefabPath, ((obj, length) =>
-            // {
-            //     
-            // }));
+                block = Block.CreateBlockObject(prefabObj, row, col, false, type, BlockState.Normal, boardTran, this);
+                //设置棋子位置
+                block.transform.localPosition = new Vector3(
+                    ConstValues.BLOCK_X_ORIGINPOS + (col - 1) * ConstValues.BLOCK_X_OFFSET,
+                    ConstValues.BLOCK_Y_ORIGINPOS + (row - genNewRowCount + 1) * ConstValues.BLOCK_Y_OFFSET,
+                    0f
+                );
+                block.GenByGarbage = genByGarbage;
+                block.Chain = true;
+                
+                blockMatrix[row, col - 1] = block;
+                block.BlockOperationEvent += OnBlockOperation;
+            }
+            
             return block;
         }
         
