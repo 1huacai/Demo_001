@@ -25,25 +25,25 @@ namespace Demo.Tools
 
         private void FixedUpdate()
         {
-            GameManger.Inst.FiexdUpdate();
+            SelfGameController.Inst.FiexdUpdate();
             PressureUnlocking();
         }
 
         private void LateUpdate()
         {
-            GameManger.Inst.LateUpdate();
+            SelfGameController.Inst.LateUpdate();
         }
 
         private void PressureUnlocking()
         {
-            if (!GameManger.Inst.PreussUnlocking)
+            if (!SelfGameController.Inst.PreussUnlocking)
             {
-                if (GameManger.Inst.unlockPressBlocks.Count > 0)
+                if (SelfGameController.Inst.unlockPressBlocks.Count > 0)
                 {
                     //TODO 把解锁的压力块集合排序
                     // GameManger.Inst.unlockPressBlocks.Sort(((block, pressureBlock) => ));
                     
-                    GameManger.Inst.PreussUnlocking = true;
+                    SelfGameController.Inst.PreussUnlocking = true;
                     StartCoroutine(UnlockPressBlocks());
                 }
                 
@@ -55,17 +55,17 @@ namespace Demo.Tools
         {
             // Debug.LogError("待解锁的压力块个数----" + GameManger.Inst.unlockPressBlocks.Count);
             
-            for (int i = 0; i < GameManger.Inst.unlockPressBlocks.Count; i++)
+            for (int i = 0; i < SelfGameController.Inst.unlockPressBlocks.Count; i++)
             {
-                var targetPressureBlock = GameManger.Inst.unlockPressBlocks[i];
+                var targetPressureBlock = SelfGameController.Inst.unlockPressBlocks[i];
                 targetPressureBlock.IsUnlocking = true;
                 float waittime = lockAnimTime * targetPressureBlock.SingleBlocks.Count;
                 yield return new WaitForSeconds(waittime);
             }
 
-            for (int i = 0; i < GameManger.Inst.unlockPressBlocks.Count; i++)
+            for (int i = 0; i < SelfGameController.Inst.unlockPressBlocks.Count; i++)
             {
-                var pressureBlock = GameManger.Inst.unlockPressBlocks[i];
+                var pressureBlock = SelfGameController.Inst.unlockPressBlocks[i];
                 var genBlocks = pressureBlock.genBlocks;
                 
                 foreach (var block in genBlocks)
@@ -73,16 +73,16 @@ namespace Demo.Tools
                     block.GenByGarbage = false;
                 }
                 
-                GameManger.Inst.pressureBlocks.Remove(pressureBlock);
+                SelfGameController.Inst.pressureBlocks.Remove(pressureBlock);
             }
             
-            GameManger.Inst.PreussUnlocking = false;
-            GameManger.Inst.BoardStopRise = false;
-            for (int i = 0; i < GameManger.Inst.unlockPressBlocks.Count; i++)
+            SelfGameController.Inst.PreussUnlocking = false;
+            SelfGameController.Inst.BoardStopRise = false;
+            for (int i = 0; i < SelfGameController.Inst.unlockPressBlocks.Count; i++)
             {
-                Destroy(GameManger.Inst.unlockPressBlocks[i].gameObject);
+                Destroy(SelfGameController.Inst.unlockPressBlocks[i].gameObject);
             }
-            GameManger.Inst.unlockPressBlocks.Clear();
+            SelfGameController.Inst.unlockPressBlocks.Clear();
         }
     }
 }

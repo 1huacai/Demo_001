@@ -5,7 +5,7 @@ namespace Demo
 {
     public class PoppingState : Statebase
     {
-        public PoppingState(GameManger manger) : base(manger)
+        public PoppingState(SelfGameController controller) : base(controller)
         {
         }
 

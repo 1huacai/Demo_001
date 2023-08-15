@@ -96,14 +96,15 @@
   <ItemGroup>
     <Compile Include="Config\ConstValues.cs" />
     <Compile Include="Config\VersionConfig.cs" />
-    <Compile Include="Game\Block.cs" />
-    <Compile Include="Game\BlockData.cs" />
-    <Compile Include="Game\Chain.cs" />
-    <Compile Include="Game\Combo.cs" />
-    <Compile Include="Game\GameManger.cs" />
-    <Compile Include="Game\MsgHandler.cs" />
-    <Compile Include="Game\NetManager.cs" />
-    <Compile Include="Game\PressureBlock.cs" />
+    <Compile Include="Game\Common\Block.cs" />
+    <Compile Include="Game\Common\BlockData.cs" />
+    <Compile Include="Game\Common\Chain.cs" />
+    <Compile Include="Game\Common\Combo.cs" />
+    <Compile Include="Game\Common\MsgHandler.cs" />
+    <Compile Include="Game\Common\NetManager.cs" />
+    <Compile Include="Game\Common\PressureBlock.cs" />
+    <Compile Include="Game\Common\Controller.cs" />
+    <Compile Include="Game\SelfGameController.cs" />
     <Compile Include="Game\States\Statebase.cs" />
     <Compile Include="Game\States\StateHandle\DimmedState.cs" />
     <Compile Include="Game\States\StateHandle\FallingState.cs" />

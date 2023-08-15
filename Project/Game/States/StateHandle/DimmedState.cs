@@ -2,7 +2,7 @@
 {
     public class DimmedState : Statebase
     {
-        public DimmedState(GameManger manger) : base(manger)
+        public DimmedState(SelfGameController controller) : base(controller)
         {
         }
     }

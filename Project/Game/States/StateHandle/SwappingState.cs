@@ -6,7 +6,7 @@ namespace Demo
 {
     public class SwappingState : Statebase
     {
-        public SwappingState(GameManger manger) : base(manger)
+        public SwappingState(SelfGameController controller) : base(controller)
         {
         }
 
@@ -29,18 +29,18 @@ namespace Demo
             }
 
             //获取在当前block下面的格子的状态
-            var downBlock = _gameManger.blockMatrix[block.Row - 1, block.Col - 1];
+            var downBlock = SelfGameController.blockMatrix[block.Row - 1, block.Col - 1];
             var downBlockState = downBlock.State;
             if (downBlock.Type != BlockType.None && downBlockState != BlockState.Hovering &&
                 downBlockState != BlockState.Falling)
             {
                 StateManger._instance.ChangeStageEnter(BlockState.Normal, block);
             }
-            else if (downBlock.Type == BlockType.None && !GameManger.Inst.CheckPressureBlockIncludeBlock(downBlock))
+            else if (downBlock.Type == BlockType.None && !SelfGameController.Inst.CheckPressureBlockIncludeBlock(downBlock))
             {
                 StateManger._instance.ChangeState(BlockState.Hovering, block);
             }
-            else if (downBlock.Type == BlockType.None && GameManger.Inst.CheckPressureBlockIncludeBlock(downBlock))
+            else if (downBlock.Type == BlockType.None && SelfGameController.Inst.CheckPressureBlockIncludeBlock(downBlock))
             {
                 StateManger._instance.ChangeStageEnter(BlockState.Normal, block);
             }
@@ -60,16 +60,16 @@ namespace Demo
             base.OnBlockOperation(row, col, operation);
             if (operation == BlockOperation.DragHalf)
             {
-                if (_gameManger.selectBlock == null)
+                if (SelfGameController.selectBlock == null)
                     return;
-                var otherBlock = _gameManger.blockMatrix[row, col - 1];
-                if (otherBlock == null || _gameManger.selectBlock.State == BlockState.Swapping ||
-                    otherBlock.State == BlockState.Swapping || _gameManger.CheckPressureBlockIncludeBlock(otherBlock))
+                var otherBlock = SelfGameController.blockMatrix[row, col - 1];
+                if (otherBlock == null || SelfGameController.selectBlock.State == BlockState.Swapping ||
+                    otherBlock.State == BlockState.Swapping || SelfGameController.CheckPressureBlockIncludeBlock(otherBlock))
                 {
                     return;
                 }
 
-                DoSwap(_gameManger.selectBlock, otherBlock);
+                DoSwap(SelfGameController.selectBlock, otherBlock);
             }
         }
 
@@ -100,8 +100,8 @@ namespace Demo
             });
             //数据部分
             block_1.dragBeginPos = block_2_Pos;
-            _gameManger.blockMatrix[block_1.Row, block_1.Col - 1] = block_2;
-            _gameManger.blockMatrix[block_2.Row, block_2.Col - 1] = block_1;
+            SelfGameController.blockMatrix[block_1.Row, block_1.Col - 1] = block_2;
+            SelfGameController.blockMatrix[block_2.Row, block_2.Col - 1] = block_1;
             int tempRow = block_1.Row;
             int tempCol = block_1.Col;
 

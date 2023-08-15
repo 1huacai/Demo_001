@@ -4,7 +4,7 @@ namespace Demo
 {
     public class PoppedState : Statebase
     {
-        public PoppedState(GameManger manger) : base(manger)
+        public PoppedState(SelfGameController controller) : base(controller)
         {
         }
 

@@ -18,7 +18,7 @@ namespace Demo
         public Vector3 dragBeginPos; //拖拽的起始位置
         private FrameAnimation _animation;
         
-        private GameManger manger;
+        private Controller _controller;
         [SerializeField] private BlockState state = BlockState.Normal;
         [SerializeField] private bool selected = false; 
         private bool swaping = false;
@@ -40,7 +40,7 @@ namespace Demo
                 // IsSelected = true;
                 BlockOperationEvent(row, col, BlockOperation.TouchDown);
                 dragBeginPos = transform.localPosition;
-                GameManger.Inst.selectBlock = this;
+                SelfGameController.Inst.selectBlock = this;
             }
         }
 
@@ -54,7 +54,7 @@ namespace Demo
                 transform.localPosition = dragBeginPos;  
                 BlockOperationEvent(row, col, BlockOperation.TouchUp);
                 dragBeginPos = Vector3.zero;
-                GameManger.Inst.selectBlock = null;
+                SelfGameController.Inst.selectBlock = null;
             }
         }
 
@@ -120,7 +120,7 @@ namespace Demo
 
         //单独创建block
         public static Block CreateBlockObject(GameObject obj, int row, int col,bool dimmed,BlockType type,BlockState state, Transform parent,
-            GameManger mag)
+            Controller mag)
         {
             GameObject blockObj = Instantiate(obj, parent);
             if (blockObj == null)
@@ -137,7 +137,7 @@ namespace Demo
             block.State = state;
             
             blockObj.name = $"{row}-{col}";
-            block.manger = mag;
+            block._controller = mag;
             block._animation = blockObj.GetComponent<FrameAnimation>();
             block.image = block.GetComponent<Image>();
             block._animation.Init(block.image);
@@ -313,9 +313,9 @@ namespace Demo
                 IsNeedFall = false;
                 if (Row <= 1)
                     return;
-                var downBlock = GameManger.Inst.blockMatrix[Row - 1, Col - 1];
+                var downBlock = SelfGameController.Inst.blockMatrix[Row - 1, Col - 1];
                 //下落过程中遇到压力块，那么就变成landing
-                if (GameManger.Inst.CheckPressureBlockIncludeBlock(downBlock))
+                if (SelfGameController.Inst.CheckPressureBlockIncludeBlock(downBlock))
                 {
                     StateManger._instance.ChangeState(BlockState.Landing, this);
                     return;
@@ -333,12 +333,12 @@ namespace Demo
                 Row = downBlock.Row;
                 Col = downBlock.Col;
                 ChangeBlockObjName();
-                GameManger.Inst.blockMatrix[Row, Col - 1] = this;
+                SelfGameController.Inst.blockMatrix[Row, Col - 1] = this;
 
                 downBlock.Row = tempRow;
                 downBlock.Col = tempCol;
                 downBlock.ChangeBlockObjName();
-                GameManger.Inst.blockMatrix[downBlock.Row, downBlock.Col - 1] = downBlock;
+                SelfGameController.Inst.blockMatrix[downBlock.Row, downBlock.Col - 1] = downBlock;
             }
         }
 

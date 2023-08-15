@@ -5,14 +5,14 @@ namespace Demo
 {
     public class Statebase
     {
-        protected GameManger _gameManger;
+        protected SelfGameController SelfGameController;
 
         //对应的计时器id，唯一
         protected int timerID = 0;
 
-        public Statebase(GameManger manger)
+        public Statebase(SelfGameController controller)
         {
-            _gameManger = manger;
+            SelfGameController = controller;
         }
 
         public virtual void OnBlockOperation(int row, int col, BlockOperation operation)
@@ -21,7 +21,7 @@ namespace Demo
 
         public virtual void OnDestroy()
         {
-            _gameManger = null;
+            SelfGameController = null;
         }
 
 

@@ -11,6 +11,8 @@ namespace Demo
             NetReceiver.AddHandler<S2C_Protocol.match_success>((data) =>
             {
                 Debug.LogError("========= match_success");
+                var requst = data as S2C_SprotoType.match_success.request;
+                Debug.LogError($"对战玩家{requst.players[0].rname} vs {requst.players[1].rname}");
                 return null;
             });
             
@@ -41,6 +43,7 @@ namespace Demo
             NetReceiver.AddHandler<S2C_Protocol.game_ready>((data) =>
             {
                 Debug.LogError("========= game_ready");
+                UIManager.Inst.GetUI<LoginView>(UIDef.LoginView).GameReadyEnterGame();
                 return null;
             });
             

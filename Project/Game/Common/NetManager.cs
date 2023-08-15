@@ -1,3 +1,4 @@
+using System;
 using Project;
 using UnityEngine;
 
@@ -57,7 +58,7 @@ namespace Demo
             if (NetCore.connected == false)
             {
                 Debug.LogError("开始链接");
-                NetManager.Instance.Server_Logined = false;
+                Server_Logined = false;
                 NetCore.Connect(ConstValues.serverIp, ConstValues.serverPort, () =>
                 {
                     Debug.LogError("connect server success");
@@ -81,6 +82,7 @@ namespace Demo
                         {
                             var data = rsp2 as C2S_SprotoType.login.response;
                             Debug.LogError($"login response:{data.e}--rename - {data.rname}--render - {data.render}");
+                            Server_Logined = true;
                         }));
 
                     }));
@@ -88,28 +90,56 @@ namespace Demo
             }
         }
         
-        public void GameBattle()
+        public void GameBattle(Action callback)
         {
             if (NetCore.connected == false)
             {
-                server_logined = false;
+                // ConnetServer();
+                Server_Logined = false;
                 NetCore.Connect(ConstValues.serverIp, ConstValues.serverPort, () =>
                 {
-                    Debug.Log("connect server success");
+                    Server_Logined = true;
                 });
             }
+            
             if (server_logined)
-                MatchReq();
+                MatchReq(callback);
             else
-                GameBattle();
+                GameBattle(callback);
         }
         
         //向服务器发起匹配请求
-        private void MatchReq()
+        private void MatchReq(Action callBack = null)
         {
             Debug.LogError("开始发送匹配请求");
-            
+            var matchStartrtRequest = new C2S_SprotoType.match_start.request();
+            NetSender.Send<C2S_Protocol.match_start>(matchStartrtRequest, (rsp) =>
+            {
+                var data = rsp as C2S_SprotoType.match_start.response;
+                if (data.e == 0)
+                {
+                    Debug.LogError("开始匹配计时");
+                    Multiplayer = true;
+                    callBack?.Invoke();
+                }
+            });
         }
+
+        public void MatchCancelReq(Action callBack = null)
+        {
+            Debug.LogError("开始发送取消匹配请求");
+            var matchCancelRequest = new C2S_SprotoType.match_cancel.request();
+            NetSender.Send<C2S_Protocol.match_cancel>(matchCancelRequest,(rsp2 =>
+            {
+                var data2 = rsp2 as C2S_SprotoType.match_cancel.response;
+                if (data2.e == 0)
+                {
+                    Debug.LogError("取消匹配");
+                    callBack?.Invoke();
+                }
+            }));
+        }
+        
         
     }
 }

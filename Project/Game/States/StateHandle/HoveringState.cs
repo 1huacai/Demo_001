@@ -5,7 +5,7 @@ namespace Demo
 {
     public class HoveringState : Statebase
     {
-        public HoveringState(GameManger manger) : base(manger)
+        public HoveringState(SelfGameController controller) : base(controller)
         {
         }
 
@@ -22,7 +22,7 @@ namespace Demo
                 return;
             timerID = TimerMgr._Instance.Schedule(() =>
             {
-                var downBlock = _gameManger.blockMatrix[block.Row - 1, block.Col - 1];
+                var downBlock = SelfGameController.blockMatrix[block.Row - 1, block.Col - 1];
                 if (downBlock.Type == BlockType.None)
                 {
                     StateManger._instance.ChangeState(BlockState.Falling, block);

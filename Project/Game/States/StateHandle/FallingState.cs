@@ -5,7 +5,7 @@ namespace Demo
 {
     public class FallingState : Statebase
     {
-        public FallingState(GameManger manger) : base(manger)
+        public FallingState(SelfGameController controller) : base(controller)
         {
         }
 
@@ -23,7 +23,7 @@ namespace Demo
                 return;
             timerID = TimerMgr._Instance.Schedule(() =>
             {
-                var downBlock = _gameManger.blockMatrix[block.Row - 1, block.Col - 1];
+                var downBlock = SelfGameController.blockMatrix[block.Row - 1, block.Col - 1];
                 if (block.Row == 1)
                 {
                     StateManger._instance.ChangeState(BlockState.Landing, block);

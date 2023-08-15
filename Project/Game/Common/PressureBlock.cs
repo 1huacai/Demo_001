@@ -169,7 +169,7 @@ namespace Demo
             pressureBlockCom.x_Num = obj.transform.childCount;
             pressureBlockCom.transform.localPosition = new Vector3(
                 15 + (col - 1) * ConstValues.BLOCK_X_OFFSET,
-                ConstValues.BLOCK_Y_ORIGINPOS + (row - (GameManger.Inst.GenNewRowCount - 1)) * ConstValues.PRESSURE_Y_OFFSET,
+                ConstValues.BLOCK_Y_ORIGINPOS + (row - (SelfGameController.Inst.GenNewRowCount - 1)) * ConstValues.PRESSURE_Y_OFFSET,
                 0f
             );
             pressureBlockCom.name = $"{pressureBlockCom.x_Num}B - {pressureBlockCom.Row}";
@@ -181,7 +181,7 @@ namespace Demo
                 pressureBlockCom.singleBlocks.Add(childBlockTran);
             }
             
-            GameManger.Inst.pressureBlocks.Add(pressureBlockCom);
+            SelfGameController.Inst.pressureBlocks.Add(pressureBlockCom);
         }
         
         public void UnlockPressureBlock(int targetRow,int targetCol)
@@ -215,10 +215,10 @@ namespace Demo
                     block.gameObject.SetActive(false);
                     s_anim.gameObject.SetActive(false);
                     //生成新的压力块
-                    var newBlock =  GameManger.Inst.GenNewBlock(Row,originCol + i,oldType,true);
+                    var newBlock =  SelfGameController.Inst.GenNewBlock(Row,originCol + i,oldType,true,true);
                     genBlocks.Add(newBlock);
                 });
-                oldType = GameManger.Inst.GetDiffTypeFrom(oldType);
+                oldType = SelfGameController.Inst.GetDiffTypeFrom(oldType);
                 yield return new WaitForSeconds(animTime);
             }
             
@@ -227,21 +227,21 @@ namespace Demo
         //获取四个方向的相邻压力块
         public void GetAdjacentPressureBlocks()
         {
-            if (!GameManger.Inst.unlockPressBlocks.Contains(this))
+            if (!SelfGameController.Inst.unlockPressBlocks.Contains(this))
             {
-                GameManger.Inst.unlockPressBlocks.Add(this);
+                SelfGameController.Inst.unlockPressBlocks.Add(this);
             }
             
-            for (int i = 0; i < GameManger.Inst.pressureBlocks.Count; i++)
+            for (int i = 0; i < SelfGameController.Inst.pressureBlocks.Count; i++)
             {
-                var pressureBlock = GameManger.Inst.pressureBlocks[i];
+                var pressureBlock = SelfGameController.Inst.pressureBlocks[i];
                 //up/down
                 if ((pressureBlock.Row == Row + 1 || pressureBlock.Row == Row - 1) &&
                     pressureBlock.OriginCol <= TriggerRange)
                 {
-                    if (!GameManger.Inst.unlockPressBlocks.Contains(pressureBlock))
+                    if (!SelfGameController.Inst.unlockPressBlocks.Contains(pressureBlock))
                     {
-                        GameManger.Inst.unlockPressBlocks.Add(pressureBlock);
+                        SelfGameController.Inst.unlockPressBlocks.Add(pressureBlock);
                         pressureBlock.GetAdjacentPressureBlocks();
                     }
                 }
@@ -249,9 +249,9 @@ namespace Demo
                 if ((pressureBlock.OriginCol == TriggerRange + 1 || pressureBlock.originCol == OriginCol - 1) &&
                     pressureBlock.Row == Row)
                 {
-                    if (!GameManger.Inst.unlockPressBlocks.Contains(pressureBlock))
+                    if (!SelfGameController.Inst.unlockPressBlocks.Contains(pressureBlock))
                     {
-                        GameManger.Inst.unlockPressBlocks.Add(pressureBlock);
+                        SelfGameController.Inst.unlockPressBlocks.Add(pressureBlock);
                         pressureBlock.GetAdjacentPressureBlocks();
                     }
                 }
@@ -278,7 +278,7 @@ namespace Demo
             //检测下方block
             for (int i = 0; i < ConstValues.MAX_COL; i++)
             {
-                var block = GameManger.Inst.blockMatrix[downRow, i];
+                var block = SelfGameController.Inst.blockMatrix[downRow, i];
                 if (block)
                 {
                     if (block.Type != BlockType.None &&
@@ -291,9 +291,9 @@ namespace Demo
             }
             
             bool hasDownPressureBlock = false;
-            for (int i = 0; i < GameManger.Inst.pressureBlocks.Count; i++)
+            for (int i = 0; i < SelfGameController.Inst.pressureBlocks.Count; i++)
             {
-                var pressureBlock = GameManger.Inst.pressureBlocks[i];
+                var pressureBlock = SelfGameController.Inst.pressureBlocks[i];
                 if (pressureBlock.Row == downRow && pressureBlock != this)
                 {
                     if (pressureBlock.TriggerRange >= OriginCol && pressureBlock.OriginCol <= TriggerRange)

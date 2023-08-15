@@ -1,5 +1,3 @@
-﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -7,55 +5,38 @@ using Project;
 using FrameWork.Manager;
 using ResourceLoad;
 using Random = UnityEngine.Random;
-using Spine.Unity;
 
 namespace Demo
 {
-    public class GameManger
+    public class Controller
     {
-        private static GameManger s_inst;
-
-        public static GameManger Inst
-        {
-            get
-            {
-                if (s_inst == null)
-                {
-                    s_inst = new GameManger();
-                }
-
-                return s_inst;
-            }
-        }
-
-        public Block selectBlock;
-        public bool gameStart = false; //游戏开始标志
-
-
-        public GameManger()
-        {
-        }
-
-
+        
         //自身所有棋子的初始化数据
         public Block[,] blockMatrix = new Block[ConstValues.MAX_MATRIX_ROW, ConstValues.MAX_COL];
         //压力块列表(场上显示出的压力块)
         public List<PressureBlock> pressureBlocks = new List<PressureBlock>();
+        //需要解锁的压力块列表
         public List<PressureBlock> unlockPressBlocks = new List<PressureBlock>();
+        //同一帧内的消除集合
+        public List<List<Block>> BlocksInSameFrame = new List<List<Block>>();
+        
+        protected int genNewRowCount = 1; //构建新行的次数
 
-        #region 初始化blockStageData部分
-
-        //所有stage的样式的配置
-        List<string[]> stageConfigs = new List<string[]>
+        public int GenNewRowCount
         {
-            ConstValues.stage_1, ConstValues.stage_2
-        };
-
+            get => genNewRowCount;
+            set => genNewRowCount = value;
+        }
+        
+        
+        #region 初始化blockStageData部分
         /// <summary>
         /// 初始化创建所有blockData数据并返回
         /// </summary>
+        /// <param name="stageConfigs">block排布配置</param>
+        /// <param name="speedLevel">速度等级</param>
         /// <returns></returns>
-        public List<BlockData> GenBlockDatas(int speedLevel = 1)
+        public List<BlockData> GenBlockDatas(List<string[]>stageConfigs,int speedLevel = 1)
         {
             int maxRow = ConstValues.MAX_GENROW, maxCol = ConstValues.MAX_COL;
             BlockData[,] blockDataMatrix = new BlockData[maxRow, maxCol];
@@ -95,15 +76,16 @@ namespace Demo
 
             return blockDataList;
         }
-
-        private bool IsSameAsAdjacent(BlockData[,] blockDataMatrix, int row, int col, BlockType Type)
+        
+        //判断block是否相邻且相同
+        protected static bool IsSameAsAdjacent(BlockData[,] blockDataMatrix, int row, int col, BlockType Type)
         {
             return (row > 0 && blockDataMatrix[row - 1, col].type == Type) ||
                    (col > 0 && blockDataMatrix[row, col - 1].type == Type);
         }
-
+        
         //根据模板随机选择地图沟壑配置
-        private List<BlockData> MatchStageBlockDatas(List<BlockData> blockDatas, string[] stage)
+        protected List<BlockData> MatchStageBlockDatas(List<BlockData> blockDatas, string[] stage)
         {
             List<int> startChangeIndexs = new List<int>(); //起始需要交换的位置
             List<int> endChangeIndexs = new List<int>(); //结束需要交换的位置
@@ -136,9 +118,9 @@ namespace Demo
 
             return blockDatas;
         }
-
+        
         //获取与之前不同的blockType
-        public BlockType GetDiffTypeFrom(BlockType oldType)
+        public  BlockType GetDiffTypeFrom(BlockType oldType)
         {
             BlockType newType = (BlockType) Random.Range(1, ConstValues.MAX_BLOCKTYPE);
             while (oldType == newType)
@@ -148,9 +130,8 @@ namespace Demo
 
             return newType;
         }
-
         #endregion
-
+        
         #region 构建棋子部分
         /// <summary>
         /// 构建所有棋子
@@ -187,15 +168,13 @@ namespace Demo
                 block.BlockOperationEvent += OnBlockOperation;
             }
         }
-
-
-        private List<Block> newRowBlocks = new List<Block>();
-
+        
         /// <summary>
         /// 创建新的一行blocks
         /// </summary>
         public void GenNewRowBlocks(int genCount = 1)
         {
+            List<Block> newRowBlocks = new List<Block>();
             BlockData[] newRowBlockData = new BlockData[6];
             BlockType oldType = (BlockType) Random.Range(1, 6);
             for (int i = 0; i < 6; i++)
@@ -203,8 +182,7 @@ namespace Demo
                 oldType = GetDiffTypeFrom(oldType);
                 newRowBlockData[i] = new BlockData(0, i + 1, oldType);
             }
-
-            newRowBlocks.Clear();
+            
             var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).BlockBoard;
 
             //遍历生成新的block
@@ -255,8 +233,8 @@ namespace Demo
                 blockMatrix[0, i] = newRowBlocks[i];
             }
         }
-
-        public Block GenNewBlock(int row, int col, BlockType type, bool genByGarbage)
+        
+        public Block GenNewBlock(int row, int col, BlockType type, bool genByGarbage,bool chain)
         {
             Block block = null;
             if (blockMatrix[row, col - 1] != null)
@@ -283,7 +261,7 @@ namespace Demo
                     0f
                 );
                 block.GenByGarbage = genByGarbage;
-                block.Chain = true;
+                block.Chain = chain;
                 
                 blockMatrix[row, col - 1] = block;
                 block.BlockOperationEvent += OnBlockOperation;
@@ -292,7 +270,8 @@ namespace Demo
             return block;
         }
         
-        private void OnBlockOperation(int row, int col, BlockOperation operation)
+        
+        protected void OnBlockOperation(int row, int col, BlockOperation operation)
         {
             //执行拖拽操作
             if (operation == BlockOperation.DragHalf)
@@ -308,214 +287,7 @@ namespace Demo
         #endregion
         
         
-        public Transform boards = null;
-        private Transform blockBoard = null;
-        private Transform pressureBoard = null;
-        private int genNewRowCount = 1; //构建新行的次数
-
-        public int GenNewRowCount
-        {
-            get => genNewRowCount;
-            set => genNewRowCount = value;
-        }
-
-        #region 游戏逻辑部分
-        
-        //初始化游戏
-        public void InitGame()
-        {  
-            Application.targetFrameRate = ConstValues.targetPlatformFps;
-            var gameView = UIManager.Inst.GetUI<GameView>(UIDef.GameView);
-            var blockDatas = GameManger.Inst.GenBlockDatas();
-            boards = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Boards;
-            blockBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).BlockBoard;
-            pressureBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).PressureBoard;
-            
-            //根据数据构建所有棋子obj
-            GenBlocks(blockDatas, gameView.BlockBoard);
-            StateManger._instance.Init(this);
-            TimerMgr._Instance.Init();
-            gameStart = true;
-        }
-
-        public void FiexdUpdate()
-        {
-            if (!gameStart)
-            {
-                genNewRowCount = 1;
-                return;
-            }
-            UpDateBlockArea();
-        }
-
-        public void LateUpdate()
-        {
-            if (!gameStart)
-                return;
-            LateUpdateBlockArea();
-        }
-
-        private bool boardStopRise = false;
-
-        public bool BoardStopRise
-        {
-            get { return boardStopRise; }
-            set { boardStopRise = value; }
-        }
-
-        private bool preussUnlocking = false;// 一堆压力块正在解锁的标志
-
-        public bool PreussUnlocking
-        {
-            get { return preussUnlocking; }
-            set { preussUnlocking = value; }
-        }
-
-        private bool pressRiseUpBtn = false;
-
-        public bool PressRiseUpBtn
-        {
-            get { return pressRiseUpBtn; }
-            set { pressRiseUpBtn = value; }
-        }
-        
-        //更新棋盘区域逻辑
-        private void UpDateBlockArea()
-        {
-            if(!BoardStopRise&&!PreussUnlocking)
-                BoardRise(PressRiseUpBtn);
-            
-            //检测每个block的自有逻辑
-            for (int row = 0; row < ConstValues.MAX_MATRIX_ROW; row++)
-            {
-                for (int col = 0; col < ConstValues.MAX_COL; col++)
-                {
-                    var block = blockMatrix[row, col];
-                    if (block != null)
-                    {
-                        block.LogicUpdate();
-                    }
-                }
-            }
-            
-            //检测每个压力块的自有逻辑
-            for (int i = 0; i < pressureBlocks.Count; i++)
-            {
-                pressureBlocks[i].LogicUpdate();
-            }
-        }
-
-
-        public List<List<Block>> BlocksInSameFrame = new List<List<Block>>();
-
-        private int comboCount = 0;
-        private int chainCount = 0;
-        private void LateUpdateBlockArea()
-        {
-            
-            if (BlocksInSameFrame.Count > 0)
-            {
-                Debug.LogError("同帧率多消组合FPS-" + TimerMgr._Instance.Frame);
-                comboCount = 0;
-                chainCount = 0;
-                
-                for (int i = 0; i < BlocksInSameFrame.Count; i++)
-                {
-                    for (int j = 0; j < BlocksInSameFrame[i].Count; j++)
-                    {
-                        comboCount++;
-                        var block = BlocksInSameFrame[i][j];
-                        if (block.Chain)
-                            chainCount++;
-                        
-                        for (int k = 0; k < pressureBlocks.Count; k++)
-                        {
-                            var pressureBlock = pressureBlocks[k];
-                            pressureBlock.UnlockPressureBlock(block.Row,block.Col);
-                        }
-                    }
-                }
-                
-                // combo压力块
-                if (comboCount >= 4)//原数字是4，暂时换3测试
-                {
-                    GenComboObj(comboCount, BlocksInSameFrame[0][0].transform.localPosition);
-                    
-                    //Combo达成，棋盘暂停移动
-                    BoardStopRise = true;
-                    TimerMgr._Instance.Schedule(() =>
-                    {
-                        BoardStopRise = false;
-                        //兴建压力块
-                        PressureBlock.CreatePressureBlock(true,comboCount,pressureBoard);
-
-                    }, (20 * comboCount -20) * ConstValues.fpsTime);
-                }
-                
-                //chain压力块
-                if (chainCount >= 2)
-                {
-                    GenChainObj(chainCount, BlocksInSameFrame[0][0].transform.localPosition);
-                    
-                    //chain达成
-                    BoardStopRise = true;
-                    TimerMgr._Instance.Schedule(() =>
-                    {
-                        Debug.LogError("生成chain的压力块");
-                        BoardStopRise = false;
-                        //兴建压力块
-                        PressureBlock.CreatePressureBlock(false,chainCount,pressureBoard);
-
-                    }, (20 * chainCount + 80) * ConstValues.fpsTime);
-                }
-                
-                BlocksInSameFrame.Clear();
-            }
-        }
-        
-        //棋盘上升
-        private void BoardRise(bool btnRise = false)
-        {
-            //TODO 到达顶部，就不上升了
-            if (btnRise)
-            {
-                if (boards.transform.localPosition.y % ConstValues.BLOCK_Y_OFFSET == 0)
-                {
-                    GenNewRowBlocks(genNewRowCount);
-                    genNewRowCount++;
-                    //压力块的Row也更新+1
-                    for (int i = 0; i < pressureBlocks.Count; i++)
-                    {
-                        pressureBlocks[i].Row++;
-                    }
-                }
-
-                boards.transform.localPosition += new Vector3(0, 1, 0);
-            }
-            else
-            {
-                if (TimerMgr._Instance.Frame % ConstValues.Rise_Times[7] == 0)
-                {
-                    if (boards.transform.localPosition.y % ConstValues.BLOCK_Y_OFFSET == 0)
-                    {
-                        GenNewRowBlocks(genNewRowCount);
-                        genNewRowCount++;
-                        //压力块的Row也更新+1
-                        for (int i = 0; i < pressureBlocks.Count; i++)
-                        {
-                            pressureBlocks[i].Row++;
-                        }
-                    }
-
-                    boards.transform.localPosition += new Vector3(0, 1, 0);
-                }
-            }
-            
-        }
-        
-        
-        #endregion
-        
+          
         #region 工具部分
         /// <summary>
         /// 获取当前block在横向纵向上与自己相邻的相同Type(非None)的block

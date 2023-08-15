@@ -44,7 +44,7 @@ namespace Demo
             effectArea = boards.Find("EffectArea");
             reGenBlockBtn = transform.Find("ReGenBlockBtn").GetComponent<Button>();
             riseBoardBtn = transform.Find("RiseBoardBtn").GetComponent<LongPressBtn>();
-            GameManger.Inst.InitGame();
+            SelfGameController.Inst.InitGame();
         }
 
         public override void RefreshShow(params object[] msg)
@@ -56,8 +56,8 @@ namespace Demo
         {
             reGenBlockBtn.onClick.RemoveAllListeners();
             reGenBlockBtn.onClick.AddListener(ReGenBlockBtnCallback);
-            riseBoardBtn.pointDownAction = () => { GameManger.Inst.PressRiseUpBtn = true;};
-            riseBoardBtn.pointUpAction = () => { GameManger.Inst.PressRiseUpBtn = false;};
+            riseBoardBtn.pointDownAction = () => { SelfGameController.Inst.PressRiseUpBtn = true;};
+            riseBoardBtn.pointUpAction = () => { SelfGameController.Inst.PressRiseUpBtn = false;};
         }
 
         public override void UnRegisterEvent()
@@ -81,31 +81,31 @@ namespace Demo
             //预先清空所有计时器
             TimerMgr._Instance.RemoveAllTimer();
             
-            for (int i = 0; i < GameManger.Inst.blockMatrix.GetLength(0); i++)
+            for (int i = 0; i < SelfGameController.Inst.blockMatrix.GetLength(0); i++)
             {
-                for (int j = 0; j < GameManger.Inst.blockMatrix.GetLength(1); j++)
+                for (int j = 0; j < SelfGameController.Inst.blockMatrix.GetLength(1); j++)
                 {
-                    if (GameManger.Inst.blockMatrix[i, j] != null)
+                    if (SelfGameController.Inst.blockMatrix[i, j] != null)
                     {
-                        GameObject.Destroy(GameManger.Inst.blockMatrix[i,j].gameObject);
-                        GameManger.Inst.blockMatrix[i, j] = null;
+                        GameObject.Destroy(SelfGameController.Inst.blockMatrix[i,j].gameObject);
+                        SelfGameController.Inst.blockMatrix[i, j] = null;
                     }
                 }
             }
 
-            for (int i = 0; i < GameManger.Inst.pressureBlocks.Count; i++)
+            for (int i = 0; i < SelfGameController.Inst.pressureBlocks.Count; i++)
             {
-                var pressureBlockObj = GameManger.Inst.pressureBlocks[i].gameObject;
+                var pressureBlockObj = SelfGameController.Inst.pressureBlocks[i].gameObject;
                 Destroy(pressureBlockObj);
             }
-            GameManger.Inst.pressureBlocks.Clear();
+            SelfGameController.Inst.pressureBlocks.Clear();
             
             
-            GameManger.Inst.GenNewRowCount = 1;
+            SelfGameController.Inst.GenNewRowCount = 1;
             boards.localPosition = Vector3.zero;
-            var blockDatas = GameManger.Inst.GenBlockDatas(4);
+            var blockDatas = SelfGameController.Inst.GenBlockDatas(SelfGameController.Inst.stageConfigs,4);
             //根据数据构建所有棋子obj
-            GameManger.Inst.GenBlocks(blockDatas,blockBoard);
+            SelfGameController.Inst.GenBlocks(blockDatas,blockBoard);
         }
 
     }

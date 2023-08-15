@@ -6,6 +6,7 @@ using Project;
 
 namespace Demo.Tools
 {
+    //序列帧动画组件
     public class FrameAnimation : MonoBehaviour
     {
         private float framesPerSecond = ConstValues.targetPlatformFps;// 帧率

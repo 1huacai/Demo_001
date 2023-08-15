@@ -5,7 +5,7 @@ namespace Demo
 {
     public class NormalState : Statebase
     {
-        public NormalState(GameManger manger) : base(manger)
+        public NormalState(SelfGameController controller) : base(controller)
         {
         }
 
@@ -15,11 +15,11 @@ namespace Demo
                 return;
             block.State = BlockState.Normal;
             
-            var sameBlocks = _gameManger.GetSameBlocksWith(block);
+            var sameBlocks = SelfGameController.GetSameBlocksWith(block);
             if (sameBlocks.Count >= 3)//有可以匹配消除的block
             {
                 Debug.LogError("进入normal待转matched");
-                _gameManger.BlocksInSameFrame.Add(sameBlocks);
+                SelfGameController.BlocksInSameFrame.Add(sameBlocks);
                 
                 for (int i = 0; i < sameBlocks.Count; i++)
                 {  
@@ -27,7 +27,7 @@ namespace Demo
                     Debug.LogError($"{targetBlock.name}-{targetBlock.Type}-{sameBlocks.Count}");
                     StateManger._instance.ChangeState(BlockState.Matched,targetBlock);
                     //设置上方的棋子chain为true
-                    _gameManger.SetUpRowBlockChain(targetBlock);
+                    SelfGameController.SetUpRowBlockChain(targetBlock);
                 }
             }
         } 
@@ -39,8 +39,8 @@ namespace Demo
             //下方棋子Type为None且block的row = 1
             if (block.Row > 1)
             {
-                var downBlock = _gameManger.blockMatrix[block.Row - 1, block.Col - 1];
-                if (downBlock.Type == BlockType.None && !GameManger.Inst.CheckPressureBlockIncludeBlock(downBlock))
+                var downBlock = SelfGameController.blockMatrix[block.Row - 1, block.Col - 1];
+                if (downBlock.Type == BlockType.None && !SelfGameController.Inst.CheckPressureBlockIncludeBlock(downBlock))
                 {
                     StateManger._instance.ChangeState(BlockState.Hovering, block);
                 }
@@ -52,7 +52,7 @@ namespace Demo
         public override void OnBlockOperation(int row, int col, BlockOperation operation)
         {
             base.OnBlockOperation(row, col, operation);
-            var block = _gameManger.blockMatrix[row, col - 1];
+            var block = SelfGameController.blockMatrix[row, col - 1];
             if (operation == BlockOperation.TouchDown)
             {
                 block.IsSelected = true;

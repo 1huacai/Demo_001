@@ -91,7 +91,7 @@ namespace Demo
         //在Update里面调用
         public void Update()
         {
-            if (!GameManger.Inst.gameStart)
+            if (!SelfGameController.Inst.gameStart)
             {
                 Frame = 0;
                 return;

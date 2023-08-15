@@ -19,18 +19,18 @@ namespace Demo
 
         public Dictionary<BlockState, Statebase> StateHandlers;
 
-        public void Init(GameManger manger)
+        public void Init(SelfGameController controller)
         {
             StateHandlers = new Dictionary<BlockState, Statebase>();
-            StateHandlers.Add(BlockState.Normal,new NormalState(manger));
-            StateHandlers.Add(BlockState.Swapping,new SwappingState(manger));
-            StateHandlers.Add(BlockState.Matched,new MatchedState(manger));
-            StateHandlers.Add(BlockState.Dimmed,new DimmedState(manger));
-            StateHandlers.Add(BlockState.Hovering,new HoveringState(manger));
-            StateHandlers.Add(BlockState.Falling,new FallingState(manger));
-            StateHandlers.Add(BlockState.Landing,new LandingState(manger));
-            StateHandlers.Add(BlockState.Popping,new PoppingState(manger));
-            StateHandlers.Add(BlockState.Popped,new PoppedState(manger));
+            StateHandlers.Add(BlockState.Normal,new NormalState(controller));
+            StateHandlers.Add(BlockState.Swapping,new SwappingState(controller));
+            StateHandlers.Add(BlockState.Matched,new MatchedState(controller));
+            StateHandlers.Add(BlockState.Dimmed,new DimmedState(controller));
+            StateHandlers.Add(BlockState.Hovering,new HoveringState(controller));
+            StateHandlers.Add(BlockState.Falling,new FallingState(controller));
+            StateHandlers.Add(BlockState.Landing,new LandingState(controller));
+            StateHandlers.Add(BlockState.Popping,new PoppingState(controller));
+            StateHandlers.Add(BlockState.Popped,new PoppedState(controller));
         }
         
         /// <summary>

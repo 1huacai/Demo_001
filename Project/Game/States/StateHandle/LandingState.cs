@@ -6,7 +6,7 @@ namespace Demo
 {
     public class LandingState : Statebase
     {
-        public LandingState(GameManger manger) : base(manger)
+        public LandingState(SelfGameController controller) : base(controller)
         {
         }
 
@@ -25,7 +25,7 @@ namespace Demo
             timerID = TimerMgr._Instance.Schedule(() =>
             {
                 //横向和纵向没有可消除的相邻block
-                var sameBlocks = _gameManger.GetSameBlocksWith(block);
+                var sameBlocks = SelfGameController.GetSameBlocksWith(block);
                 if (sameBlocks.Count < 3)
                 {
                     block.Chain = false;
@@ -34,7 +34,7 @@ namespace Demo
                 else
                 {
                     Debug.LogError("进入Landing待转matched");
-                    _gameManger.BlocksInSameFrame.Add(sameBlocks);
+                    SelfGameController.BlocksInSameFrame.Add(sameBlocks);
                     
                     //所有相同的棋子都要变为matched状态
                     for (int i = 0; i < sameBlocks.Count; i++)
@@ -43,7 +43,7 @@ namespace Demo
                         Debug.LogError($"{targetBlock.name}-{targetBlock.Type}-{sameBlocks.Count}");
                         StateManger._instance.ChangeState(BlockState.Matched, targetBlock);
                         //设置该棋子上方的棋子chain为true
-                        _gameManger.SetUpRowBlockChain(targetBlock);
+                        SelfGameController.SetUpRowBlockChain(targetBlock);
                     }
                     
 
