@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Sproto;
+using UnityEngine;
 
 public delegate SprotoTypeBase RpcReqHandler(SprotoTypeBase rpcReq);
 
@@ -16,6 +17,12 @@ public class NetReceiver
     public static void AddHandler(int tag, RpcReqHandler rpcReqHandler)
     {
         rpcReqHandlerDict.Add(tag, rpcReqHandler);
+        Debug.LogError("-------------------------");
+        foreach (var key in rpcReqHandlerDict.Keys)
+        {
+	        Debug.LogError(key);
+        }
+        Debug.LogError("-------------------------");
     }
 
     public static int AddHandler<T>(RpcReqHandler rpcReqHandler)

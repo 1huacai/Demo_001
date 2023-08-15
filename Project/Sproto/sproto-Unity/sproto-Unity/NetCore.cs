@@ -27,6 +27,7 @@ public class NetCore
     private static SprotoStream sendStream = new SprotoStream();
     private static SprotoStream recvStream = new SprotoStream();
 
+    private static ProtocolFunctionDictionary s2c_protocol = S2C_Protocol.Instance.Protocol;
     private static ProtocolFunctionDictionary c2s_protocol = C2S_Protocol.Instance.Protocol;
     private static Dictionary<long, ProtocolFunctionDictionary.typeFunc> sessionDict;
 
@@ -212,10 +213,11 @@ public class NetCore
 
             if (pkg.HasType)
             {
+	            Debug.LogError("-----" + tag + "------");
                 RpcReqHandler rpcReqHandler = NetReceiver.GetHandler(tag);
                 if (rpcReqHandler != null)
                 {
-                    SprotoTypeBase rpcRsp = rpcReqHandler(c2s_protocol.GenRequest(tag, data, offset));
+                    SprotoTypeBase rpcRsp = rpcReqHandler(s2c_protocol.GenRequest(tag, data, offset));
                     if (pkg.HasSession)
                     {
                         Send(rpcRsp, session, tag);

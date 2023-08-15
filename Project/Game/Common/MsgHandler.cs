@@ -11,8 +11,6 @@ namespace Demo
             NetReceiver.AddHandler<S2C_Protocol.matching_success>((data) =>
             {
                 Debug.LogError("========= match_success");
-                Debug.LogError(data);
-                
                 var requst = data as S2C_SprotoType.matching_success.request;
                 
                 Debug.LogError("----------------" + requst + "---------------------");
