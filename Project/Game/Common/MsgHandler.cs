@@ -12,7 +12,10 @@ namespace Demo
             {
                 Debug.LogError("========= match_success");
                 var requst = data as S2C_SprotoType.match_success.request;
-                Debug.LogError($"对战玩家{requst.players[0].rname} vs {requst.players[1].rname}");
+                var players = requst.players;
+                Debug.LogError("玩家数量:"+players.Count);
+                
+                // Debug.LogError($"对战玩家{requst.players[0].rname} vs {requst.players[1].rname}");
                 return null;
             });
             
@@ -44,6 +47,13 @@ namespace Demo
             {
                 Debug.LogError("========= game_ready");
                 UIManager.Inst.GetUI<LoginView>(UIDef.LoginView).GameReadyEnterGame();
+                
+                
+                // var request = data as S2C_SprotoType.game_ready.request;
+                // var blockDatas = request.blocks;
+                // Debug.LogError(blockDatas.Count);
+                
+                
                 return null;
             });
             
