@@ -11,15 +11,15 @@ namespace Demo
 
         public override void Enter(Block block)
         {
-            if (block.Type == BlockType.None)
+            if (block.Shape == BlockShape.None)
                 return;
             block.State = BlockState.Matched;
-            block._Animation.PlayAnimation(string.Format("{0}_{1}",block.Type,block.State));
+            block._Animation.PlayAnimation(string.Format("{0}_{1}",block.Shape,block.State));
         }
 
         public override void Update(Block block)
         {
-            if (block.Type == BlockType.None)
+            if (block.Shape == BlockShape.None)
                 return;
             TimerMgr._Instance.Schedule(() => { Exit(block); }, ConstValues.matchedFps * ConstValues.fpsTime);
         }

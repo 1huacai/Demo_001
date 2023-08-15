@@ -201,12 +201,28 @@ namespace Demo
             {
                 if (boards.transform.localPosition.y % ConstValues.BLOCK_Y_OFFSET == 0)
                 {
-                    GenNewRowBlocks(genNewRowCount);
-                    genNewRowCount++;
-                    //压力块的Row也更新+1
-                    for (int i = 0; i < pressureBlocks.Count; i++)
+                    if (NetManager.Instance.Multiplayer)
                     {
-                        pressureBlocks[i].Row++;
+                        NetManager.Instance.GameRaiseReq(TimerMgr._Instance.Frame, () =>
+                        {
+                            GenNewRowBlocks(genNewRowCount);
+                            genNewRowCount++;
+                            //压力块的Row也更新+1
+                            for (int i = 0; i < pressureBlocks.Count; i++)
+                            {
+                                pressureBlocks[i].Row++;
+                            }
+                        });
+                    }
+                    else
+                    {
+                        GenNewRowBlocks(genNewRowCount);
+                        genNewRowCount++;
+                        //压力块的Row也更新+1
+                        for (int i = 0; i < pressureBlocks.Count; i++)
+                        {
+                            pressureBlocks[i].Row++;
+                        }
                     }
                 }
 
@@ -218,12 +234,28 @@ namespace Demo
                 {
                     if (boards.transform.localPosition.y % ConstValues.BLOCK_Y_OFFSET == 0)
                     {
-                        GenNewRowBlocks(genNewRowCount);
-                        genNewRowCount++;
-                        //压力块的Row也更新+1
-                        for (int i = 0; i < pressureBlocks.Count; i++)
+                        if (NetManager.Instance.Multiplayer)
                         {
-                            pressureBlocks[i].Row++;
+                            NetManager.Instance.GameRaiseReq(TimerMgr._Instance.Frame, () =>
+                            {
+                                GenNewRowBlocks(genNewRowCount);
+                                genNewRowCount++;
+                                //压力块的Row也更新+1
+                                for (int i = 0; i < pressureBlocks.Count; i++)
+                                {
+                                    pressureBlocks[i].Row++;
+                                }
+                            });
+                        }
+                        else
+                        {
+                            GenNewRowBlocks(genNewRowCount);
+                            genNewRowCount++;
+                            //压力块的Row也更新+1
+                            for (int i = 0; i < pressureBlocks.Count; i++)
+                            {
+                                pressureBlocks[i].Row++;
+                            }
                         }
                     }
 

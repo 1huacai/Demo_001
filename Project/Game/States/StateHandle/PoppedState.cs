@@ -10,10 +10,10 @@ namespace Demo
 
         public override void Enter(Block block)
         {
-            if (block.Type == BlockType.None)
+            if (block.Shape == BlockShape.None)
                 return;
             block.State = BlockState.Popped;
-            block.Type = BlockType.None;
+            block.Shape = BlockShape.None;
             block.Chain = false;
             // for (int i = 0; i < _gameManger.pressureBlocks.Count; i++)
             // {
@@ -27,7 +27,7 @@ namespace Demo
             //暂时
             if(block == null)
                 return;
-            if (block.Type == BlockType.None)
+            if (block.Shape == BlockShape.None)
                 return;
             //block类型变为空棋子
             StateManger._instance.ChangeState(BlockState.Normal, block);

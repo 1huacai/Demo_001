@@ -94,10 +94,14 @@ namespace Demo
         {
             Debug.LogError("多人游戏");
             matchWindowObj.SetActive(true);
-            NetManager.Instance.GameBattle(() =>
+            NetManager.Instance.MatchStartReq(() =>
             {
                 matchStart = true;
             });
+            // NetManager.Instance.GameBattle(() =>
+            // {
+            //     matchStart = true;
+            // });
         }
         
         private void CancelMatch()

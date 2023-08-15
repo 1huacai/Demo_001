@@ -34,7 +34,7 @@ namespace Demo
 
         public virtual void Update(Block block)
         {
-            if (block.Type == BlockType.None)
+            if (block.Shape == BlockShape.None)
                 return;
            
         }

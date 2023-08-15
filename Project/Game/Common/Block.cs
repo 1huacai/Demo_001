@@ -12,7 +12,7 @@ namespace Demo
     {
         [SerializeField] private int row;
         [SerializeField] private int col;
-        [SerializeField]private BlockType type;
+        [SerializeField]private BlockShape shape;
         public Image image;
         public GameObject slectImg;
         public Vector3 dragBeginPos; //拖拽的起始位置
@@ -35,7 +35,7 @@ namespace Demo
 
         private void OnMouseDown()
         {
-            if (type != BlockType.None && BlockOperationEvent != null)
+            if (shape != BlockShape.None && BlockOperationEvent != null)
             {
                 // IsSelected = true;
                 BlockOperationEvent(row, col, BlockOperation.TouchDown);
@@ -49,7 +49,7 @@ namespace Demo
             if (!IsSelected)
                 return;
             
-            if (type != BlockType.None && BlockOperationEvent != null)
+            if (shape != BlockShape.None && BlockOperationEvent != null)
             {
                 transform.localPosition = dragBeginPos;  
                 BlockOperationEvent(row, col, BlockOperation.TouchUp);
@@ -64,7 +64,7 @@ namespace Demo
             if (!IsSelected)
                 return;
             
-            if (type != BlockType.None && BlockOperationEvent != null)
+            if (shape != BlockShape.None && BlockOperationEvent != null)
             {
                 Vector3 curPosition = eventData.position;
 
@@ -119,7 +119,7 @@ namespace Demo
         #endregion
 
         //单独创建block
-        public static Block CreateBlockObject(GameObject obj, int row, int col,bool dimmed,BlockType type,BlockState state, Transform parent,
+        public static Block CreateBlockObject(GameObject obj, int row, int col,bool dimmed,BlockShape shape,BlockState state, Transform parent,
             Controller mag)
         {
             GameObject blockObj = Instantiate(obj, parent);
@@ -132,7 +132,7 @@ namespace Demo
             Block block = blockObj.GetComponent<Block>();
             block.row = row;
             block.col = col;
-            block.Type = type;
+            block.Shape = shape;
             block.slectImg = blockObj.transform.Find("Select").gameObject;
             block.State = state;
             
@@ -211,16 +211,16 @@ namespace Demo
                 if (image == null)
                     image = transform.GetComponent<Image>();
                 
-                image.sprite = state == BlockState.Dimmed ? ConstValues._lockSprites[(int)Type] : ConstValues._sprites[(int)Type];
+                image.sprite = state == BlockState.Dimmed ? ConstValues._lockSprites[(int)Shape] : ConstValues._sprites[(int)Shape];
             }
         }
 
-        public BlockType Type
+        public BlockShape Shape
         {
-            get { return type; }
+            get { return shape; }
             set
             {
-                type = value;
+                shape = value;
                 if (image == null)
                     image = GetComponent<Image>();
                 image.sprite = ConstValues._sprites[(int) value];
@@ -296,7 +296,7 @@ namespace Demo
                 return;
             
             //空牌就直接跳过
-            if (type == BlockType.None)
+            if (shape == BlockShape.None)
             {
                 State = BlockState.Normal;
                 return;

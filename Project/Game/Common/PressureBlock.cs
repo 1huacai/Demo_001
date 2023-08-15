@@ -200,7 +200,7 @@ namespace Demo
         public IEnumerator UnlockPressureAnim()
         {
             //自身解锁或生成新的块
-            BlockType oldType = (BlockType) Random.Range(1, ConstValues.MAX_BLOCKTYPE);
+            BlockShape oldShape = (BlockShape) Random.Range(1, ConstValues.MAX_BLOCKTYPE);
             float animTime = 0f;
             for (int i = 0; i < singleBlocks.Count; i++)
             {
@@ -215,10 +215,10 @@ namespace Demo
                     block.gameObject.SetActive(false);
                     s_anim.gameObject.SetActive(false);
                     //生成新的压力块
-                    var newBlock =  SelfGameController.Inst.GenNewBlock(Row,originCol + i,oldType,true,true);
+                    var newBlock =  SelfGameController.Inst.GenNewBlock(Row,originCol + i,oldShape,true,true);
                     genBlocks.Add(newBlock);
                 });
-                oldType = SelfGameController.Inst.GetDiffTypeFrom(oldType);
+                oldShape = SelfGameController.Inst.GetDiffTypeFrom(oldShape);
                 yield return new WaitForSeconds(animTime);
             }
             
@@ -281,7 +281,7 @@ namespace Demo
                 var block = SelfGameController.Inst.blockMatrix[downRow, i];
                 if (block)
                 {
-                    if (block.Type != BlockType.None &&
+                    if (block.Shape != BlockShape.None &&
                         block.State != BlockState.Falling &&
                         (block.Col >= OriginCol && block.Col <= TriggerRange))
                     {

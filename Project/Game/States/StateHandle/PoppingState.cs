@@ -13,15 +13,15 @@ namespace Demo
         {
             if(block == null)
                 return;
-            if (block.Type == BlockType.None)
+            if (block.Shape == BlockShape.None)
                 return;
             block.State = BlockState.Popping;
-            block._Animation.PlayAnimation(string.Format("{0}_{1}",block.Type,block.State),2,false);
+            block._Animation.PlayAnimation(string.Format("{0}_{1}",block.Shape,block.State),2,false);
         }
 
         public override void Update(Block block) 
         {
-            if (block.Type == BlockType.None)
+            if (block.Shape == BlockShape.None)
                 return;
             timerID = TimerMgr._Instance.Schedule(
                 () =>

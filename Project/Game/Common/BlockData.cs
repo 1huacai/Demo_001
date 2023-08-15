@@ -6,13 +6,13 @@ namespace Demo
     {
         public int row;
         public int col;
-        public BlockType type;
+        public BlockShape Shape;
 
-        public BlockData(int row, int col, BlockType type)
+        public BlockData(int row, int col, BlockShape shape)
         {
             this.row = row;
             this.col = col;
-            this.type = type;
+            this.Shape = shape;
         }
     }
 }

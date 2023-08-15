@@ -1,4 +1,5 @@
 using System;
+using C2S_SprotoType;
 using Project;
 using UnityEngine;
 
@@ -90,6 +91,7 @@ namespace Demo
             }
         }
         
+        //多人战斗开始
         public void GameBattle(Action callback)
         {
             if (NetCore.connected == false)
@@ -103,13 +105,13 @@ namespace Demo
             }
             
             if (server_logined)
-                MatchReq(callback);
+                MatchStartReq(callback);
             else
                 GameBattle(callback);
         }
         
         //向服务器发起匹配请求
-        private void MatchReq(Action callBack = null)
+        public void MatchStartReq(Action callBack = null)
         {
             Debug.LogError("开始发送匹配请求");
             var matchStartrtRequest = new C2S_SprotoType.match_start.request();
@@ -124,7 +126,8 @@ namespace Demo
                 }
             });
         }
-
+        
+        //取消匹配请求
         public void MatchCancelReq(Action callBack = null)
         {
             Debug.LogError("开始发送取消匹配请求");
@@ -135,10 +138,59 @@ namespace Demo
                 if (data2.e == 0)
                 {
                     Debug.LogError("取消匹配");
+                    Multiplayer = false;
                     callBack?.Invoke();
                 }
             }));
         }
+        
+        //交换方块请求
+        public void GameSwapReq(int frame,Block block_1,Block block_2,Action callBack)
+        {
+            block_info blockInfo_1 = new block_info()
+            {
+                row = block_1.Row, col = block_1.Col, shape = (int) block_1.Shape, state = (int) block_1.State,frame = 0
+            };
+            
+            block_info blockInfo_2 = new block_info()
+            {
+                row = block_2.Row, col = block_2.Col, shape = (int) block_2.Shape, state = (int) block_2.State,frame = 0
+            };
+
+            var req = new C2S_SprotoType.game_swap.request()
+            {
+                frame = frame,
+                block1 = blockInfo_1,
+                block2 = blockInfo_2
+            };
+            
+            NetSender.Send<C2S_Protocol.game_swap>(req,(rsp =>
+            {
+                var data = rsp as C2S_SprotoType.game_swap.response;
+                if (data.e == 0)
+                {
+                    callBack?.Invoke();
+                }
+            }));
+        }
+
+        public void GameRaiseReq(int frame,Action callBack)
+        {
+            var req = new C2S_SprotoType.game_raise.request()
+            {
+                frame = frame
+            };
+            NetSender.Send<C2S_Protocol.game_raise>(req,(rsp =>
+            {
+                var data = rsp as C2S_SprotoType.game_raise.response;
+                if (data.e == 0)
+                {
+                    callBack?.Invoke();
+                }
+            }));
+        }
+        
+        
         
         
     }

@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Project
 {
     //棋子类型(颜色)
-    public enum BlockType
+    public enum BlockShape
     {
         None,
         Red,

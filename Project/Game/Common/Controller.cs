@@ -46,25 +46,25 @@ namespace Demo
             {
                 for (int col = 0; col < maxCol; col++)
                 {
-                    BlockType Type = BlockType.None;
+                    BlockShape shape = BlockShape.None;
 
                     if (blockDataList.Count < 30)
                     {
                         do
                         {
-                            Type = (BlockType) Random.Range(1, 6); // Randomly generate a BlockType that is not None
-                        } while ((speedLevel > 3 && IsSameAsAdjacent(blockDataMatrix, row, col, Type))
-                                 || (row >= 2 && blockDataMatrix[row - 1, col].type == Type &&
-                                     blockDataMatrix[row - 2, col].type == Type)
-                                 || (col >= 2 && blockDataMatrix[row, col - 1].type == Type &&
-                                     blockDataMatrix[row, col - 2].type == Type));
+                            shape = (BlockShape) Random.Range(1, 6); // Randomly generate a BlockType that is not None
+                        } while ((speedLevel > 3 && IsSameAsAdjacent(blockDataMatrix, row, col, shape))
+                                 || (row >= 2 && blockDataMatrix[row - 1, col].Shape == shape &&
+                                     blockDataMatrix[row - 2, col].Shape == shape)
+                                 || (col >= 2 && blockDataMatrix[row, col - 1].Shape == shape &&
+                                     blockDataMatrix[row, col - 2].Shape == shape));
                     }
-                    else if (row > 0 && blockDataMatrix[row - 1, col].type == BlockType.None)
+                    else if (row > 0 && blockDataMatrix[row - 1, col].Shape == BlockShape.None)
                     {
-                        Type = BlockType.None;
+                        shape = BlockShape.None;
                     }
 
-                    blockDataMatrix[row, col] = new BlockData(row + 1, col + 1, Type);
+                    blockDataMatrix[row, col] = new BlockData(row + 1, col + 1, shape);
                     blockDataList.Add(blockDataMatrix[row, col]);
                 }
             }
@@ -78,10 +78,10 @@ namespace Demo
         }
         
         //判断block是否相邻且相同
-        protected static bool IsSameAsAdjacent(BlockData[,] blockDataMatrix, int row, int col, BlockType Type)
+        protected static bool IsSameAsAdjacent(BlockData[,] blockDataMatrix, int row, int col, BlockShape shape)
         {
-            return (row > 0 && blockDataMatrix[row - 1, col].type == Type) ||
-                   (col > 0 && blockDataMatrix[row, col - 1].type == Type);
+            return (row > 0 && blockDataMatrix[row - 1, col].Shape == shape) ||
+                   (col > 0 && blockDataMatrix[row, col - 1].Shape == shape);
         }
         
         //根据模板随机选择地图沟壑配置
@@ -111,24 +111,24 @@ namespace Demo
             {
                 var blockData_1 = blockDatas[startChangeIndexs[i]];
                 var blockData_2 = blockDatas[endChangeIndexs[i]];
-                BlockType temp = blockData_1.type;
-                blockData_1.type = blockData_2.type;
-                blockData_2.type = temp;
+                BlockShape temp = blockData_1.Shape;
+                blockData_1.Shape = blockData_2.Shape;
+                blockData_2.Shape = temp;
             }
 
             return blockDatas;
         }
         
         //获取与之前不同的blockType
-        public  BlockType GetDiffTypeFrom(BlockType oldType)
+        public  BlockShape GetDiffTypeFrom(BlockShape oldShape)
         {
-            BlockType newType = (BlockType) Random.Range(1, ConstValues.MAX_BLOCKTYPE);
-            while (oldType == newType)
+            BlockShape newShape = (BlockShape) Random.Range(1, ConstValues.MAX_BLOCKTYPE);
+            while (oldShape == newShape)
             {
-                newType = (BlockType) Random.Range(1, ConstValues.MAX_BLOCKTYPE);
+                newShape = (BlockShape) Random.Range(1, ConstValues.MAX_BLOCKTYPE);
             }
 
-            return newType;
+            return newShape;
         }
         #endregion
         
@@ -146,16 +146,16 @@ namespace Demo
                 var data = datas[i];
                 int row = data.row;
                 int col = data.col;
-                BlockType Type = data.type;
+                BlockShape shape = data.Shape;
 
                 // //空方块不生成对象
                 // if(Type == BlockType.None)
                 //     continue;
 
-                GameObject prefabObj = ConstValues.BlockPrefabs[(int) Type];
+                GameObject prefabObj = ConstValues.BlockPrefabs[(int) shape];
 
                 Block block =
-                    Block.CreateBlockObject(prefabObj, row, col, false, Type, BlockState.Normal, boardTran, this);
+                    Block.CreateBlockObject(prefabObj, row, col, false, shape, BlockState.Normal, boardTran, this);
                 //设置棋子位置
                 block.transform.localPosition = new Vector3(
                     ConstValues.BLOCK_X_ORIGINPOS + (col - 1) * ConstValues.BLOCK_X_OFFSET,
@@ -176,11 +176,11 @@ namespace Demo
         {
             List<Block> newRowBlocks = new List<Block>();
             BlockData[] newRowBlockData = new BlockData[6];
-            BlockType oldType = (BlockType) Random.Range(1, 6);
+            BlockShape oldShape = (BlockShape) Random.Range(1, 6);
             for (int i = 0; i < 6; i++)
             {
-                oldType = GetDiffTypeFrom(oldType);
-                newRowBlockData[i] = new BlockData(0, i + 1, oldType);
+                oldShape = GetDiffTypeFrom(oldShape);
+                newRowBlockData[i] = new BlockData(0, i + 1, oldShape);
             }
             
             var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).BlockBoard;
@@ -191,11 +191,11 @@ namespace Demo
                 var data = newRowBlockData[i];
                 int row = data.row;
                 int col = data.col;
-                BlockType Type = data.type;
+                BlockShape shape = data.Shape;
 
-                GameObject prefabObj = ConstValues.BlockPrefabs[(int) Type];
+                GameObject prefabObj = ConstValues.BlockPrefabs[(int) shape];
                 Block block =
-                    Block.CreateBlockObject(prefabObj, row, col, true, Type, BlockState.Dimmed, boardTran, this);
+                    Block.CreateBlockObject(prefabObj, row, col, true, shape, BlockState.Dimmed, boardTran, this);
                 //设置棋子位置
                 block.transform.localPosition = new Vector3(
                     ConstValues.BLOCK_X_ORIGINPOS + (col - 1) * ConstValues.BLOCK_X_OFFSET,
@@ -234,7 +234,7 @@ namespace Demo
             }
         }
         
-        public Block GenNewBlock(int row, int col, BlockType type, bool genByGarbage,bool chain)
+        public Block GenNewBlock(int row, int col, BlockShape shape, bool genByGarbage,bool chain)
         {
             Block block = null;
             if (blockMatrix[row, col - 1] != null)
@@ -243,7 +243,7 @@ namespace Demo
                 // GameObject.Destroy(blockMatrix[row, col - 1].gameObject);
                 // blockMatrix[row, col - 1] = null;
                 block.State = BlockState.Normal;
-                block.Type = type;
+                block.Shape = shape;
                 block.GenByGarbage = genByGarbage;
                 block.Chain = true;
             }
@@ -251,9 +251,9 @@ namespace Demo
             {
                 
                 var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).BlockBoard;
-                GameObject prefabObj = ConstValues.BlockPrefabs[(int) type];
+                GameObject prefabObj = ConstValues.BlockPrefabs[(int) shape];
 
-                block = Block.CreateBlockObject(prefabObj, row, col, false, type, BlockState.Normal, boardTran, this);
+                block = Block.CreateBlockObject(prefabObj, row, col, false, shape, BlockState.Normal, boardTran, this);
                 //设置棋子位置
                 block.transform.localPosition = new Vector3(
                     ConstValues.BLOCK_X_ORIGINPOS + (col - 1) * ConstValues.BLOCK_X_OFFSET,
@@ -309,11 +309,11 @@ namespace Demo
             {
                 var targetBlock = blockMatrix[row + 1, curCol];
                 var curBlock = blockMatrix[row, curCol];
-                if ((targetBlock && targetBlock.Type == BlockType.None) || !targetBlock)
+                if ((targetBlock && targetBlock.Shape == BlockShape.None) || !targetBlock)
                     break;
                 
-                if ((curBlock.Type == targetBlock.Type)
-                    && (curBlock.Type == block.Type)
+                if ((curBlock.Shape == targetBlock.Shape)
+                    && (curBlock.Shape == block.Shape)
                     && (targetBlock.State == BlockState.Normal ||
                         targetBlock.State == BlockState.Landing))
                 {
@@ -330,10 +330,10 @@ namespace Demo
             {
                 var targetBlock = blockMatrix[row - 1, curCol];
                 var curBlock = blockMatrix[row, curCol];
-                if (targetBlock.Type == BlockType.None)
+                if (targetBlock.Shape == BlockShape.None)
                     break;
-                if ((curBlock.Type == targetBlock.Type)
-                    && (curBlock.Type == block.Type)
+                if ((curBlock.Shape == targetBlock.Shape)
+                    && (curBlock.Shape == block.Shape)
                     && (targetBlock.State == BlockState.Normal ||
                         targetBlock.State == BlockState.Landing))
                 {
@@ -350,10 +350,10 @@ namespace Demo
             {
                 var targetBlock = blockMatrix[curRow, col - 1];
                 var curBlock = blockMatrix[curRow, col];
-                if (targetBlock.Type == BlockType.None)
+                if (targetBlock.Shape == BlockShape.None)
                     break;
-                if ((curBlock.Type == targetBlock.Type)
-                    && (curBlock.Type == block.Type)
+                if ((curBlock.Shape == targetBlock.Shape)
+                    && (curBlock.Shape == block.Shape)
                     && (targetBlock.State == BlockState.Normal ||
                         targetBlock.State == BlockState.Landing))
                 {
@@ -370,10 +370,10 @@ namespace Demo
             {
                 var targetBlock = blockMatrix[curRow, col + 1];
                 var curBlock = blockMatrix[curRow, col];
-                if (targetBlock.Type == BlockType.None)
+                if (targetBlock.Shape == BlockShape.None)
                     break;
-                if ((curBlock.Type == targetBlock.Type)
-                    && (curBlock.Type == block.Type)
+                if ((curBlock.Shape == targetBlock.Shape)
+                    && (curBlock.Shape == block.Shape)
                     && (targetBlock.State == BlockState.Normal ||
                         targetBlock.State == BlockState.Landing))
                 {
@@ -420,7 +420,7 @@ namespace Demo
             for (int row = beginRow + 1; row <= ConstValues.MAX_ROW; row++)
             {
                 var targetBlock = blockMatrix[row, beginCol];
-                if(targetBlock.Type == BlockType.None || IsBlockInSameFrame(targetBlock))
+                if(targetBlock.Shape == BlockShape.None || IsBlockInSameFrame(targetBlock))
                     break;
                 targetBlock.Chain = true;
                 Debug.LogError($"{targetBlock.name}-chain-{targetBlock.Chain}");

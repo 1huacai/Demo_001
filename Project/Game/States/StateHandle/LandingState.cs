@@ -12,15 +12,15 @@ namespace Demo
 
         public override void Enter(Block block)
         {
-            if (block.Type == BlockType.None)
+            if (block.Shape == BlockShape.None)
                 return;
             block.State = BlockState.Landing;
-            block._Animation.PlayAnimation(string.Format("{0}_{1}",block.Type,block.State),2,false);
+            block._Animation.PlayAnimation(string.Format("{0}_{1}",block.Shape,block.State),2,false);
         }
 
         public override void Update(Block block)
         {
-            if (block.Type == BlockType.None)
+            if (block.Shape == BlockShape.None)
                 return;
             timerID = TimerMgr._Instance.Schedule(() =>
             {
@@ -40,7 +40,7 @@ namespace Demo
                     for (int i = 0; i < sameBlocks.Count; i++)
                     {
                         var targetBlock = sameBlocks[i];
-                        Debug.LogError($"{targetBlock.name}-{targetBlock.Type}-{sameBlocks.Count}");
+                        Debug.LogError($"{targetBlock.name}-{targetBlock.Shape}-{sameBlocks.Count}");
                         StateManger._instance.ChangeState(BlockState.Matched, targetBlock);
                         //设置该棋子上方的棋子chain为true
                         SelfGameController.SetUpRowBlockChain(targetBlock);

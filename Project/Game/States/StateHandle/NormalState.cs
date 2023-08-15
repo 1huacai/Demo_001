@@ -11,7 +11,7 @@ namespace Demo
 
         public override void Enter(Block block)
         {
-            if (block.Type == BlockType.None)
+            if (block.Shape == BlockShape.None)
                 return;
             block.State = BlockState.Normal;
             
@@ -24,7 +24,7 @@ namespace Demo
                 for (int i = 0; i < sameBlocks.Count; i++)
                 {  
                     var targetBlock = sameBlocks[i];
-                    Debug.LogError($"{targetBlock.name}-{targetBlock.Type}-{sameBlocks.Count}");
+                    Debug.LogError($"{targetBlock.name}-{targetBlock.Shape}-{sameBlocks.Count}");
                     StateManger._instance.ChangeState(BlockState.Matched,targetBlock);
                     //设置上方的棋子chain为true
                     SelfGameController.SetUpRowBlockChain(targetBlock);
@@ -34,13 +34,13 @@ namespace Demo
 
         public override void Update(Block block)
         {
-            if (block.Type == BlockType.None)
+            if (block.Shape == BlockShape.None)
                 return;
             //下方棋子Type为None且block的row = 1
             if (block.Row > 1)
             {
                 var downBlock = SelfGameController.blockMatrix[block.Row - 1, block.Col - 1];
-                if (downBlock.Type == BlockType.None && !SelfGameController.Inst.CheckPressureBlockIncludeBlock(downBlock))
+                if (downBlock.Shape == BlockShape.None && !SelfGameController.Inst.CheckPressureBlockIncludeBlock(downBlock))
                 {
                     StateManger._instance.ChangeState(BlockState.Hovering, block);
                 }
