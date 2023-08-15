@@ -102,7 +102,7 @@ game_swap 1065 {
     response {
         e                   0 : integer
     }
-}
+}#--------已添加
 
 # 提升一行操作
 game_raise 1066 {
@@ -112,7 +112,7 @@ game_raise 1066 {
     response {
         e                   0 : integer
     }
-}
+}#----已添加
 
 # 匹配消除
 game_matched 1067 {
@@ -123,7 +123,7 @@ game_matched 1067 {
     response {
         e                   0 : integer
     }
-}
+}#---已添加
 
 # 生成新的一行方块
 game_new_row 1068 {
@@ -134,7 +134,7 @@ game_new_row 1068 {
         e                   0 : integer
         row_blocks          1 : *block_info # 一行方块列表
     }
-}
+}#-----已添加
 
 # 回退操作
 game_rollback 1075 {

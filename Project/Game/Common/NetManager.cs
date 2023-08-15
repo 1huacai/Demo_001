@@ -174,7 +174,8 @@ namespace Demo
                 }
             }));
         }
-
+        
+        // 提升一行操作
         public void GameRaiseReq(int frame,Action callBack)
         {
             var req = new C2S_SprotoType.game_raise.request()
@@ -222,9 +223,36 @@ namespace Demo
                     callBack?.Invoke();
                 }
             }));
-            
         }
         
+        /// <summary>
+        /// 生成新的一行
+        /// </summary>
+        /// <param name="frame"></param>
+        /// <param name="callBack"></param>
+        public void GameNewRow(int frame,int genCount,Action<BlockData[],int> callBack)
+        {
+            var req = new C2S_SprotoType.game_new_row.request()
+            {
+                frame = frame
+            };
+            
+            NetSender.Send<C2S_Protocol.game_new_row>(req,(rsp =>
+            {
+                var data = rsp as C2S_SprotoType.game_new_row.response;
+                if (data.e == 0)
+                {
+                    BlockData[] newRowBlockData = new BlockData[6];
+                    for (int i = 0; i < data.row_blocks.Count; i++)
+                    {
+                        var blockInfo = data.row_blocks[i];
+                        newRowBlockData[i] =
+                            new BlockData((int) blockInfo.row, (int) blockInfo.col, (BlockShape)((int) blockInfo.shape));
+                    }
+                    callBack?.Invoke(newRowBlockData,genCount);
+                }
+            }));
+        }
         
     }
 }

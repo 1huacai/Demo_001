@@ -170,11 +170,19 @@ namespace Demo
         }
         
         /// <summary>
-        /// 创建新的一行blocks
+        /// 创建新的一行blocks--多人模式下
         /// </summary>
-        public void GenNewRowBlocks(int genCount = 1)
+        /// <param name="genCount"></param>
+        public void GenNewRowBlocksMultiplayer(int genCount = 1)
         {
-            List<Block> newRowBlocks = new List<Block>();
+            NetManager.Instance.GameNewRow(TimerMgr._Instance.Frame,genCount,GenNewRowBlocksByData);
+        }
+        
+        /// <summary>
+        /// 创建新的一行blocks--单人模式下
+        /// </summary>
+        public void GenNewRowBlocksSinglePlayer(int genCount = 1)
+        {
             BlockData[] newRowBlockData = new BlockData[6];
             BlockShape oldShape = (BlockShape) Random.Range(1, 6);
             for (int i = 0; i < 6; i++)
@@ -182,7 +190,12 @@ namespace Demo
                 oldShape = GetDiffTypeFrom(oldShape);
                 newRowBlockData[i] = new BlockData(0, i + 1, oldShape);
             }
-            
+            GenNewRowBlocksByData(newRowBlockData, genCount);
+        }
+
+        private void GenNewRowBlocksByData(BlockData[] newRowBlockData,int genCount)
+        {
+            List<Block> newRowBlocks = new List<Block>();
             var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).BlockBoard;
 
             //遍历生成新的block
@@ -233,6 +246,8 @@ namespace Demo
                 blockMatrix[0, i] = newRowBlocks[i];
             }
         }
+        
+        
         
         public Block GenNewBlock(int row, int col, BlockShape shape, bool genByGarbage,bool chain)
         {

@@ -26,7 +26,6 @@ namespace Demo
         [SerializeField]private bool dimmed = false;
         [SerializeField]private bool genByGarbage = false;//由garbage生成的标志
         [SerializeField]private bool chain = false;
-
         public delegate void BlockOperationHandler(int row, int column, BlockOperation operation);
 
         public event BlockOperationHandler BlockOperationEvent;
@@ -273,7 +272,6 @@ namespace Demo
             {
                 IsSelected = false;
             }
-            
         }
 
 

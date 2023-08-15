@@ -63,8 +63,9 @@ namespace Demo
                 if (SelfGameController.selectBlock == null)
                     return;
                 var otherBlock = SelfGameController.blockMatrix[row, col - 1];
+                
                 if (otherBlock == null || SelfGameController.selectBlock.State == BlockState.Swapping ||
-                    otherBlock.State == BlockState.Swapping || SelfGameController.CheckPressureBlockIncludeBlock(otherBlock))
+                    otherBlock.State == BlockState.Swapping || otherBlock.State == BlockState.Matched ||SelfGameController.CheckPressureBlockIncludeBlock(otherBlock))
                 {
                     return;
                 }

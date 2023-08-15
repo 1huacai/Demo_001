@@ -205,7 +205,7 @@ namespace Demo
                     {
                         NetManager.Instance.GameRaiseReq(TimerMgr._Instance.Frame, () =>
                         {
-                            GenNewRowBlocks(genNewRowCount);
+                            GenNewRowBlocksMultiplayer(genNewRowCount);
                             genNewRowCount++;
                             //压力块的Row也更新+1
                             for (int i = 0; i < pressureBlocks.Count; i++)
@@ -216,7 +216,7 @@ namespace Demo
                     }
                     else
                     {
-                        GenNewRowBlocks(genNewRowCount);
+                        GenNewRowBlocksSinglePlayer(genNewRowCount);
                         genNewRowCount++;
                         //压力块的Row也更新+1
                         for (int i = 0; i < pressureBlocks.Count; i++)
@@ -238,7 +238,7 @@ namespace Demo
                         {
                             NetManager.Instance.GameRaiseReq(TimerMgr._Instance.Frame, () =>
                             {
-                                GenNewRowBlocks(genNewRowCount);
+                                GenNewRowBlocksMultiplayer(genNewRowCount);
                                 genNewRowCount++;
                                 //压力块的Row也更新+1
                                 for (int i = 0; i < pressureBlocks.Count; i++)
@@ -249,7 +249,7 @@ namespace Demo
                         }
                         else
                         {
-                            GenNewRowBlocks(genNewRowCount);
+                            GenNewRowBlocksSinglePlayer(genNewRowCount);
                             genNewRowCount++;
                             //压力块的Row也更新+1
                             for (int i = 0; i < pressureBlocks.Count; i++)
