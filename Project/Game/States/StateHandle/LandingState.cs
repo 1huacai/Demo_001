@@ -34,19 +34,36 @@ namespace Demo
                 else
                 {
                     Debug.LogError("进入Landing待转matched");
-                    SelfGameController.BlocksInSameFrame.Add(sameBlocks);
-                    
-                    //所有相同的棋子都要变为matched状态
-                    for (int i = 0; i < sameBlocks.Count; i++)
-                    {
-                        var targetBlock = sameBlocks[i];
-                        Debug.LogError($"{targetBlock.name}-{targetBlock.Shape}-{sameBlocks.Count}");
-                        StateManger._instance.ChangeState(BlockState.Matched, targetBlock);
-                        //设置该棋子上方的棋子chain为true
-                        SelfGameController.SetUpRowBlockChain(targetBlock);
-                    }
-                    
 
+                    if (NetManager.Instance.Multiplayer)
+                    {
+                        NetManager.Instance.GameMatched(TimerMgr._Instance.Frame,sameBlocks, () =>
+                        {
+                            SelfGameController.BlocksInSameFrame.Add(sameBlocks);
+                            //所有相同的棋子都要变为matched状态
+                            for (int i = 0; i < sameBlocks.Count; i++)
+                            {
+                                var targetBlock = sameBlocks[i];
+                                Debug.LogError($"{targetBlock.name}-{targetBlock.Shape}-{sameBlocks.Count}");
+                                StateManger._instance.ChangeState(BlockState.Matched, targetBlock);
+                                //设置该棋子上方的棋子chain为true
+                                SelfGameController.SetUpRowBlockChain(targetBlock);
+                            }   
+                        });
+                    }
+                    else
+                    {
+                        SelfGameController.BlocksInSameFrame.Add(sameBlocks);
+                        //所有相同的棋子都要变为matched状态
+                        for (int i = 0; i < sameBlocks.Count; i++)
+                        {
+                            var targetBlock = sameBlocks[i];
+                            Debug.LogError($"{targetBlock.name}-{targetBlock.Shape}-{sameBlocks.Count}");
+                            StateManger._instance.ChangeState(BlockState.Matched, targetBlock);
+                            //设置该棋子上方的棋子chain为true
+                            SelfGameController.SetUpRowBlockChain(targetBlock);
+                        }   
+                    }
                 }
             }, ConstValues.landingFps * ConstValues.fpsTime);
         }

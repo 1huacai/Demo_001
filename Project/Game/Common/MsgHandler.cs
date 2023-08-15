@@ -8,12 +8,12 @@ namespace Demo
         {
             #region 匹配
             //匹配成功
-            NetReceiver.AddHandler<S2C_Protocol.match_success>((data) =>
+            NetReceiver.AddHandler<S2C_Protocol.matching_success>((data) =>
             {
                 Debug.LogError("========= match_success");
                 Debug.LogError(data);
                 
-                var requst = data as S2C_SprotoType.match_success.request;
+                var requst = data as S2C_SprotoType.matching_success.request;
                 
                 Debug.LogError("----------------" + requst + "---------------------");
                 var players = requst.players;
@@ -26,14 +26,14 @@ namespace Demo
             });
             
             //匹配超时
-            NetReceiver.AddHandler<S2C_Protocol.match_timeout>((data) =>
+            NetReceiver.AddHandler<S2C_Protocol.matching_timeout>((data) =>
             {
                 Debug.LogError("========= match_timeout");
                 return null;
             });
             
             //匹配异常
-            NetReceiver.AddHandler<S2C_Protocol.match_error>((data) =>
+            NetReceiver.AddHandler<S2C_Protocol.matching_error>((data) =>
             {
                 Debug.LogError("========= match_error");
                 return null;

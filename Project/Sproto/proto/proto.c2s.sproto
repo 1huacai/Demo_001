@@ -4,7 +4,7 @@
     ud                  2 : string
 }
 
-ping 1 {
+ping 1001 {
     request {}
     response {
         server_time     0 : integer
@@ -19,7 +19,7 @@ ping 1 {
 
 #------------------ 登录 20 - 39 start ------------------
 # 登陆游戏
-auth 20 {
+auth 1020 {
     request {
         imei                0 : string
         version             1 : string
@@ -32,7 +32,7 @@ auth 20 {
 }
 
 # 登陆游戏
-login 21 {
+login 1021 {
     request {
         rid                 0 : string
     }
@@ -47,7 +47,7 @@ login 21 {
 
 #------------------ 匹配 40 - 59 start ------------------
 # 开始匹配
-match_start 40 {
+matching_start 1040 {
     request {}
     response {
         e                   0 : integer
@@ -55,7 +55,7 @@ match_start 40 {
 }
 
 # 取消匹配
-match_cancel 41 {
+matching_cancel 1041 {
     request {}
     response {
         e                   0 : integer
@@ -75,7 +75,7 @@ match_cancel 41 {
 }
 
 # 请求比赛信息
-game_info 60 {
+game_info 1060 {
     request {}
     response {
         e                   0 : integer
@@ -85,7 +85,7 @@ game_info 60 {
 }
 
 # 准备开始（开始倒计时结束）
-game_ready 61 {
+game_ready 1061 {
     request {}
     response {
         e                   0 : integer
@@ -93,7 +93,7 @@ game_ready 61 {
 }
 
 # 交换方块操作
-game_swap 65 {
+game_swap 1065 {
     request {
         frame               0 : integer # 当前逻辑帧
         block1              1 : block_info # 交换方块1
@@ -105,7 +105,7 @@ game_swap 65 {
 }
 
 # 提升一行操作
-game_raise 66 {
+game_raise 1066 {
     request {
         frame               0 : integer # 当前逻辑帧
     }
@@ -115,7 +115,7 @@ game_raise 66 {
 }
 
 # 匹配消除
-game_matched 67 {
+game_matched 1067 {
     request {
         frame               0 : integer # 当前逻辑帧
         matched_blocks      2 : *block_info # 匹配待消除的方块列表
@@ -126,7 +126,7 @@ game_matched 67 {
 }
 
 # 生成新的一行方块
-game_new_row 68 {
+game_new_row 1068 {
     request {
         frame               0 : integer # 当前逻辑帧
     }
@@ -137,7 +137,7 @@ game_new_row 68 {
 }
 
 # 回退操作
-game_rollback 75 {
+game_rollback 1075 {
     request {
         frame               0 : integer # 当前逻辑帧
     }
@@ -147,7 +147,7 @@ game_rollback 75 {
 }
 
 # 玩家退出比赛（认输）操作
-game_give_up 80 {
+game_give_up 1080 {
     request {
         frame               0 : integer # 当前逻辑帧
     }
@@ -156,8 +156,8 @@ game_give_up 80 {
     }
 }
 
-# 游戏结束
-game_over 81 {
+# 比赛结束
+game_over 1081 {
     request {
         frame               0 : integer # 当前逻辑帧
     }
@@ -170,7 +170,7 @@ game_over 81 {
 
 #------------------ 技能 90 - 109 start ------------------
 # 获取技能信息
-skill_info 90 {
+skill_info 1090 {
     request {}
     response {
         e                   0 : integer
@@ -178,7 +178,7 @@ skill_info 90 {
 }
 
 # 技能学习
-skill_learn 91 {
+skill_learn 1091 {
     request {}
     response {
         e                   0 : integer
@@ -186,7 +186,7 @@ skill_learn 91 {
 }
 
 # 技能升级
-skill_level_up 92 {
+skill_level_up 1092 {
     request {}
     response {
         e                   0 : integer
@@ -194,7 +194,7 @@ skill_level_up 92 {
 }
 
 # 使用技能
-skill_use 100 {
+skill_use 1100 {
     request {
         skill_id            0 : integer # 技能ID
     }

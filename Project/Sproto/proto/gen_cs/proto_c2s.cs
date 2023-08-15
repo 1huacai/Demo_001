@@ -1365,7 +1365,7 @@ namespace C2S_SprotoType {
 	}
 
 
-	public class match_cancel {
+	public class matching_cancel {
 	
 		public class request : SprotoTypeBase {
 			private static int max_field_count = 0;
@@ -1444,7 +1444,7 @@ namespace C2S_SprotoType {
 	}
 
 
-	public class match_start {
+	public class matching_start {
 	
 		public class request : SprotoTypeBase {
 			private static int max_field_count = 0;
@@ -2061,13 +2061,13 @@ public class C2S_Protocol : ProtocolBase {
 		Protocol.SetRequest<C2S_SprotoType.login.request> (login.Tag);
 		Protocol.SetResponse<C2S_SprotoType.login.response> (login.Tag);
 
-		Protocol.SetProtocol<match_cancel> (match_cancel.Tag);
-		Protocol.SetRequest<C2S_SprotoType.match_cancel.request> (match_cancel.Tag);
-		Protocol.SetResponse<C2S_SprotoType.match_cancel.response> (match_cancel.Tag);
+		Protocol.SetProtocol<matching_cancel> (matching_cancel.Tag);
+		Protocol.SetRequest<C2S_SprotoType.matching_cancel.request> (matching_cancel.Tag);
+		Protocol.SetResponse<C2S_SprotoType.matching_cancel.response> (matching_cancel.Tag);
 
-		Protocol.SetProtocol<match_start> (match_start.Tag);
-		Protocol.SetRequest<C2S_SprotoType.match_start.request> (match_start.Tag);
-		Protocol.SetResponse<C2S_SprotoType.match_start.response> (match_start.Tag);
+		Protocol.SetProtocol<matching_start> (matching_start.Tag);
+		Protocol.SetRequest<C2S_SprotoType.matching_start.request> (matching_start.Tag);
+		Protocol.SetResponse<C2S_SprotoType.matching_start.response> (matching_start.Tag);
 
 		Protocol.SetProtocol<ping> (ping.Tag);
 		Protocol.SetRequest<C2S_SprotoType.ping.request> (ping.Tag);
@@ -2092,75 +2092,75 @@ public class C2S_Protocol : ProtocolBase {
 	}
 
 	public class auth {
-		public const int Tag = 20;
+		public const int Tag = 1020;
 	}
 
 	public class game_give_up {
-		public const int Tag = 80;
+		public const int Tag = 1080;
 	}
 
 	public class game_info {
-		public const int Tag = 60;
+		public const int Tag = 1060;
 	}
 
 	public class game_matched {
-		public const int Tag = 67;
+		public const int Tag = 1067;
 	}
 
 	public class game_new_row {
-		public const int Tag = 68;
+		public const int Tag = 1068;
 	}
 
 	public class game_over {
-		public const int Tag = 81;
+		public const int Tag = 1081;
 	}
 
 	public class game_raise {
-		public const int Tag = 66;
+		public const int Tag = 1066;
 	}
 
 	public class game_ready {
-		public const int Tag = 61;
+		public const int Tag = 1061;
 	}
 
 	public class game_rollback {
-		public const int Tag = 75;
+		public const int Tag = 1075;
 	}
 
 	public class game_swap {
-		public const int Tag = 65;
+		public const int Tag = 1065;
 	}
 
 	public class login {
-		public const int Tag = 21;
+		public const int Tag = 1021;
 	}
 
-	public class match_cancel {
-		public const int Tag = 41;
+	public class matching_cancel {
+		public const int Tag = 1041;
 	}
 
-	public class match_start {
-		public const int Tag = 40;
+	public class matching_start {
+		public const int Tag = 1040;
 	}
 
 	public class ping {
-		public const int Tag = 1;
+		public const int Tag = 1001;
 	}
 
 	public class skill_info {
-		public const int Tag = 90;
+		public const int Tag = 1090;
 	}
 
 	public class skill_learn {
-		public const int Tag = 91;
+		public const int Tag = 1091;
 	}
 
 	public class skill_level_up {
-		public const int Tag = 92;
+		public const int Tag = 1092;
 	}
 
 	public class skill_use {
-		public const int Tag = 100;
+		public const int Tag = 1100;
 	}
 
 }

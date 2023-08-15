@@ -804,7 +804,7 @@ namespace S2C_SprotoType {
 	}
 
 
-	public class match_error {
+	public class matching_error {
 	
 		public class request : SprotoTypeBase {
 			private static int max_field_count = 1;
@@ -854,7 +854,7 @@ namespace S2C_SprotoType {
 	}
 
 
-	public class match_success {
+	public class matching_success {
 	
 		public class request : SprotoTypeBase {
 			private static int max_field_count = 1;
@@ -904,7 +904,7 @@ namespace S2C_SprotoType {
 	}
 
 
-	public class match_timeout {
+	public class matching_timeout {
 	
 		public class request : SprotoTypeBase {
 			private static int max_field_count = 0;
@@ -1128,67 +1128,67 @@ public class S2C_Protocol : ProtocolBase {
 		Protocol.SetProtocol<game_swap> (game_swap.Tag);
 		Protocol.SetRequest<S2C_SprotoType.game_swap.request> (game_swap.Tag);
 
-		Protocol.SetProtocol<match_error> (match_error.Tag);
-		Protocol.SetRequest<S2C_SprotoType.match_error.request> (match_error.Tag);
+		Protocol.SetProtocol<matching_error> (matching_error.Tag);
+		Protocol.SetRequest<S2C_SprotoType.matching_error.request> (matching_error.Tag);
 
-		Protocol.SetProtocol<match_success> (match_success.Tag);
-		Protocol.SetRequest<S2C_SprotoType.match_success.request> (match_success.Tag);
+		Protocol.SetProtocol<matching_success> (matching_success.Tag);
+		Protocol.SetRequest<S2C_SprotoType.matching_success.request> (matching_success.Tag);
 
-		Protocol.SetProtocol<match_timeout> (match_timeout.Tag);
-		Protocol.SetRequest<S2C_SprotoType.match_timeout.request> (match_timeout.Tag);
+		Protocol.SetProtocol<matching_timeout> (matching_timeout.Tag);
+		Protocol.SetRequest<S2C_SprotoType.matching_timeout.request> (matching_timeout.Tag);
 
 	}
 
 	public class error {
-		public const int Tag = 1;
+		public const int Tag = 5001;
 	}
 
 	public class game_info {
-		public const int Tag = 60;
+		public const int Tag = 5060;
 	}
 
 	public class game_matched {
-		public const int Tag = 67;
+		public const int Tag = 5067;
 	}
 
 	public class game_new_row {
-		public const int Tag = 68;
+		public const int Tag = 5068;
 	}
 
 	public class game_over {
-		public const int Tag = 80;
+		public const int Tag = 5080;
 	}
 
 	public class game_raise {
-		public const int Tag = 66;
+		public const int Tag = 5066;
 	}
 
 	public class game_ready {
-		public const int Tag = 61;
+		public const int Tag = 5061;
 	}
 
 	public class game_rollback {
-		public const int Tag = 75;
+		public const int Tag = 5075;
 	}
 
 	public class game_start {
-		public const int Tag = 62;
+		public const int Tag = 5062;
 	}
 
 	public class game_swap {
-		public const int Tag = 65;
+		public const int Tag = 5065;
 	}
 
-	public class match_error {
-		public const int Tag = 42;
+	public class matching_error {
+		public const int Tag = 5042;
 	}
 
-	public class match_success {
-		public const int Tag = 40;
+	public class matching_success {
+		public const int Tag = 5040;
 	}
 
-	public class match_timeout {
-		public const int Tag = 41;
+	public class matching_timeout {
+		public const int Tag = 5041;
 	}
 
 }

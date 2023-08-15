@@ -9,7 +9,7 @@
     value               1 : integer
 }
 
-error 1 {
+error 5001 {
     request {
         id              0 : integer
         txt             1 : string
@@ -31,19 +31,19 @@ error 1 {
 }
 
 # 匹配成功
-match_success 40 {
+matching_success 5040 {
     request {
         players             0 : *player_info # 比赛双方信息
     }
 }
 
 # 匹配超时
-match_timeout 41 {
+matching_timeout 5041 {
     request {}
 }
 
 # 匹配异常
-match_error 42 {
+matching_error 5042 {
     request {
         type                0 : integer # 异常类型
     }
@@ -62,7 +62,7 @@ match_error 42 {
 }
 
 # 推送比赛信息
-game_info 60 {
+game_info 5060 {
     request {
         e                   0 : integer
         frame               1 : integer # 当前逻辑帧
@@ -71,21 +71,21 @@ game_info 60 {
 }
 
 # 游戏准备
-game_ready 61 {
+game_ready 5061 {
     request {
         blocks              0 : *block_info # 初始方块信息
     }
 }
 
 # 游戏开始
-game_start 62 {
+game_start 5062 {
     request {
         start_time          0 : integer
     }
 }
 
 # 数据同步：交换方块
-game_swap 65 {
+game_swap 5065 {
     request {
         frame               0 : integer # 当前逻辑帧
         block1              1 : block_info # 交换方块1
@@ -94,14 +94,14 @@ game_swap 65 {
 }
 
 # 数据同步：提升一行
-game_raise 66 {
+game_raise 5066 {
     request {        
         frame               0 : integer # 当前逻辑帧
     }
 }
 
 # 数据同步：匹配消除
-game_matched 67 {
+game_matched 5067 {
     request {
         frame               0 : integer # 当前逻辑帧
         matched_blocks      1 : *block_info # 匹配待消除的方块列表
@@ -109,7 +109,7 @@ game_matched 67 {
 }
 
 # 数据同步：生成新的一行方块
-game_new_row 68 {
+game_new_row 5068 {
     request {
         frame               0 : integer # 当前逻辑帧
         row_blocks          1 : *block_info # 一行方块列表
@@ -117,14 +117,14 @@ game_new_row 68 {
 }
 
 # 数据同步：回退
-game_rollback 75 {
+game_rollback 5075 {
     request {
         frame               0 : integer # 当前逻辑帧
     }
 }
 
 # 比赛结束
-game_over 80 {
+game_over 5080 {
     request {
         frame               0 : integer # 当前逻辑帧
         winner              1 : string

@@ -85,6 +85,7 @@ namespace Demo
         private void SinglePlayerGame()
         {
             Debug.LogError("单人游戏");
+            NetManager.Instance.Multiplayer = false;
             UIManager.Inst.OpenUI(UIDef.GameView);
             CloseUI();
         }

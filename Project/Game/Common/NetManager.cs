@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using C2S_SprotoType;
 using Project;
 using UnityEngine;
@@ -114,10 +115,10 @@ namespace Demo
         public void MatchStartReq(Action callBack = null)
         {
             Debug.LogError("开始发送匹配请求");
-            var matchStartrtRequest = new C2S_SprotoType.match_start.request();
-            NetSender.Send<C2S_Protocol.match_start>(matchStartrtRequest, (rsp) =>
+            var matchStartrtRequest = new C2S_SprotoType.matching_start.request();
+            NetSender.Send<C2S_Protocol.matching_start>(matchStartrtRequest, (rsp) =>
             {
-                var data = rsp as C2S_SprotoType.match_start.response;
+                var data = rsp as C2S_SprotoType.matching_start.response;
                 if (data.e == 0)
                 {
                     Debug.LogError("开始匹配计时");
@@ -131,10 +132,10 @@ namespace Demo
         public void MatchCancelReq(Action callBack = null)
         {
             Debug.LogError("开始发送取消匹配请求");
-            var matchCancelRequest = new C2S_SprotoType.match_cancel.request();
-            NetSender.Send<C2S_Protocol.match_cancel>(matchCancelRequest,(rsp2 =>
+            var matchCancelRequest = new C2S_SprotoType.matching_cancel.request();
+            NetSender.Send<C2S_Protocol.matching_cancel>(matchCancelRequest,(rsp2 =>
             {
-                var data2 = rsp2 as C2S_SprotoType.match_cancel.response;
+                var data2 = rsp2 as C2S_SprotoType.matching_cancel.response;
                 if (data2.e == 0)
                 {
                     Debug.LogError("取消匹配");
@@ -190,7 +191,39 @@ namespace Demo
             }));
         }
         
-        
+        //匹配消除请求
+        public void GameMatched(int frame, List<Block> blocks,Action callBack)
+        {
+            List<block_info> blockInfos = new List<block_info>();
+            foreach (var block in blocks)
+            {
+                block_info info = new block_info()
+                {
+                    row = block.Row,
+                    col = block.Col,
+                    shape = (int)block.Shape,
+                    state = (int)block.State,
+                    frame = frame
+                };
+                blockInfos.Add(info);
+            }
+
+            var req = new C2S_SprotoType.game_matched.request()
+            {
+                frame = frame,
+                matched_blocks = blockInfos
+            };
+            
+            NetSender.Send<C2S_Protocol.game_matched>(req,(rsp =>
+            {
+                var data = rsp as C2S_SprotoType.game_matched.response;
+                if (data.e == 0)
+                {
+                    callBack?.Invoke();
+                }
+            }));
+            
+        }
         
         
     }
