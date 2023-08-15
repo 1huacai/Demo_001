@@ -213,8 +213,7 @@ public class NetCore
 
             if (pkg.HasType)
             {
-	            Debug.LogError("-----" + tag + "------");
-                RpcReqHandler rpcReqHandler = NetReceiver.GetHandler(tag);
+	            RpcReqHandler rpcReqHandler = NetReceiver.GetHandler(tag);
                 if (rpcReqHandler != null)
                 {
                     SprotoTypeBase rpcRsp = rpcReqHandler(s2c_protocol.GenRequest(tag, data, offset));
