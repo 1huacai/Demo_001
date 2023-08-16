@@ -98,8 +98,10 @@ namespace Demo
         {
             if (isCombo)
             {
+                if(c_count < 4)
+                    return;
                 //combo 生成
-
+                Debug.LogError("-----C_Count----"+c_count);
                 string config = c_count <= 27
                     ? ConstValues.pressureConfWithCombo[c_count]
                     : ConstValues.pressureConfWithCombo[28];
@@ -110,7 +112,6 @@ namespace Demo
                     {
                         var key = arrry[i];
                         GameObject prefab = ConstValues.pressureBlocks[key];
-                        //TODO 新建pressueBlock
                         GenSinglePressuerBlock(key,prefab,parent);
                     }
                 }
@@ -122,7 +123,6 @@ namespace Demo
                     for (int i = 0; i < pressblockCount; i++)
                     {
                         GameObject prefab = ConstValues.pressureBlocks[key];
-                        //TODO 新建pressueBlock
                         GenSinglePressuerBlock(key,prefab,parent);
                     }
                 }
@@ -130,7 +130,6 @@ namespace Demo
                 {
                     var key = config;
                     GameObject prefab = ConstValues.pressureBlocks[key];
-                    //TODO 新建pressueBlock
                     GenSinglePressuerBlock(key,prefab,parent);
                 }
             }

@@ -15,7 +15,7 @@ namespace Demo
             if (block.Shape == BlockShape.None)
                 return;
             block.State = BlockState.Landing;
-            block._Animation.PlayAnimation(string.Format("{0}_{1}",block.Shape,block.State),2,false);
+            block._Animation.PlayAnimation(string.Format("{0}_{1}",block.Shape,block.State));
         }
 
         public override void Update(Block block)
@@ -24,6 +24,7 @@ namespace Demo
                 return;
             timerID = TimerMgr._Instance.Schedule(() =>
             {
+                block._Animation.StopAnimation();
                 //横向和纵向没有可消除的相邻block
                 var sameBlocks = SelfGameController.GetSameBlocksWith(block);
                 if (sameBlocks.Count < 3)

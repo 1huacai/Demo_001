@@ -12,20 +12,21 @@ namespace Demo
     {
         [SerializeField] private int row;
         [SerializeField] private int col;
-        [SerializeField]private BlockShape shape;
+        [SerializeField] private BlockShape shape;
         public Image image;
         public GameObject slectImg;
         public Vector3 dragBeginPos; //拖拽的起始位置
         private FrameAnimation _animation;
-        
+
         private Controller _controller;
         [SerializeField] private BlockState state = BlockState.Normal;
-        [SerializeField] private bool selected = false; 
+        [SerializeField] private bool selected = false;
         private bool swaping = false;
-        [SerializeField]private bool needFall = false;
-        [SerializeField]private bool dimmed = false;
-        [SerializeField]private bool genByGarbage = false;//由garbage生成的标志
-        [SerializeField]private bool chain = false;
+        [SerializeField] private bool needFall = false;
+        [SerializeField] private bool dimmed = false;
+        [SerializeField] private bool genByGarbage = false; //由garbage生成的标志
+        [SerializeField] private bool chain = false;
+
         public delegate void BlockOperationHandler(int row, int column, BlockOperation operation);
 
         public event BlockOperationHandler BlockOperationEvent;
@@ -47,10 +48,10 @@ namespace Demo
         {
             if (!IsSelected)
                 return;
-            
+
             if (shape != BlockShape.None && BlockOperationEvent != null)
             {
-                transform.localPosition = dragBeginPos;  
+                transform.localPosition = dragBeginPos;
                 BlockOperationEvent(row, col, BlockOperation.TouchUp);
                 dragBeginPos = Vector3.zero;
                 SelfGameController.Inst.selectBlock = null;
@@ -62,7 +63,7 @@ namespace Demo
         {
             if (!IsSelected)
                 return;
-            
+
             if (shape != BlockShape.None && BlockOperationEvent != null)
             {
                 Vector3 curPosition = eventData.position;
@@ -84,7 +85,6 @@ namespace Demo
                 else if (xOffset < ConstValues.BLOCK_WIDTH / 2f && State != BlockState.Swapping)
                 {
                     transform.localPosition = new Vector3(curPosition.x, dragBeginPos.y, 0f);
-                  
                 }
 
                 #region 纵向(弃用)
@@ -118,7 +118,8 @@ namespace Demo
         #endregion
 
         //单独创建block
-        public static Block CreateBlockObject(GameObject obj, int row, int col,bool dimmed,BlockShape shape,BlockState state, Transform parent,
+        public static Block CreateBlockObject(GameObject obj, int row, int col, bool dimmed, BlockShape shape,
+            BlockState state, Transform parent,
             Controller mag)
         {
             GameObject blockObj = Instantiate(obj, parent);
@@ -134,7 +135,7 @@ namespace Demo
             block.Shape = shape;
             block.slectImg = blockObj.transform.Find("Select").gameObject;
             block.State = state;
-            
+
             blockObj.name = $"{row}-{col}";
             block._controller = mag;
             block._animation = blockObj.GetComponent<FrameAnimation>();
@@ -148,11 +149,7 @@ namespace Demo
         public int Row
         {
             get { return row; }
-            set
-            {
-                row = value;
-               
-            }
+            set { row = value; }
         }
 
         public int Col
@@ -199,18 +196,20 @@ namespace Demo
             get { return dimmed; }
             set { dimmed = value; }
         }
-        
+
         public BlockState State
         {
             get { return state; }
             set
             {
                 state = value;
-               
+
                 if (image == null)
                     image = transform.GetComponent<Image>();
-                
-                image.sprite = state == BlockState.Dimmed ? ConstValues._lockSprites[(int)Shape] : ConstValues._sprites[(int)Shape];
+
+                image.sprite = state == BlockState.Dimmed
+                    ? ConstValues._lockSprites[(int) Shape]
+                    : ConstValues._sprites[(int) Shape];
             }
         }
 
@@ -242,8 +241,7 @@ namespace Demo
         {
             get { return _animation; }
         }
-        
-        
+
         #endregion
 
         //检测两个方块是否相邻
@@ -286,26 +284,25 @@ namespace Demo
         }
 
 
-        
         public void LogicUpdate()
         {
             //由压力块生成时暂时不下落
-            if(GenByGarbage)
+            if (GenByGarbage)
                 return;
-            
+
             //空牌就直接跳过
             if (shape == BlockShape.None)
             {
                 State = BlockState.Normal;
                 return;
             }
-            
+
             CheckBlockNotInteractWithState();
 
             //实时监测自己自身的状态，除去swaping
-            if(state == BlockState.Normal)
-                StateManger._instance.ChangeStageUpdate(BlockState.Normal,this);
-            
+            if (state == BlockState.Normal)
+                StateManger._instance.ChangeStageUpdate(BlockState.Normal, this);
+
             if (IsNeedFall)
             {
                 IsNeedFall = false;
@@ -318,10 +315,10 @@ namespace Demo
                     StateManger._instance.ChangeState(BlockState.Landing, this);
                     return;
                 }
-                
+
                 var pos1 = transform.localPosition;
                 var pos2 = downBlock.transform.localPosition;
-                
+
                 transform.DOLocalMove(pos2, ConstValues.fallingFps * ConstValues.fpsTime);
                 downBlock.transform.DOLocalMove(pos1, ConstValues.fallingFps * ConstValues.fpsTime);
 

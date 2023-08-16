@@ -63,9 +63,10 @@ namespace Demo
                 if (SelfGameController.selectBlock == null)
                     return;
                 var otherBlock = SelfGameController.blockMatrix[row, col - 1];
-                
-                if (otherBlock == null || SelfGameController.selectBlock.State == BlockState.Swapping ||
-                    otherBlock.State == BlockState.Swapping || otherBlock.State == BlockState.Matched ||SelfGameController.CheckPressureBlockIncludeBlock(otherBlock))
+
+                if (SelfGameController.selectBlock.State != BlockState.Normal ||
+                    otherBlock.State != BlockState.Normal ||
+                    SelfGameController.CheckPressureBlockIncludeBlock(otherBlock))
                 {
                     return;
                 }
@@ -74,10 +75,7 @@ namespace Demo
                 {
                     NetManager.Instance.GameSwapReq(TimerMgr._Instance.Frame, SelfGameController.selectBlock,
                         otherBlock,
-                        () =>
-                        {
-                            DoSwap(SelfGameController.selectBlock, otherBlock);
-                        });
+                        () => { DoSwap(SelfGameController.selectBlock, otherBlock); });
                 }
                 else
                 {

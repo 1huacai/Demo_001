@@ -20,12 +20,12 @@ namespace Demo.Tools
         {
             TimerMgr._Instance.Update();
             NetManager.Instance.Update();
-            // GameManger.Inst.FiexdUpdate();
+            SelfGameController.Inst.FiexdUpdate();
         }
 
         private void FixedUpdate()
         {
-            SelfGameController.Inst.FiexdUpdate();
+            // SelfGameController.Inst.FiexdUpdate();
             PressureUnlocking();
         }
 

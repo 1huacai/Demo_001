@@ -16,17 +16,17 @@ namespace Demo
             if (block.Shape == BlockShape.None)
                 return;
             block.State = BlockState.Popping;
-            block._Animation.PlayAnimation(string.Format("{0}_{1}",block.Shape,block.State),2,false);
+            block._Animation.PlayAnimation(string.Format("{0}_{1}",block.Shape,block.State),1,false);
         }
 
-        public override void Update(Block block) 
+        public override void Update(Block block)
         {
             if (block.Shape == BlockShape.None)
                 return;
             timerID = TimerMgr._Instance.Schedule(
                 () =>
                 {
-                    block._Animation.stop = true;
+                    block._Animation.StopAnimation();
                     StateManger._instance.ChangeState(BlockState.Popped, block);
                 },
                 ConstValues.poppingFps * ConstValues.fpsTime);

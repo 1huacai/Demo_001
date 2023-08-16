@@ -28,7 +28,7 @@ namespace Demo
         {
             base.Exit(block);
             StateManger._instance.ChangeState(BlockState.Popping, block);
-            block._Animation.stop = true;
+            block._Animation.StopAnimation();
         }
     }
 }
