@@ -34,7 +34,7 @@ namespace Demo
         
         
         private Button reGenBlockBtn;
-        private LongPressBtn riseBoardBtn;
+        private Button riseBoardBtn;
         
         public override void InitUI(params object[] msg)
         {
@@ -43,7 +43,7 @@ namespace Demo
             pressureBoard = boards.Find("PressureBoard");
             effectArea = boards.Find("EffectArea");
             reGenBlockBtn = transform.Find("ReGenBlockBtn").GetComponent<Button>();
-            riseBoardBtn = transform.Find("RiseBoardBtn").GetComponent<LongPressBtn>();
+            riseBoardBtn = transform.Find("RiseBoardBtn").GetComponent<Button>();
             SelfGameController.Inst.InitGame();
         }
 
@@ -56,8 +56,7 @@ namespace Demo
         {
             reGenBlockBtn.onClick.RemoveAllListeners();
             reGenBlockBtn.onClick.AddListener(ReGenBlockBtnCallback);
-            riseBoardBtn.pointDownAction = () => { SelfGameController.Inst.PressRiseUpBtn = true;};
-            riseBoardBtn.pointUpAction = () => { SelfGameController.Inst.PressRiseUpBtn = false;};
+            riseBoardBtn.onClick.AddListener(() => { SelfGameController.Inst.riseUpBtn = true; });
         }
 
         public override void UnRegisterEvent()

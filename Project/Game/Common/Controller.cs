@@ -245,6 +245,8 @@ namespace Demo
             {
                 blockMatrix[0, i] = newRowBlocks[i];
             }
+            
+            genNewRowCount++;
         }
         
         
