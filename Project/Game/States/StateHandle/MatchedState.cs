@@ -5,7 +5,7 @@ namespace Demo
 {
     public class MatchedState : Statebase
     {
-        public MatchedState(SelfGameController controller) : base(controller)
+        public MatchedState(Controller controller) : base(controller)
         {
         }
 

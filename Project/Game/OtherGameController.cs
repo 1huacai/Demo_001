@@ -11,24 +11,23 @@ using Spine.Unity;
 
 namespace Demo
 {
-    public class SelfGameController : Controller
+    public class OtherGameController : Controller
     {
-        private static SelfGameController s_inst;
+        private static OtherGameController s_inst;
 
-        public static SelfGameController Inst
+        public static OtherGameController Inst
         {
             get
             {
                 if (s_inst == null)
                 {
-                    s_inst = new SelfGameController();
+                    s_inst = new OtherGameController();
                 }
 
                 return s_inst;
             }
         }
-
-        public Block selectBlock;
+        
         public bool gameStart = false; //游戏开始标志
 
         //所有stage的样式的配置
@@ -38,34 +37,26 @@ namespace Demo
         };
 
         public Transform boards = null;
-        private Transform blockBoard = null;
         private Transform pressureBoard = null;
-        public float blockBoardOffsetX;
-        
-        
+
+
         #region 游戏逻辑部分
 
         //初始化游戏
         public void InitGame()
         {
-            Application.targetFrameRate = ConstValues.targetPlatformFps;
             var gameView = UIManager.Inst.GetUI<GameView>(UIDef.GameView);
-            boards = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_Board;
-            blockBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_BlockBoard;
-            pressureBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_PressureBoard;
-            blockBoardOffsetX = UIManager.Inst.GetUI<GameView>(UIDef.GameView).SelfBlockBoardOffsetX;
-            
-            //根据数据构建所有棋子obj
-            // var blockDatas = GenBlockDatas(stageConfigs, 4);
-            // GenBlocks(blockDatas, gameView.Self_BlockBoard);
-            // StateManger._instance.Init(this);
-            // TimerMgr._Instance.Init();
-            gameStart = true;
+            boards = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Other_Board;
+            pressureBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Other_PressureBoard;
+        
+            // //根据数据构建所有棋子obj
+            //GenBlocks(blockDatas, gameView.Self_BlockBoard);
+            // gameStart = true;
         }
 
         private bool boardStopRise = false;
 
-        public bool BoardStopRise 
+        public bool BoardStopRise
         {
             get { return boardStopRise; }
             set { boardStopRise = value; }
@@ -202,8 +193,8 @@ namespace Demo
             //TODO 到达顶部，就不上升了
             if (btnRise)
             {
-                float index = boards.transform.localPosition.y / ConstValues.SELF_BLOCK_Y_OFFSET;
-                boards.transform.localPosition = new Vector3(0, (index + 1) * ConstValues.SELF_BLOCK_Y_OFFSET, 0);
+                float index = boards.transform.localPosition.y / ConstValues.OTHER_BLOCK_Y_OFFSET;
+                boards.transform.localPosition = new Vector3(0, (index + 1) * ConstValues.OTHER_BLOCK_Y_OFFSET, 0);
 
                 if (NetManager.Instance.Multiplayer)
                 {
@@ -233,7 +224,7 @@ namespace Demo
             {
                 if (TimerMgr._Instance.Frame % ConstValues.Rise_Times[7] == 0)
                 {
-                    if (boards.transform.localPosition.y % ConstValues.SELF_BLOCK_Y_OFFSET == 0)
+                    if (boards.transform.localPosition.y % ConstValues.OTHER_BLOCK_Y_OFFSET == 0)
                     {
                         if (NetManager.Instance.Multiplayer)
                         {

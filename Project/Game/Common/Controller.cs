@@ -138,7 +138,7 @@ namespace Demo
         /// </summary>
         /// <param name="datas"></param>
         /// <param name="boardTran"></param>
-        public void GenBlocks(List<BlockData> datas, Transform boardTran)
+        public void GenBlocks(List<BlockData> datas, Transform boardTran,bool isSelf = true)
         {
             //遍历所有数据新建棋子
             for (int i = 0; i < datas.Count; i++)
@@ -155,11 +155,11 @@ namespace Demo
                 GameObject prefabObj = ConstValues.BlockPrefabs[(int) shape];
 
                 Block block =
-                    Block.CreateBlockObject(prefabObj, row, col, false, shape, BlockState.Normal, boardTran, this);
+                    Block.CreateBlockObject(prefabObj, row, col, false, shape, BlockState.Normal, boardTran, isSelf);
                 //设置棋子位置
                 block.transform.localPosition = new Vector3(
-                    ConstValues.BLOCK_X_ORIGINPOS + (col - 1) * ConstValues.BLOCK_X_OFFSET,
-                    ConstValues.BLOCK_Y_ORIGINPOS + (row - 1) * ConstValues.BLOCK_Y_OFFSET,
+                     (isSelf ? ConstValues.SELF_BLOCK_X_ORIGINPOS : ConstValues.OTHER_BLOCK_X_ORIGINPOS) + (col - 1) * (isSelf ? ConstValues.SELF_BLOCK_X_OFFSET : ConstValues.OTHER_BLOCK_X_OFFSET),
+                    (isSelf ? ConstValues.SELF_BLOCK_Y_ORIGINPOS : ConstValues.OTHER_BLOCK_Y_ORIGINPOS) + (row - 1) * (isSelf ? ConstValues.SELF_BLOCK_Y_OFFSET : ConstValues.OTHER_BLOCK_Y_OFFSET),
                     0f
                 );
                 // Debug.LogError(row + "-" + col);
@@ -173,15 +173,15 @@ namespace Demo
         /// 创建新的一行blocks--多人模式下
         /// </summary>
         /// <param name="genCount"></param>
-        public void GenNewRowBlocksMultiplayer(int genCount = 1)
+        public void GenNewRowBlocksMultiplayer(int genCount = 1,bool isSelf = true)
         {
-            NetManager.Instance.GameNewRow(TimerMgr._Instance.Frame,genCount,GenNewRowBlocksByData);
+            NetManager.Instance.GameNewRow(TimerMgr._Instance.Frame,genCount,isSelf,GenNewRowBlocksByData);
         }
         
         /// <summary>
         /// 创建新的一行blocks--单人模式下
         /// </summary>
-        public void GenNewRowBlocksSinglePlayer(int genCount = 1)
+        public void GenNewRowBlocksSinglePlayer(int genCount = 1,bool isSelf = true)
         {
             BlockData[] newRowBlockData = new BlockData[6];
             BlockShape oldShape = (BlockShape) Random.Range(1, 6);
@@ -190,10 +190,10 @@ namespace Demo
                 oldShape = GetDiffTypeFrom(oldShape);
                 newRowBlockData[i] = new BlockData(0, i + 1, oldShape);
             }
-            GenNewRowBlocksByData(newRowBlockData, genCount);
+            GenNewRowBlocksByData(newRowBlockData, genCount,isSelf);
         }
 
-        private void GenNewRowBlocksByData(BlockData[] newRowBlockData,int genCount)
+        private void GenNewRowBlocksByData(BlockData[] newRowBlockData,int genCount,bool isSelf)
         {
             List<Block> newRowBlocks = new List<Block>();
             var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_BlockBoard;
@@ -208,11 +208,11 @@ namespace Demo
 
                 GameObject prefabObj = ConstValues.BlockPrefabs[(int) shape];
                 Block block =
-                    Block.CreateBlockObject(prefabObj, row, col, true, shape, BlockState.Dimmed, boardTran, this);
+                    Block.CreateBlockObject(prefabObj, row, col, true, shape, BlockState.Dimmed, boardTran, isSelf);
                 //设置棋子位置
                 block.transform.localPosition = new Vector3(
-                    ConstValues.BLOCK_X_ORIGINPOS + (col - 1) * ConstValues.BLOCK_X_OFFSET,
-                    ConstValues.BLOCK_Y_ORIGINPOS + (row - genCount) * ConstValues.BLOCK_Y_OFFSET,
+                    (isSelf ? ConstValues.SELF_BLOCK_X_ORIGINPOS : ConstValues.OTHER_BLOCK_X_ORIGINPOS) + (col - 1) * ( isSelf ? ConstValues.SELF_BLOCK_X_OFFSET : ConstValues.OTHER_BLOCK_X_OFFSET),
+                     (isSelf ? ConstValues.SELF_BLOCK_Y_ORIGINPOS : ConstValues.OTHER_BLOCK_Y_ORIGINPOS) + (row - genCount) * (isSelf ? ConstValues.SELF_BLOCK_Y_OFFSET : ConstValues.OTHER_BLOCK_Y_OFFSET),
                     0f
                 );
                 block.BlockOperationEvent += OnBlockOperation;
@@ -251,7 +251,7 @@ namespace Demo
         
         
         
-        public Block GenNewBlock(int row, int col, BlockShape shape, bool genByGarbage,bool chain)
+        public Block GenNewBlock(int row, int col, BlockShape shape, bool genByGarbage,bool chain,bool isSelf = true)
         {
             Block block = null;
             if (blockMatrix[row, col - 1] != null)
@@ -270,11 +270,11 @@ namespace Demo
                 var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_BlockBoard;
                 GameObject prefabObj = ConstValues.BlockPrefabs[(int) shape];
 
-                block = Block.CreateBlockObject(prefabObj, row, col, false, shape, BlockState.Normal, boardTran, this);
+                block = Block.CreateBlockObject(prefabObj, row, col, false, shape, BlockState.Normal, boardTran, isSelf);
                 //设置棋子位置
                 block.transform.localPosition = new Vector3(
-                    ConstValues.BLOCK_X_ORIGINPOS + (col - 1) * ConstValues.BLOCK_X_OFFSET,
-                    ConstValues.BLOCK_Y_ORIGINPOS + (row - genNewRowCount + 1) * ConstValues.BLOCK_Y_OFFSET,
+                    (isSelf ? ConstValues.SELF_BLOCK_X_ORIGINPOS : ConstValues.OTHER_BLOCK_X_ORIGINPOS) + (col - 1) * (isSelf ? ConstValues.SELF_BLOCK_X_OFFSET : ConstValues.OTHER_BLOCK_X_OFFSET),
+                    (isSelf ? ConstValues.SELF_BLOCK_Y_ORIGINPOS : ConstValues.OTHER_BLOCK_Y_ORIGINPOS )+ (row - genNewRowCount + 1) * (isSelf ? ConstValues.SELF_BLOCK_Y_OFFSET : ConstValues.OTHER_BLOCK_Y_OFFSET),
                     0f
                 );
                 block.GenByGarbage = genByGarbage;
@@ -465,7 +465,7 @@ namespace Demo
         /// </summary>
         /// <param name="num"></param>
         /// <param name="localPos"></param>
-        public void GenComboObj(int num, Vector3 localPos)
+        public void GenComboObj(int num, Vector3 localPos,bool isSelf = true)
         {
             SingletonManager.GetManager<ResourcesManager>().LoadPrefab(
                 ConstValues.comboPrefabPath,
@@ -473,8 +473,8 @@ namespace Demo
                 {
                     Transform effectArea = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_EffectArea;
                     GameObject obj = GameObject.Instantiate(originObj, effectArea);
-                    obj.transform.localPosition = new Vector3(localPos.x - ConstValues.BLOCK_WIDTH / 2f,
-                        localPos.y + ConstValues.BLOCK_WIDTH / 2f, 0f);
+                    obj.transform.localPosition = new Vector3(localPos.x - (isSelf ? ConstValues.SELF_BLOCK_WIDTH : ConstValues.OTHER_BLOCK_WIDTH) / 2f,
+                        localPos.y + (isSelf ? ConstValues.SELF_BLOCK_WIDTH : ConstValues.OTHER_BLOCK_WIDTH ) / 2f, 0f);
                     Combo comb = obj.gameObject.GetComponent<Combo>();
                     comb.Show(num);
                 });
@@ -485,7 +485,7 @@ namespace Demo
         /// </summary>
         /// <param name="num"></param>
         /// <param name="localPos"></param>
-        public void GenChainObj(int num, Vector3 localPos)
+        public void GenChainObj(int num, Vector3 localPos,bool isSelf = true)
         {
             SingletonManager.GetManager<ResourcesManager>().LoadPrefab(
                 ConstValues.chainPrefabPath,
@@ -493,8 +493,8 @@ namespace Demo
                 {
                     Transform effectArea = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_EffectArea;
                     GameObject obj = GameObject.Instantiate(originObj, effectArea);
-                    obj.transform.localPosition = new Vector3(localPos.x - ConstValues.BLOCK_WIDTH / 2f,
-                        localPos.y + ConstValues.BLOCK_WIDTH / 2f, 0f);
+                    obj.transform.localPosition = new Vector3(localPos.x - (isSelf ? ConstValues.SELF_BLOCK_WIDTH : ConstValues.OTHER_BLOCK_WIDTH) / 2f,
+                        localPos.y + (isSelf ? ConstValues.SELF_BLOCK_WIDTH : ConstValues.OTHER_BLOCK_WIDTH) / 2f, 0f);
                     Chain comb = obj.gameObject.GetComponent<Chain>();
                     Debug.LogError(comb);
                     comb.Show(num);

@@ -20,6 +20,8 @@ namespace Demo
         [SerializeField]private BlockState _state;
         private bool isNeedFall = false;
         private bool isUnlocking = false;
+        private bool isSelf = true;
+        
         
         public int Row
         {
@@ -56,6 +58,12 @@ namespace Demo
             set { isUnlocking = value; }
         }
 
+        public bool IsSelf
+        {
+            get { return isSelf; }
+            set { isSelf = value; }
+        }
+        
         public List<Transform> SingleBlocks
         {
             get { return singleBlocks; }
@@ -85,7 +93,7 @@ namespace Demo
                 if (Row <= 1)
                     return;
                 transform.localPosition = new Vector3(transform.localPosition.x,
-                    transform.localPosition.y - ConstValues.PRESSURE_Y_OFFSET, 0f);
+                    transform.localPosition.y - (isSelf ? ConstValues.SELF_PRESSURE_Y_OFFSET : ConstValues.OTHER_PRESSURE_Y_OFFSET), 0f);
                 
                 // transform.DOLocalMoveY(transform.localPosition.y - ConstValues.PRESSURE_Y_OFFSET, ConstValues.fallingFps * ConstValues.fpsTime);
                 Row--;
@@ -145,7 +153,7 @@ namespace Demo
             }
         }
         
-        private static void GenSinglePressuerBlock(string key,GameObject prefab,Transform parent)
+        private static void GenSinglePressuerBlock(string key,GameObject prefab,Transform parent,bool isSelf = true)
         {
             GameObject obj = Instantiate(prefab, parent);
             int maxCol = ConstValues.pressureOriginCol[key];
@@ -167,8 +175,9 @@ namespace Demo
             pressureBlockCom.OriginCol = col;
             pressureBlockCom.x_Num = obj.transform.childCount;
             pressureBlockCom.transform.localPosition = new Vector3(
-                15 + (col - 1) * ConstValues.BLOCK_X_OFFSET,
-                ConstValues.BLOCK_Y_ORIGINPOS + (row - (SelfGameController.Inst.GenNewRowCount - 1)) * ConstValues.PRESSURE_Y_OFFSET,
+                15 + (col - 1) * (isSelf ? ConstValues.SELF_BLOCK_X_OFFSET : ConstValues.OTHER_BLOCK_X_OFFSET),
+                (isSelf ? ConstValues.SELF_BLOCK_Y_ORIGINPOS : ConstValues.OTHER_BLOCK_Y_ORIGINPOS) + 
+                (row - (SelfGameController.Inst.GenNewRowCount - 1)) * (isSelf ? ConstValues.SELF_PRESSURE_Y_OFFSET : ConstValues.OTHER_PRESSURE_Y_OFFSET),
                 0f
             );
             pressureBlockCom.name = $"{pressureBlockCom.x_Num}B - {pressureBlockCom.Row}";

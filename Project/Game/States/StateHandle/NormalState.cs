@@ -5,7 +5,7 @@ namespace Demo
 {
     public class NormalState : Statebase
     {
-        public NormalState(SelfGameController controller) : base(controller)
+        public NormalState(Controller controller) : base(controller)
         {
         }
 
@@ -15,7 +15,7 @@ namespace Demo
                 return;
             block.State = BlockState.Normal;
             
-            var sameBlocks = SelfGameController.GetSameBlocksWith(block);
+            var sameBlocks = (_controller as SelfGameController)?.GetSameBlocksWith(block);
             if (sameBlocks.Count >= 3)//有可以匹配消除的block
             {
                 
@@ -24,27 +24,27 @@ namespace Demo
                 {
                     NetManager.Instance.GameMatched(TimerMgr._Instance.Frame,sameBlocks, () =>
                     {
-                        SelfGameController.BlocksInSameFrame.Add(sameBlocks);
+                        (_controller as SelfGameController)?.BlocksInSameFrame.Add(sameBlocks);
                         for (int i = 0; i < sameBlocks.Count; i++)
                         {  
                             var targetBlock = sameBlocks[i];
                             Debug.LogError($"{targetBlock.name}-{targetBlock.Shape}-{sameBlocks.Count}");
                             StateManger._instance.ChangeState(BlockState.Matched,targetBlock);
                             //设置上方的棋子chain为true
-                            SelfGameController.SetUpRowBlockChain(targetBlock);
+                            (_controller as SelfGameController)?.SetUpRowBlockChain(targetBlock);
                         }
                     });
                 }
                 else
                 {
-                    SelfGameController.BlocksInSameFrame.Add(sameBlocks);
+                    (_controller as SelfGameController)?.BlocksInSameFrame.Add(sameBlocks);
                     for (int i = 0; i < sameBlocks.Count; i++)
                     {  
                         var targetBlock = sameBlocks[i];
                         Debug.LogError($"{targetBlock.name}-{targetBlock.Shape}-{sameBlocks.Count}");
                         StateManger._instance.ChangeState(BlockState.Matched,targetBlock);
                         //设置上方的棋子chain为true
-                        SelfGameController.SetUpRowBlockChain(targetBlock);
+                        (_controller as SelfGameController)?.SetUpRowBlockChain(targetBlock);
                     }
                 }
                
@@ -58,7 +58,7 @@ namespace Demo
             //下方棋子Type为None且block的row = 1
             if (block.Row > 1)
             {
-                var downBlock = SelfGameController.blockMatrix[block.Row - 1, block.Col - 1];
+                var downBlock = (_controller as SelfGameController)?.blockMatrix[block.Row - 1, block.Col - 1];
                 if (downBlock.Shape == BlockShape.None && !SelfGameController.Inst.CheckPressureBlockIncludeBlock(downBlock))
                 {
                     StateManger._instance.ChangeState(BlockState.Hovering, block);
@@ -71,7 +71,7 @@ namespace Demo
         public override void OnBlockOperation(int row, int col, BlockOperation operation)
         {
             base.OnBlockOperation(row, col, operation);
-            var block = SelfGameController.blockMatrix[row, col - 1];
+            var block = (_controller as SelfGameController)?.blockMatrix[row, col - 1];
             if (operation == BlockOperation.TouchDown)
             {
                 block.IsSelected = true;

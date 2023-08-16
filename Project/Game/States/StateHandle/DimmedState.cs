@@ -2,7 +2,7 @@
 {
     public class DimmedState : Statebase
     {
-        public DimmedState(SelfGameController controller) : base(controller)
+        public DimmedState(Controller controller) : base(controller)
         {
         }
     }

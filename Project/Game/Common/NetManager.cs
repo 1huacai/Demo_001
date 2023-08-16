@@ -230,7 +230,7 @@ namespace Demo
         /// </summary>
         /// <param name="frame"></param>
         /// <param name="callBack"></param>
-        public void GameNewRow(int frame,int genCount,Action<BlockData[],int> callBack)
+        public void GameNewRow(int frame,int genCount,bool isSelf,Action<BlockData[],int,bool> callBack)
         {
             var req = new C2S_SprotoType.game_new_row.request()
             {
@@ -249,7 +249,7 @@ namespace Demo
                         newRowBlockData[i] =
                             new BlockData((int) blockInfo.row, (int) blockInfo.col, (BlockShape)((int) blockInfo.shape));
                     }
-                    callBack?.Invoke(newRowBlockData,genCount);
+                    callBack?.Invoke(newRowBlockData,genCount,isSelf);
                 }
             }));
         }

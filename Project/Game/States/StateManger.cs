@@ -19,7 +19,7 @@ namespace Demo
 
         public Dictionary<BlockState, Statebase> StateHandlers;
 
-        public void Init(SelfGameController controller)
+        public void Init(Controller controller)
         {
             StateHandlers = new Dictionary<BlockState, Statebase>();
             StateHandlers.Add(BlockState.Normal,new NormalState(controller));

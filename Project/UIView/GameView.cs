@@ -86,15 +86,32 @@ namespace Demo
 
             //对手棋盘
             other_Board = transform.Find("PlayerAreas/OtherPlayerArea/Board");
-            other_BlockBoard = self_Board.Find("BlockBoard");
-            other_PressureBoard = self_Board.Find("PressureBoard");
-            other_EffectArea = self_Board.Find("EffectArea");
+            other_BlockBoard = other_Board.Find("BlockBoard");
+            other_PressureBoard = other_Board.Find("PressureBoard");
+            other_EffectArea = other_Board.Find("EffectArea");
             
             
             reGenBlockBtn = transform.Find("ReGenBlockBtn").GetComponent<Button>();
             riseBoardBtn = transform.Find("RiseBoardBtn").GetComponent<Button>();
             settingBtn = transform.Find("SettingBtn").GetComponent<Button>();
-            SelfGameController.Inst.InitGame();
+            
+            //单人模式下 TODO 单人模式下己方和敌方棋盘生成后期需要修改
+            if (!NetManager.Instance.Multiplayer)
+            {
+                var selfController = SelfGameController.Inst;
+                selfController.InitGame();
+                
+                //构建己方棋子
+                var blockDatas =  selfController.GenBlockDatas(selfController.stageConfigs, 4);
+                selfController.GenBlocks(blockDatas, Self_BlockBoard,true);
+                StateManger._instance.Init(selfController);
+                TimerMgr._Instance.Init();
+                
+                //构建对手棋子（镜像）
+                var otherController = OtherGameController.Inst;
+                otherController.InitGame();
+                otherController.GenBlocks(blockDatas, other_BlockBoard,false);
+            }
         }
 
         public override void RefreshShow(params object[] msg)

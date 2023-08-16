@@ -104,6 +104,7 @@
     <Compile Include="Game\Common\NetManager.cs" />
     <Compile Include="Game\Common\PressureBlock.cs" />
     <Compile Include="Game\Common\Controller.cs" />
+    <Compile Include="Game\OtherGameController.cs" />
     <Compile Include="Game\SelfGameController.cs" />
     <Compile Include="Game\States\Statebase.cs" />
     <Compile Include="Game\States\StateHandle\DimmedState.cs" />

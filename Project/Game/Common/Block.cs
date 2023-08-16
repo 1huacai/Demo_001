@@ -68,7 +68,7 @@ namespace Demo
                 float curPos_X = eventData.position.x - SelfGameController.Inst.blockBoardOffsetX;
 
                 float xOffset = Math.Abs(curPos_X - dragBeginPos.x);
-                if (xOffset >= ConstValues.BLOCK_WIDTH / 2f)
+                if (xOffset >= ConstValues.SELF_BLOCK_WIDTH / 2f)
                 {
                     if (curPos_X > dragBeginPos.x && col < ConstValues.MAX_COL)
                     {
@@ -80,7 +80,7 @@ namespace Demo
                         BlockOperationEvent(row, col - 1, BlockOperation.DragHalf);
                     }
                 }
-                else if (xOffset < ConstValues.BLOCK_WIDTH / 2f && State != BlockState.Swapping)
+                else if (xOffset < ConstValues.SELF_BLOCK_WIDTH / 2f && State != BlockState.Swapping)
                 {
                     transform.localPosition = new Vector3(curPos_X, dragBeginPos.y, 0f);
                 }
@@ -91,8 +91,7 @@ namespace Demo
 
         //单独创建block
         public static Block CreateBlockObject(GameObject obj, int row, int col, bool dimmed, BlockShape shape,
-            BlockState state, Transform parent,
-            Controller mag)
+            BlockState state, Transform parent,bool isSelf = true)
         {
             GameObject blockObj = Instantiate(obj, parent);
             if (blockObj == null)
@@ -107,7 +106,7 @@ namespace Demo
             block.Shape = shape;
             block.slectImg = blockObj.transform.Find("Select").gameObject;
             block.State = state;
-            block.transform.GetComponent<RectTransform>().sizeDelta = ConstValues.BLOCK_SIZE;
+            block.transform.GetComponent<RectTransform>().sizeDelta = (isSelf ? ConstValues.SELF_BLOCK_SIZE : ConstValues.OTHER_BLOCK_SIZE);
 
             blockObj.name = $"{row}-{col}";
             block._animation = blockObj.GetComponent<FrameAnimation>();

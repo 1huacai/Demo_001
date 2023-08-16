@@ -38,15 +38,28 @@ namespace Project
         public const string serverIp = "101.201.116.189";
         public const int serverPort = 23001;
         
-        public const int BLOCK_X_OFFSET = 110; //棋子横向偏移
-        public const int BLOCK_Y_OFFSET = 110; //棋子纵向偏移
-        public const int BLOCK_X_ORIGINPOS = 50; //棋子原始横向X
-        public const int BLOCK_Y_ORIGINPOS = 50; //棋子原始纵向Y
-        public const int BLOCK_WIDTH = 110;
-        public const int BLOCK_HEIGHT = 110;
-        public const int PRESSURE_Y_OFFSET = 110;
-        public static Vector2 BLOCK_SIZE = new Vector2(BLOCK_WIDTH, BLOCK_HEIGHT);
-
+        // 己方棋盘棋子数据
+        public const int SELF_BLOCK_X_OFFSET = 110; //棋子横向偏移
+        public const int SELF_BLOCK_Y_OFFSET = 110; //棋子纵向偏移
+        public const int SELF_BLOCK_X_ORIGINPOS = 50; //棋子原始横向X
+        public const int SELF_BLOCK_Y_ORIGINPOS = 50; //棋子原始纵向Y
+        public const int SELF_BLOCK_WIDTH = 110;
+        public const int SELF_BLOCK_HEIGHT = 110;
+        public const int SELF_PRESSURE_Y_OFFSET = 110;
+        public static Vector2 SELF_BLOCK_SIZE = new Vector2(SELF_BLOCK_WIDTH, SELF_BLOCK_HEIGHT);
+        
+        //敌方棋盘棋子数据
+        public const int OTHER_BLOCK_X_OFFSET = 55; //棋子横向偏移
+        public const int OTHER_BLOCK_Y_OFFSET = 55; //棋子纵向偏移
+        public const int OTHER_BLOCK_X_ORIGINPOS = 25; //棋子原始横向X
+        public const int OTHER_BLOCK_Y_ORIGINPOS = 25; //棋子原始纵向Y
+        public const int OTHER_BLOCK_WIDTH = 55;
+        public const int OTHER_BLOCK_HEIGHT = 55;
+        public const int OTHER_PRESSURE_Y_OFFSET = 55;
+        public static Vector2 OTHER_BLOCK_SIZE = new Vector2(OTHER_BLOCK_WIDTH, OTHER_BLOCK_HEIGHT);
+        
+        
+        
         public const int MAX_ROW = 11; //最大行数
         public const int MAX_COL = 6; //最大列数
         public const int MAX_MATRIX_ROW = MAX_ROW + 1;
