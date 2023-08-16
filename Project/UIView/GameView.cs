@@ -6,44 +6,94 @@ namespace Demo
 {
     public class GameView : UIBase
     {
-        private Transform boards;//棋盘
-        private Transform blockBoard;//block棋盘
-        private Transform pressureBoard;//压力块棋盘
-        private Transform effectArea;//特效区域
-
-        public Transform Boards
-        {
-            get { return boards; }
-        }
+        private Transform self_Board;//玩家棋盘
+        private Transform other_Board;// 对手棋盘
         
-        public Transform BlockBoard
-        {
-            get { return blockBoard; }
-        }
-
-        public Transform PressureBoard
-        {
-            get { return pressureBoard; }
-        }
-
-        public Transform EffectArea
-        {
-            get { return effectArea; }
-        }
+        private Transform self_BlockBoard;//玩家block棋盘
+        private Transform other_BlockBoard;//对手block棋盘
         
+        private Transform self_PressureBoard;//玩家压力块棋盘
+        private Transform other_PressureBoard;//对手压力块棋盘
         
+        private Transform self_EffectArea;//玩家特效特效区域
+        private Transform other_EffectArea;//对手特效区域
         
         private Button reGenBlockBtn;
         private Button riseBoardBtn;
+        private Button settingBtn;
+
+        private float selfBlockBoardOffsetX;//玩家棋盘横向动态偏移
+        #region Get/Set
+
+        public Transform Self_Board
+        {
+            get { return self_Board; }
+        }
+
+        public Transform Other_Board
+        {
+            get { return other_Board; }
+        }
+
+        public Transform Self_BlockBoard
+        {
+            get { return self_BlockBoard; }
+        }
+
+        public Transform Other_BlockBoard
+        {
+            get { return other_BlockBoard; }
+        }
+
+        public Transform Self_PressureBoard
+        {
+            get { return self_PressureBoard; }
+        }
+
+        public Transform Other_PressureBoard
+        {
+            get { return other_PressureBoard; }
+        }
+
+
+        public Transform Self_EffectArea
+        {
+            get { return self_EffectArea; }
+        }
+
+        public Transform Other_EffectArea
+        {
+            get { return other_EffectArea; }
+        }
+
+        public float SelfBlockBoardOffsetX
+        {
+            get { return selfBlockBoardOffsetX; }
+        }
+        
+        #endregion
+        
+        
         
         public override void InitUI(params object[] msg)
         {
-            boards = transform.Find("PlayerArea/Boards");
-            blockBoard = boards.Find("BlockBoard");
-            pressureBoard = boards.Find("PressureBoard");
-            effectArea = boards.Find("EffectArea");
+            //自己棋盘
+            self_Board = transform.Find("PlayerAreas/SelfPlayerArea/Board");
+            self_BlockBoard = self_Board.Find("BlockBoard");
+            self_PressureBoard = self_Board.Find("PressureBoard");
+            self_EffectArea = self_Board.Find("EffectArea");
+            selfBlockBoardOffsetX = (Screen.width - self_BlockBoard.GetComponent<RectTransform>().sizeDelta.x)/2f;
+
+            //对手棋盘
+            other_Board = transform.Find("PlayerAreas/OtherPlayerArea/Board");
+            other_BlockBoard = self_Board.Find("BlockBoard");
+            other_PressureBoard = self_Board.Find("PressureBoard");
+            other_EffectArea = self_Board.Find("EffectArea");
+            
+            
             reGenBlockBtn = transform.Find("ReGenBlockBtn").GetComponent<Button>();
             riseBoardBtn = transform.Find("RiseBoardBtn").GetComponent<Button>();
+            settingBtn = transform.Find("SettingBtn").GetComponent<Button>();
             SelfGameController.Inst.InitGame();
         }
 
@@ -56,7 +106,10 @@ namespace Demo
         {
             reGenBlockBtn.onClick.RemoveAllListeners();
             reGenBlockBtn.onClick.AddListener(ReGenBlockBtnCallback);
+            riseBoardBtn.onClick.RemoveAllListeners();
             riseBoardBtn.onClick.AddListener(() => { SelfGameController.Inst.riseUpBtn = true; });
+            settingBtn.onClick.RemoveAllListeners();
+            settingBtn.onClick.AddListener(()=>{ Debug.LogError("打开设置界面"); });
         }
 
         public override void UnRegisterEvent()
@@ -101,10 +154,10 @@ namespace Demo
             
             
             SelfGameController.Inst.GenNewRowCount = 1;
-            boards.localPosition = Vector3.zero;
+            self_Board.localPosition = Vector3.zero;
             var blockDatas = SelfGameController.Inst.GenBlockDatas(SelfGameController.Inst.stageConfigs,4);
             //根据数据构建所有棋子obj
-            SelfGameController.Inst.GenBlocks(blockDatas,blockBoard);
+            SelfGameController.Inst.GenBlocks(blockDatas,self_BlockBoard);
         }
 
     }

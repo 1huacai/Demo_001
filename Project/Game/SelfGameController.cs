@@ -40,7 +40,9 @@ namespace Demo
         public Transform boards = null;
         private Transform blockBoard = null;
         private Transform pressureBoard = null;
-
+        public float blockBoardOffsetX;
+        
+        
         #region 游戏逻辑部分
 
         //初始化游戏
@@ -49,12 +51,13 @@ namespace Demo
             Application.targetFrameRate = ConstValues.targetPlatformFps;
             var gameView = UIManager.Inst.GetUI<GameView>(UIDef.GameView);
             var blockDatas = GenBlockDatas(stageConfigs, 4);
-            boards = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Boards;
-            blockBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).BlockBoard;
-            pressureBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).PressureBoard;
-
+            boards = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_Board;
+            blockBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_BlockBoard;
+            pressureBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_PressureBoard;
+            blockBoardOffsetX = UIManager.Inst.GetUI<GameView>(UIDef.GameView).SelfBlockBoardOffsetX;
+            
             //根据数据构建所有棋子obj
-            GenBlocks(blockDatas, gameView.BlockBoard);
+            GenBlocks(blockDatas, gameView.Self_BlockBoard);
             StateManger._instance.Init(this);
             TimerMgr._Instance.Init();
             gameStart = true;

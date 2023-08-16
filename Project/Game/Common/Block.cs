@@ -17,8 +17,7 @@ namespace Demo
         public GameObject slectImg;
         public Vector3 dragBeginPos; //拖拽的起始位置
         private FrameAnimation _animation;
-
-        private Controller _controller;
+        
         [SerializeField] private BlockState state = BlockState.Normal;
         [SerializeField] private bool selected = false;
         private bool swaping = false;
@@ -66,52 +65,25 @@ namespace Demo
 
             if (shape != BlockShape.None && BlockOperationEvent != null)
             {
-                Vector3 curPosition = eventData.position;
+                float curPos_X = eventData.position.x - SelfGameController.Inst.blockBoardOffsetX;
 
-                float xOffset = Math.Abs(curPosition.x - dragBeginPos.x);
-                float yOffset = Math.Abs(curPosition.y - dragBeginPos.y);
+                float xOffset = Math.Abs(curPos_X - dragBeginPos.x);
                 if (xOffset >= ConstValues.BLOCK_WIDTH / 2f)
                 {
-                    if (curPosition.x >= dragBeginPos.x && col < ConstValues.MAX_COL)
+                    if (curPos_X > dragBeginPos.x && col < ConstValues.MAX_COL)
                     {
                         BlockOperationEvent(row, col + 1, BlockOperation.DragHalf);
                     }
 
-                    if (curPosition.x < dragBeginPos.x && col > 1)
+                    if (curPos_X < dragBeginPos.x && col > 1)
                     {
                         BlockOperationEvent(row, col - 1, BlockOperation.DragHalf);
                     }
                 }
                 else if (xOffset < ConstValues.BLOCK_WIDTH / 2f && State != BlockState.Swapping)
                 {
-                    transform.localPosition = new Vector3(curPosition.x, dragBeginPos.y, 0f);
+                    transform.localPosition = new Vector3(curPos_X, dragBeginPos.y, 0f);
                 }
-
-                #region 纵向(弃用)
-
-                // else if (yOffset >= ConstValues.BLOCK_HEIGHT / 2f)
-                // {
-                //     // if (yOffset > ConstValues.BLOCK_HEIGHT)
-                //     //     return;
-                //
-                //     if (curPosition.y > dragBeginPos.y && row < ConstValues.MAX_ROW - 1)
-                //     {
-                //         BlockOperationEvent(row + 1, col, BlockOperation.DragHalf);
-                //         moved = true;
-                //     }
-                //
-                //     if (curPosition.y < dragBeginPos.y && row > 1)
-                //     {
-                //         BlockOperationEvent(row - 1, col, BlockOperation.DragHalf);
-                //         moved = true;
-                //     }
-                // }
-                // else if (yOffset < ConstValues.BLOCK_WIDTH / 2f && xOffset < yOffset && !GameManger.Inst.swaping)
-                // {
-                //     transform.localPosition = new Vector3(dragBeginPos.x, curPosition.y, 0f);
-                // }
-
-                #endregion
             }
         }
 
@@ -135,9 +107,9 @@ namespace Demo
             block.Shape = shape;
             block.slectImg = blockObj.transform.Find("Select").gameObject;
             block.State = state;
+            block.transform.GetComponent<RectTransform>().sizeDelta = ConstValues.BLOCK_SIZE;
 
             blockObj.name = $"{row}-{col}";
-            block._controller = mag;
             block._animation = blockObj.GetComponent<FrameAnimation>();
             block.image = block.GetComponent<Image>();
             block._animation.Init(block.image);
@@ -271,7 +243,6 @@ namespace Demo
                 IsSelected = false;
             }
         }
-
 
         /// <summary>
         /// block是否与压力块重合

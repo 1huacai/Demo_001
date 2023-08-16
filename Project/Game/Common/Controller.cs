@@ -196,7 +196,7 @@ namespace Demo
         private void GenNewRowBlocksByData(BlockData[] newRowBlockData,int genCount)
         {
             List<Block> newRowBlocks = new List<Block>();
-            var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).BlockBoard;
+            var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_BlockBoard;
 
             //遍历生成新的block
             for (int i = 0; i < newRowBlockData.Length; i++)
@@ -267,7 +267,7 @@ namespace Demo
             else
             {
                 
-                var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).BlockBoard;
+                var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_BlockBoard;
                 GameObject prefabObj = ConstValues.BlockPrefabs[(int) shape];
 
                 block = Block.CreateBlockObject(prefabObj, row, col, false, shape, BlockState.Normal, boardTran, this);
@@ -471,7 +471,7 @@ namespace Demo
                 ConstValues.comboPrefabPath,
                 (originObj, l) =>
                 {
-                    Transform effectArea = UIManager.Inst.GetUI<GameView>(UIDef.GameView).EffectArea;
+                    Transform effectArea = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_EffectArea;
                     GameObject obj = GameObject.Instantiate(originObj, effectArea);
                     obj.transform.localPosition = new Vector3(localPos.x - ConstValues.BLOCK_WIDTH / 2f,
                         localPos.y + ConstValues.BLOCK_WIDTH / 2f, 0f);
@@ -491,7 +491,7 @@ namespace Demo
                 ConstValues.chainPrefabPath,
                 (originObj, l) =>
                 {
-                    Transform effectArea = UIManager.Inst.GetUI<GameView>(UIDef.GameView).EffectArea;
+                    Transform effectArea = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_EffectArea;
                     GameObject obj = GameObject.Instantiate(originObj, effectArea);
                     obj.transform.localPosition = new Vector3(localPos.x - ConstValues.BLOCK_WIDTH / 2f,
                         localPos.y + ConstValues.BLOCK_WIDTH / 2f, 0f);

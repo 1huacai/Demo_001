@@ -38,15 +38,15 @@ namespace Project
         public const string serverIp = "101.201.116.189";
         public const int serverPort = 23001;
         
-        public const int BLOCK_X_OFFSET = 175; //棋子横向偏移
-        public const int BLOCK_Y_OFFSET = 170; //棋子纵向偏移
-        public const int BLOCK_X_ORIGINPOS = 100; //棋子原始横向X
-        public const int BLOCK_Y_ORIGINPOS = 100; //棋子原始纵向Y
-        public const int BLOCK_WIDTH = 140;
-        public const int BLOCK_HEIGHT = 140;
-        public const int PRESSURE_Y_OFFSET = 172;
-        
-        
+        public const int BLOCK_X_OFFSET = 110; //棋子横向偏移
+        public const int BLOCK_Y_OFFSET = 110; //棋子纵向偏移
+        public const int BLOCK_X_ORIGINPOS = 50; //棋子原始横向X
+        public const int BLOCK_Y_ORIGINPOS = 50; //棋子原始纵向Y
+        public const int BLOCK_WIDTH = 110;
+        public const int BLOCK_HEIGHT = 110;
+        public const int PRESSURE_Y_OFFSET = 110;
+        public static Vector2 BLOCK_SIZE = new Vector2(BLOCK_WIDTH, BLOCK_HEIGHT);
+
         public const int MAX_ROW = 11; //最大行数
         public const int MAX_COL = 6; //最大列数
         public const int MAX_MATRIX_ROW = MAX_ROW + 1;
@@ -56,8 +56,6 @@ namespace Project
         public const int MAX_BLOCKTYPE = 6;
         
         //棋盘上升参数
-        public const int offset_y = 175;
-        public const int unit_Offset_y = 1;
         public static int[] Rise_Times = {15, 14,13, 11, 10, 8, 6,5, 3, 1};
 
         public const string blockPrefabsPath = "Prefabs/Blocks/";
@@ -208,7 +206,7 @@ namespace Project
         };
        
         
-        public const float BLOCK_BIG_SCALE = 1.2f;
+        public const float BLOCK_BIG_SCALE = 1.1f;
         public const int BLOCK_BIG_FRAME = 12;
 
         public static string[] stage_1 =
