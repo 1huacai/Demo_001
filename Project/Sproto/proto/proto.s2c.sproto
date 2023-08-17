@@ -93,7 +93,7 @@ game_swap 5065 {
     }
 }
 
-# 数据同步：提升一行
+# 数据同步：提升一行（手动）
 game_raise 5066 {
     request {        
         frame               0 : integer # 当前逻辑帧
@@ -116,6 +116,20 @@ game_new_row 5068 {
     }
 }
 
+# 生成方块的buffer
+game_block_buffer 5069 {
+    request {
+        buffer              0 : string #方块类型字符串（追加）
+    }
+}
+
+# 生成压力块的buffer
+game_garbage_buffer 5070 {
+    request {
+        buffer              0 : string #压力块类型字符串（追加）
+    }
+}
+
 # 数据同步：回退
 game_rollback 5075 {
     request {
@@ -130,6 +144,7 @@ game_over 5080 {
         winner              1 : string
     }
 }
+
 #------------------ 比赛 60 - 89 end ------------------
 
 

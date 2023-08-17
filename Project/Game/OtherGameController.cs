@@ -37,7 +37,7 @@ namespace Demo
         };
 
         public Transform boards = null;
-        private Transform pressureBoard = null;
+        public Transform pressureBoard = null;
 
 
         #region 游戏逻辑部分
@@ -45,10 +45,13 @@ namespace Demo
         //初始化游戏
         public void InitGame()
         {
-            var gameView = UIManager.Inst.GetUI<GameView>(UIDef.GameView);
             boards = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Other_Board;
             pressureBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Other_PressureBoard;
-        
+            
+            boards.localPosition = Vector3.zero;
+            
+            chainCount = 1;
+            genNewRowCount = 1;
             // //根据数据构建所有棋子obj
             //GenBlocks(blockDatas, gameView.Self_BlockBoard);
             // gameStart = true;
@@ -83,7 +86,7 @@ namespace Demo
         {
             if (!gameStart)
             {
-                genNewRowCount = 1;
+                // genNewRowCount = 1;
                 return;
             }
 
@@ -100,27 +103,31 @@ namespace Demo
         //更新棋盘区域逻辑
         private void UpDateBlockArea()
         {
-            if (!BoardStopRise && !PreussUnlocking)
-                BoardRise(riseUpBtn);
-
-            //检测每个block的自有逻辑
-            for (int row = 0; row < ConstValues.MAX_MATRIX_ROW; row++)
-            {
-                for (int col = 0; col < ConstValues.MAX_COL; col++)
-                {
-                    var block = blockMatrix[row, col];
-                    if (block != null)
-                    {
-                        block.LogicUpdate();
-                    }
-                }
-            }
-
-            //检测每个压力块的自有逻辑
-            for (int i = 0; i < pressureBlocks.Count; i++)
-            {
-                pressureBlocks[i].LogicUpdate();
-            }
+            // if (!NetManager.Instance.Multiplayer)
+            // {
+            //     if (!BoardStopRise && !PreussUnlocking)
+            //         BoardRise(riseUpBtn);
+            //
+            // }
+            //
+            // //检测每个block的自有逻辑
+            // for (int row = 0; row < ConstValues.MAX_MATRIX_ROW; row++)
+            // {
+            //     for (int col = 0; col < ConstValues.MAX_COL; col++)
+            //     {
+            //         var block = blockMatrix[row, col];
+            //         if (block != null)
+            //         {
+            //             block.LogicUpdate();
+            //         }
+            //     }
+            // }
+            //
+            // //检测每个压力块的自有逻辑
+            // for (int i = 0; i < pressureBlocks.Count; i++)
+            // {
+            //     pressureBlocks[i].LogicUpdate();
+            // }
         }
 
 
@@ -188,19 +195,19 @@ namespace Demo
         }
 
         //棋盘上升
-        private void BoardRise(bool btnRise = false)
+        public void BoardRise(BlockData[] newBlockData, bool btnRise = false)
         {
             //TODO 到达顶部，就不上升了
             if (btnRise)
             {
                 float index = boards.transform.localPosition.y / ConstValues.OTHER_BLOCK_Y_OFFSET;
                 boards.transform.localPosition = new Vector3(0, (index + 1) * ConstValues.OTHER_BLOCK_Y_OFFSET, 0);
-
+                
                 if (NetManager.Instance.Multiplayer)
                 {
                     NetManager.Instance.GameRaiseReq(TimerMgr._Instance.Frame, () =>
                     {
-                        GenNewRowBlocksMultiplayer(genNewRowCount);
+                        GenNewRowBlocksMultiplayer(genNewRowCount,false);
                         //压力块的Row也更新+1
                         for (int i = 0; i < pressureBlocks.Count; i++)
                         {
@@ -210,7 +217,7 @@ namespace Demo
                 }
                 else
                 {
-                    GenNewRowBlocksSinglePlayer(genNewRowCount);
+                    GenNewRowBlocksSinglePlayer(newBlockData,genNewRowCount,false);
                     //压力块的Row也更新+1
                     for (int i = 0; i < pressureBlocks.Count; i++)
                     {
@@ -218,7 +225,7 @@ namespace Demo
                     }
                 }
 
-                riseUpBtn = false;
+                // riseUpBtn = false;
             }
             else
             {
@@ -230,7 +237,7 @@ namespace Demo
                         {
                             NetManager.Instance.GameRaiseReq(TimerMgr._Instance.Frame, () =>
                             {
-                                GenNewRowBlocksMultiplayer(genNewRowCount);
+                                GenNewRowBlocksMultiplayer(genNewRowCount,false);
                                 //压力块的Row也更新+1
                                 for (int i = 0; i < pressureBlocks.Count; i++)
                                 {
@@ -240,7 +247,7 @@ namespace Demo
                         }
                         else
                         {
-                            GenNewRowBlocksSinglePlayer(genNewRowCount);
+                            GenNewRowBlocksSinglePlayer(newBlockData,genNewRowCount,false);
                             //压力块的Row也更新+1
                             for (int i = 0; i < pressureBlocks.Count; i++)
                             {
@@ -248,8 +255,10 @@ namespace Demo
                             }
                         }
                     }
-
-                    boards.transform.localPosition += new Vector3(0, 1, 0);
+                    
+                    //对手棋子和己方棋子移动比例
+                    float scale = (float)ConstValues.OTHER_BLOCK_Y_OFFSET / ConstValues.SELF_BLOCK_Y_OFFSET;
+                    boards.transform.localPosition += new Vector3(0, 1 * scale, 0);
                 }
             }
         }

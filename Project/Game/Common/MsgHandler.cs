@@ -90,6 +90,20 @@ namespace Demo
                 return null;
             });
             
+            //生成方块的buffer
+            NetReceiver.AddHandler<S2C_Protocol.game_block_buffer>((data) =>
+            {
+                Debug.LogError("========= game_block_buffer");
+                return null;
+            });
+            
+            //生成压力块的buffer
+            NetReceiver.AddHandler<S2C_Protocol.game_garbage_buffer>((data) =>
+            {
+                Debug.LogError("========= game_garbage_buffer");
+                return null;
+            });
+            
             //数据同步：回退
             NetReceiver.AddHandler<S2C_Protocol.game_rollback>((data) =>
             {

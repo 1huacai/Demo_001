@@ -142,39 +142,30 @@ namespace Demo
         //重新刷新棋盘按钮回调
         private void ReGenBlockBtnCallback()
         {
-            DestroyAllBlocks();
+            ReStartGame();
         }
         
-        public void DestroyAllBlocks()
+        public void ReStartGame()
         {
-            //预先清空所有计时器
+            if(NetManager.Instance.Multiplayer)
+                return;
+            
             TimerMgr._Instance.RemoveAllTimer();
-            
-            for (int i = 0; i < SelfGameController.Inst.blockMatrix.GetLength(0); i++)
-            {
-                for (int j = 0; j < SelfGameController.Inst.blockMatrix.GetLength(1); j++)
-                {
-                    if (SelfGameController.Inst.blockMatrix[i, j] != null)
-                    {
-                        GameObject.Destroy(SelfGameController.Inst.blockMatrix[i,j].gameObject);
-                        SelfGameController.Inst.blockMatrix[i, j] = null;
-                    }
-                }
-            }
+            var selfController = SelfGameController.Inst;
+            selfController.ClearAllBlockObj();
 
-            for (int i = 0; i < SelfGameController.Inst.pressureBlocks.Count; i++)
-            {
-                var pressureBlockObj = SelfGameController.Inst.pressureBlocks[i].gameObject;
-                Destroy(pressureBlockObj);
-            }
-            SelfGameController.Inst.pressureBlocks.Clear();
-            
-            
-            SelfGameController.Inst.GenNewRowCount = 1;
-            self_Board.localPosition = Vector3.zero;
-            var blockDatas = SelfGameController.Inst.GenBlockDatas(SelfGameController.Inst.stageConfigs,4);
+            selfController.InitGame();
+            StateManger._instance.Init(selfController);
+            TimerMgr._Instance.Init();
+            var blockDatas = selfController.GenBlockDatas(SelfGameController.Inst.stageConfigs,4);
             //根据数据构建所有棋子obj
-            SelfGameController.Inst.GenBlocks(blockDatas,self_BlockBoard);
+            selfController.GenBlocks(blockDatas,self_BlockBoard);
+            
+            var otherController = OtherGameController.Inst;
+            otherController.ClearAllBlockObj();
+            otherController.InitGame();
+            otherController.GenBlocks(blockDatas, other_BlockBoard,false);
+            
         }
 
     }

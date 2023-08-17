@@ -181,6 +181,106 @@ namespace S2C_SprotoType {
 	}
 
 
+	public class game_block_buffer {
+	
+		public class request : SprotoTypeBase {
+			private static int max_field_count = 1;
+			
+			
+			private string _buffer; // tag 0
+			public string buffer {
+				get { return _buffer; }
+				set { base.has_field.set_field (0, true); _buffer = value; }
+			}
+			public bool HasBuffer {
+				get { return base.has_field.has_field (0); }
+			}
+
+			public request () : base(max_field_count) {}
+
+			public request (byte[] buffer) : base(max_field_count, buffer) {
+				this.decode ();
+			}
+
+			protected override void decode () {
+				int tag = -1;
+				while (-1 != (tag = base.deserialize.read_tag ())) {
+					switch (tag) {
+					case 0:
+						this.buffer = base.deserialize.read_string ();
+						break;
+					default:
+						base.deserialize.read_unknow_data ();
+						break;
+					}
+				}
+			}
+
+			public override int encode (SprotoStream stream) {
+				base.serialize.open (stream);
+
+				if (base.has_field.has_field (0)) {
+					base.serialize.write_string (this.buffer, 0);
+				}
+
+				return base.serialize.close ();
+			}
+		}
+
+
+	}
+
+
+	public class game_garbage_buffer {
+	
+		public class request : SprotoTypeBase {
+			private static int max_field_count = 1;
+			
+			
+			private string _buffer; // tag 0
+			public string buffer {
+				get { return _buffer; }
+				set { base.has_field.set_field (0, true); _buffer = value; }
+			}
+			public bool HasBuffer {
+				get { return base.has_field.has_field (0); }
+			}
+
+			public request () : base(max_field_count) {}
+
+			public request (byte[] buffer) : base(max_field_count, buffer) {
+				this.decode ();
+			}
+
+			protected override void decode () {
+				int tag = -1;
+				while (-1 != (tag = base.deserialize.read_tag ())) {
+					switch (tag) {
+					case 0:
+						this.buffer = base.deserialize.read_string ();
+						break;
+					default:
+						base.deserialize.read_unknow_data ();
+						break;
+					}
+				}
+			}
+
+			public override int encode (SprotoStream stream) {
+				base.serialize.open (stream);
+
+				if (base.has_field.has_field (0)) {
+					base.serialize.write_string (this.buffer, 0);
+				}
+
+				return base.serialize.close ();
+			}
+		}
+
+
+	}
+
+
 	public class game_info {
 	
 		public class request : SprotoTypeBase {
@@ -1101,6 +1201,12 @@ public class S2C_Protocol : ProtocolBase {
 		Protocol.SetProtocol<error> (error.Tag);
 		Protocol.SetRequest<S2C_SprotoType.error.request> (error.Tag);
 
+		Protocol.SetProtocol<game_block_buffer> (game_block_buffer.Tag);
+		Protocol.SetRequest<S2C_SprotoType.game_block_buffer.request> (game_block_buffer.Tag);
+
+		Protocol.SetProtocol<game_garbage_buffer> (game_garbage_buffer.Tag);
+		Protocol.SetRequest<S2C_SprotoType.game_garbage_buffer.request> (game_garbage_buffer.Tag);
+
 		Protocol.SetProtocol<game_info> (game_info.Tag);
 		Protocol.SetRequest<S2C_SprotoType.game_info.request> (game_info.Tag);
 
@@ -1141,6 +1247,14 @@ public class S2C_Protocol : ProtocolBase {
 
 	public class error {
 		public const int Tag = 5001;
+	}
+
+	public class game_block_buffer {
+		public const int Tag = 5069;
+	}
+
+	public class game_garbage_buffer {
+		public const int Tag = 5070;
 	}
 
 	public class game_info {

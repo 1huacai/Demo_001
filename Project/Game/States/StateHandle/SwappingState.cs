@@ -75,24 +75,36 @@ namespace Demo
                 {
                     NetManager.Instance.GameSwapReq(TimerMgr._Instance.Frame, (_controller as SelfGameController)?.selectBlock,
                         otherBlock,
-                        () => { DoSwap((_controller as SelfGameController)?.selectBlock, otherBlock); });
+                        () => { DoSwap((_controller as SelfGameController)?.selectBlock, otherBlock,true); });
                 }
                 else
                 {
-                    DoSwap((_controller as SelfGameController)?.selectBlock, otherBlock);
+                    var selectBlock = (_controller as SelfGameController)?.selectBlock;
+                    DoSwap(selectBlock, otherBlock,true);
+                    
+                    //对手镜像交换
+                    var otherController = OtherGameController.Inst;
+                    int row_s = selectBlock.Row;
+                    int col_s = selectBlock.Col;
+                    int row_o = otherBlock.Row;
+                    int col_o = otherBlock.Col;
+                    var selectBlock_Other = otherController.blockMatrix[row_s, col_s - 1];
+                    var otherBlock_Other = otherController.blockMatrix[row_o, col_o - 1];
+                    DoSwap(selectBlock_Other, otherBlock_Other,false);
                 }
             }
         }
 
 
-        private void DoSwap(Block block_1, Block block_2)
+        private void DoSwap(Block block_1, Block block_2,bool isSelf = false)
         {
-            var block_1_Pos = block_1.dragBeginPos;
+            var block_1_Pos = isSelf ? block_1.dragBeginPos : block_1.transform.localPosition;
             var block_2_Pos = block_2.transform.localPosition;
 
             // block_1.State = BlockState.Swapping;
             // block_2.State = BlockState.Swapping;
-            StateManger._instance.ChangeStageEnter(BlockState.Swapping, block_1, block_2);
+            if(isSelf)
+                StateManger._instance.ChangeStageEnter(BlockState.Swapping, block_1, block_2);
 
             //表现部分
             block_1.transform.DOLocalMove(block_2_Pos, 10 * ConstValues.fpsTime).OnComplete(() => { });
@@ -103,26 +115,52 @@ namespace Demo
                 {
                     block_2.transform.DOScale(1f, 5 * ConstValues.fpsTime).OnComplete((() =>
                     {
-                        //swaping 状态下的状态更新   
-                        StateManger._instance.ChangeStageUpdate(BlockState.Swapping, block_1, block_2);
+                        //swaping 状态下的状态更新 
+                        if(isSelf)
+                            StateManger._instance.ChangeStageUpdate(BlockState.Swapping, block_1, block_2);
                         //StateManger._instance.ChangeStageEnter(BlockState.Normal,block_1,block_2);
                     }));
                 });
             });
-            //数据部分
-            block_1.dragBeginPos = block_2_Pos;
-            (_controller as SelfGameController).blockMatrix[block_1.Row, block_1.Col - 1] = block_2;
-            (_controller as SelfGameController).blockMatrix[block_2.Row, block_2.Col - 1] = block_1;
-            int tempRow = block_1.Row;
-            int tempCol = block_1.Col;
 
-            block_1.Row = block_2.Row;
-            block_1.Col = block_2.Col;
-            block_1.ChangeBlockObjName();
+            if (isSelf)
+            {
+                //数据部分,玩家自己数据交换
+                block_1.dragBeginPos = block_2_Pos;
+                ((SelfGameController) _controller).blockMatrix[block_1.Row, block_1.Col - 1] = block_2;
+                ((SelfGameController) _controller).blockMatrix[block_2.Row, block_2.Col - 1] = block_1;
+                int tempRow = block_1.Row;
+                int tempCol = block_1.Col;
 
-            block_2.Row = tempRow;
-            block_2.Col = tempCol;
-            block_2.ChangeBlockObjName();
+                block_1.Row = block_2.Row;
+                block_1.Col = block_2.Col;
+                block_1.ChangeBlockObjName();
+
+                block_2.Row = tempRow;
+                block_2.Col = tempCol;
+                block_2.ChangeBlockObjName();
+            }
+            else
+            {
+                if (!NetManager.Instance.Multiplayer)
+                {
+                    //敌方镜像数据交换
+                    block_1.dragBeginPos = block_2_Pos;
+                    OtherGameController.Inst.blockMatrix[block_1.Row, block_1.Col - 1] = block_2;
+                    OtherGameController.Inst.blockMatrix[block_2.Row, block_2.Col - 1] = block_1;
+                    int tempRow = block_1.Row;
+                    int tempCol = block_1.Col;
+
+                    block_1.Row = block_2.Row;
+                    block_1.Col = block_2.Col;
+                    block_1.ChangeBlockObjName();
+
+                    block_2.Row = tempRow;
+                    block_2.Col = tempCol;
+                    block_2.ChangeBlockObjName();
+                }
+            }
+            
         }
     }
 }

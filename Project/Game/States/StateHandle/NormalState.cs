@@ -22,18 +22,18 @@ namespace Demo
                 Debug.LogError("进入normal待转matched");
                 if (NetManager.Instance.Multiplayer)
                 {
-                    NetManager.Instance.GameMatched(TimerMgr._Instance.Frame,sameBlocks, () =>
-                    {
-                        (_controller as SelfGameController)?.BlocksInSameFrame.Add(sameBlocks);
-                        for (int i = 0; i < sameBlocks.Count; i++)
-                        {  
-                            var targetBlock = sameBlocks[i];
-                            Debug.LogError($"{targetBlock.name}-{targetBlock.Shape}-{sameBlocks.Count}");
-                            StateManger._instance.ChangeState(BlockState.Matched,targetBlock);
-                            //设置上方的棋子chain为true
-                            (_controller as SelfGameController)?.SetUpRowBlockChain(targetBlock);
-                        }
-                    });
+                    // NetManager.Instance.GameMatched(TimerMgr._Instance.Frame,sameBlocks, () =>
+                    // {
+                    //     (_controller as SelfGameController)?.BlocksInSameFrame.Add(sameBlocks);
+                    //     for (int i = 0; i < sameBlocks.Count; i++)
+                    //     {  
+                    //         var targetBlock = sameBlocks[i];
+                    //         Debug.LogError($"{targetBlock.name}-{targetBlock.Shape}-{sameBlocks.Count}");
+                    //         StateManger._instance.ChangeState(BlockState.Matched,targetBlock);
+                    //         //设置上方的棋子chain为true
+                    //         (_controller as SelfGameController)?.SetUpRowBlockChain(targetBlock);
+                    //     }
+                    // });
                 }
                 else
                 {

@@ -15,8 +15,13 @@ namespace Demo
                 return;
             if (block.Shape == BlockShape.None)
                 return;
+            //己方棋子
             block.State = BlockState.Popping;
             block._Animation.PlayAnimation(string.Format("{0}_{1}",block.Shape,block.State),1,false);
+            
+            //对手棋子
+            var otherBlock = OtherGameController.Inst.blockMatrix[block.Row, block.Col - 1];
+            otherBlock._Animation.PlayAnimation(string.Format("{0}_{1}",block.Shape,block.State),1,false);
         }
 
         public override void Update(Block block)
@@ -26,7 +31,12 @@ namespace Demo
             timerID = TimerMgr._Instance.Schedule(
                 () =>
                 {
-                    block._Animation.StopAnimation();
+                    //对手棋子
+                    var otherBlock = OtherGameController.Inst.blockMatrix[block.Row, block.Col - 1];
+                    otherBlock._Animation.StopAnimation(()=>{otherBlock.ResetOriginImg();});
+                    
+                    //己方棋子
+                    block._Animation.StopAnimation(()=>{block.ResetOriginImg();});
                     StateManger._instance.ChangeState(BlockState.Popped, block);
                 },
                 ConstValues.poppingFps * ConstValues.fpsTime);

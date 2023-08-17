@@ -102,7 +102,7 @@ namespace Demo
             
         }
 
-        public static void CreatePressureBlock(bool isCombo, int c_count, Transform parent)
+        public static void CreatePressureBlock(bool isCombo, int c_count, Transform parent,bool isSelf = true)
         {
             if (isCombo)
             {
@@ -120,7 +120,7 @@ namespace Demo
                     {
                         var key = arrry[i];
                         GameObject prefab = ConstValues.pressureBlocks[key];
-                        GenSinglePressuerBlock(key,prefab,parent);
+                        GenSinglePressuerBlock(key,prefab,parent,isSelf);
                     }
                 }
                 else if (config.Contains("*"))
@@ -131,14 +131,14 @@ namespace Demo
                     for (int i = 0; i < pressblockCount; i++)
                     {
                         GameObject prefab = ConstValues.pressureBlocks[key];
-                        GenSinglePressuerBlock(key,prefab,parent);
+                        GenSinglePressuerBlock(key,prefab,parent,isSelf);
                     }
                 }
                 else
                 {
                     var key = config;
                     GameObject prefab = ConstValues.pressureBlocks[key];
-                    GenSinglePressuerBlock(key,prefab,parent);
+                    GenSinglePressuerBlock(key,prefab,parent,isSelf);
                 }
             }
             else
@@ -148,7 +148,7 @@ namespace Demo
                 {
                     GameObject prefab = ConstValues.pressureBlocks["Rb"];
                     //TODO 新建pressueBlock
-                    GenSinglePressuerBlock("Rb",prefab,parent);
+                    GenSinglePressuerBlock("Rb",prefab,parent,isSelf);
                 }
             }
         }
@@ -175,11 +175,13 @@ namespace Demo
             pressureBlockCom.OriginCol = col;
             pressureBlockCom.x_Num = obj.transform.childCount;
             pressureBlockCom.transform.localPosition = new Vector3(
-                15 + (col - 1) * (isSelf ? ConstValues.SELF_BLOCK_X_OFFSET : ConstValues.OTHER_BLOCK_X_OFFSET),
+                (col - 1) * (isSelf ? ConstValues.SELF_BLOCK_X_OFFSET : ConstValues.OTHER_BLOCK_X_OFFSET),
                 (isSelf ? ConstValues.SELF_BLOCK_Y_ORIGINPOS : ConstValues.OTHER_BLOCK_Y_ORIGINPOS) + 
                 (row - (SelfGameController.Inst.GenNewRowCount - 1)) * (isSelf ? ConstValues.SELF_PRESSURE_Y_OFFSET : ConstValues.OTHER_PRESSURE_Y_OFFSET),
                 0f
             );
+            float scale = isSelf ? 1f : (float)ConstValues.OTHER_BLOCK_WIDTH / ConstValues.SELF_BLOCK_WIDTH;
+            pressureBlockCom.transform.localScale = new Vector3(scale, scale, scale);
             pressureBlockCom.name = $"{pressureBlockCom.x_Num}B - {pressureBlockCom.Row}";
             
             pressureBlockCom.State = BlockState.Normal;
@@ -188,8 +190,17 @@ namespace Demo
                 var childBlockTran = pressureBlockCom.transform.GetChild(i);
                 pressureBlockCom.singleBlocks.Add(childBlockTran);
             }
-            
-            SelfGameController.Inst.pressureBlocks.Add(pressureBlockCom);
+
+            if (isSelf)
+            {   
+                //己方压力块集合添加
+                SelfGameController.Inst.pressureBlocks.Add(pressureBlockCom);
+            }
+            else
+            {   
+                //敌方压力块集合添加
+                OtherGameController.Inst.pressureBlocks.Add(pressureBlockCom);
+            }
         }
         
         public void UnlockPressureBlock(int targetRow,int targetCol)

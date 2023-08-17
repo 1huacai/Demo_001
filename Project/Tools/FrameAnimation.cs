@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -9,45 +10,45 @@ namespace Demo.Tools
     //序列帧动画组件
     public class FrameAnimation : MonoBehaviour
     {
-        private float framesPerSecond = ConstValues.targetPlatformFps;// 帧率
+        private float framesPerSecond = ConstValues.targetPlatformFps; // 帧率
         private Image selfImg;
-        public bool stop = false;
+        private bool loop = false;
+        private bool stop = false;
         
         public void Init(Image image)
         {
             selfImg = image;
         }
-
-        public void PlayAnimation(string animName,int offsetFrame = 1,bool isLoop = true)
+        
+        public void PlayAnimation(string animName, int offsetFrame = 1, bool isLoop = true)
         {
             var frameArray = ConstValues.blockFrameAnimatons[animName];
+            // StopCoroutine(PlaySprites(frameArray, offsetFrame, isLoop));
+            stop = false;
             StartCoroutine(PlaySprites(frameArray, offsetFrame, isLoop));
         }
 
         IEnumerator PlaySprites(Sprite[] frames, int offsetFrame, bool isLoop)
         {
-            bool loop = isLoop;
-            do
+            loop = isLoop;
+            while (loop)
             {
                 for (int i = 0; i < frames.Length; i++)
                 {
+                    if(stop)
+                        yield break;
+                    
                     selfImg.sprite = frames[i]; // 设置当前帧
                     yield return new WaitForSeconds(1.0f / framesPerSecond * offsetFrame); // 等待下一帧
                 }
-                
-                if (stop)
-                {
-                    stop = false;
-                    loop = false;
-                }
-                
-            } while (loop);
+            }
         }
 
-        public void StopAnimation()
+        public void StopAnimation(Action callBack = null)
         {
             stop = true;
+            loop = false;
+            // callBack?.Invoke();
         }
-        
     }
 }

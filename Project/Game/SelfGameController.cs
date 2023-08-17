@@ -38,10 +38,9 @@ namespace Demo
         };
 
         public Transform boards = null;
-        private Transform blockBoard = null;
-        private Transform pressureBoard = null;
+        public Transform pressureBoard = null;
         public float blockBoardOffsetX;
-        
+        private BlockData[] newRowBlockDatas;
         
         #region 游戏逻辑部分
 
@@ -49,19 +48,18 @@ namespace Demo
         public void InitGame()
         {
             Application.targetFrameRate = ConstValues.targetPlatformFps;
-            var gameView = UIManager.Inst.GetUI<GameView>(UIDef.GameView);
             boards = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_Board;
-            blockBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_BlockBoard;
             pressureBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_PressureBoard;
             blockBoardOffsetX = UIManager.Inst.GetUI<GameView>(UIDef.GameView).SelfBlockBoardOffsetX;
             
-            //根据数据构建所有棋子obj
-            // var blockDatas = GenBlockDatas(stageConfigs, 4);
-            // GenBlocks(blockDatas, gameView.Self_BlockBoard);
-            // StateManger._instance.Init(this);
-            // TimerMgr._Instance.Init();
+            boards.localPosition = Vector3.zero;
+            
             chainCount = 1;
+            genNewRowCount = 1;
             chainCountArray.Clear();
+            pressureBlocks.Clear();
+            // //预先清空所有计时器
+            // TimerMgr._Instance.RemoveAllTimer();
             gameStart = true;
         }
 
@@ -94,7 +92,7 @@ namespace Demo
         {
             if (!gameStart)
             {
-                genNewRowCount = 1;
+                //genNewRowCount = 1;
                 return;
             }
 
@@ -112,8 +110,16 @@ namespace Demo
         private void UpDateBlockArea()
         {
             if (!BoardStopRise && !PreussUnlocking)
+            {
                 BoardRise(riseUpBtn);
-
+                if (!NetManager.Instance.Multiplayer)
+                {
+                    OtherGameController.Inst.BoardRise(newRowBlockDatas,riseUpBtn);
+                    riseUpBtn = false;
+                }
+                
+            }
+            
             //检测每个block的自有逻辑
             for (int row = 0; row < ConstValues.MAX_MATRIX_ROW; row++)
             {
@@ -145,25 +151,54 @@ namespace Demo
             {
                 Debug.LogError("同帧率多消组合FPS-" + TimerMgr._Instance.Frame);
                 comboCount = 0;
+                List<Block> matchedBlocks = new List<Block>();
 
-                for (int i = 0; i < BlocksInSameFrame.Count; i++)
+                if (NetManager.Instance.Multiplayer)
                 {
-                    var blocksInFrame = BlocksInSameFrame[i];
+                    //同一帧的所有消除集合
+                    foreach (var arrray in BlocksInSameFrame)
+                    {
+                        matchedBlocks.AddRange(arrray);
+                    }
+                    NetManager.Instance.GameMatched(TimerMgr._Instance.Frame,matchedBlocks, () =>
+                    {
+                        //(_controller as SelfGameController)?.BlocksInSameFrame.Add(sameBlocks);
+                        //所有相同的棋子都要变为matched状态
+                        // for (int i = 0; i < sameBlocks.Count; i++)
+                        // {
+                        //     var targetBlock = sameBlocks[i];
+                        //     Debug.LogError($"{targetBlock.name}-{targetBlock.Shape}-{sameBlocks.Count}");
+                        //     StateManger._instance.ChangeState(BlockState.Matched, targetBlock);
+                        //     //设置该棋子上方的棋子chain为true
+                        //     (_controller as SelfGameController)?.SetUpRowBlockChain(targetBlock);
+                        // }   
+                    });
+                }
+                
+                foreach (var blocksInFrame in BlocksInSameFrame)
+                {
                     //集合中的chain数量
                     if (blocksInFrame.Find((block => block.Chain)))
                     {
                         chainCount++;
                     }
-                    
-                    for (int j = 0; j < blocksInFrame.Count; j++)
+
+                    foreach (var block in blocksInFrame)
                     {
                         comboCount++;
-                        var block = blocksInFrame[j];
 
+                        //解锁压力块
                         for (int k = 0; k < pressureBlocks.Count; k++)
                         {
-                            var pressureBlock = pressureBlocks[k];
-                            pressureBlock.UnlockPressureBlock(block.Row, block.Col);
+                            var pressureBlock_self = pressureBlocks[k];
+                            pressureBlock_self.UnlockPressureBlock(block.Row, block.Col);
+
+                            //单人镜像镜像敌方解锁压力块
+                            if (NetManager.Instance.Multiplayer)
+                            {
+                                var pressureBlock_other = OtherGameController.Inst.pressureBlocks[k];
+                                pressureBlock_other.UnlockPressureBlock(block.Row, block.Col);
+                            }
                         }
                     }
                 }
@@ -171,15 +206,30 @@ namespace Demo
                 // combo压力块
                 if (comboCount >= 4) //原数字是4，暂时换3测试
                 {
-                    GenComboObj(comboCount, BlocksInSameFrame[0][0].transform.localPosition);
+                    var targetBlock_self = BlocksInSameFrame[0][0];
+                    GenComboObj(comboCount, targetBlock_self.transform.localPosition,true);
 
+                    if (!NetManager.Instance.Multiplayer)
+                    {
+                        var otherController = OtherGameController.Inst;
+                        var targetBlock_other = otherController.blockMatrix[targetBlock_self.Row, targetBlock_self.Col - 1];
+                        otherController.GenComboObj(comboCount,targetBlock_other.transform.localPosition,false);
+                    }
+                    
                     //Combo达成，棋盘暂停移动
                     BoardStopRise = true;
                     TimerMgr._Instance.Schedule(() =>
                     {
                         BoardStopRise = false;
                         //兴建压力块
-                        PressureBlock.CreatePressureBlock(true, comboCount, pressureBoard);
+                        PressureBlock.CreatePressureBlock(true, comboCount, pressureBoard,true);
+
+                        if (!NetManager.Instance.Multiplayer)
+                        {
+                            //单人模式下新建对手压力块
+                            PressureBlock.CreatePressureBlock(true,comboCount,OtherGameController.Inst.pressureBoard,false);
+                        }
+                        
                     }, (20 * comboCount - 20) * ConstValues.fpsTime);
                 }
 
@@ -196,7 +246,7 @@ namespace Demo
                         Debug.LogError("生成chain的压力块");
                         BoardStopRise = false;
                         //兴建压力块，从集合中弹出chain数量
-                        PressureBlock.CreatePressureBlock(false, chainCountArray[0], pressureBoard);
+                        PressureBlock.CreatePressureBlock(false, chainCountArray[0], pressureBoard,true);
                         chainCountArray.RemoveAt(0);
                         
                         //检测chain结束
@@ -235,15 +285,16 @@ namespace Demo
                 }
                 else
                 {
-                    GenNewRowBlocksSinglePlayer(genNewRowCount);
+                    newRowBlockDatas = GenNewRowDataSinglePlayer();
+                    GenNewRowBlocksSinglePlayer(newRowBlockDatas,genNewRowCount);
                     //压力块的Row也更新+1
                     for (int i = 0; i < pressureBlocks.Count; i++)
                     {
                         pressureBlocks[i].Row++;
                     }
                 }
-
-                riseUpBtn = false;
+                
+                // riseUpBtn = false;
             }
             else
             {
@@ -265,7 +316,8 @@ namespace Demo
                         }
                         else
                         {
-                            GenNewRowBlocksSinglePlayer(genNewRowCount);
+                            newRowBlockDatas = GenNewRowDataSinglePlayer();
+                            GenNewRowBlocksSinglePlayer(newRowBlockDatas,genNewRowCount);
                             //压力块的Row也更新+1
                             for (int i = 0; i < pressureBlocks.Count; i++)
                             {

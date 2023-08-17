@@ -14,6 +14,7 @@ namespace Demo
         [SerializeField] private int col;
         [SerializeField] private BlockShape shape;
         public Image image;
+        private Sprite originSprite;//棋子原始图片
         public GameObject slectImg;
         public Vector3 dragBeginPos; //拖拽的起始位置
         private FrameAnimation _animation;
@@ -25,11 +26,38 @@ namespace Demo
         [SerializeField] private bool dimmed = false;
         [SerializeField] private bool genByGarbage = false; //由garbage生成的标志
         [SerializeField] private bool chain = false;
-
+        
         public delegate void BlockOperationHandler(int row, int column, BlockOperation operation);
 
         public event BlockOperationHandler BlockOperationEvent;
 
+        //单独创建block
+        public static Block CreateBlockObject(GameObject obj, int row, int col, bool dimmed, BlockShape shape,
+            BlockState state, Transform parent,bool isSelf = true)
+        {
+            GameObject blockObj = Instantiate(obj, parent);
+            if (blockObj == null)
+            {
+                Debug.LogError("构建棋子失败");
+                return null;
+            }
+
+            Block block = blockObj.GetComponent<Block>();
+            block.row = row;
+            block.col = col;
+            block.Shape = shape;
+            block.slectImg = blockObj.transform.Find("Select").gameObject;
+            block.State = state;
+            block.transform.GetComponent<RectTransform>().sizeDelta = (isSelf ? ConstValues.SELF_BLOCK_SIZE : ConstValues.OTHER_BLOCK_SIZE);
+
+            blockObj.name = $"{row}-{col}";
+            block._animation = blockObj.GetComponent<FrameAnimation>();
+            block.image = block.GetComponent<Image>();
+            block.originSprite = ConstValues._sprites[(int) shape];
+            block._animation.Init(block.image);
+            return block;
+        }
+        
         #region block操作部分
 
         private void OnMouseDown()
@@ -88,33 +116,7 @@ namespace Demo
         }
 
         #endregion
-
-        //单独创建block
-        public static Block CreateBlockObject(GameObject obj, int row, int col, bool dimmed, BlockShape shape,
-            BlockState state, Transform parent,bool isSelf = true)
-        {
-            GameObject blockObj = Instantiate(obj, parent);
-            if (blockObj == null)
-            {
-                Debug.LogError("构建棋子失败");
-                return null;
-            }
-
-            Block block = blockObj.GetComponent<Block>();
-            block.row = row;
-            block.col = col;
-            block.Shape = shape;
-            block.slectImg = blockObj.transform.Find("Select").gameObject;
-            block.State = state;
-            block.transform.GetComponent<RectTransform>().sizeDelta = (isSelf ? ConstValues.SELF_BLOCK_SIZE : ConstValues.OTHER_BLOCK_SIZE);
-
-            blockObj.name = $"{row}-{col}";
-            block._animation = blockObj.GetComponent<FrameAnimation>();
-            block.image = block.GetComponent<Image>();
-            block._animation.Init(block.image);
-            return block;
-        }
-
+        
         #region 变量Get/Set属性器
 
         public int Row
@@ -215,6 +217,13 @@ namespace Demo
 
         #endregion
 
+        #region 工具
+        //恢复原始棋子图片
+        public void ResetOriginImg()
+        {
+            image.sprite = originSprite;
+        }
+        
         //检测两个方块是否相邻
         public bool CheckAdjacent(Block other)
         {
@@ -252,8 +261,9 @@ namespace Demo
         {
             return ((Col >= pressureBlock.OriginCol && Col <= pressureBlock.TriggerRange) && Row == pressureBlock.Row);
         }
-
-
+        
+        #endregion
+        
         public void LogicUpdate()
         {
             //由压力块生成时暂时不下落
@@ -278,32 +288,63 @@ namespace Demo
                 IsNeedFall = false;
                 if (Row <= 1)
                     return;
-                var downBlock = SelfGameController.Inst.blockMatrix[Row - 1, Col - 1];
+                
+                /*--------------己方棋子--------------------*/
+                int originRow = Row;
+                int originCol = Col;
+                var downBlock_Self = SelfGameController.Inst.blockMatrix[originRow - 1, originCol - 1];
                 //下落过程中遇到压力块，那么就变成landing
-                if (SelfGameController.Inst.CheckPressureBlockIncludeBlock(downBlock))
+                if (SelfGameController.Inst.CheckPressureBlockIncludeBlock(downBlock_Self))
                 {
                     StateManger._instance.ChangeState(BlockState.Landing, this);
                     return;
                 }
 
-                var pos1 = transform.localPosition;
-                var pos2 = downBlock.transform.localPosition;
+                var pos1_self = transform.localPosition;
+                var pos2_self = downBlock_Self.transform.localPosition;
 
-                transform.DOLocalMove(pos2, ConstValues.fallingFps * ConstValues.fpsTime);
-                downBlock.transform.DOLocalMove(pos1, ConstValues.fallingFps * ConstValues.fpsTime);
+                transform.DOLocalMove(pos2_self, ConstValues.fallingFps * ConstValues.fpsTime);
+                downBlock_Self.transform.DOLocalMove(pos1_self, ConstValues.fallingFps * ConstValues.fpsTime);
 
-                int tempRow = Row;
-                int tempCol = Col;
+                int tempRow_self = originRow;
+                int tempCol_self = originCol;
 
-                Row = downBlock.Row;
-                Col = downBlock.Col;
+                Row = downBlock_Self.Row;
+                Col = downBlock_Self.Col;
                 ChangeBlockObjName();
                 SelfGameController.Inst.blockMatrix[Row, Col - 1] = this;
 
-                downBlock.Row = tempRow;
-                downBlock.Col = tempCol;
-                downBlock.ChangeBlockObjName();
-                SelfGameController.Inst.blockMatrix[downBlock.Row, downBlock.Col - 1] = downBlock;
+                downBlock_Self.Row = tempRow_self;
+                downBlock_Self.Col = tempCol_self;
+                downBlock_Self.ChangeBlockObjName();
+                SelfGameController.Inst.blockMatrix[downBlock_Self.Row, downBlock_Self.Col - 1] = downBlock_Self;
+                
+                /*--------------------敌方棋子--------------------------*/
+                if (!NetManager.Instance.Multiplayer)
+                {
+                    var otherController = OtherGameController.Inst;
+                    var downBlock_Other = otherController.blockMatrix[originRow - 1, originCol - 1];
+
+                    var otherBlock = otherController.blockMatrix[originRow, originCol - 1];
+                    var pos1_other = otherBlock.transform.localPosition;
+                    var pos2_other = downBlock_Other.transform.localPosition;
+
+                    otherBlock.transform.DOLocalMove(pos2_other, ConstValues.fallingFps * ConstValues.fpsTime);
+                    downBlock_Other.transform.DOLocalMove(pos1_other, ConstValues.fallingFps * ConstValues.fpsTime);
+                    
+                    int tempRow_other = otherBlock.Row;
+                    int tempCol_other = otherBlock.Col;
+
+                    otherBlock.Row = downBlock_Other.Row;
+                    otherBlock.Col = downBlock_Other.Col;
+                    otherBlock.ChangeBlockObjName();
+                    otherController.blockMatrix[otherBlock.Row, otherBlock.Col - 1] = otherBlock;
+
+                    downBlock_Other.Row = tempRow_other;
+                    downBlock_Other.Col = tempCol_other;
+                    downBlock_Other.ChangeBlockObjName();
+                    otherController.blockMatrix[downBlock_Other.Row, downBlock_Other.Col - 1] = downBlock_Other;
+                }
             }
         }
 

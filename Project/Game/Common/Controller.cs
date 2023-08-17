@@ -177,11 +177,12 @@ namespace Demo
         {
             NetManager.Instance.GameNewRow(TimerMgr._Instance.Frame,genCount,isSelf,GenNewRowBlocksByData);
         }
-        
+
         /// <summary>
-        /// 创建新的一行blocks--单人模式下
+        /// 创建新的一行的blockData
         /// </summary>
-        public void GenNewRowBlocksSinglePlayer(int genCount = 1,bool isSelf = true)
+        /// <returns></returns>
+        public BlockData[] GenNewRowDataSinglePlayer()
         {
             BlockData[] newRowBlockData = new BlockData[6];
             BlockShape oldShape = (BlockShape) Random.Range(1, 6);
@@ -190,13 +191,24 @@ namespace Demo
                 oldShape = GetDiffTypeFrom(oldShape);
                 newRowBlockData[i] = new BlockData(0, i + 1, oldShape);
             }
-            GenNewRowBlocksByData(newRowBlockData, genCount,isSelf);
+
+            return newRowBlockData;
+        }
+        
+        /// <summary>
+        /// 创建新的一行blocks--单人模式下
+        /// </summary>
+        public void GenNewRowBlocksSinglePlayer(BlockData[] newRowBlockData, int genCount = 1, bool isSelf = true)
+        {
+            GenNewRowBlocksByData(newRowBlockData, genCount, isSelf);
         }
 
-        private void GenNewRowBlocksByData(BlockData[] newRowBlockData,int genCount,bool isSelf)
+        protected void GenNewRowBlocksByData(BlockData[] newRowBlockData,int genCount,bool isSelf)
         {
             List<Block> newRowBlocks = new List<Block>();
-            var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_BlockBoard;
+            var boardTran = isSelf
+                ? UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_BlockBoard
+                : UIManager.Inst.GetUI<GameView>(UIDef.GameView).Other_BlockBoard;
 
             //遍历生成新的block
             for (int i = 0; i < newRowBlockData.Length; i++)
@@ -303,8 +315,6 @@ namespace Demo
         }
         #endregion
         
-        
-          
         #region 工具部分
         /// <summary>
         /// 获取当前block在横向纵向上与自己相邻的相同Type(非None)的block
@@ -445,7 +455,7 @@ namespace Demo
         }
         
         // 判断要找额block是否在同一帧要消除的棋子集合中
-        private bool IsBlockInSameFrame(Block targetBlock)
+        protected bool IsBlockInSameFrame(Block targetBlock)
         {
             bool result = false;
             foreach (var sameBlocks in BlocksInSameFrame)
@@ -471,10 +481,12 @@ namespace Demo
                 ConstValues.comboPrefabPath,
                 (originObj, l) =>
                 {
-                    Transform effectArea = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_EffectArea;
+                    var gameView = UIManager.Inst.GetUI<GameView>(UIDef.GameView);
+                    Transform effectArea = isSelf ? gameView.Self_EffectArea : gameView.Other_EffectArea;
                     GameObject obj = GameObject.Instantiate(originObj, effectArea);
                     obj.transform.localPosition = new Vector3(localPos.x - (isSelf ? ConstValues.SELF_BLOCK_WIDTH : ConstValues.OTHER_BLOCK_WIDTH) / 2f,
                         localPos.y + (isSelf ? ConstValues.SELF_BLOCK_WIDTH : ConstValues.OTHER_BLOCK_WIDTH ) / 2f, 0f);
+                    obj.transform.localScale = isSelf ? Vector3.one : new Vector3(0.5f, 0.5f, 0.5f);
                     Combo comb = obj.gameObject.GetComponent<Combo>();
                     comb.Show(num);
                 });
@@ -545,6 +557,38 @@ namespace Demo
 
             return result;
         }
+        
+        /// <summary>
+        /// 清空删除所有Blocks和压力块
+        /// </summary>
+        public void ClearAllBlockObj()
+        {
+            //清空blocks
+            for (int i = 0; i < blockMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < blockMatrix.GetLength(1); j++)
+                {
+                    if (blockMatrix[i, j] != null)
+                    {
+                        GameObject.Destroy(blockMatrix[i,j].gameObject);
+                        blockMatrix[i, j] = null;
+                    }
+                }
+            }
+            
+            //清空压力块
+            for (int i = 0; i < pressureBlocks.Count; i++)
+            {
+                var pressureBlockObj = pressureBlocks[i].gameObject;
+                GameObject.Destroy(pressureBlockObj);
+            }
+            
+            pressureBlocks.Clear();
+            unlockPressBlocks.Clear();
+            BlocksInSameFrame.Clear();
+        }
+        
+        
         
         #endregion
     }

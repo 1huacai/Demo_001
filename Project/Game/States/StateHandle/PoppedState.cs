@@ -12,14 +12,14 @@ namespace Demo
         {
             if (block.Shape == BlockShape.None)
                 return;
+            //己方棋子
             block.State = BlockState.Popped;
             block.Shape = BlockShape.None;
             block.Chain = false;
-            // for (int i = 0; i < _gameManger.pressureBlocks.Count; i++)
-            // {
-            //     var pressureBlock = _gameManger.pressureBlocks[i];
-            //     pressureBlock.UnlockPressureBlock(block.Row,block.Col);
-            // }
+            
+            //对手棋子
+            var otherBlock = OtherGameController.Inst.blockMatrix[block.Row, block.Col - 1];
+            otherBlock.Shape = BlockShape.None;
         }
 
         public override void Update(Block block)
