@@ -138,7 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   row: 0
   col: 0
-  type: 0
+  shape: 0
   image: {fileID: 0}
   slectImg: {fileID: 0}
   dragBeginPos: {x: 0, y: 0, z: 0}
@@ -160,6 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 904239193, guid: 4bcd984af7d1a66439e8255de98ebe9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stop: 0
 --- !u!1 &6473961241541090934
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,10 +193,10 @@ RectTransform:
   m_Father: {fileID: 6473961240807232781}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 159}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6473961241541090929
 CanvasRenderer:

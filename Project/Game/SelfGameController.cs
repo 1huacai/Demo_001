@@ -60,6 +60,8 @@ namespace Demo
             // GenBlocks(blockDatas, gameView.Self_BlockBoard);
             // StateManger._instance.Init(this);
             // TimerMgr._Instance.Init();
+            chainCount = 1;
+            chainCountArray.Clear();
             gameStart = true;
         }
 
@@ -134,24 +136,29 @@ namespace Demo
 
 
         private int comboCount = 0;
-        private int chainCount = 0;
-
+        private int chainCount = 1;
+        public List<int> chainCountArray = new List<int>();
+        
         private void LateUpdateBlockArea()
         {
             if (BlocksInSameFrame.Count > 0)
             {
                 Debug.LogError("同帧率多消组合FPS-" + TimerMgr._Instance.Frame);
                 comboCount = 0;
-                chainCount = 0;
 
                 for (int i = 0; i < BlocksInSameFrame.Count; i++)
                 {
-                    for (int j = 0; j < BlocksInSameFrame[i].Count; j++)
+                    var blocksInFrame = BlocksInSameFrame[i];
+                    //集合中的chain数量
+                    if (blocksInFrame.Find((block => block.Chain)))
+                    {
+                        chainCount++;
+                    }
+                    
+                    for (int j = 0; j < blocksInFrame.Count; j++)
                     {
                         comboCount++;
-                        var block = BlocksInSameFrame[i][j];
-                        if (block.Chain)
-                            chainCount++;
+                        var block = blocksInFrame[j];
 
                         for (int k = 0; k < pressureBlocks.Count; k++)
                         {
@@ -180,22 +187,29 @@ namespace Demo
                 if (chainCount >= 2)
                 {
                     GenChainObj(chainCount, BlocksInSameFrame[0][0].transform.localPosition);
-
+                    chainCountArray.Add(chainCount);//chain 数量加入集合备用
+                    
                     //chain达成
                     BoardStopRise = true;
                     TimerMgr._Instance.Schedule(() =>
                     {
                         Debug.LogError("生成chain的压力块");
                         BoardStopRise = false;
-                        //兴建压力块
-                        PressureBlock.CreatePressureBlock(false, chainCount, pressureBoard);
+                        //兴建压力块，从集合中弹出chain数量
+                        PressureBlock.CreatePressureBlock(false, chainCountArray[0], pressureBoard);
+                        chainCountArray.RemoveAt(0);
                     }, (20 * chainCount + 80) * ConstValues.fpsTime);
                 }
 
                 BlocksInSameFrame.Clear();
+                //检测chain结束
+                if (ChainEnd())
+                {
+                    chainCount = 1;
+                }
             }
         }
-
+        
         //棋盘上升
         private void BoardRise(bool btnRise = false)
         {
@@ -263,6 +277,33 @@ namespace Demo
             }
         }
 
+        //如果现在棋盘里所有棋子chain标签为false。那chain就结束
+        public bool ChainEnd()
+        {
+            bool result = false;
+            for (int row = 1; row <= ConstValues.MAX_ROW; row++)
+            {
+                for (int col = 0; col < ConstValues.MAX_COL; col++)
+                {
+                    var block = blockMatrix[row, col];
+                    if (block.Shape != BlockShape.None)
+                    {
+                        if (block.Chain)
+                        {
+                            result = false;
+                            break;
+                        }
+                        else
+                        {
+                            result = true;
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+        
         #endregion
     }
 }

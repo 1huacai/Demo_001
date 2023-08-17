@@ -495,9 +495,8 @@ namespace Demo
                     GameObject obj = GameObject.Instantiate(originObj, effectArea);
                     obj.transform.localPosition = new Vector3(localPos.x - (isSelf ? ConstValues.SELF_BLOCK_WIDTH : ConstValues.OTHER_BLOCK_WIDTH) / 2f,
                         localPos.y + (isSelf ? ConstValues.SELF_BLOCK_WIDTH : ConstValues.OTHER_BLOCK_WIDTH) / 2f, 0f);
-                    Chain comb = obj.gameObject.GetComponent<Chain>();
-                    Debug.LogError(comb);
-                    comb.Show(num);
+                    Chain chainObj = obj.gameObject.GetComponent<Chain>();
+                    chainObj.Show(num);
                 });
         }
         
