@@ -198,15 +198,17 @@ namespace Demo
                         //兴建压力块，从集合中弹出chain数量
                         PressureBlock.CreatePressureBlock(false, chainCountArray[0], pressureBoard);
                         chainCountArray.RemoveAt(0);
+                        
+                        //检测chain结束
+                        if (ChainEnd())
+                        {
+                            chainCount = 1;
+                        }
+                        
                     }, (20 * chainCount + 80) * ConstValues.fpsTime);
                 }
 
                 BlocksInSameFrame.Clear();
-                //检测chain结束
-                if (ChainEnd())
-                {
-                    chainCount = 1;
-                }
             }
         }
         
