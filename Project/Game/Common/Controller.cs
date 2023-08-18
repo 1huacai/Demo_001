@@ -89,7 +89,7 @@ namespace Demo
             {
                 for (int col = 0; col < maxCol; col++)
                 {
-                    if (buffCount < 36)
+                    if (buffCount < 42)
                     {
                         char numberStr = buffer[buffCount];
                         BlockShape shape = ConstValues.BLOCK_COLOR_NUMBER_TO_BLOCKSHAPE[numberStr];
