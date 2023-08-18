@@ -98,19 +98,12 @@ namespace Demo
             //单人模式下 TODO 单人模式下己方和敌方棋盘生成后期需要修改
             if (!NetManager.Instance.Multiplayer)
             {
-                var selfController = SelfGameController.Inst;
-                selfController.InitGame();
-                
-                //构建己方棋子
-                var blockDatas =  selfController.GenBlockDatas(selfController.stageConfigs, 4);
-                selfController.GenBlocks(blockDatas, Self_BlockBoard,true);
-                StateManger._instance.Init(selfController);
-                TimerMgr._Instance.Init();
-                
-                //构建对手棋子（镜像）
-                var otherController = OtherGameController.Inst;
-                otherController.InitGame();
-                otherController.GenBlocks(blockDatas, other_BlockBoard,false);
+                //单人模式下初始化游戏
+                SinglePlayerInitGame();
+            }
+            else
+            {
+               MultiplayerInitGame();
             }
         }
 
@@ -137,6 +130,47 @@ namespace Demo
         public override void Destroy()
         {
            
+        }
+        
+        //单人
+        public void SinglePlayerInitGame()
+        {
+            var selfController = SelfGameController.Inst;
+            selfController.InitGame();
+                
+            //构建己方棋子
+            var blockDatas =  selfController.GenBlockDatas(selfController.stageConfigs, 4);
+            selfController.GenBlocks(blockDatas, Self_BlockBoard,true);
+            StateManger._instance.Init(selfController);
+            TimerMgr._Instance.Init();
+                
+            //构建对手棋子（镜像）
+            var otherController = OtherGameController.Inst;
+            otherController.InitGame();
+            otherController.GenBlocks(blockDatas, other_BlockBoard,false);
+
+            selfController.gameStart = true;
+        }
+        
+        //多人
+        public void MultiplayerInitGame()
+        {
+            var selfController = SelfGameController.Inst;
+            selfController.InitGame();
+                
+            //构建己方棋子
+            var blockBuffer = selfController.blockBufferWithNet;
+            var blockDatas =  selfController.GenBlockDatasWith(blockBuffer);
+            selfController.GenBlocks(blockDatas, Self_BlockBoard,true);
+            StateManger._instance.Init(selfController);
+            TimerMgr._Instance.Init();
+                
+            //构建对手棋子（镜像）
+            var otherController = OtherGameController.Inst;
+            otherController.InitGame();
+            otherController.GenBlocks(blockDatas, other_BlockBoard,false);
+
+            selfController.gameStart = false;
         }
         
         //重新刷新棋盘按钮回调

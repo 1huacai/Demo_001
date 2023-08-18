@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using C2S_SprotoType;
 using Project;
 using UnityEngine;
+using System.IO;
 
 namespace Demo
 {
@@ -253,6 +255,32 @@ namespace Demo
                 }
             }));
         }
+
+        private StringBuilder _builder = new StringBuilder();
+        public void UpdateWebLogs(Block[,] blocks)
+        {
+            if (!SelfGameController.Inst.gameStart)
+            {
+                return;
+            }
+            
+            _builder.Clear();
+            _builder.Append($"TotalFrame:{TimerMgr._Instance.Frame}\n");
+            
+            foreach (var block in blocks)
+            {
+                if (block != null)
+                {
+                    string blockLog = $"{block.State}-{(int) block.Shape}-{block.Row}-{block.Col}\n";
+                    _builder.Append(blockLog);
+                }
+            }
+            
+            _builder.Append("\n");
+            File.AppendAllText(Application.streamingAssetsPath + "/Log/Block_Log.txt", _builder.ToString());
+            
+        }
+        
         
     }
 }

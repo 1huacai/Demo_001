@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -76,6 +77,33 @@ namespace Demo
 
             return blockDataList;
         }
+
+        public List<BlockData> GenBlockDatasWith(string blockBuffer)
+        {
+            int maxRow = ConstValues.MAX_GENROW, maxCol = ConstValues.MAX_COL;
+            List<BlockData> blockDataList = new List<BlockData>();
+            string buffer = blockBuffer;
+            
+            for (int row = 0; row < maxRow; row++)
+            {
+                for (int col = 0; col < maxCol; col++)
+                {
+                    if (buffer.Length > 0)
+                    {
+                        string numberStr = buffer.Remove(0, 1);
+                        BlockShape shape = ConstValues.BLOCK_COLOR_NUMBER_TO_BLOCKSHAPE[numberStr];
+                        blockDataList.Add(new BlockData(row + 1,col + 1,shape));
+                    }
+                    else
+                    {
+                        blockDataList.Add(new BlockData(row + 1,col + 1,BlockShape.None));
+                    }
+                }
+            }
+
+            return blockDataList;
+        }
+        
         
         //判断block是否相邻且相同
         protected static bool IsSameAsAdjacent(BlockData[,] blockDataMatrix, int row, int col, BlockShape shape)

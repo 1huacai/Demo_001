@@ -46,12 +46,9 @@ namespace Demo
             NetReceiver.AddHandler<S2C_Protocol.game_ready>((data) =>
             {
                 Debug.LogError("========= game_ready");
-                UIManager.Inst.GetUI<LoginView>(UIDef.LoginView).GameReadyEnterGame();
-                
-                var request = data as S2C_SprotoType.game_ready.request;
-                var blockDatas = request.blocks;
-                Debug.LogError("初始化block数量--" + blockDatas.Count);
-                
+                var req = new C2S_SprotoType.game_ready.request();
+                NetSender.Send<C2S_Protocol.game_ready>(req);
+
                 return null;
             });
             
@@ -59,6 +56,7 @@ namespace Demo
             NetReceiver.AddHandler<S2C_Protocol.game_start>((data) =>
             {
                 Debug.LogError("========= game_start");
+                SelfGameController.Inst.gameStart = true;
                 return null;
             });
             
@@ -90,10 +88,25 @@ namespace Demo
                 return null;
             });
             
-            //生成方块的buffer
+            //生成方块的buffer,第一次游戏没开始时做初始化，然后后面新来的再往里面加
             NetReceiver.AddHandler<S2C_Protocol.game_block_buffer>((data) =>
             {
                 Debug.LogError("========= game_block_buffer");
+                var request = data as S2C_SprotoType.game_block_buffer.request;
+                Debug.LogError($"InitBlockBuffer-{request.buffer}--{request.buffer.Length}");
+                //TODO 从这里添加初始化blocks
+                if (!SelfGameController.Inst.gameStart)
+                {
+                    //游戏未开始获得初始化blockbuffer
+                    SelfGameController.Inst.blockBufferWithNet = request.buffer;
+                    UIManager.Inst.GetUI<LoginView>(UIDef.LoginView).GameReadyEnterGame();
+                }
+                else
+                {
+                    //游戏开始新的blockbuffer加入末尾
+                    SelfGameController.Inst.blockBufferWithNet += request.buffer;
+                }
+                
                 return null;
             });
             

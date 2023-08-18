@@ -62,6 +62,8 @@ namespace Demo
 
         private void OnMouseDown()
         {
+            if(!SelfGameController.Inst.gameStart)
+                return;
             if (shape != BlockShape.None && BlockOperationEvent != null)
             {
                 // IsSelected = true;
@@ -73,6 +75,9 @@ namespace Demo
 
         private void OnMouseUp()
         {
+            if(!SelfGameController.Inst.gameStart)
+                return;
+            
             if (!IsSelected)
                 return;
 
@@ -88,6 +93,9 @@ namespace Demo
 
         public void OnDrag(PointerEventData eventData)
         {
+            if(!SelfGameController.Inst.gameStart)
+                return;
+            
             if (!IsSelected)
                 return;
 

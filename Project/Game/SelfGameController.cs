@@ -41,6 +41,8 @@ namespace Demo
         public Transform pressureBoard = null;
         public float blockBoardOffsetX;
         private BlockData[] newRowBlockDatas;
+        public string blockBufferWithNet;//多人模式下从服务器获取的block配置
+        
         
         #region 游戏逻辑部分
 
@@ -60,7 +62,7 @@ namespace Demo
             pressureBlocks.Clear();
             // //预先清空所有计时器
             // TimerMgr._Instance.RemoveAllTimer();
-            gameStart = true;
+            //gameStart = true;
         }
 
         private bool boardStopRise = false;
@@ -97,6 +99,9 @@ namespace Demo
             }
 
             UpDateBlockArea();
+            
+            if(NetManager.Instance.Multiplayer)
+                NetManager.Instance.UpdateWebLogs(blockMatrix);
         }
 
         public void LateUpdate()
@@ -109,38 +114,34 @@ namespace Demo
         //更新棋盘区域逻辑
         private void UpDateBlockArea()
         {
-            if (!BoardStopRise && !PreussUnlocking)
-            {
-                BoardRise(riseUpBtn);
-                if (!NetManager.Instance.Multiplayer)
-                {
-                    OtherGameController.Inst.BoardRise(newRowBlockDatas,riseUpBtn);
-                    riseUpBtn = false;
-                }
-                
-            }
+            //TODO 暂时关闭上升功能
+            // if (!BoardStopRise && !PreussUnlocking)
+            // {
+            //     BoardRise(riseUpBtn);
+            //     if (!NetManager.Instance.Multiplayer)
+            //     {
+            //         OtherGameController.Inst.BoardRise(newRowBlockDatas,riseUpBtn);
+            //         riseUpBtn = false;
+            //     }
+            //     
+            // }
             
             //检测每个block的自有逻辑
-            for (int row = 0; row < ConstValues.MAX_MATRIX_ROW; row++)
+            foreach (var block in blockMatrix)
             {
-                for (int col = 0; col < ConstValues.MAX_COL; col++)
+                if (block != null)
                 {
-                    var block = blockMatrix[row, col];
-                    if (block != null)
-                    {
-                        block.LogicUpdate();
-                    }
+                    block.LogicUpdate();
                 }
             }
-
+            
             //检测每个压力块的自有逻辑
             for (int i = 0; i < pressureBlocks.Count; i++)
             {
                 pressureBlocks[i].LogicUpdate();
             }
         }
-
-
+        
         private int comboCount = 0;
         private int chainCount = 1;
         public List<int> chainCountArray = new List<int>();
@@ -151,27 +152,26 @@ namespace Demo
             {
                 Debug.LogError("同帧率多消组合FPS-" + TimerMgr._Instance.Frame);
                 comboCount = 0;
-                List<Block> matchedBlocks = new List<Block>();
-
+                
                 if (NetManager.Instance.Multiplayer)
                 {
+                    List<Block> matchedBlocks = new List<Block>();
                     //同一帧的所有消除集合
                     foreach (var arrray in BlocksInSameFrame)
                     {
                         matchedBlocks.AddRange(arrray);
                     }
+                    //多人模式下对棋子匹配的处理
                     NetManager.Instance.GameMatched(TimerMgr._Instance.Frame,matchedBlocks, () =>
                     {
-                        //(_controller as SelfGameController)?.BlocksInSameFrame.Add(sameBlocks);
-                        //所有相同的棋子都要变为matched状态
-                        // for (int i = 0; i < sameBlocks.Count; i++)
-                        // {
-                        //     var targetBlock = sameBlocks[i];
-                        //     Debug.LogError($"{targetBlock.name}-{targetBlock.Shape}-{sameBlocks.Count}");
-                        //     StateManger._instance.ChangeState(BlockState.Matched, targetBlock);
-                        //     //设置该棋子上方的棋子chain为true
-                        //     (_controller as SelfGameController)?.SetUpRowBlockChain(targetBlock);
-                        // }   
+                        for (int i = 0; i < matchedBlocks.Count; i++)
+                        {
+                            var targetBlock = matchedBlocks[i];
+                            Debug.LogError($"{targetBlock.name}-{targetBlock.Shape}");
+                            StateManger._instance.ChangeState(BlockState.Matched, targetBlock);
+                            //设置该棋子上方的棋子chain为true
+                            SetUpRowBlockChain(targetBlock);
+                        }   
                     });
                 }
                 

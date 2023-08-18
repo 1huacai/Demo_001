@@ -59,7 +59,6 @@ namespace Project
         public static Vector2 OTHER_BLOCK_SIZE = new Vector2(OTHER_BLOCK_WIDTH, OTHER_BLOCK_HEIGHT);
         
         
-        
         public const int MAX_ROW = 11; //最大行数
         public const int MAX_COL = 6; //最大列数
         public const int MAX_MATRIX_ROW = MAX_ROW + 1;
@@ -79,6 +78,15 @@ namespace Project
         private const string textureBlockPath = "Texture/block/panel";
         public const string textureComboPath = "Texture/combo/combo";
         public const string textureChainPath = "Texture/chain/chain";
+        
+        //服务器返回的棋子shape字符对应BLockShape映射表 
+        public static Dictionary<string, BlockShape> BLOCK_COLOR_NUMBER_TO_BLOCKSHAPE =
+            new Dictionary<string, BlockShape>()
+            {
+                {"A",BlockShape.Red},{"B",BlockShape.Green},{"C",BlockShape.Blue},{"D",BlockShape.Orange},{"E",BlockShape.Purple},{"0",BlockShape.None},
+                {"a",BlockShape.Red},{"b",BlockShape.Green},{"c",BlockShape.Blue},{"d",BlockShape.Orange},{"f",BlockShape.Purple},
+                {"1",BlockShape.Red},{"2",BlockShape.Green},{"3",BlockShape.Blue},{"4",BlockShape.Orange},{"5",BlockShape.Purple},
+            };
         
       
         public static Dictionary<int, Sprite> _sprites = new Dictionary<int, Sprite>
