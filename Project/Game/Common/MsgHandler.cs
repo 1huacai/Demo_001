@@ -47,8 +47,8 @@ namespace Demo
             {
                 Debug.LogError("========= game_ready");
 
-                var request = data as S2C_SprotoType.game_ready.request;
-                Debug.LogError(request.blocks.Count);
+                //var request = data as S2C_SprotoType.game_ready.request;
+                // Debug.LogError(request.blocks.Count);
                 
                 var req = new C2S_SprotoType.game_ready.request();
                 NetSender.Send<C2S_Protocol.game_ready>(req,(rsp =>
