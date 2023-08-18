@@ -73,6 +73,7 @@ namespace Demo
 
                 if (NetManager.Instance.Multiplayer)
                 {
+                    Debug.LogError("开始交换请求");
                     NetManager.Instance.GameSwapReq(TimerMgr._Instance.Frame, (_controller as SelfGameController)?.selectBlock, otherBlock,true,DoSwap);
                 }
                 else
@@ -96,7 +97,11 @@ namespace Demo
 
         private void DoSwap(Block block_1, Block block_2,bool isSelf = false)
         {
-            var block_1_Pos = isSelf ? block_1.dragBeginPos : block_1.transform.localPosition;
+            Debug.LogError($"{block_1.Row}-{block_1.Col}");
+            Debug.LogError($"{block_2.Row}-{block_2.Col}");
+            
+            // var block_1_Pos = isSelf ? block_1.dragBeginPos : block_1.transform.localPosition;
+            var block_1_Pos = block_1.transform.localPosition;
             var block_2_Pos = block_2.transform.localPosition;
 
             // block_1.State = BlockState.Swapping;

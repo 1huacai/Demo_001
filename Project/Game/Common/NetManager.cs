@@ -150,6 +150,8 @@ namespace Demo
         //交换方块请求
         public void GameSwapReq(int frame,Block block_1,Block block_2,bool isSelf,Action<Block,Block,bool> callBack)
         {
+            var block1 = block_1;
+            var block2 = block_2;
             block_info blockInfo_1 = new block_info()
             {
                 row = block_1.Row, col = block_1.Col, shape = (int) block_1.Shape, state = (int) block_1.State,frame = 0
@@ -172,7 +174,8 @@ namespace Demo
                 var data = rsp as C2S_SprotoType.game_swap.response;
                 if (data.e == 0)
                 {
-                    callBack?.Invoke(block_1,block_2,isSelf);
+                    Debug.LogError("交换请求验证完毕!!!");
+                    callBack?.Invoke(block1,block2,isSelf);
                 }
             }));
         }
