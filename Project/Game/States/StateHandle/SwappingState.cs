@@ -73,9 +73,7 @@ namespace Demo
 
                 if (NetManager.Instance.Multiplayer)
                 {
-                    NetManager.Instance.GameSwapReq(TimerMgr._Instance.Frame, (_controller as SelfGameController)?.selectBlock,
-                        otherBlock,
-                        () => { DoSwap((_controller as SelfGameController)?.selectBlock, otherBlock,true); });
+                    NetManager.Instance.GameSwapReq(TimerMgr._Instance.Frame, (_controller as SelfGameController)?.selectBlock, otherBlock,true,DoSwap);
                 }
                 else
                 {
