@@ -91,7 +91,8 @@ namespace Demo
                 {
                     if (buffCount < 36)
                     {
-                        string numberStr = buffer.Remove(0, 1);
+                        char numberStr = buffer[0];
+                        buffer.Remove(0);
                         BlockShape shape = ConstValues.BLOCK_COLOR_NUMBER_TO_BLOCKSHAPE[numberStr];
                         blockDataList.Add(new BlockData(row + 1,col + 1,shape));
                         buffCount++;
