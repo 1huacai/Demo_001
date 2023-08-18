@@ -268,6 +268,7 @@
      <None Include="Assets\Resources\Shaders\UGUI\YoukiaWaveUI.shader" />
      <None Include="Assets\Resources\Shaders\PostProcessing\Builtins\DiskKernels.hlsl" />
      <None Include="Assets\Resources\Shaders\NormalTexture\NormalTexture.shader" />
+     <None Include="Assets\StreamingAssets\Log\Block_Log.txt" />
      <None Include="Assets\Resources\Shaders\Lit\Character\Lod1-CharacterPBR-Fur.shader" />
      <None Include="Assets\Resources\spineArt\effect\huixue\huixue.atlas.txt" />
      <None Include="Assets\Resources\Shaders\Lit\Character\Lod3-CharacterPBR-gpu-bumpXRay.shader" />
