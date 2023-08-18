@@ -83,9 +83,10 @@ namespace Project
         public static Dictionary<string, BlockShape> BLOCK_COLOR_NUMBER_TO_BLOCKSHAPE =
             new Dictionary<string, BlockShape>()
             {
-                {"A",BlockShape.Red},{"B",BlockShape.Green},{"C",BlockShape.Blue},{"D",BlockShape.Orange},{"E",BlockShape.Purple},{"0",BlockShape.None},
-                {"a",BlockShape.Red},{"b",BlockShape.Green},{"c",BlockShape.Blue},{"d",BlockShape.Orange},{"f",BlockShape.Purple},
-                {"1",BlockShape.Red},{"2",BlockShape.Green},{"3",BlockShape.Blue},{"4",BlockShape.Orange},{"5",BlockShape.Purple},
+                {"0",BlockShape.None},
+                {"A",BlockShape.Red},{"B",BlockShape.Green},{"C",BlockShape.Blue},{"D",BlockShape.Orange},{"E",BlockShape.Purple},{"F",BlockShape.Red},
+                {"a",BlockShape.Red},{"b",BlockShape.Green},{"c",BlockShape.Blue},{"d",BlockShape.Orange},{"e",BlockShape.Purple},{"f",BlockShape.Red},
+                {"1",BlockShape.Red},{"2",BlockShape.Green},{"3",BlockShape.Blue},{"4",BlockShape.Orange},{"5",BlockShape.Purple},{"6",BlockShape.Red},
             };
         
       

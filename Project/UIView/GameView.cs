@@ -103,7 +103,7 @@ namespace Demo
             }
             else
             {
-               MultiplayerInitGame();
+                MultiplayerInitGame();
             }
         }
 

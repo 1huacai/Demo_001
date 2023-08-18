@@ -83,16 +83,18 @@ namespace Demo
             int maxRow = ConstValues.MAX_GENROW, maxCol = ConstValues.MAX_COL;
             List<BlockData> blockDataList = new List<BlockData>();
             string buffer = blockBuffer;
-            
+
+            int buffCount = 0;
             for (int row = 0; row < maxRow; row++)
             {
                 for (int col = 0; col < maxCol; col++)
                 {
-                    if (buffer.Length > 0)
+                    if (buffCount < 36)
                     {
                         string numberStr = buffer.Remove(0, 1);
                         BlockShape shape = ConstValues.BLOCK_COLOR_NUMBER_TO_BLOCKSHAPE[numberStr];
                         blockDataList.Add(new BlockData(row + 1,col + 1,shape));
+                        buffCount++;
                     }
                     else
                     {
