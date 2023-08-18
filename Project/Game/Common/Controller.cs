@@ -91,8 +91,7 @@ namespace Demo
                 {
                     if (buffCount < 36)
                     {
-                        char numberStr = buffer[0];
-                        buffer.Remove(0);
+                        char numberStr = buffer[buffCount];
                         BlockShape shape = ConstValues.BLOCK_COLOR_NUMBER_TO_BLOCKSHAPE[numberStr];
                         blockDataList.Add(new BlockData(row + 1,col + 1,shape));
                         buffCount++;
@@ -103,7 +102,11 @@ namespace Demo
                     }
                 }
             }
-
+            
+            //在SelfGameController.Inst.blockBufferWithNet移除使用过的字符
+            SelfGameController.Inst.blockBufferWithNet = SelfGameController.Inst.blockBufferWithNet.Remove(0, buffCount);
+            Debug.LogError(SelfGameController.Inst.blockBufferWithNet + "--" + SelfGameController.Inst.blockBufferWithNet.Length);
+            
             return blockDataList;
         }
         
