@@ -150,28 +150,26 @@ namespace Demo
         //交换方块请求
         public void GameSwapReq(int frame,Block block_1,Block block_2,bool isSelf,Action<Block,Block,bool> callBack)
         {
+            //客户端操作不能等服务器回复，不然会卡顿
+            callBack?.Invoke(block_1,block_2,isSelf);
+            
+            //交换请求
             var block1 = block_1;
             var block2 = block_2;
             block_info blockInfo_1 = new block_info()
             {
                 row = block_1.Row, col = block_1.Col, shape = (int) block_1.Shape, state = (int) block_1.State,frame = 0
             };
-            
             block_info blockInfo_2 = new block_info()
             {
                 row = block_2.Row, col = block_2.Col, shape = (int) block_2.Shape, state = (int) block_2.State,frame = 0
             };
-
             var req = new C2S_SprotoType.game_swap.request()
             {
                 frame = frame,
                 block1 = blockInfo_1,
                 block2 = blockInfo_2
             };
-            
-            //客户端操作不能等服务器回复，不然会卡顿
-            callBack?.Invoke(block_1,block_2,isSelf);
-            
             NetSender.Send<C2S_Protocol.game_swap>(req,(rsp =>
             {
                 var data = rsp as C2S_SprotoType.game_swap.response;
@@ -276,16 +274,20 @@ namespace Demo
             {
                 if (block != null)
                 {
-                    string blockLog = $"{block.State}-{(int) block.Shape}-{block.Row}-{block.Col}\n";
+                    string blockLog = $"{(int)block.State}-{(int) block.Shape}-{block.Row}-{block.Col}\n";
                     _builder.Append(blockLog);
                 }
             }
             
             _builder.Append("\n");
+            if (!Directory.Exists(Application.streamingAssetsPath + "/Log"))
+            {
+                Directory.CreateDirectory(Application.streamingAssetsPath + "/Log");
+            }
+            
             File.AppendAllText(Application.streamingAssetsPath + "/Log/Block_Log.txt", _builder.ToString());
             
         }
-        
         
     }
 }

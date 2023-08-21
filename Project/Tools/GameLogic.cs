@@ -20,7 +20,6 @@ namespace Demo.Tools
         {
             TimerMgr._Instance.Update();
             NetManager.Instance.Update();
-            // SelfGameController.Inst.FiexdUpdate();
         }
 
         private void FixedUpdate()

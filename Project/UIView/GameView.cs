@@ -17,6 +17,12 @@ namespace Demo
         
         private Transform self_EffectArea;//玩家特效特效区域
         private Transform other_EffectArea;//对手特效区域
+
+        private Transform self_UserPart;
+        private Transform other_Userpart;
+
+        private Text self_UserName;
+        private Text other_UserName;
         
         private Button reGenBlockBtn;
         private Button riseBoardBtn;
@@ -74,7 +80,6 @@ namespace Demo
         #endregion
         
         
-        
         public override void InitUI(params object[] msg)
         {
             //自己棋盘
@@ -82,14 +87,18 @@ namespace Demo
             self_BlockBoard = self_Board.Find("BlockBoard");
             self_PressureBoard = self_Board.Find("PressureBoard");
             self_EffectArea = self_Board.Find("EffectArea");
+            self_UserPart = transform.Find("MyUserPart");
+            self_UserName = self_UserPart.Find("UserName").GetComponent<Text>();
             selfBlockBoardOffsetX = (Screen.width - self_BlockBoard.GetComponent<RectTransform>().sizeDelta.x)/2f;
-
+            
+            
             //对手棋盘
             other_Board = transform.Find("PlayerAreas/OtherPlayerArea/Board");
             other_BlockBoard = other_Board.Find("BlockBoard");
             other_PressureBoard = other_Board.Find("PressureBoard");
             other_EffectArea = other_Board.Find("EffectArea");
-            
+            other_Userpart = transform.Find("other_Userpart");
+            other_UserName = other_Userpart.Find("UserName").GetComponent<Text>();
             
             reGenBlockBtn = transform.Find("ReGenBlockBtn").GetComponent<Button>();
             riseBoardBtn = transform.Find("RiseBoardBtn").GetComponent<Button>();
@@ -202,5 +211,12 @@ namespace Demo
             
         }
 
+        public void SetMultiplayerInfo(string self_name,string other_name)
+        {
+            self_UserName.text = self_name;
+            other_UserName.text = other_name;
+        }
+        
+        
     }
 }

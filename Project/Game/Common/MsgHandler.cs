@@ -13,7 +13,7 @@ namespace Demo
                 Debug.LogError("========= match_success");
                 var requst = data as S2C_SprotoType.matching_success.request;
                 var players = requst.players;
-                
+                UIManager.Inst.GetUI<GameView>(UIDef.GameView).SetMultiplayerInfo(players[0].rname,players[1].rname);
                 // Debug.LogError("玩家数量:"+players.Count);
                 Debug.LogError($"对战玩家{players[0].rname} vs {players[1].rname}");
                 return null;
