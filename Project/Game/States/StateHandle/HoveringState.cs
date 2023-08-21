@@ -22,19 +22,8 @@ namespace Demo
                 return;
             timerID = TimerMgr._Instance.Schedule(() =>
             {
-                var downBlock = (_controller as SelfGameController).blockMatrix[block.Row - 1, block.Col - 1];
-                if (downBlock.Shape == BlockShape.None)
-                {
-                    StateManger._instance.ChangeState(BlockState.Falling, block);
-                }
-                else if (downBlock.Shape != BlockShape.None && downBlock.State == BlockState.Hovering)
-                {
-                    StateManger._instance.ChangeState(BlockState.Hovering, block);
-                }
-                else if (downBlock.Shape != BlockShape.None && downBlock.State == BlockState.Normal)
-                {
-                    StateManger._instance.ChangeState(BlockState.Landing, block);
-                }
+                StateManger._instance.ChangeState(BlockState.Falling, block);
+                
             }, ConstValues.hoveringFps * ConstValues.fpsTime);
         }
     }

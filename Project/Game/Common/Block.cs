@@ -270,6 +270,20 @@ namespace Demo
             return ((Col >= pressureBlock.OriginCol && Col <= pressureBlock.TriggerRange) && Row == pressureBlock.Row);
         }
         
+        //获取玩家棋盘block的位置
+        public Vector3 GetSelfPos(int row, int col)
+        {
+            return  new Vector3(ConstValues.SELF_BLOCK_X_ORIGINPOS + +(col - 1) * ConstValues.SELF_BLOCK_X_OFFSET,
+                ConstValues.SELF_BLOCK_Y_ORIGINPOS + (row - SelfGameController.Inst.GenNewRowCount + 1) * ConstValues.SELF_BLOCK_Y_OFFSET,0f);
+        }
+        
+        //获取对手棋盘block的位置
+        public Vector3 GetOtherPos(int row, int col)
+        {
+            return new Vector3(ConstValues.OTHER_BLOCK_X_ORIGINPOS + +(col - 1) * ConstValues.OTHER_BLOCK_X_OFFSET,
+                ConstValues.OTHER_BLOCK_Y_ORIGINPOS + (row - SelfGameController.Inst.GenNewRowCount + 1) * ConstValues.OTHER_BLOCK_Y_OFFSET,0f);
+        }
+        
         #endregion
         
         public void LogicUpdate()
@@ -287,7 +301,7 @@ namespace Demo
 
             CheckBlockNotInteractWithState();
 
-            //实时监测自己自身的状态，除去swaping
+            // //实时监测自己自身的状态，除去swaping
             if (state == BlockState.Normal)
                 StateManger._instance.ChangeStageUpdate(BlockState.Normal, this);
 
@@ -308,9 +322,9 @@ namespace Demo
                     return;
                 }
 
-                var pos1_self = transform.localPosition;
-                var pos2_self = downBlock_Self.transform.localPosition;
-
+                var pos1_self = GetSelfPos(Row,Col);
+                var pos2_self = GetSelfPos(downBlock_Self.Row, downBlock_Self.Col); 
+                
                 transform.DOLocalMove(pos2_self, ConstValues.fallingFps * ConstValues.fpsTime);
                 downBlock_Self.transform.DOLocalMove(pos1_self, ConstValues.fallingFps * ConstValues.fpsTime);
 
@@ -334,8 +348,8 @@ namespace Demo
                     var downBlock_Other = otherController.blockMatrix[originRow - 1, originCol - 1];
 
                     var otherBlock = otherController.blockMatrix[originRow, originCol - 1];
-                    var pos1_other = otherBlock.transform.localPosition;
-                    var pos2_other = downBlock_Other.transform.localPosition;
+                    var pos1_other = GetOtherPos(otherBlock.Row, otherBlock.Col);
+                    var pos2_other = GetOtherPos(downBlock_Other.Row, downBlock_Other.col);
 
                     otherBlock.transform.DOLocalMove(pos2_other, ConstValues.fallingFps * ConstValues.fpsTime);
                     downBlock_Other.transform.DOLocalMove(pos1_other, ConstValues.fallingFps * ConstValues.fpsTime);

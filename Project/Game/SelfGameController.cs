@@ -115,16 +115,16 @@ namespace Demo
         private void UpDateBlockArea()
         {
             //TODO 暂时关闭上升功能(多人模式下)
-            if (!BoardStopRise && !PreussUnlocking && !NetManager.Instance.Multiplayer)
-            {
-                BoardRise(riseUpBtn);
-                if (!NetManager.Instance.Multiplayer)
-                {
-                    OtherGameController.Inst.BoardRise(newRowBlockDatas,riseUpBtn);
-                    riseUpBtn = false;
-                }
-                
-            }
+             if (!BoardStopRise && !PreussUnlocking && !NetManager.Instance.Multiplayer)
+             {
+                 BoardRise(riseUpBtn);
+                 if (!NetManager.Instance.Multiplayer)
+                 {
+                     OtherGameController.Inst.BoardRise(newRowBlockDatas,riseUpBtn);
+                     riseUpBtn = false;
+                 }
+                 
+             }
             
             //检测每个block的自有逻辑
             foreach (var block in blockMatrix)
@@ -250,7 +250,6 @@ namespace Demo
                     BoardStopRise = true;
                     TimerMgr._Instance.Schedule(() =>
                     {
-                        Debug.LogError("生成chain的压力块");
                         BoardStopRise = false;
                         //兴建压力块，从集合中弹出chain数量
                         PressureBlock.CreatePressureBlock(false, chainCountArray[0], pressureBoard,true);

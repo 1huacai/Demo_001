@@ -14,9 +14,9 @@ namespace Demo
             if (block.Shape == BlockShape.None)
                 return;
             block.State = BlockState.Normal;
-            
+
             var sameBlocks = (_controller as SelfGameController)?.GetSameBlocksWith(block);
-            if (sameBlocks.Count >= 3)//有可以匹配消除的block
+            if (sameBlocks.Count >= 3) //有可以匹配消除的block
             {
                 Debug.LogError("进入normal待转matched");
                 (_controller as SelfGameController)?.BlocksInSameFrame.Add(sameBlocks);
@@ -33,22 +33,32 @@ namespace Demo
                     }
                 }
             }
-        } 
+        }
 
         public override void Update(Block block)
         {
             if (block.Shape == BlockShape.None)
                 return;
-            //下方棋子Type为None且block的row = 1
+
+            // //下方棋子Type为None且block的row = 1
             if (block.Row > 1)
             {
+                //改变空棋子上方所有棋子的状态为Hovering
                 var downBlock = (_controller as SelfGameController)?.blockMatrix[block.Row - 1, block.Col - 1];
-                if (downBlock.Shape == BlockShape.None && !SelfGameController.Inst.CheckPressureBlockIncludeBlock(downBlock))
+                if (downBlock.Shape == BlockShape.None &&
+                    !SelfGameController.Inst.CheckPressureBlockIncludeBlock(downBlock))
                 {
-                    StateManger._instance.ChangeState(BlockState.Hovering, block);
+                    int row = downBlock.Row + 1;
+                    int col = downBlock.Col - 1;
+                    for (int i = row; i < ConstValues.MAX_ROW; i++)
+                    {
+                        var t_block = SelfGameController.Inst.blockMatrix[i, col];
+                        if (t_block.Shape == BlockShape.None || t_block.State == BlockState.Hovering)
+                            break;
+                        StateManger._instance.ChangeState(BlockState.Hovering, t_block);
+                    }
                 }
             }
-            
         }
 
 
@@ -78,9 +88,8 @@ namespace Demo
             base.Update(pressureBlock);
             if (!pressureBlock.HasObstacleWithDown())
             {
-                StateManger._instance.ChangeState(BlockState.Falling,pressureBlock);
+                StateManger._instance.ChangeState(BlockState.Falling, pressureBlock);
             }
-            
         }
 
         public override void Exit(PressureBlock block)

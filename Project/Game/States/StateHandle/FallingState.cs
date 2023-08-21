@@ -48,6 +48,10 @@ namespace Demo
                 {
                     StateManger._instance.ChangeState(BlockState.Landing, block);
                 }
+                else if (downBlock.Shape != BlockShape.None && downBlock.State == BlockState.Landing)
+                {
+                    StateManger._instance.ChangeState(BlockState.Landing, block);
+                }
             }, ConstValues.fallingFps * ConstValues.fpsTime);
         }
 
@@ -73,7 +77,7 @@ namespace Demo
                 }
             }, ConstValues.fallingFps * ConstValues.fpsTime);
         }
-        
+
         public override void Exit(PressureBlock block)
         {
             base.Exit(block);

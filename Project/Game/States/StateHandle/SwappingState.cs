@@ -20,8 +20,7 @@ namespace Demo
 
         public override void Update(Block block)
         {
-            if (block.Shape == BlockShape.None)
-                return;
+            //非空卡牌交换，找下面的牌
             if (block.Row == 1)
             {
                 StateManger._instance.ChangeState(BlockState.Normal, block);
@@ -36,11 +35,13 @@ namespace Demo
             {
                 StateManger._instance.ChangeStageEnter(BlockState.Normal, block);
             }
-            else if (downBlock.Shape == BlockShape.None && !SelfGameController.Inst.CheckPressureBlockIncludeBlock(downBlock))
+            else if (downBlock.Shape == BlockShape.None &&
+                     !SelfGameController.Inst.CheckPressureBlockIncludeBlock(downBlock))
             {
                 StateManger._instance.ChangeState(BlockState.Hovering, block);
             }
-            else if (downBlock.Shape == BlockShape.None && SelfGameController.Inst.CheckPressureBlockIncludeBlock(downBlock))
+            else if (downBlock.Shape == BlockShape.None &&
+                     SelfGameController.Inst.CheckPressureBlockIncludeBlock(downBlock))
             {
                 StateManger._instance.ChangeStageEnter(BlockState.Normal, block);
             }
@@ -74,13 +75,14 @@ namespace Demo
                 if (NetManager.Instance.Multiplayer)
                 {
                     Debug.LogError("开始交换请求");
-                    NetManager.Instance.GameSwapReq(TimerMgr._Instance.Frame, (_controller as SelfGameController)?.selectBlock, otherBlock,true,DoSwap);
+                    NetManager.Instance.GameSwapReq(TimerMgr._Instance.Frame,
+                        (_controller as SelfGameController)?.selectBlock, otherBlock, true, DoSwap);
                 }
                 else
                 {
                     var selectBlock = (_controller as SelfGameController)?.selectBlock;
-                    DoSwap(selectBlock, otherBlock,true);
-                    
+                    DoSwap(selectBlock, otherBlock, true);
+
                     //对手镜像交换
                     var otherController = OtherGameController.Inst;
                     int row_s = selectBlock.Row;
@@ -89,20 +91,20 @@ namespace Demo
                     int col_o = otherBlock.Col;
                     var selectBlock_Other = otherController.blockMatrix[row_s, col_s - 1];
                     var otherBlock_Other = otherController.blockMatrix[row_o, col_o - 1];
-                    DoSwap(selectBlock_Other, otherBlock_Other,false);
+                    DoSwap(selectBlock_Other, otherBlock_Other, false);
                 }
             }
         }
 
 
-        private void DoSwap(Block block_1, Block block_2,bool isSelf = false)
+        private void DoSwap(Block block_1, Block block_2, bool isSelf = false)
         {
             var block_1_Pos = isSelf ? block_1.dragBeginPos : block_1.transform.localPosition;
             var block_2_Pos = block_2.transform.localPosition;
 
             // block_1.State = BlockState.Swapping;
             // block_2.State = BlockState.Swapping;
-            if(isSelf)
+            if (isSelf)
                 StateManger._instance.ChangeStageEnter(BlockState.Swapping, block_1, block_2);
 
             //表现部分
@@ -115,7 +117,7 @@ namespace Demo
                     block_2.transform.DOScale(1f, 5 * ConstValues.fpsTime).OnComplete((() =>
                     {
                         //swaping 状态下的状态更新 
-                        if(isSelf)
+                        if (isSelf)
                             StateManger._instance.ChangeStageUpdate(BlockState.Swapping, block_1, block_2);
                         //StateManger._instance.ChangeStageEnter(BlockState.Normal,block_1,block_2);
                     }));
@@ -159,7 +161,6 @@ namespace Demo
                     block_2.ChangeBlockObjName();
                 }
             }
-            
         }
     }
 }
