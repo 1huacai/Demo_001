@@ -169,13 +169,15 @@ namespace Demo
                 block2 = blockInfo_2
             };
             
+            //客户端操作不能等服务器回复，不然会卡顿
+            callBack?.Invoke(block_1,block_2,isSelf);
+            
             NetSender.Send<C2S_Protocol.game_swap>(req,(rsp =>
             {
                 var data = rsp as C2S_SprotoType.game_swap.response;
                 if (data.e == 0)
                 {
-                    Debug.LogError("交换请求验证完毕!!!");
-                    callBack?.Invoke(block1,block2,isSelf);
+                    Debug.LogError($"{block1.Row}-{block1.Col} 和 {block2.Row}-{block2.Col} 交换验证通过!!!");
                 }
             }));
         }

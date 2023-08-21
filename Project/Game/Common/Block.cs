@@ -62,7 +62,7 @@ namespace Demo
 
         private void OnMouseDown()
         {
-            if(!SelfGameController.Inst.gameStart)
+            if(!SelfGameController.Inst.gameStart || GenByGarbage)
                 return;
             if (shape != BlockShape.None && BlockOperationEvent != null)
             {
@@ -75,7 +75,7 @@ namespace Demo
 
         private void OnMouseUp()
         {
-            if(!SelfGameController.Inst.gameStart)
+            if(!SelfGameController.Inst.gameStart || GenByGarbage)
                 return;
             
             if (!IsSelected)
@@ -93,7 +93,7 @@ namespace Demo
 
         public void OnDrag(PointerEventData eventData)
         {
-            if(!SelfGameController.Inst.gameStart)
+            if(!SelfGameController.Inst.gameStart || GenByGarbage)
                 return;
             
             if (!IsSelected)
@@ -354,13 +354,6 @@ namespace Demo
                     otherController.blockMatrix[downBlock_Other.Row, downBlock_Other.Col - 1] = downBlock_Other;
                 }
             }
-        }
-
-        private void OnDestroy()
-        {
-            // Destroy(gameObject);
-            // manger.blockMatrix[Row, Col - 1] = null;
-            // Debug.LogError($"已删除{Row}-{Col}");
         }
     }
 }
