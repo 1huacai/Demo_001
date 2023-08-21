@@ -19,8 +19,8 @@ namespace Demo
         public delegate void TimerHandler();
         private Dictionary<int, TimerNode> timers = null; //存放Timer对象
 
-        private List<TimerNode> removeTimers = null; //新增Timer缓存队列
-        private List<TimerNode> newAddTimers = null; //删除Timer缓存队列
+        private List<TimerNode> removeTimers = new List<TimerNode>(); //新增Timer缓存队列
+        private List<TimerNode> newAddTimers = new List<TimerNode>(); //删除Timer缓存队列
 
         private int autoIncId = 1; //每个Timer的唯一标示
         private static TimerMgr _ins;
@@ -42,8 +42,8 @@ namespace Demo
         {
             timers = new Dictionary<int, TimerNode>();
             autoIncId = 1;
-            removeTimers = new List<TimerNode>();
-            newAddTimers = new List<TimerNode>();
+            // removeTimers = new List<TimerNode>();
+            // newAddTimers = new List<TimerNode>();
         }
 
         /// <summary>
