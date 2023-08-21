@@ -97,7 +97,7 @@ namespace Demo
             other_BlockBoard = other_Board.Find("BlockBoard");
             other_PressureBoard = other_Board.Find("PressureBoard");
             other_EffectArea = other_Board.Find("EffectArea");
-            other_Userpart = transform.Find("other_Userpart");
+            other_Userpart = transform.Find("OtherUserPart");
             other_UserName = other_Userpart.Find("UserName").GetComponent<Text>();
             
             reGenBlockBtn = transform.Find("ReGenBlockBtn").GetComponent<Button>();
