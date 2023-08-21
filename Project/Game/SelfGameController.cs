@@ -60,9 +60,6 @@ namespace Demo
             genNewRowCount = 1;
             chainCountArray.Clear();
             pressureBlocks.Clear();
-            // //预先清空所有计时器
-            // TimerMgr._Instance.RemoveAllTimer();
-            //gameStart = true;
         }
 
         private bool boardStopRise = false;

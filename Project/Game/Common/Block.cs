@@ -273,15 +273,22 @@ namespace Demo
         //获取玩家棋盘block的位置
         public Vector3 GetSelfPos(int row, int col)
         {
-            return  new Vector3(ConstValues.SELF_BLOCK_X_ORIGINPOS + +(col - 1) * ConstValues.SELF_BLOCK_X_OFFSET,
+            var offLine_Pos = new Vector3(ConstValues.SELF_BLOCK_X_ORIGINPOS +(col - 1) * ConstValues.SELF_BLOCK_X_OFFSET,
                 ConstValues.SELF_BLOCK_Y_ORIGINPOS + (row - SelfGameController.Inst.GenNewRowCount + 1) * ConstValues.SELF_BLOCK_Y_OFFSET,0f);
+            //TODO 暂时加入测试多人模式
+            var onLine_Pos = new Vector3(ConstValues.SELF_BLOCK_X_ORIGINPOS +(col - 1) * ConstValues.SELF_BLOCK_X_OFFSET,
+                ConstValues.SELF_BLOCK_Y_ORIGINPOS + (row - 1) * ConstValues.SELF_BLOCK_Y_OFFSET,0f);
+            return NetManager.Instance.Multiplayer ? onLine_Pos : offLine_Pos;
         }
         
         //获取对手棋盘block的位置
         public Vector3 GetOtherPos(int row, int col)
         {
-            return new Vector3(ConstValues.OTHER_BLOCK_X_ORIGINPOS + +(col - 1) * ConstValues.OTHER_BLOCK_X_OFFSET,
+            var offLine_Pos = new Vector3(ConstValues.OTHER_BLOCK_X_ORIGINPOS +(col - 1) * ConstValues.OTHER_BLOCK_X_OFFSET,
                 ConstValues.OTHER_BLOCK_Y_ORIGINPOS + (row - SelfGameController.Inst.GenNewRowCount + 1) * ConstValues.OTHER_BLOCK_Y_OFFSET,0f);
+            var onLine_Pos = new Vector3(ConstValues.OTHER_BLOCK_X_ORIGINPOS +(col - 1) * ConstValues.OTHER_BLOCK_X_OFFSET,
+                ConstValues.OTHER_BLOCK_Y_ORIGINPOS + (row - 1) * ConstValues.OTHER_BLOCK_Y_OFFSET,0f);
+            return NetManager.Instance.Multiplayer ? onLine_Pos : offLine_Pos;
         }
         
         #endregion
