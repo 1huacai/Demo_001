@@ -169,7 +169,7 @@ namespace Demo
             selfController.InitGame();
                 
             //显示玩家和对手用户名
-            SetMultiplayerInfo(selfController.selfUserName_OtherName[0], selfController.selfUserName_OtherName[1]);
+            SetMultiplayerInfo(selfController.selfUserName, selfController.otehrUserName);
             
             //构建己方棋子
             var blockBuffer = selfController.blockBufferWithNet;

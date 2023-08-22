@@ -15,7 +15,10 @@ namespace Demo
                 Debug.LogError("========= match_success");
                 var requst = data as S2C_SprotoType.matching_success.request;
                 var players = requst.players;
-                SelfGameController.Inst.selfUserName_OtherName = new[] {players[0].rname, players[1].rname};
+                SelfGameController.Inst.otehrUserName = 
+                    SelfGameController.Inst.selfUserName == players[0].rname
+                    ? players[1].rname
+                    : players[0].rname;
                 Debug.LogError($"对战玩家{players[0].rname} vs {players[1].rname}");
                 return null;
             });

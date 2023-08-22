@@ -43,7 +43,8 @@ namespace Demo
         public string blockBufferWithNet;//多人模式下从服务器获取的block配置
         
         //比赛中玩家和对手用户名
-        public string[] selfUserName_OtherName;
+        public string selfUserName;
+        public string otehrUserName;
         
         #region 游戏逻辑部分
 

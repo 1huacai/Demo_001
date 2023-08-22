@@ -86,6 +86,7 @@ namespace Demo
                         {
                             var data = rsp2 as C2S_SprotoType.login.response;
                             Debug.LogError($"login response:{data.e}--rename - {data.rname}--render - {data.render}");
+                            SelfGameController.Inst.selfUserName = data.rname;
                             Server_Logined = true;
                         }));
 
