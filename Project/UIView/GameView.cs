@@ -1,49 +1,117 @@
-﻿using UnityEngine;
-using FrameWork.Manager;
-using FrameWork.Audio;
+﻿using Demo.Tools;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Demo
 {
     public class GameView : UIBase
     {
-        private Transform boards;//棋盘
-        private Transform blockBoard;//block棋盘
-        private Transform pressureBoard;//压力块棋盘
-        private Transform effectArea;//特效区域
+        private Transform self_Board;//玩家棋盘
+        private Transform other_Board;// 对手棋盘
+        
+        private Transform self_BlockBoard;//玩家block棋盘
+        private Transform other_BlockBoard;//对手block棋盘
+        
+        private Transform self_PressureBoard;//玩家压力块棋盘
+        private Transform other_PressureBoard;//对手压力块棋盘
+        
+        private Transform self_EffectArea;//玩家特效特效区域
+        private Transform other_EffectArea;//对手特效区域
+        
+        private Button reGenBlockBtn;
+        private Button riseBoardBtn;
+        private Button settingBtn;
 
-        public Transform Boards
+        private float selfBlockBoardOffsetX;//玩家棋盘横向动态偏移
+        #region Get/Set
+
+        public Transform Self_Board
         {
-            get { return boards; }
-        }
-        
-        public Transform BlockBoard
-        {
-            get { return blockBoard; }
+            get { return self_Board; }
         }
 
-        public Transform PressureBoard
+        public Transform Other_Board
         {
-            get { return pressureBoard; }
+            get { return other_Board; }
         }
 
-        public Transform EffectArea
+        public Transform Self_BlockBoard
         {
-            get { return effectArea; }
+            get { return self_BlockBoard; }
+        }
+
+        public Transform Other_BlockBoard
+        {
+            get { return other_BlockBoard; }
+        }
+
+        public Transform Self_PressureBoard
+        {
+            get { return self_PressureBoard; }
+        }
+
+        public Transform Other_PressureBoard
+        {
+            get { return other_PressureBoard; }
+        }
+
+
+        public Transform Self_EffectArea
+        {
+            get { return self_EffectArea; }
+        }
+
+        public Transform Other_EffectArea
+        {
+            get { return other_EffectArea; }
+        }
+
+        public float SelfBlockBoardOffsetX
+        {
+            get { return selfBlockBoardOffsetX; }
         }
         
+        #endregion
         
         
-        private AorButton reGenBlockBtn;
         
         public override void InitUI(params object[] msg)
         {
-            boards = transform.Find("PlayerArea/Boards");
-            blockBoard = boards.Find("BlockBoard");
-            pressureBoard = boards.Find("PressureBoard");
-            effectArea = boards.Find("EffectArea");
-            reGenBlockBtn = transform.Find("PlayerArea/ReGenBlockBtn").GetComponent<AorButton>();
+            //自己棋盘
+            self_Board = transform.Find("PlayerAreas/SelfPlayerArea/Board");
+            self_BlockBoard = self_Board.Find("BlockBoard");
+            self_PressureBoard = self_Board.Find("PressureBoard");
+            self_EffectArea = self_Board.Find("EffectArea");
+            selfBlockBoardOffsetX = (Screen.width - self_BlockBoard.GetComponent<RectTransform>().sizeDelta.x)/2f;
+
+            //对手棋盘
+            other_Board = transform.Find("PlayerAreas/OtherPlayerArea/Board");
+            other_BlockBoard = other_Board.Find("BlockBoard");
+            other_PressureBoard = other_Board.Find("PressureBoard");
+            other_EffectArea = other_Board.Find("EffectArea");
             
-            GameManger.Inst.InitGame();
+            
+            reGenBlockBtn = transform.Find("ReGenBlockBtn").GetComponent<Button>();
+            riseBoardBtn = transform.Find("RiseBoardBtn").GetComponent<Button>();
+            settingBtn = transform.Find("SettingBtn").GetComponent<Button>();
+            
+            //单人模式下 TODO 单人模式下己方和敌方棋盘生成后期需要修改
+            if (!NetManager.Instance.Multiplayer)
+            {
+                var selfController = SelfGameController.Inst;
+                selfController.InitGame();
+                
+                //构建己方棋子
+                var blockDatas =  selfController.GenBlockDatas(selfController.stageConfigs, 4);
+                selfController.GenBlocks(blockDatas, Self_BlockBoard,true);
+                StateManger._instance.Init(selfController);
+                TimerMgr._Instance.Init();
+                
+                //构建对手棋子（镜像）
+                var otherController = OtherGameController.Inst;
+                otherController.InitGame();
+                otherController.GenBlocks(blockDatas, other_BlockBoard,false);
+            }
         }
 
         public override void RefreshShow(params object[] msg)
@@ -55,6 +123,10 @@ namespace Demo
         {
             reGenBlockBtn.onClick.RemoveAllListeners();
             reGenBlockBtn.onClick.AddListener(ReGenBlockBtnCallback);
+            riseBoardBtn.onClick.RemoveAllListeners();
+            riseBoardBtn.onClick.AddListener(() => { SelfGameController.Inst.riseUpBtn = true; });
+            settingBtn.onClick.RemoveAllListeners();
+            settingBtn.onClick.AddListener(()=>{ Debug.LogError("打开设置界面"); });
         }
 
         public override void UnRegisterEvent()
@@ -75,23 +147,34 @@ namespace Demo
         
         public void DestroyAllBlocks()
         {
-            for (int i = 0; i < GameManger.Inst.blockMatrix.GetLength(0); i++)
+            //预先清空所有计时器
+            TimerMgr._Instance.RemoveAllTimer();
+            
+            for (int i = 0; i < SelfGameController.Inst.blockMatrix.GetLength(0); i++)
             {
-                for (int j = 0; j < GameManger.Inst.blockMatrix.GetLength(1); j++)
+                for (int j = 0; j < SelfGameController.Inst.blockMatrix.GetLength(1); j++)
                 {
-                    if (GameManger.Inst.blockMatrix[i, j] != null)
+                    if (SelfGameController.Inst.blockMatrix[i, j] != null)
                     {
-                        GameObject.Destroy(GameManger.Inst.blockMatrix[i,j].gameObject);
-                        GameManger.Inst.blockMatrix[i, j] = null;
+                        GameObject.Destroy(SelfGameController.Inst.blockMatrix[i,j].gameObject);
+                        SelfGameController.Inst.blockMatrix[i, j] = null;
                     }
                 }
             }
 
-            GameManger.Inst.GenNewRowCount = 1;
-            boards.localPosition = Vector3.zero;
-            var blockDatas = GameManger.Inst.GenBlockDatas(4);
+            for (int i = 0; i < SelfGameController.Inst.pressureBlocks.Count; i++)
+            {
+                var pressureBlockObj = SelfGameController.Inst.pressureBlocks[i].gameObject;
+                Destroy(pressureBlockObj);
+            }
+            SelfGameController.Inst.pressureBlocks.Clear();
+            
+            
+            SelfGameController.Inst.GenNewRowCount = 1;
+            self_Board.localPosition = Vector3.zero;
+            var blockDatas = SelfGameController.Inst.GenBlockDatas(SelfGameController.Inst.stageConfigs,4);
             //根据数据构建所有棋子obj
-            GameManger.Inst.GenBlocks(blockDatas,blockBoard);
+            SelfGameController.Inst.GenBlocks(blockDatas,self_BlockBoard);
         }
 
     }

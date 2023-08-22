@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated January 1, 2020. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2020, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -31,13 +31,12 @@
 #define NEW_PREFAB_SYSTEM
 #endif
 
-#if UNITY_2021_2_OR_NEWER
-#define PUBLIC_SET_ICON_FOR_OBJECT
-#endif
-
-using System.Reflection;
-using UnityEditor;
 using UnityEngine;
+using UnityEditor;
+using UnityEditor.AnimatedValues;
+using System.Collections.Generic;
+using Spine;
+using System.Reflection;
 
 namespace Spine.Unity.Editor {
 	using Icons = SpineEditorUtilities.Icons;
@@ -52,7 +51,7 @@ namespace Spine.Unity.Editor {
 
 #if !NEW_PREFAB_SYSTEM
 		bool isPrefab;
-#endif
+		#endif
 
 		readonly GUIContent SpawnHierarchyButtonLabel = new GUIContent("Spawn Hierarchy", Icons.skeleton);
 
@@ -66,7 +65,8 @@ namespace Spine.Unity.Editor {
 				if (skeletonRenderer != null) {
 					skeletonRenderer.Initialize(false);
 					skeletonRenderer.LateUpdate();
-				} else if (skeletonGraphic != null) {
+				}
+				else if (skeletonGraphic != null) {
 					skeletonGraphic.Initialize(false);
 					skeletonGraphic.LateUpdate();
 				}
@@ -76,25 +76,25 @@ namespace Spine.Unity.Editor {
 			if ((skeletonRenderer != null && !skeletonRenderer.valid) ||
 				(skeletonGraphic != null && !skeletonGraphic.IsValid)) return;
 
-#if !NEW_PREFAB_SYSTEM
+			#if !NEW_PREFAB_SYSTEM
 			isPrefab |= PrefabUtility.GetPrefabType(this.target) == PrefabType.Prefab;
-#endif
+			#endif
 		}
 
 		public override void OnInspectorGUI () {
 
-#if !NEW_PREFAB_SYSTEM
+			#if !NEW_PREFAB_SYSTEM
 			if (isPrefab) {
 				GUILayout.Label(new GUIContent("Cannot edit Prefabs", Icons.warning));
 				return;
 			}
-#endif
+			#endif
 
 			serializedObject.Update();
 
 			if ((skeletonRenderer != null && !skeletonRenderer.valid) ||
 				(skeletonGraphic != null && !skeletonGraphic.IsValid)) {
-				GUILayout.Label(new GUIContent("Spine Component invalid. Check SkeletonData asset.", Icons.warning));
+				GUILayout.Label(new GUIContent("Spine Component invalid. Check Skeleton Data Asset.", Icons.warning));
 				return;
 			}
 
@@ -129,7 +129,7 @@ namespace Spine.Unity.Editor {
 		}
 
 		void SpawnHierarchyContextMenu () {
-			GenericMenu menu = new GenericMenu();
+			var menu = new GenericMenu();
 
 			menu.AddItem(new GUIContent("Follow all bones"), false, SpawnFollowHierarchy);
 			menu.AddItem(new GUIContent("Follow (Root Only)"), false, SpawnFollowHierarchyRootOnly);
@@ -149,20 +149,17 @@ namespace Spine.Unity.Editor {
 					icon = Icons.constraintNib;
 					break;
 				}
-#if PUBLIC_SET_ICON_FOR_OBJECT
-			EditorGUIUtility.SetIconForObject(boneComponent.gameObject, icon);
-#else
+
 			typeof(EditorGUIUtility).InvokeMember("SetIconForObject", BindingFlags.InvokeMethod | BindingFlags.Static | BindingFlags.NonPublic, null, null, new object[2] {
 				boneComponent.gameObject,
 				icon
 			});
-#endif
 		}
 
 		static void AttachIconsToChildren (Transform root) {
 			if (root != null) {
-				SkeletonUtilityBone[] utilityBones = root.GetComponentsInChildren<SkeletonUtilityBone>();
-				foreach (SkeletonUtilityBone utilBone in utilityBones)
+				var utilityBones = root.GetComponentsInChildren<SkeletonUtilityBone>();
+				foreach (var utilBone in utilityBones)
 					AttachIcon(utilBone);
 			}
 		}

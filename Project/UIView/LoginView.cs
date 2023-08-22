@@ -1,24 +1,38 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using FrameWork.Audio;
 using FrameWork.Manager;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using Project;
 
 namespace Demo
 {
     public class LoginView : UIBase
     {
-        AorButton m_singlePlayerBtn;
-        private AorButton m_multiPlayerBtn;
-
+        private Button m_singlePlayerBtn;
+        private Button m_multiPlayerBtn;
+        private GameObject matchWindowObj;
+        private Button cancelMatchBtn;
+        private Text matchTimeText;
+        
+        private float curTime = 0f;
+        private float matchTime = 0;
+        private bool matchStart = false;
+        
         public override void InitUI(params object[] msg)
         {
-            m_singlePlayerBtn = transform.Find("SinglePlayerBtn").GetComponent<AorButton>();
-            m_multiPlayerBtn = transform.Find("MultiPlayerBtn").GetComponent<AorButton>();
+            m_singlePlayerBtn = transform.Find("SinglePlayerBtn").GetComponent<Button>();
+            m_multiPlayerBtn = transform.Find("MultiPlayerBtn").GetComponent<Button>();
+            matchWindowObj = transform.Find("MatchWindow").gameObject;
+            cancelMatchBtn = matchWindowObj.transform.Find("CancelMatchBtn").GetComponent<Button>();
+            matchTimeText = matchWindowObj.transform.Find("MatchTime").GetComponent<Text>();
             
             RefreshShow();
+            NetManager.Instance.Init();
+            NetManager.Instance.ConnetServer();
         }
-
+        
         public override void RefreshShow(params object[] msg)
         {
             SingletonManager.GetManager<AudioManager>().PlayMusic("Sound/BG/City_Autumn_BG");
@@ -31,6 +45,24 @@ namespace Demo
             
             m_multiPlayerBtn.onClick.RemoveAllListeners();
             m_multiPlayerBtn.onClick.AddListener(MultiPlayerGame);
+            
+            cancelMatchBtn.onClick.RemoveAllListeners();
+            cancelMatchBtn.onClick.AddListener(CancelMatch);
+        }
+        
+        protected void Update()
+        {
+            //匹配计时
+            if (matchStart)
+            {
+                curTime += Time.deltaTime;
+                if (curTime >= 1f)
+                {
+                    curTime = 0;
+                    matchTime++;
+                    matchTimeText.text = matchTime.ToString();
+                }
+            }
         }
 
         public override void UnRegisterEvent()
@@ -39,6 +71,7 @@ namespace Demo
 
         public override void Destroy()
         {
+            
         }
         
         private void CloseUI()
@@ -52,6 +85,7 @@ namespace Demo
         private void SinglePlayerGame()
         {
             Debug.LogError("单人游戏");
+            NetManager.Instance.Multiplayer = false;
             UIManager.Inst.OpenUI(UIDef.GameView);
             CloseUI();
         }
@@ -60,10 +94,36 @@ namespace Demo
         private void MultiPlayerGame()
         {
             Debug.LogError("多人游戏");
-            // UIManager.Inst.OpenUI(UIDef.GameView);
-            // CloseUI();
+            matchWindowObj.SetActive(true);
+            NetManager.Instance.MatchStartReq(() =>
+            {
+                matchStart = true;
+            });
+            // NetManager.Instance.GameBattle(() =>
+            // {
+            //     matchStart = true;
+            // });
+        }
+        
+        private void CancelMatch()
+        {
+            matchStart = false;
+            curTime = 0;
+            matchTime = 0;
+            matchTimeText.text = matchTime.ToString();
+            matchWindowObj.SetActive(false);
+            NetManager.Instance.MatchCancelReq();
         }
         #endregion
+        
+        //匹配成功后进入游戏初始化
+        public void GameReadyEnterGame()
+        {
+            matchWindowObj.SetActive(false);
+            UIManager.Inst.OpenUI(UIDef.GameView);
+            CloseUI();
+        }
+        
         
     }
 }

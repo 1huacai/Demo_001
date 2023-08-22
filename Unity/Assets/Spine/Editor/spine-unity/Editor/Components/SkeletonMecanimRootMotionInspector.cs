@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated January 1, 2020. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2020, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -58,7 +58,7 @@ namespace Spine.Unity.Editor {
 			int maxLayerCount = 0;
 			int maxIndex = 0;
 			for (int i = 0; i < targets.Length; ++i) {
-				SkeletonMecanim skeletonMecanim = ((SkeletonMecanimRootMotion)targets[i]).SkeletonMecanim;
+				var skeletonMecanim = ((SkeletonMecanimRootMotion)targets[i]).SkeletonMecanim;
 				int count = skeletonMecanim.Translator.MecanimLayerCount;
 				if (count > maxLayerCount) {
 					maxLayerCount = count;
@@ -67,7 +67,7 @@ namespace Spine.Unity.Editor {
 			}
 			if (maxLayerCount == 0)
 				return new string[0];
-			SkeletonMecanim skeletonMecanimMaxLayers = ((SkeletonMecanimRootMotion)targets[maxIndex]).SkeletonMecanim;
+			var skeletonMecanimMaxLayers = ((SkeletonMecanimRootMotion)targets[maxIndex]).SkeletonMecanim;
 			return skeletonMecanimMaxLayers.Translator.MecanimLayerNames;
 		}
 

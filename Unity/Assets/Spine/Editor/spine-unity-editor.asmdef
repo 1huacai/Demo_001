@@ -1,7 +1,6 @@
 {
     "name": "spine-unity-editor",
     "references": [
-        "spine-csharp",
         "spine-unity"
     ],
     "optionalUnityReferences": [],

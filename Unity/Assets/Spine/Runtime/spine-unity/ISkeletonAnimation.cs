@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated January 1, 2020. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2020, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -37,41 +37,24 @@ namespace Spine.Unity {
 		//Reserved 4 for OnlyEventTimelines
 	};
 
-	public enum UpdateTiming {
-		ManualUpdate = 0,
-		InUpdate,
-		InFixedUpdate
-	}
-
-	public delegate void ISkeletonAnimationDelegate (ISkeletonAnimation animated);
 	public delegate void UpdateBonesDelegate (ISkeletonAnimation animated);
 
-	public interface ISpineComponent { }
-	public static class ISpineComponentExtensions {
-		public static bool IsNullOrDestroyed (this ISpineComponent component) {
-			if (component == null) return true;
-			return (UnityEngine.Object)component == null;
-		}
-	}
-
 	/// <summary>A Spine-Unity Component that animates a Skeleton but not necessarily with a Spine.AnimationState.</summary>
-	public interface ISkeletonAnimation : ISpineComponent {
-		event ISkeletonAnimationDelegate OnAnimationRebuild;
+	public interface ISkeletonAnimation {
 		event UpdateBonesDelegate UpdateLocal;
 		event UpdateBonesDelegate UpdateWorld;
 		event UpdateBonesDelegate UpdateComplete;
 		Skeleton Skeleton { get; }
-		UpdateTiming UpdateTiming { get; set; }
 	}
 
 	/// <summary>Holds a reference to a SkeletonDataAsset.</summary>
-	public interface IHasSkeletonDataAsset : ISpineComponent {
+	public interface IHasSkeletonDataAsset {
 		/// <summary>Gets the SkeletonDataAsset of the Spine Component.</summary>
 		SkeletonDataAsset SkeletonDataAsset { get; }
 	}
 
 	/// <summary>A Spine-Unity Component that manages a Spine.Skeleton instance, instantiated from a SkeletonDataAsset.</summary>
-	public interface ISkeletonComponent : ISpineComponent {
+	public interface ISkeletonComponent {
 		/// <summary>Gets the SkeletonDataAsset of the Spine Component.</summary>
 		//[System.Obsolete]
 		SkeletonDataAsset SkeletonDataAsset { get; }
@@ -81,23 +64,18 @@ namespace Spine.Unity {
 	}
 
 	/// <summary>A Spine-Unity Component that uses a Spine.AnimationState to animate its skeleton.</summary>
-	public interface IAnimationStateComponent : ISpineComponent {
+	public interface IAnimationStateComponent {
 		/// <summary>Gets the Spine.AnimationState of the animated Spine Component. This is equivalent to SkeletonAnimation.state.</summary>
 		AnimationState AnimationState { get; }
-		/// <summary>If enabled, AnimationState time is advanced by Unscaled Game Time
-		/// (<c>Time.unscaledDeltaTime</c> instead of the default Game Time(<c>Time.deltaTime</c>).
-		/// to animate independent of game <c>Time.timeScale</c>.
-		/// Instance SkeletonGraphic.timeScale and SkeletonAnimation.timeScale will still be applied.</summary>
-		bool UnscaledTime { get; set; }
 	}
 
 	/// <summary>A Spine-Unity Component that holds a reference to a SkeletonRenderer.</summary>
-	public interface IHasSkeletonRenderer : ISpineComponent {
+	public interface IHasSkeletonRenderer {
 		SkeletonRenderer SkeletonRenderer { get; }
 	}
 
 	/// <summary>A Spine-Unity Component that holds a reference to an ISkeletonComponent.</summary>
-	public interface IHasSkeletonComponent : ISpineComponent {
+	public interface IHasSkeletonComponent {
 		ISkeletonComponent SkeletonComponent { get; }
 	}
 }

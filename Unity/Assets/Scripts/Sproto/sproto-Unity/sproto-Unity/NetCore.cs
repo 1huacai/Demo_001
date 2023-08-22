@@ -27,7 +27,7 @@ public class NetCore
     private static SprotoStream sendStream = new SprotoStream();
     private static SprotoStream recvStream = new SprotoStream();
 
-    private static ProtocolFunctionDictionary protocol = C2S_Protocol.Instance.Protocol;
+    private static ProtocolFunctionDictionary c2s_protocol = C2S_Protocol.Instance.Protocol;
     private static Dictionary<long, ProtocolFunctionDictionary.typeFunc> sessionDict;
 
     private static AsyncCallback connectCallback = new AsyncCallback(Connected);
@@ -87,7 +87,7 @@ public class NetCore
 
     public static void Send<T>(SprotoTypeBase rpc = null, long? session = null)
     {
-        Send(rpc, session, protocol[typeof(T)]);
+        Send(rpc, session, c2s_protocol[typeof(T)]);
     }
 
     private static int MAX_PACK_LEN = (1 << 16) - 1;
@@ -104,7 +104,7 @@ public class NetCore
         if (session != null)
         {
             pkg.session = (long)session;
-            sessionDict.Add((long)session, protocol[tag].Response.Value);
+            sessionDict.Add((long)session, c2s_protocol[tag].Response.Value);
         }
 
         sendStream.Seek(0, SeekOrigin.Begin);
@@ -215,7 +215,7 @@ public class NetCore
                 RpcReqHandler rpcReqHandler = NetReceiver.GetHandler(tag);
                 if (rpcReqHandler != null)
                 {
-                    SprotoTypeBase rpcRsp = rpcReqHandler(protocol.GenRequest(tag, data, offset));
+                    SprotoTypeBase rpcRsp = rpcReqHandler(c2s_protocol.GenRequest(tag, data, offset));
                     if (pkg.HasSession)
                     {
                         Send(rpcRsp, session, tag);

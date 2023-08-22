@@ -5,14 +5,14 @@ namespace Demo
 {
     public class Statebase
     {
-        protected GameManger _gameManger;
+        protected Controller _controller;
 
         //对应的计时器id，唯一
         protected int timerID = 0;
 
-        public Statebase(GameManger manger)
+        public Statebase(Controller controller)
         {
-            _gameManger = manger;
+            _controller = controller;
         }
 
         public virtual void OnBlockOperation(int row, int col, BlockOperation operation)
@@ -21,7 +21,7 @@ namespace Demo
 
         public virtual void OnDestroy()
         {
-            _gameManger = null;
+            _controller = null;
         }
 
 
@@ -34,7 +34,7 @@ namespace Demo
 
         public virtual void Update(Block block)
         {
-            if (block.Type == BlockType.None)
+            if (block.Shape == BlockShape.None)
                 return;
            
         }
@@ -44,6 +44,21 @@ namespace Demo
            
         }
 
+        public virtual void Enter(PressureBlock pressureBlock)
+        {
+            
+        }
+
+        public virtual void Update(PressureBlock pressureBlock)
+        {
+            
+        }
+        
+        public virtual void Exit(PressureBlock block)
+        {
+           
+        }
+        
         #endregion
     }
 }

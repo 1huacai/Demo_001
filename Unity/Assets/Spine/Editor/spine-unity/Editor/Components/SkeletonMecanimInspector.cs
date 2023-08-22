@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated January 1, 2020. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2020, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -78,9 +78,9 @@ namespace Spine.Unity.Editor {
 		}
 
 		protected void AddRootMotionComponentIfEnabled () {
-			foreach (UnityEngine.Object t in targets) {
-				Component component = t as Component;
-				Animator animator = component.GetComponent<Animator>();
+			foreach (var t in targets) {
+				var component = t as Component;
+				var animator = component.GetComponent<Animator>();
 				if (animator != null && animator.applyRootMotion) {
 					if (component.GetComponent<SkeletonMecanimRootMotion>() == null) {
 						component.gameObject.AddComponent<SkeletonMecanimRootMotion>();
@@ -95,11 +95,11 @@ namespace Spine.Unity.Editor {
 			float widthMixColumn = 84;
 
 			using (new GUILayout.HorizontalScope()) {
-				Rect rect = GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth, EditorGUIUtility.singleLineHeight);
+				var rect = GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth, EditorGUIUtility.singleLineHeight);
 				rect.width = widthLayerColumn;
 				EditorGUI.LabelField(rect, SpineInspectorUtility.TempContent("Mecanim Layer"), EditorStyles.boldLabel);
 
-				int savedIndent = EditorGUI.indentLevel;
+				var savedIndent = EditorGUI.indentLevel;
 				EditorGUI.indentLevel = 0;
 
 				rect.position += new Vector2(rect.width, 0);
@@ -115,14 +115,14 @@ namespace Spine.Unity.Editor {
 					using (new GUILayout.HorizontalScope()) {
 						string layerName = i < layerNames.Length ? layerNames[i] : ("Layer " + i);
 
-						Rect rect = GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth, EditorGUIUtility.singleLineHeight);
+						var rect = GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth, EditorGUIUtility.singleLineHeight);
 						rect.width = widthLayerColumn;
 						EditorGUI.PrefixLabel(rect, SpineInspectorUtility.TempContent(layerName));
 
-						int savedIndent = EditorGUI.indentLevel;
+						var savedIndent = EditorGUI.indentLevel;
 						EditorGUI.indentLevel = 0;
 
-						SerializedProperty mixMode = layerMixModes.GetArrayElementAtIndex(i);
+						var mixMode = layerMixModes.GetArrayElementAtIndex(i);
 						rect.position += new Vector2(rect.width, 0);
 						rect.width = widthMixColumn;
 						EditorGUI.PropertyField(rect, mixMode, GUIContent.none);
@@ -137,7 +137,7 @@ namespace Spine.Unity.Editor {
 			int maxLayerCount = 0;
 			int maxIndex = 0;
 			for (int i = 0; i < targets.Length; ++i) {
-				SkeletonMecanim skeletonMecanim = ((SkeletonMecanim)targets[i]);
+				var skeletonMecanim = ((SkeletonMecanim)targets[i]);
 				int count = skeletonMecanim.Translator.MecanimLayerCount;
 				if (count > maxLayerCount) {
 					maxLayerCount = count;
@@ -146,7 +146,7 @@ namespace Spine.Unity.Editor {
 			}
 			if (maxLayerCount == 0)
 				return new string[0];
-			SkeletonMecanim skeletonMecanimMaxLayers = ((SkeletonMecanim)targets[maxIndex]);
+			var skeletonMecanimMaxLayers = ((SkeletonMecanim)targets[maxIndex]);
 			return skeletonMecanimMaxLayers.Translator.MecanimLayerNames;
 		}
 	}

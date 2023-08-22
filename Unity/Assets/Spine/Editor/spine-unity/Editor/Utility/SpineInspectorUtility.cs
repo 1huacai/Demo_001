@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated January 1, 2020. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2020, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -27,10 +27,10 @@
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
+using UnityEngine;
+using UnityEditor;
 using System.Collections.Generic;
 using System.Reflection;
-using UnityEditor;
-using UnityEngine;
 
 namespace Spine.Unity.Editor {
 	public static class SpineInspectorUtility {
@@ -108,11 +108,11 @@ namespace Spine.Unity.Editor {
 			return current.type == EventType.ValidateCommand && current.commandName == "UndoRedoPerformed";
 		}
 
-		public static Texture2D UnityIcon<T> () {
+		public static Texture2D UnityIcon<T>() {
 			return EditorGUIUtility.ObjectContent(null, typeof(T)).image as Texture2D;
 		}
 
-		public static Texture2D UnityIcon (System.Type type) {
+		public static Texture2D UnityIcon(System.Type type) {
 			return EditorGUIUtility.ObjectContent(null, type).image as Texture2D;
 		}
 
@@ -282,9 +282,9 @@ namespace Spine.Unity.Editor {
 		public static bool TargetsUseSameData (SerializedObject so) {
 			if (so.isEditingMultipleObjects) {
 				int n = so.targetObjects.Length;
-				IHasSkeletonDataAsset first = so.targetObjects[0] as IHasSkeletonDataAsset;
+				var first = so.targetObjects[0] as IHasSkeletonDataAsset;
 				for (int i = 1; i < n; i++) {
-					IHasSkeletonDataAsset sr = so.targetObjects[i] as IHasSkeletonDataAsset;
+					var sr = so.targetObjects[i] as IHasSkeletonDataAsset;
 					if (sr != null && sr.SkeletonDataAsset != first.SkeletonDataAsset)
 						return false;
 				}
@@ -294,20 +294,20 @@ namespace Spine.Unity.Editor {
 
 		public static SerializedObject GetRenderersSerializedObject (SerializedObject serializedObject) {
 			if (serializedObject.isEditingMultipleObjects) {
-				List<Object> renderers = new List<Object>();
-				foreach (UnityEngine.Object o in serializedObject.targetObjects) {
-					Component component = o as Component;
+				var renderers = new List<Object>();
+				foreach (var o in serializedObject.targetObjects) {
+					var component = o as Component;
 					if (component != null) {
-						Renderer renderer = component.GetComponent<Renderer>();
+						var renderer = component.GetComponent<Renderer>();
 						if (renderer != null)
 							renderers.Add(renderer);
 					}
 				}
 				return new SerializedObject(renderers.ToArray());
 			} else {
-				Component component = serializedObject.targetObject as Component;
+				var component = serializedObject.targetObject as Component;
 				if (component != null) {
-					Renderer renderer = component.GetComponent<Renderer>();
+					var renderer = component.GetComponent<Renderer>();
 					if (renderer != null)
 						return new SerializedObject(renderer);
 				}
@@ -325,7 +325,7 @@ namespace Spine.Unity.Editor {
 		static MethodInfo SortingLayerFieldMethod {
 			get {
 				if (m_SortingLayerFieldMethod == null)
-					m_SortingLayerFieldMethod = typeof(EditorGUILayout).GetMethod("SortingLayerField", BindingFlags.Static | BindingFlags.NonPublic, null, new[] { typeof(GUIContent), typeof(SerializedProperty), typeof(GUIStyle) }, null);
+					m_SortingLayerFieldMethod = typeof(EditorGUILayout).GetMethod("SortingLayerField", BindingFlags.Static | BindingFlags.NonPublic, null, new [] { typeof(GUIContent), typeof(SerializedProperty), typeof(GUIStyle) }, null);
 
 				return m_SortingLayerFieldMethod;
 			}
@@ -336,8 +336,8 @@ namespace Spine.Unity.Editor {
 			public SerializedProperty sortingLayerID;
 			public SerializedProperty sortingOrder;
 
-			public SerializedSortingProperties (Renderer r) : this(new SerializedObject(r)) { }
-			public SerializedSortingProperties (Object[] renderers) : this(new SerializedObject(renderers)) { }
+			public SerializedSortingProperties (Renderer r) : this(new SerializedObject(r)) {}
+			public SerializedSortingProperties (Object[] renderers) : this(new SerializedObject(renderers)) {}
 
 			public SerializedSortingProperties (SerializedObject rendererSerializedObject) {
 				renderer = rendererSerializedObject;
@@ -350,7 +350,7 @@ namespace Spine.Unity.Editor {
 
 				// SetDirty
 				if (renderer.isEditingMultipleObjects)
-					foreach (UnityEngine.Object o in renderer.targetObjects)
+					foreach (var o in renderer.targetObjects)
 						EditorUtility.SetDirty(o);
 				else
 					EditorUtility.SetDirty(renderer.targetObject);
@@ -362,7 +362,7 @@ namespace Spine.Unity.Editor {
 				EditorGUI.BeginChangeCheck();
 
 			if (SpineInspectorUtility.SortingLayerFieldMethod != null && prop.sortingLayerID != null)
-				SpineInspectorUtility.SortingLayerFieldMethod.Invoke(null, new object[] { SortingLayerLabel, prop.sortingLayerID, EditorStyles.popup });
+				SpineInspectorUtility.SortingLayerFieldMethod.Invoke(null, new object[] { SortingLayerLabel, prop.sortingLayerID, EditorStyles.popup } );
 			else
 				EditorGUILayout.PropertyField(prop.sortingLayerID);
 

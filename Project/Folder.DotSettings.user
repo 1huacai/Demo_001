@@ -1,7 +1,12 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=D_003A_005CLUWENHAI_005CUnity_005C2019_002E4_002E40f1_005CEditor_005CData_005CManaged_005CUnityEngine_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=D_003A_005CLUWENHAI_005CUProject_005CPanelDemo_005CUnity_005CAssets_005CResources_005CPlugins_005CDOTween43_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=D_003A_005CLUWENHAI_005CUProject_005CPanelDemo_005CUnity_005CAssets_005CResources_005CPlugins_005CDOTween46_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=D_003A_005CLUWENHAI_005CUProject_005CPanelDemo_005CUnity_005CAssets_005CResources_005CPlugins_005CDOTween_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=D_003A_005CLUWENHAI_005CUProject_005CPanelDemo_005CUnity_005CDLL_005Cspine_002Dunity_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=D_003A_005CLUWENHAI_005CUProject_005CPanelDemo_005CUnity_005CTemp_005Cbin_005CDebug_005Cspine_002Dunity_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=D_003A_005CUsers_005Csunny_005CDesktop_005CDOTween_005CDOTween_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="D:\LUWENHAI\UProject\PanelDemo\Unity\Assets\Resources\Plugins\DOTween46.dll" /&gt;&#xD;
+  &lt;Assembly Path="D:\LUWENHAI\UProject\PanelDemo\frame\UnityDllExprots\Current\UnityEngine.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>

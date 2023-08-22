@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated January 1, 2020. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2020, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -27,10 +27,13 @@
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-using System;
-using System.Reflection;
-using UnityEditor;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+
+using System.Reflection;
+using System;
 
 namespace Spine.Unity.Editor {
 	using Editor = UnityEditor.Editor;
@@ -38,7 +41,7 @@ namespace Spine.Unity.Editor {
 	[CustomEditor(typeof(AnimationReferenceAsset))]
 	public class AnimationReferenceAssetEditor : Editor {
 
-		const string InspectorHelpText = "This is a Spine-Unity Animation Reference Asset. It serializes a reference to a SkeletonData asset and an animationName. It does not contain actual animation data. At runtime, it stores a reference to a Spine.Animation.\n\n" +
+		const string InspectorHelpText = "This is a Spine-Unity Animation Reference Asset. It serializes a reference to a SkeletonDataAsset and an animationName. It does not contain actual animation data. At runtime, it stores a reference to a Spine.Animation.\n\n" +
 				"You can use this in your AnimationState calls instead of a string animation name or a Spine.Animation reference. Use its implicit conversion into Spine.Animation or its .Animation property.\n\n" +
 				"Use AnimationReferenceAssets as an alternative to storing strings or finding animations and caching per component. This only does the lookup by string once, and allows you to store and manage animations via asset references.";
 
@@ -68,7 +71,7 @@ namespace Spine.Unity.Editor {
 
 			Animation animation = null;
 			if (ThisSkeletonDataAsset != null) {
-				SkeletonData skeletonData = ThisSkeletonDataAsset.GetSkeletonData(true);
+				var skeletonData = ThisSkeletonDataAsset.GetSkeletonData(true);
 				if (skeletonData != null) {
 					animation = skeletonData.FindAnimation(animationName);
 				}
@@ -93,6 +96,9 @@ namespace Spine.Unity.Editor {
 				if (!string.IsNullOrEmpty(animationNameProperty.stringValue))
 					preview.PlayPauseAnimation(animationNameProperty.stringValue, true);
 			}
+
+			lastSkeletonDataAsset = ThisSkeletonDataAsset;
+			lastSkeletonData = ThisSkeletonDataAsset.GetSkeletonData(true);
 
 			//EditorGUILayout.HelpBox(AnimationReferenceAssetEditor.InspectorHelpText, MessageType.Info, true);
 			EditorGUILayout.Space();
@@ -122,9 +128,6 @@ namespace Spine.Unity.Editor {
 					}
 				}
 			}
-
-			lastSkeletonDataAsset = ThisSkeletonDataAsset;
-			lastSkeletonData = ThisSkeletonDataAsset.GetSkeletonData(true);
 		}
 
 		#region Preview Handlers

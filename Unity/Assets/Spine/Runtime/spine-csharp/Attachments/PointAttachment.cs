@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated January 1, 2020. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2020, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -45,14 +45,6 @@ namespace Spine {
 			: base(name) {
 		}
 
-		/** Copy constructor. */
-		protected PointAttachment (PointAttachment other)
-			: base(other) {
-			x = other.x;
-			y = other.y;
-			rotation = other.rotation;
-		}
-
 		public void ComputeWorldPosition (Bone bone, out float ox, out float oy) {
 			bone.LocalToWorld(this.x, this.y, out ox, out oy);
 		}
@@ -65,7 +57,11 @@ namespace Spine {
 		}
 
 		public override Attachment Copy () {
-			return new PointAttachment(this);
+			PointAttachment copy = new PointAttachment(this.Name);
+			copy.x = x;
+			copy.y = y;
+			copy.rotation = rotation;
+			return copy;
 		}
 	}
 }

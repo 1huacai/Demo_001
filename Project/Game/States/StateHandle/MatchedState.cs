@@ -5,20 +5,21 @@ namespace Demo
 {
     public class MatchedState : Statebase
     {
-        public MatchedState(GameManger manger) : base(manger)
+        public MatchedState(Controller controller) : base(controller)
         {
         }
 
         public override void Enter(Block block)
         {
-            if (block.Type == BlockType.None)
+            if (block.Shape == BlockShape.None)
                 return;
             block.State = BlockState.Matched;
+            block._Animation.PlayAnimation(string.Format("{0}_{1}",block.Shape,block.State));
         }
 
         public override void Update(Block block)
         {
-            if (block.Type == BlockType.None)
+            if (block.Shape == BlockShape.None)
                 return;
             TimerMgr._Instance.Schedule(() => { Exit(block); }, ConstValues.matchedFps * ConstValues.fpsTime);
         }
@@ -27,6 +28,7 @@ namespace Demo
         {
             base.Exit(block);
             StateManger._instance.ChangeState(BlockState.Popping, block);
+            block._Animation.StopAnimation();
         }
     }
 }

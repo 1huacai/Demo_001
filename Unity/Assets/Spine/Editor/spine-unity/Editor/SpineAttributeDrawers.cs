@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated January 1, 2020. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2020, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -29,13 +29,13 @@
 
 // Contributed by: Mitch Thompson
 
-using Spine;
+using UnityEngine;
+using UnityEditor;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using UnityEditor;
-using UnityEngine;
+using Spine;
+using System.Linq;
 
 namespace Spine.Unity.Editor {
 	public struct SpineDrawerValuePair {
@@ -48,7 +48,7 @@ namespace Spine.Unity.Editor {
 		}
 	}
 
-	public abstract class SpineTreeItemDrawerBase<T> : PropertyDrawer where T : SpineAttributeBase {
+	public abstract class SpineTreeItemDrawerBase<T> : PropertyDrawer where T:SpineAttributeBase {
 		protected SkeletonDataAsset skeletonDataAsset;
 		internal const string NoneStringConstant = "<None>";
 
@@ -61,33 +61,10 @@ namespace Spine.Unity.Editor {
 			return noneLabel;
 		}
 
-		static GUIStyle errorPopupStyle;
-		GUIStyle ErrorPopupStyle {
-			get {
-				if (errorPopupStyle == null) errorPopupStyle = new GUIStyle(EditorStyles.popup);
-				errorPopupStyle.normal.textColor = Color.red;
-				errorPopupStyle.hover.textColor = Color.red;
-				errorPopupStyle.focused.textColor = Color.red;
-				errorPopupStyle.active.textColor = Color.red;
-				return errorPopupStyle;
-			}
-		}
-
 		protected T TargetAttribute { get { return (T)attribute; } }
 		protected SerializedProperty SerializedProperty { get; private set; }
 
 		protected abstract Texture2D Icon { get; }
-
-		protected bool IsValueValid (SerializedProperty property) {
-			if (skeletonDataAsset != null) {
-				SkeletonData skeletonData = skeletonDataAsset.GetSkeletonData(true);
-				if (skeletonData != null && !string.IsNullOrEmpty(property.stringValue))
-					return IsValueValid(skeletonData, property);
-			}
-			return true;
-		}
-
-		protected virtual bool IsValueValid (SkeletonData skeletonData, SerializedProperty property) { return true; }
 
 		public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) {
 			SerializedProperty = property;
@@ -106,11 +83,11 @@ namespace Spine.Unity.Editor {
 			SerializedProperty dataField = property.FindBaseOrSiblingProperty(TargetAttribute.dataField);
 
 			if (dataField != null) {
-				UnityEngine.Object objectReferenceValue = dataField.objectReferenceValue;
+				var objectReferenceValue = dataField.objectReferenceValue;
 				if (objectReferenceValue is SkeletonDataAsset) {
 					skeletonDataAsset = (SkeletonDataAsset)objectReferenceValue;
 				} else if (objectReferenceValue is IHasSkeletonDataAsset) {
-					IHasSkeletonDataAsset hasSkeletonDataAsset = (IHasSkeletonDataAsset)objectReferenceValue;
+					var hasSkeletonDataAsset = (IHasSkeletonDataAsset)objectReferenceValue;
 					if (hasSkeletonDataAsset != null)
 						skeletonDataAsset = hasSkeletonDataAsset.SkeletonDataAsset;
 				} else if (objectReferenceValue != null) {
@@ -119,11 +96,11 @@ namespace Spine.Unity.Editor {
 				}
 
 			} else {
-				UnityEngine.Object targetObject = property.serializedObject.targetObject;
+				var targetObject = property.serializedObject.targetObject;
 
 				IHasSkeletonDataAsset hasSkeletonDataAsset = targetObject as IHasSkeletonDataAsset;
 				if (hasSkeletonDataAsset == null) {
-					Component component = targetObject as Component;
+					var component = targetObject as Component;
 					if (component != null)
 						hasSkeletonDataAsset = component.GetComponentInChildren(typeof(IHasSkeletonDataAsset)) as IHasSkeletonDataAsset;
 				}
@@ -146,22 +123,20 @@ namespace Spine.Unity.Editor {
 			position = EditorGUI.PrefixLabel(position, label);
 
 			Texture2D image = Icon;
-			GUIStyle usedStyle = IsValueValid(property) ? EditorStyles.popup : ErrorPopupStyle;
 			string propertyStringValue = (property.hasMultipleDifferentValues) ? SpineInspectorUtility.EmDash : property.stringValue;
-			if (GUI.Button(position, string.IsNullOrEmpty(propertyStringValue) ? NoneLabel(image) :
-				SpineInspectorUtility.TempContent(propertyStringValue, image), usedStyle))
+			if (GUI.Button(position, string.IsNullOrEmpty(propertyStringValue) ? NoneLabel(image) : SpineInspectorUtility.TempContent(propertyStringValue, image), EditorStyles.popup))
 				Selector(property);
 		}
 
 		public ISkeletonComponent GetTargetSkeletonComponent (SerializedProperty property) {
-			SerializedProperty dataField = property.FindBaseOrSiblingProperty(TargetAttribute.dataField);
+			var dataField = property.FindBaseOrSiblingProperty(TargetAttribute.dataField);
 
 			if (dataField != null) {
-				ISkeletonComponent skeletonComponent = dataField.objectReferenceValue as ISkeletonComponent;
+				var skeletonComponent = dataField.objectReferenceValue as ISkeletonComponent;
 				if (dataField.objectReferenceValue != null && skeletonComponent != null) // note the overloaded UnityEngine.Object == null check. Do not simplify.
 					return skeletonComponent;
 			} else {
-				Component component = property.serializedObject.targetObject as Component;
+				var component = property.serializedObject.targetObject as Component;
 				if (component != null)
 					return component.GetComponentInChildren(typeof(ISkeletonComponent)) as ISkeletonComponent;
 			}
@@ -173,7 +148,7 @@ namespace Spine.Unity.Editor {
 			SkeletonData data = skeletonDataAsset.GetSkeletonData(true);
 			if (data == null) return;
 
-			GenericMenu menu = new GenericMenu();
+			var menu = new GenericMenu();
 			PopulateMenu(menu, property, this.TargetAttribute, data);
 			menu.ShowAsContext();
 		}
@@ -181,8 +156,8 @@ namespace Spine.Unity.Editor {
 		protected abstract void PopulateMenu (GenericMenu menu, SerializedProperty property, T targetAttribute, SkeletonData data);
 
 		protected virtual void HandleSelect (object menuItemObject) {
-			SpineDrawerValuePair clickedItem = (SpineDrawerValuePair)menuItemObject;
-			SerializedProperty serializedProperty = clickedItem.property;
+			var clickedItem = (SpineDrawerValuePair)menuItemObject;
+			var serializedProperty = clickedItem.property;
 			if (serializedProperty.serializedObject.isEditingMultipleObjects) serializedProperty.stringValue = "oaifnoiasf��123526"; // HACK: to trigger change on multi-editing.
 			serializedProperty.stringValue = clickedItem.stringValue;
 			serializedProperty.serializedObject.ApplyModifiedProperties();
@@ -197,11 +172,7 @@ namespace Spine.Unity.Editor {
 	[CustomPropertyDrawer(typeof(SpineSlot))]
 	public class SpineSlotDrawer : SpineTreeItemDrawerBase<SpineSlot> {
 
-		protected override Texture2D Icon { get { return SpineEditorUtilities.Icons.slot; } }
-
-		protected override bool IsValueValid (SkeletonData skeletonData, SerializedProperty property) {
-			return skeletonData.FindSlot(property.stringValue) != null;
-		}
+		protected override Texture2D Icon {	get { return SpineEditorUtilities.Icons.slot; } }
 
 		protected override void PopulateMenu (GenericMenu menu, SerializedProperty property, SpineSlot targetAttribute, SkeletonData data) {
 			if (TargetAttribute.includeNone)
@@ -214,14 +185,14 @@ namespace Spine.Unity.Editor {
 				if (name.StartsWith(targetAttribute.startsWith, StringComparison.Ordinal)) {
 
 					if (targetAttribute.containsBoundingBoxes) {
-						List<Skin.SkinEntry> skinEntries = new List<Skin.SkinEntry>();
-						foreach (Skin skin in data.Skins) {
+						var skinEntries = new List<Skin.SkinEntry>();
+						foreach (var skin in data.Skins) {
 							skin.GetAttachments(slotIndex, skinEntries);
 						}
 
 						bool hasBoundingBox = false;
-						foreach (Skin.SkinEntry entry in skinEntries) {
-							BoundingBoxAttachment bbAttachment = entry.Attachment as BoundingBoxAttachment;
+						foreach (var entry in skinEntries) {
+							var bbAttachment = entry.Attachment as BoundingBoxAttachment;
 							if (bbAttachment != null) {
 								string menuLabel = bbAttachment.IsWeighted() ? name + " (!)" : name;
 								menu.AddItem(new GUIContent(menuLabel), !property.hasMultipleDifferentValues && name == property.stringValue, HandleSelect, new SpineDrawerValuePair(name, property));
@@ -248,32 +219,28 @@ namespace Spine.Unity.Editor {
 	public class SpineSkinDrawer : SpineTreeItemDrawerBase<SpineSkin> {
 		const string DefaultSkinName = "default";
 
-		protected override Texture2D Icon { get { return SpineEditorUtilities.Icons.skin; } }
+		protected override Texture2D Icon {	get { return SpineEditorUtilities.Icons.skin; } }
 
 		internal override string NoneString { get { return TargetAttribute.defaultAsEmptyString ? DefaultSkinName : NoneStringConstant; } }
-
-		protected override bool IsValueValid (SkeletonData skeletonData, SerializedProperty property) {
-			return skeletonData.FindSkin(property.stringValue) != null;
-		}
 
 		public static void GetSkinMenuItems (SkeletonData data, List<string> outputNames, List<GUIContent> outputMenuItems, bool includeNone = true) {
 			if (data == null) return;
 			if (outputNames == null) return;
 			if (outputMenuItems == null) return;
 
-			ExposedList<Skin> skins = data.Skins;
+			var skins = data.Skins;
 
 			outputNames.Clear();
 			outputMenuItems.Clear();
 
-			Texture2D icon = SpineEditorUtilities.Icons.skin;
+			var icon = SpineEditorUtilities.Icons.skin;
 
 			if (includeNone) {
 				outputNames.Add("");
 				outputMenuItems.Add(new GUIContent(NoneStringConstant, icon));
 			}
 
-			foreach (Skin s in skins) {
+			foreach (var s in skins) {
 				string skinName = s.Name;
 				outputNames.Add(skinName);
 				outputMenuItems.Add(new GUIContent(skinName, icon));
@@ -300,18 +267,14 @@ namespace Spine.Unity.Editor {
 	[CustomPropertyDrawer(typeof(SpineAnimation))]
 	public class SpineAnimationDrawer : SpineTreeItemDrawerBase<SpineAnimation> {
 
-		protected override Texture2D Icon { get { return SpineEditorUtilities.Icons.animation; } }
-
-		protected override bool IsValueValid (SkeletonData skeletonData, SerializedProperty property) {
-			return skeletonData.FindAnimation(property.stringValue) != null;
-		}
+		protected override Texture2D Icon {	get { return SpineEditorUtilities.Icons.animation; } }
 
 		public static void GetAnimationMenuItems (SkeletonData data, List<string> outputNames, List<GUIContent> outputMenuItems, bool includeNone = true) {
 			if (data == null) return;
 			if (outputNames == null) return;
 			if (outputMenuItems == null) return;
 
-			ExposedList<Animation> animations = data.Animations;
+			var animations = data.Animations;
 
 			outputNames.Clear();
 			outputMenuItems.Clear();
@@ -321,7 +284,7 @@ namespace Spine.Unity.Editor {
 				outputMenuItems.Add(new GUIContent(NoneStringConstant, SpineEditorUtilities.Icons.animation));
 			}
 
-			foreach (Animation a in animations) {
+			foreach (var a in animations) {
 				string animationName = a.Name;
 				outputNames.Add(animationName);
 				outputMenuItems.Add(new GUIContent(animationName, SpineEditorUtilities.Icons.animation));
@@ -329,7 +292,7 @@ namespace Spine.Unity.Editor {
 		}
 
 		protected override void PopulateMenu (GenericMenu menu, SerializedProperty property, SpineAnimation targetAttribute, SkeletonData data) {
-			ExposedList<Animation> animations = skeletonDataAsset.GetAnimationStateData().SkeletonData.Animations;
+			var animations = skeletonDataAsset.GetAnimationStateData().SkeletonData.Animations;
 
 			if (TargetAttribute.includeNone)
 				menu.AddItem(new GUIContent(NoneString), !property.hasMultipleDifferentValues && string.IsNullOrEmpty(property.stringValue), HandleSelect, new SpineDrawerValuePair(string.Empty, property));
@@ -346,16 +309,12 @@ namespace Spine.Unity.Editor {
 	[CustomPropertyDrawer(typeof(SpineEvent))]
 	public class SpineEventNameDrawer : SpineTreeItemDrawerBase<SpineEvent> {
 
-		protected override Texture2D Icon { get { return SpineEditorUtilities.Icons.userEvent; } }
-
-		protected override bool IsValueValid (SkeletonData skeletonData, SerializedProperty property) {
-			return skeletonData.FindEvent(property.stringValue) != null;
-		}
+		protected override Texture2D Icon {	get { return SpineEditorUtilities.Icons.userEvent; } }
 
 		public static void GetEventMenuItems (SkeletonData data, List<string> eventNames, List<GUIContent> menuItems, bool includeNone = true) {
 			if (data == null) return;
 
-			ExposedList<EventData> animations = data.Events;
+			var animations = data.Events;
 
 			eventNames.Clear();
 			menuItems.Clear();
@@ -365,7 +324,7 @@ namespace Spine.Unity.Editor {
 				menuItems.Add(new GUIContent(NoneStringConstant, SpineEditorUtilities.Icons.userEvent));
 			}
 
-			foreach (EventData a in animations) {
+			foreach (var a in animations) {
 				string animationName = a.Name;
 				eventNames.Add(animationName);
 				menuItems.Add(new GUIContent(animationName, SpineEditorUtilities.Icons.userEvent));
@@ -373,13 +332,13 @@ namespace Spine.Unity.Editor {
 		}
 
 		protected override void PopulateMenu (GenericMenu menu, SerializedProperty property, SpineEvent targetAttribute, SkeletonData data) {
-			ExposedList<EventData> events = skeletonDataAsset.GetSkeletonData(false).Events;
+			var events = skeletonDataAsset.GetSkeletonData(false).Events;
 
 			if (TargetAttribute.includeNone)
 				menu.AddItem(new GUIContent(NoneString), !property.hasMultipleDifferentValues && string.IsNullOrEmpty(property.stringValue), HandleSelect, new SpineDrawerValuePair(string.Empty, property));
 
 			for (int i = 0; i < events.Count; i++) {
-				EventData eventObject = events.Items[i];
+				var eventObject = events.Items[i];
 				string name = eventObject.Name;
 				if (name.StartsWith(targetAttribute.startsWith, StringComparison.Ordinal)) {
 					if (!TargetAttribute.audioOnly || !string.IsNullOrEmpty(eventObject.AudioPath)) {
@@ -395,14 +354,10 @@ namespace Spine.Unity.Editor {
 	[CustomPropertyDrawer(typeof(SpineIkConstraint))]
 	public class SpineIkConstraintDrawer : SpineTreeItemDrawerBase<SpineIkConstraint> {
 
-		protected override Texture2D Icon { get { return SpineEditorUtilities.Icons.constraintIK; } }
-
-		protected override bool IsValueValid (SkeletonData skeletonData, SerializedProperty property) {
-			return skeletonData.FindIkConstraint(property.stringValue) != null;
-		}
+		protected override Texture2D Icon {	get { return SpineEditorUtilities.Icons.constraintIK; } }
 
 		protected override void PopulateMenu (GenericMenu menu, SerializedProperty property, SpineIkConstraint targetAttribute, SkeletonData data) {
-			ExposedList<IkConstraintData> constraints = skeletonDataAsset.GetSkeletonData(false).IkConstraints;
+			var constraints = skeletonDataAsset.GetSkeletonData(false).IkConstraints;
 
 			if (TargetAttribute.includeNone)
 				menu.AddItem(new GUIContent(NoneString), !property.hasMultipleDifferentValues && string.IsNullOrEmpty(property.stringValue), HandleSelect, new SpineDrawerValuePair(string.Empty, property));
@@ -419,14 +374,10 @@ namespace Spine.Unity.Editor {
 	[CustomPropertyDrawer(typeof(SpineTransformConstraint))]
 	public class SpineTransformConstraintDrawer : SpineTreeItemDrawerBase<SpineTransformConstraint> {
 
-		protected override Texture2D Icon { get { return SpineEditorUtilities.Icons.constraintTransform; } }
-
-		protected override bool IsValueValid (SkeletonData skeletonData, SerializedProperty property) {
-			return skeletonData.FindTransformConstraint(property.stringValue) != null;
-		}
+		protected override Texture2D Icon {	get { return SpineEditorUtilities.Icons.constraintTransform; } }
 
 		protected override void PopulateMenu (GenericMenu menu, SerializedProperty property, SpineTransformConstraint targetAttribute, SkeletonData data) {
-			ExposedList<TransformConstraintData> constraints = skeletonDataAsset.GetSkeletonData(false).TransformConstraints;
+			var constraints = skeletonDataAsset.GetSkeletonData(false).TransformConstraints;
 
 			if (TargetAttribute.includeNone)
 				menu.AddItem(new GUIContent(NoneString), !property.hasMultipleDifferentValues && string.IsNullOrEmpty(property.stringValue), HandleSelect, new SpineDrawerValuePair(string.Empty, property));
@@ -442,14 +393,10 @@ namespace Spine.Unity.Editor {
 	[CustomPropertyDrawer(typeof(SpinePathConstraint))]
 	public class SpinePathConstraintDrawer : SpineTreeItemDrawerBase<SpinePathConstraint> {
 
-		protected override Texture2D Icon { get { return SpineEditorUtilities.Icons.constraintPath; } }
-
-		protected override bool IsValueValid (SkeletonData skeletonData, SerializedProperty property) {
-			return skeletonData.FindPathConstraint(property.stringValue) != null;
-		}
+		protected override Texture2D Icon {	get { return SpineEditorUtilities.Icons.constraintPath; } }
 
 		protected override void PopulateMenu (GenericMenu menu, SerializedProperty property, SpinePathConstraint targetAttribute, SkeletonData data) {
-			ExposedList<PathConstraintData> constraints = skeletonDataAsset.GetSkeletonData(false).PathConstraints;
+			var constraints = skeletonDataAsset.GetSkeletonData(false).PathConstraints;
 
 			if (TargetAttribute.includeNone)
 				menu.AddItem(new GUIContent(NoneString), !property.hasMultipleDifferentValues && string.IsNullOrEmpty(property.stringValue), HandleSelect, new SpineDrawerValuePair(string.Empty, property));
@@ -465,16 +412,16 @@ namespace Spine.Unity.Editor {
 	[CustomPropertyDrawer(typeof(SpineAttachment))]
 	public class SpineAttachmentDrawer : SpineTreeItemDrawerBase<SpineAttachment> {
 
-		protected override Texture2D Icon { get { return SpineEditorUtilities.Icons.genericAttachment; } }
+		protected override Texture2D Icon {	get { return SpineEditorUtilities.Icons.genericAttachment; } }
 
 		protected override void PopulateMenu (GenericMenu menu, SerializedProperty property, SpineAttachment targetAttribute, SkeletonData data) {
 			ISkeletonComponent skeletonComponent = GetTargetSkeletonComponent(property);
-			List<Skin> validSkins = new List<Skin>();
+			var validSkins = new List<Skin>();
 
 			if (skeletonComponent != null && targetAttribute.currentSkinOnly) {
 				Skin currentSkin = null;
 
-				SerializedProperty skinProperty = property.FindBaseOrSiblingProperty(targetAttribute.skinField);
+				var skinProperty = property.FindBaseOrSiblingProperty(targetAttribute.skinField);
 				if (skinProperty != null) currentSkin = skeletonComponent.Skeleton.Data.FindSkin(skinProperty.stringValue);
 
 				currentSkin = currentSkin ?? skeletonComponent.Skeleton.Skin;
@@ -488,8 +435,8 @@ namespace Spine.Unity.Editor {
 					if (skin != null) validSkins.Add(skin);
 			}
 
-			List<string> attachmentNames = new List<string>();
-			List<string> placeholderNames = new List<string>();
+			var attachmentNames = new List<string>();
+			var placeholderNames = new List<string>();
 			string prefix = "";
 
 			if (skeletonComponent != null && targetAttribute.currentSkinOnly)
@@ -505,7 +452,7 @@ namespace Spine.Unity.Editor {
 			}
 
 			Skin defaultSkin = data.Skins.Items[0];
-			SerializedProperty slotProperty = property.FindBaseOrSiblingProperty(TargetAttribute.slotField);
+			var slotProperty = property.FindBaseOrSiblingProperty(TargetAttribute.slotField);
 
 			string slotMatch = "";
 			if (slotProperty != null) {
@@ -526,19 +473,19 @@ namespace Spine.Unity.Editor {
 					attachmentNames.Clear();
 					placeholderNames.Clear();
 
-					List<Skin.SkinEntry> skinEntries = new List<Skin.SkinEntry>();
+					var skinEntries = new List<Skin.SkinEntry>();
 					skin.GetAttachments(i, skinEntries);
-					foreach (Skin.SkinEntry entry in skinEntries) {
+					foreach (var entry in skinEntries) {
 						attachmentNames.Add(entry.Name);
 					}
 
 					if (skin != defaultSkin) {
-						foreach (Skin.SkinEntry entry in skinEntries) {
+						foreach (var entry in skinEntries) {
 							placeholderNames.Add(entry.Name);
 						}
 						skinEntries.Clear();
 						defaultSkin.GetAttachments(i, skinEntries);
-						foreach (Skin.SkinEntry entry in skinEntries) {
+						foreach (var entry in skinEntries) {
 							attachmentNames.Add(entry.Name);
 						}
 					}
@@ -567,11 +514,7 @@ namespace Spine.Unity.Editor {
 	[CustomPropertyDrawer(typeof(SpineBone))]
 	public class SpineBoneDrawer : SpineTreeItemDrawerBase<SpineBone> {
 
-		protected override Texture2D Icon { get { return SpineEditorUtilities.Icons.bone; } }
-
-		protected override bool IsValueValid (SkeletonData skeletonData, SerializedProperty property) {
-			return skeletonData.FindBone(property.stringValue) != null;
-		}
+		protected override Texture2D Icon {	get { return SpineEditorUtilities.Icons.bone; } }
 
 		protected override void PopulateMenu (GenericMenu menu, SerializedProperty property, SpineBone targetAttribute, SkeletonData data) {
 			menu.AddDisabledItem(new GUIContent(skeletonDataAsset.name));
@@ -581,12 +524,12 @@ namespace Spine.Unity.Editor {
 				menu.AddItem(new GUIContent(NoneString), !property.hasMultipleDifferentValues && string.IsNullOrEmpty(property.stringValue), HandleSelect, new SpineDrawerValuePair(string.Empty, property));
 
 			for (int i = 0; i < data.Bones.Count; i++) {
-				BoneData bone = data.Bones.Items[i];
+				var bone = data.Bones.Items[i];
 				string name = bone.Name;
 				if (name.StartsWith(targetAttribute.startsWith, StringComparison.Ordinal)) {
 					// jointName = "root/hip/bone" to show a hierarchial tree.
 					string jointName = name;
-					BoneData iterator = bone;
+					var iterator = bone;
 					while ((iterator = iterator.Parent) != null)
 						jointName = string.Format("{0}/{1}", iterator.Name, jointName);
 
@@ -649,7 +592,7 @@ namespace Spine.Unity.Editor {
 		}
 
 		static void HandleSelect (object val) {
-			SpineDrawerValuePair pair = (SpineDrawerValuePair)val;
+			var pair = (SpineDrawerValuePair)val;
 			pair.property.stringValue = pair.stringValue;
 			pair.property.serializedObject.ApplyModifiedProperties();
 		}

@@ -80,10 +80,18 @@ namespace Demo
             timer.isRemoved = true; // 先标记，不直接删除
         }
 
+        public void RemoveAllTimer()
+        {
+            foreach (TimerNode timer in timers.Values)
+            {
+                timer.isRemoved = true;
+            }
+        }
+        
         //在Update里面调用
         public void Update()
         {
-            if (!GameManger.Inst.gameStart)
+            if (!SelfGameController.Inst.gameStart)
             {
                 Frame = 0;
                 return;
