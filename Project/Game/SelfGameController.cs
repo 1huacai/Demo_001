@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using Project;
 using FrameWork.Manager;
@@ -43,6 +42,8 @@ namespace Demo
         private BlockData[] newRowBlockDatas;
         public string blockBufferWithNet;//多人模式下从服务器获取的block配置
         
+        //比赛中玩家和对手用户名
+        public string[] selfUserName_OtherName;
         
         #region 游戏逻辑部分
 
@@ -170,7 +171,6 @@ namespace Demo
                             SetUpRowBlockChain(targetBlock);
                         }   
                     });
-                    
                     //TODO 多人模式下暂时不向下走
                     BlocksInSameFrame.Clear();
                     return;
@@ -187,11 +187,9 @@ namespace Demo
                     foreach (var block in blocksInFrame)
                     {
                         comboCount++;
-
                         //解锁压力块
                         for (int k = 0; k < pressureBlocks.Count; k++)
                         {
-                            
                             //单人镜像镜像敌方解锁压力块
                             if (NetManager.Instance.Multiplayer)
                             {

@@ -164,9 +164,13 @@ namespace Demo
         //多人
         public void MultiplayerInitGame()
         {
+            
             var selfController = SelfGameController.Inst;
             selfController.InitGame();
                 
+            //显示玩家和对手用户名
+            SetMultiplayerInfo(selfController.selfUserName_OtherName[0], selfController.selfUserName_OtherName[1]);
+            
             //构建己方棋子
             var blockBuffer = selfController.blockBufferWithNet;
             var blockDatas =  selfController.GenBlockDatasWith(blockBuffer);
