@@ -484,7 +484,7 @@ namespace Demo
                 if(targetBlock.Shape == BlockShape.None || IsBlockInSameFrame(targetBlock))
                     break;
                 targetBlock.Chain = true;
-                Debug.LogError($"{targetBlock.name}-chain-{targetBlock.Chain}");
+                //Debug.LogError($"{targetBlock.name}-chain-{targetBlock.Chain}");
             }
         }
         
