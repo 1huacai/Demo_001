@@ -14,6 +14,7 @@ namespace Demo
             if (block.Shape == BlockShape.None)
                 return;
             block.State = BlockState.Hovering;
+            block.CurStateFrame = ConstValues.hoveringFps;
         }
 
         public override void Update(Block block)

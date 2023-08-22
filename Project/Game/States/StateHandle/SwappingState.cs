@@ -16,6 +16,7 @@ namespace Demo
                 return;
 
             block.State = BlockState.Swapping;
+            block.CurStateFrame = 10;
         }
 
         public override void Update(Block block)

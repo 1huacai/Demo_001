@@ -15,6 +15,7 @@ namespace Demo
                 return;
             block.State = BlockState.Falling;
             block.IsNeedFall = true;
+            block.CurStateFrame = ConstValues.fallingFps;
         }
 
         public override void Update(Block block)

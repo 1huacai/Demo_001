@@ -18,6 +18,7 @@ namespace Demo
             //己方棋子
             block.State = BlockState.Popping;
             block._Animation.PlayAnimation(string.Format("{0}_{1}",block.Shape,block.State),1,false);
+            block.CurStateFrame = ConstValues.poppingFps;
             
             //对手棋子
             var otherBlock = OtherGameController.Inst.blockMatrix[block.Row, block.Col - 1];

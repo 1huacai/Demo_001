@@ -16,6 +16,7 @@ namespace Demo
             block.State = BlockState.Popped;
             block.Shape = BlockShape.None;
             block.Chain = false;
+            block.CurStateFrame = ConstValues.poppingFps;
             
             //对手棋子
             var otherBlock = OtherGameController.Inst.blockMatrix[block.Row, block.Col - 1];

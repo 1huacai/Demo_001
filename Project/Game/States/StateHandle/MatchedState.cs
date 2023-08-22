@@ -15,6 +15,7 @@ namespace Demo
                 return;
             block.State = BlockState.Matched;
             block._Animation.PlayAnimation(string.Format("{0}_{1}",block.Shape,block.State));
+            block.CurStateFrame = ConstValues.matchedFps;
             
             //对手棋子
             var otherBlock = OtherGameController.Inst.blockMatrix[block.Row, block.Col - 1];

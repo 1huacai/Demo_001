@@ -16,7 +16,8 @@ namespace Demo
                 return;
             block.State = BlockState.Landing;
             block._Animation.PlayAnimation(string.Format("{0}_{1}",block.Shape,block.State));
-
+            block.CurStateFrame = ConstValues.landingFps;
+            
             var otherBlock = OtherGameController.Inst.blockMatrix[block.Row, block.Col - 1];
             otherBlock._Animation.PlayAnimation(string.Format("{0}_{1}",block.Shape,block.State));
         }

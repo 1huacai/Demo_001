@@ -152,24 +152,24 @@ namespace Demo
                 
                 if (NetManager.Instance.Multiplayer)
                 {
-                    // List<Block> matchedBlocks = new List<Block>();
-                    // //同一帧的所有消除集合
-                    // foreach (var arrray in BlocksInSameFrame)
-                    // {
-                    //     matchedBlocks.AddRange(arrray);
-                    // }
-                    // //多人模式下对棋子匹配的处理
-                    // NetManager.Instance.GameMatched(TimerMgr._Instance.Frame,matchedBlocks, () =>
-                    // {
-                    //     for (int i = 0; i < matchedBlocks.Count; i++)
-                    //     {
-                    //         var targetBlock = matchedBlocks[i];
-                    //         Debug.LogError($"{targetBlock.name}-{targetBlock.Shape}");
-                    //         StateManger._instance.ChangeState(BlockState.Matched, targetBlock);
-                    //         //设置该棋子上方的棋子chain为true
-                    //         SetUpRowBlockChain(targetBlock);
-                    //     }   
-                    // });
+                    List<Block> matchedBlocks = new List<Block>();
+                    //同一帧的所有消除集合
+                    foreach (var arrray in BlocksInSameFrame)
+                    {
+                        matchedBlocks.AddRange(arrray);
+                    }
+                    //多人模式下对棋子匹配的处理
+                    NetManager.Instance.GameMatched(TimerMgr._Instance.Frame,matchedBlocks, () =>
+                    {
+                        for (int i = 0; i < matchedBlocks.Count; i++)
+                        {
+                            var targetBlock = matchedBlocks[i];
+                            Debug.LogError($"{targetBlock.name}-{targetBlock.Shape}");
+                            StateManger._instance.ChangeState(BlockState.Matched, targetBlock);
+                            //设置该棋子上方的棋子chain为true
+                            SetUpRowBlockChain(targetBlock);
+                        }   
+                    });
                     
                     //TODO 多人模式下暂时不向下走
                     BlocksInSameFrame.Clear();

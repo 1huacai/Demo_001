@@ -13,6 +13,7 @@ namespace Demo
         [SerializeField] private int row;
         [SerializeField] private int col;
         [SerializeField] private BlockShape shape;
+        [SerializeField] private int curStateFrame = 0;//当前状态帧
         public Image image;
         private Sprite originSprite;//棋子原始图片
         public GameObject slectImg;
@@ -139,6 +140,12 @@ namespace Demo
             set { col = value; }
         }
 
+        public int CurStateFrame
+        {
+            get { return curStateFrame; }
+            set { curStateFrame = value; }
+        }
+        
         //选中
         public bool IsSelected
         {
@@ -306,9 +313,11 @@ namespace Demo
                 State = BlockState.Normal;
                 return;
             }
-
+            
             CheckBlockNotInteractWithState();
-
+            
+            curStateFrame = curStateFrame == 0 ? 0 : curStateFrame - 1;
+            
             // //实时监测自己自身的状态，除去swaping
             if (state == BlockState.Normal)
                 StateManger._instance.ChangeStageUpdate(BlockState.Normal, this);

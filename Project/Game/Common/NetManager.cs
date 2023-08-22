@@ -225,6 +225,7 @@ namespace Demo
                 var data = rsp as C2S_SprotoType.game_matched.response;
                 if (data.e == 0)
                 {
+                    Debug.LogError("消除请求验证通过");
                     callBack?.Invoke();
                 }
             }));
@@ -274,7 +275,7 @@ namespace Demo
             {
                 if (block != null)
                 {
-                    string blockLog = $"{(int)block.State}-{(int) block.Shape}-{block.Row}-{block.Col}\n";
+                    string blockLog = $"{block.CurStateFrame-(int)block.State}-{(int) block.Shape}-{block.Row}-{block.Col}\n";
                     _builder.Append(blockLog);
                 }
             }
