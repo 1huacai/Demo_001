@@ -79,7 +79,6 @@ namespace Demo
                 StartCoroutine(UnlockPressureAnim());
                 return;
             }
-
             
             if (State == BlockState.Normal)
             {
@@ -92,12 +91,9 @@ namespace Demo
                 
                 if (Row <= 1)
                     return;
-                transform.localPosition = new Vector3(transform.localPosition.x,
-                    transform.localPosition.y - (isSelf ? ConstValues.SELF_PRESSURE_Y_OFFSET : ConstValues.OTHER_PRESSURE_Y_OFFSET), 0f);
-                
-                // transform.DOLocalMoveY(transform.localPosition.y - ConstValues.PRESSURE_Y_OFFSET, ConstValues.fallingFps * ConstValues.fpsTime);
                 Row--;
                 gameObject.name = $"{x_Num}B - {Row}";
+                transform.localPosition = GetPos(isSelf, Row, OriginCol);
             }
             
         }
@@ -174,12 +170,14 @@ namespace Demo
             pressureBlockCom.Row = row;
             pressureBlockCom.OriginCol = col;
             pressureBlockCom.x_Num = obj.transform.childCount;
-            pressureBlockCom.transform.localPosition = new Vector3(
-                (col - 1) * (isSelf ? ConstValues.SELF_BLOCK_X_OFFSET : ConstValues.OTHER_BLOCK_X_OFFSET),
-                (isSelf ? ConstValues.SELF_BLOCK_Y_ORIGINPOS : ConstValues.OTHER_BLOCK_Y_ORIGINPOS) + 
-                (row - (SelfGameController.Inst.GenNewRowCount - 1)) * (isSelf ? ConstValues.SELF_PRESSURE_Y_OFFSET : ConstValues.OTHER_PRESSURE_Y_OFFSET),
-                0f
-            );
+            // pressureBlockCom.transform.localPosition = new Vector3(
+            //     (col - 1) * (isSelf ? ConstValues.SELF_BLOCK_X_OFFSET : ConstValues.OTHER_BLOCK_X_OFFSET),
+            //     (isSelf ? ConstValues.SELF_BLOCK_Y_ORIGINPOS : ConstValues.OTHER_BLOCK_Y_ORIGINPOS) + 
+            //     (row - (SelfGameController.Inst.GenNewRowCount - 1)) * (isSelf ? ConstValues.SELF_PRESSURE_Y_OFFSET : ConstValues.OTHER_PRESSURE_Y_OFFSET),
+            //     0f
+            // );
+
+            pressureBlockCom.transform.localPosition = GetPos(isSelf, row, col);
             float scale = isSelf ? 1f : (float)ConstValues.OTHER_BLOCK_WIDTH / ConstValues.SELF_BLOCK_WIDTH;
             pressureBlockCom.transform.localScale = new Vector3(scale, scale, scale);
             pressureBlockCom.name = $"{pressureBlockCom.x_Num}B - {pressureBlockCom.Row}";
@@ -201,6 +199,17 @@ namespace Demo
                 //敌方压力块集合添加
                 OtherGameController.Inst.pressureBlocks.Add(pressureBlockCom);
             }
+        }
+
+        private static Vector3 GetPos(bool isSelf, int row, int col)
+        {
+            return new Vector3(
+                (col - 1) * (isSelf ? ConstValues.SELF_BLOCK_X_OFFSET : ConstValues.OTHER_BLOCK_X_OFFSET),
+                (isSelf ? ConstValues.SELF_BLOCK_Y_ORIGINPOS : ConstValues.OTHER_BLOCK_Y_ORIGINPOS) +
+                (row - (SelfGameController.Inst.GenNewRowCount - 1)) *
+                (isSelf ? ConstValues.SELF_PRESSURE_Y_OFFSET : ConstValues.OTHER_PRESSURE_Y_OFFSET),
+                0f
+            );
         }
         
         public void UnlockPressureBlock(int targetRow,int targetCol)
@@ -293,7 +302,6 @@ namespace Demo
         {
             bool hasDownBlock = false;
             int downRow = Row - 1;
-            
             //检测下方block
             for (int i = 0; i < ConstValues.MAX_COL; i++)
             {

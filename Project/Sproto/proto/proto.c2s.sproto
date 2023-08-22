@@ -108,11 +108,12 @@ game_swap 1065 {
 game_raise 1066 {
     request {
         frame               0 : integer # 当前逻辑帧
+        type             1 : integer # 操作类型（1-手动提升，2-自动上升）
     }
     response {
         e                   0 : integer
     }
-}#----已添加
+}
 
 # 匹配消除
 game_matched 1067 {

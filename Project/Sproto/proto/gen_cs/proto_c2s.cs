@@ -784,7 +784,7 @@ namespace C2S_SprotoType {
 	public class game_raise {
 	
 		public class request : SprotoTypeBase {
-			private static int max_field_count = 1;
+			private static int max_field_count = 2;
 			
 			
 			private Int64 _frame; // tag 0
@@ -794,6 +794,15 @@ namespace C2S_SprotoType {
 			}
 			public bool HasFrame {
 				get { return base.has_field.has_field (0); }
+			}
+
+			private Int64 _type; // tag 1
+			public Int64 type {
+				get { return _type; }
+				set { base.has_field.set_field (1, true); _type = value; }
+			}
+			public bool HasType {
+				get { return base.has_field.has_field (1); }
 			}
 
 			public request () : base(max_field_count) {}
@@ -809,6 +818,9 @@ namespace C2S_SprotoType {
 					case 0:
 						this.frame = base.deserialize.read_integer ();
 						break;
+					case 1:
+						this.type = base.deserialize.read_integer ();
+						break;
 					default:
 						base.deserialize.read_unknow_data ();
 						break;
@@ -821,6 +833,10 @@ namespace C2S_SprotoType {
 
 				if (base.has_field.has_field (0)) {
 					base.serialize.write_integer (this.frame, 0);
+				}
+
+				if (base.has_field.has_field (1)) {
+					base.serialize.write_integer (this.type, 1);
 				}
 
 				return base.serialize.close ();

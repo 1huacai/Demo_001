@@ -286,6 +286,7 @@ namespace Demo
         {
             var offLine_Pos = new Vector3(ConstValues.OTHER_BLOCK_X_ORIGINPOS +(col - 1) * ConstValues.OTHER_BLOCK_X_OFFSET,
                 ConstValues.OTHER_BLOCK_Y_ORIGINPOS + (row - SelfGameController.Inst.GenNewRowCount + 1) * ConstValues.OTHER_BLOCK_Y_OFFSET,0f);
+            //TODO 暂时加入测试多人模式 
             var onLine_Pos = new Vector3(ConstValues.OTHER_BLOCK_X_ORIGINPOS +(col - 1) * ConstValues.OTHER_BLOCK_X_OFFSET,
                 ConstValues.OTHER_BLOCK_Y_ORIGINPOS + (row - 1) * ConstValues.OTHER_BLOCK_Y_OFFSET,0f);
             return NetManager.Instance.Multiplayer ? onLine_Pos : offLine_Pos;
