@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 namespace Demo
 {
@@ -6,6 +7,7 @@ namespace Demo
         //初始化服务器回复消息处理
         public void InitHandler()
         {
+            StringBuilder builder = new StringBuilder();
             #region 匹配
             //匹配成功
             NetReceiver.AddHandler<S2C_Protocol.matching_success>((data) =>
@@ -79,6 +81,15 @@ namespace Demo
             NetReceiver.AddHandler<S2C_Protocol.game_matched>((data) =>
             {
                 Debug.LogError("========= game_matched");
+                var request = data as S2C_SprotoType.game_matched.request;
+                builder.Clear();
+                builder.Append(request.frame);
+                foreach (var block in request.matched_blocks)
+                {
+                    builder.Append($"-{block.row}-{block.col}");
+                }
+                builder.Append("\n");
+                Debug.LogError(builder.ToString());
                 return null;
             });
             
