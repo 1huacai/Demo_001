@@ -181,18 +181,25 @@ namespace Demo
             }));
         }
         
-        // 提升一行操作
-        public void GameRaiseReq(int frame,Action callBack)
+        /// <summary>
+        /// 提升一行操作，type（1是手动提升，2是自动上升）
+        /// </summary>
+        /// <param name="frame"></param>
+        /// <param name="type"></param>
+        /// <param name="callBack"></param>
+        public void GameRaiseReq(int frame,int type,Action callBack)
         {
             var req = new C2S_SprotoType.game_raise.request()
             {
-                frame = frame
+                frame = frame,
+                type = type
             };
             NetSender.Send<C2S_Protocol.game_raise>(req,(rsp =>
             {
                 var data = rsp as C2S_SprotoType.game_raise.response;
                 if (data.e == 0)
                 {
+                    Debug.LogError($"提升一行请求验证通过：操作类型-{type}");
                     callBack?.Invoke();
                 }
             }));
@@ -249,19 +256,16 @@ namespace Demo
                 var data = rsp as C2S_SprotoType.game_new_row.response;
                 if (data.e == 0)
                 {
-                    BlockData[] newRowBlockData = new BlockData[6];
-                    for (int i = 0; i < data.row_blocks.Count; i++)
-                    {
-                        var blockInfo = data.row_blocks[i];
-                        newRowBlockData[i] =
-                            new BlockData((int) blockInfo.row, (int) blockInfo.col, (BlockShape)((int) blockInfo.shape));
-                    }
+                    Debug.LogError("从缓存数据中取出新一行blockData");
+                    BlockData[] newRowBlockData = SelfGameController.Inst
+                        .GenRowBlockDatasWith(SelfGameController.Inst.blockBufferWithNet).ToArray();
                     callBack?.Invoke(newRowBlockData,genCount,isSelf);
                 }
             }));
         }
-
+        
         private StringBuilder _builder = new StringBuilder();
+        //更新本地棋子的日志
         public void UpdateWebLogs(Block[,] blocks)
         {
             if (!SelfGameController.Inst.gameStart)

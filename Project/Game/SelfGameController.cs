@@ -40,8 +40,7 @@ namespace Demo
         public Transform pressureBoard = null;
         public float blockBoardOffsetX;
         private BlockData[] newRowBlockDatas;
-        public string blockBufferWithNet;//多人模式下从服务器获取的block配置
-        
+
         //比赛中玩家和对手用户名
         public string selfUserName;
         public string otehrUserName;
@@ -114,7 +113,7 @@ namespace Demo
         private void UpDateBlockArea()
         {
             //TODO 暂时关闭上升功能(多人模式下)
-             if (!BoardStopRise && !PreussUnlocking && !NetManager.Instance.Multiplayer)
+             if (!BoardStopRise && !PreussUnlocking)
              {
                  BoardRise(riseUpBtn);
                  if (!NetManager.Instance.Multiplayer)
@@ -264,39 +263,15 @@ namespace Demo
             }
         }
         
-        //棋盘上升
         private void BoardRise(bool btnRise = false)
         {
+            int gameRiseType = 2;//默认是自动提升，多人模式下提升棋盘的操作类型
             //TODO 到达顶部，就不上升了
             if (btnRise)
             {
-                float index = boards.transform.localPosition.y / ConstValues.SELF_BLOCK_Y_OFFSET;
+                int index = (int)(boards.transform.localPosition.y / ConstValues.SELF_BLOCK_Y_OFFSET);
                 boards.transform.localPosition = new Vector3(0, (index + 1) * ConstValues.SELF_BLOCK_Y_OFFSET, 0);
-
-                if (NetManager.Instance.Multiplayer)
-                {
-                    NetManager.Instance.GameRaiseReq(TimerMgr._Instance.Frame, () =>
-                    {
-                        GenNewRowBlocksMultiplayer(genNewRowCount);
-                        //压力块的Row也更新+1
-                        for (int i = 0; i < pressureBlocks.Count; i++)
-                        {
-                            pressureBlocks[i].Row++;
-                        }
-                    });
-                }
-                else
-                {
-                    newRowBlockDatas = GenNewRowDataSinglePlayer();
-                    GenNewRowBlocksSinglePlayer(newRowBlockDatas,genNewRowCount);
-                    //压力块的Row也更新+1
-                    for (int i = 0; i < pressureBlocks.Count; i++)
-                    {
-                        pressureBlocks[i].Row++;
-                    }
-                }
-                
-                // riseUpBtn = false;
+                gameRiseType = 1;
             }
             else
             {
@@ -306,7 +281,7 @@ namespace Demo
                     {
                         if (NetManager.Instance.Multiplayer)
                         {
-                            NetManager.Instance.GameRaiseReq(TimerMgr._Instance.Frame, () =>
+                            NetManager.Instance.GameRaiseReq(TimerMgr._Instance.Frame,gameRiseType,() =>
                             {
                                 GenNewRowBlocksMultiplayer(genNewRowCount);
                                 //压力块的Row也更新+1

@@ -200,32 +200,8 @@ namespace Demo
             //TODO 到达顶部，就不上升了
             if (btnRise)
             {
-                float index = boards.transform.localPosition.y / ConstValues.OTHER_BLOCK_Y_OFFSET;
+                float index = (int)(boards.transform.localPosition.y / ConstValues.OTHER_BLOCK_Y_OFFSET);
                 boards.transform.localPosition = new Vector3(0, (index + 1) * ConstValues.OTHER_BLOCK_Y_OFFSET, 0);
-                
-                if (NetManager.Instance.Multiplayer)
-                {
-                    NetManager.Instance.GameRaiseReq(TimerMgr._Instance.Frame, () =>
-                    {
-                        GenNewRowBlocksMultiplayer(genNewRowCount,false);
-                        //压力块的Row也更新+1
-                        for (int i = 0; i < pressureBlocks.Count; i++)
-                        {
-                            pressureBlocks[i].Row++;
-                        }
-                    });
-                }
-                else
-                {
-                    GenNewRowBlocksSinglePlayer(newBlockData,genNewRowCount,false);
-                    //压力块的Row也更新+1
-                    for (int i = 0; i < pressureBlocks.Count; i++)
-                    {
-                        pressureBlocks[i].Row++;
-                    }
-                }
-
-                // riseUpBtn = false;
             }
             else
             {
@@ -235,15 +211,15 @@ namespace Demo
                     {
                         if (NetManager.Instance.Multiplayer)
                         {
-                            NetManager.Instance.GameRaiseReq(TimerMgr._Instance.Frame, () =>
-                            {
-                                GenNewRowBlocksMultiplayer(genNewRowCount,false);
-                                //压力块的Row也更新+1
-                                for (int i = 0; i < pressureBlocks.Count; i++)
-                                {
-                                    pressureBlocks[i].Row++;
-                                }
-                            });
+                            // NetManager.Instance.GameRaiseReq(TimerMgr._Instance.Frame, () =>
+                            // {
+                            //     GenNewRowBlocksMultiplayer(genNewRowCount,false);
+                            //     //压力块的Row也更新+1
+                            //     for (int i = 0; i < pressureBlocks.Count; i++)
+                            //     {
+                            //         pressureBlocks[i].Row++;
+                            //     }
+                            // });
                         }
                         else
                         {

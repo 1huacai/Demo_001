@@ -76,6 +76,9 @@ namespace Demo
             NetReceiver.AddHandler<S2C_Protocol.game_raise>((data) =>
             {
                 Debug.LogError("========= game_raise");
+                var request = data as S2C_SprotoType.game_raise.request;
+                Debug.LogError($"{request.frame}-对手提升一行-操作类型-{request.type}");
+                
                 return null;
             });
             
@@ -99,6 +102,7 @@ namespace Demo
             NetReceiver.AddHandler<S2C_Protocol.game_new_row>((data) =>
             {
                 Debug.LogError("========= game_new_row");
+                Debug.LogError("对手生成新的一行新的Blocks");
                 return null;
             });
             
@@ -107,20 +111,22 @@ namespace Demo
             {
                 Debug.LogError("========= game_block_buffer");
                 var request = data as S2C_SprotoType.game_block_buffer.request;
-                Debug.LogError($"InitBlockBuffer-{request.buffer}--{request.buffer.Length}");
                 //TODO 从这里添加初始化blocks
                 if (!SelfGameController.Inst.gameStart)
                 {
                     //游戏未开始获得初始化blockbuffer
                     SelfGameController.Inst.blockBufferWithNet = request.buffer;
                     UIManager.Inst.GetUI<LoginView>(UIDef.LoginView).GameReadyEnterGame();
+                    Debug.LogError($"InitBlockBuffer-{SelfGameController.Inst.blockBufferWithNet}-" +
+                                   $"-{SelfGameController.Inst.blockBufferWithNet.Length}");
                 }
                 else
                 {
                     //游戏开始新的blockbuffer加入末尾
                     SelfGameController.Inst.blockBufferWithNet += request.buffer;
+                    Debug.LogError($"NewBlockBuffer-{SelfGameController.Inst.blockBufferWithNet}-" +
+                                   $"-{SelfGameController.Inst.blockBufferWithNet.Length}");
                 }
-                
                 return null;
             });
             

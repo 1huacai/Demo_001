@@ -20,7 +20,7 @@ namespace Demo
         public List<PressureBlock> unlockPressBlocks = new List<PressureBlock>();
         //同一帧内的消除集合
         public List<List<Block>> BlocksInSameFrame = new List<List<Block>>();
-        
+        public string blockBufferWithNet;//多人模式下从服务器获取的block配置
         protected int genNewRowCount = 1; //构建新行的次数
 
         public int GenNewRowCount
@@ -77,7 +77,12 @@ namespace Demo
 
             return blockDataList;
         }
-
+        
+        /// <summary>
+        /// 服务器数据初始化blocks
+        /// </summary>
+        /// <param name="blockBuffer"></param>
+        /// <returns></returns>
         public List<BlockData> GenBlockDatasWith(string blockBuffer)
         {
             int maxRow = ConstValues.MAX_GENROW, maxCol = ConstValues.MAX_COL;
@@ -104,12 +109,29 @@ namespace Demo
             }
             
             //在SelfGameController.Inst.blockBufferWithNet移除使用过的字符
-            SelfGameController.Inst.blockBufferWithNet = SelfGameController.Inst.blockBufferWithNet.Remove(0, buffCount);
-            Debug.LogError(SelfGameController.Inst.blockBufferWithNet + "--" + SelfGameController.Inst.blockBufferWithNet.Length);
+            blockBufferWithNet = blockBufferWithNet.Remove(0, buffCount);
+            Debug.LogError(blockBufferWithNet + "--" + blockBufferWithNet.Length);
             
             return blockDataList;
         }
         
+        /// <summary>
+        /// 服务器数据构建新一行blocks
+        /// </summary>数据
+        /// <param name="blockBuffer"></param>
+        /// <returns></returns>
+        public List<BlockData> GenRowBlockDatasWith(string blockBuffer)
+        {
+            List<BlockData> blockDataList = new List<BlockData>();
+            for (int col = 0; col < ConstValues.MAX_COL; col++)
+            {
+                char numberStr = blockBuffer[col];
+                BlockShape shape = ConstValues.BLOCK_COLOR_NUMBER_TO_BLOCKSHAPE[numberStr];
+                blockDataList.Add(new BlockData(0, col + 1,shape));
+            }
+            blockBufferWithNet = blockBufferWithNet.Remove(0, 6);
+            return blockDataList;
+        }
         
         //判断block是否相邻且相同
         protected static bool IsSameAsAdjacent(BlockData[,] blockDataMatrix, int row, int col, BlockShape shape)
