@@ -288,7 +288,6 @@ namespace Demo
                 newRowBlocks.Add(block);
             }
             
-            Debug.LogError(newRowBlocks.Count);
             if (genCount > 1)
             {
                 //后面就先把原先每row的值上移

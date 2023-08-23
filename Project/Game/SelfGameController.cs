@@ -112,16 +112,14 @@ namespace Demo
         //更新棋盘区域逻辑
         private void UpDateBlockArea()
         {
-            //TODO 暂时关闭上升功能(多人模式下)
-             if (!BoardStopRise && !PreussUnlocking)
+            if (!BoardStopRise && !PreussUnlocking)
              {
                  BoardRise(riseUpBtn);
                  if (!NetManager.Instance.Multiplayer)
                  {
                      OtherGameController.Inst.BoardRise(newRowBlockDatas,riseUpBtn);
-                     riseUpBtn = false;
                  }
-                 
+                 riseUpBtn = false;
              }
             
             //检测每个block的自有逻辑
