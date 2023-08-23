@@ -129,7 +129,7 @@ namespace Demo
                 BlockShape shape = ConstValues.BLOCK_COLOR_NUMBER_TO_BLOCKSHAPE[numberStr];
                 blockDataList.Add(new BlockData(0, col + 1,shape));
             }
-            blockBufferWithNet = blockBufferWithNet.Remove(0, 6);
+            blockBufferWithNet = blockBufferWithNet.Remove(0, ConstValues.MAX_COL);
             return blockDataList;
         }
         
@@ -231,7 +231,8 @@ namespace Demo
         /// <param name="genCount"></param>
         public void GenNewRowBlocksMultiplayer(int genCount = 1,bool isSelf = true)
         {
-            NetManager.Instance.GameNewRow(TimerMgr._Instance.Frame,genCount,isSelf,GenNewRowBlocksByData);
+            BlockData[] newRowBlockData = GenRowBlockDatasWith(blockBufferWithNet).ToArray();
+            GenNewRowBlocksByData(newRowBlockData, genCount, isSelf);
         }
 
         /// <summary>
@@ -286,7 +287,8 @@ namespace Demo
                 block.BlockOperationEvent += OnBlockOperation;
                 newRowBlocks.Add(block);
             }
-
+            
+            Debug.LogError(newRowBlocks.Count);
             if (genCount > 1)
             {
                 //后面就先把原先每row的值上移

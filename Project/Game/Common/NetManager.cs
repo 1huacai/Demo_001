@@ -189,25 +189,22 @@ namespace Demo
         /// <param name="callBack"></param>
         public void GameRaiseReq(int frame,int type,Action callBack)
         {
+            Debug.LogError($"提升一行请求：操作类型-{type}");
+            callBack?.Invoke();
+            
             var req = new C2S_SprotoType.game_raise.request()
             {
                 frame = frame,
                 type = type
             };
-            NetSender.Send<C2S_Protocol.game_raise>(req,(rsp =>
-            {
-                var data = rsp as C2S_SprotoType.game_raise.response;
-                if (data.e == 0)
-                {
-                    Debug.LogError($"提升一行请求验证通过：操作类型-{type}");
-                    callBack?.Invoke();
-                }
-            }));
+            NetSender.Send<C2S_Protocol.game_raise>(req);
         }
         
         //匹配消除请求
         public void GameMatched(int frame, List<Block> blocks,Action callBack)
         {
+            callBack?.Invoke();
+            
             List<block_info> blockInfos = new List<block_info>();
             foreach (var block in blocks)
             {
@@ -234,35 +231,34 @@ namespace Demo
                 if (data.e == 0)
                 {
                     Debug.LogError("消除请求验证通过");
-                    callBack?.Invoke();
                 }
             }));
         }
         
-        /// <summary>
-        /// 生成新的一行
-        /// </summary>
-        /// <param name="frame"></param>
-        /// <param name="callBack"></param>
-        public void GameNewRow(int frame,int genCount,bool isSelf,Action<BlockData[],int,bool> callBack)
-        {
-            var req = new C2S_SprotoType.game_new_row.request()
-            {
-                frame = frame
-            };
-            
-            NetSender.Send<C2S_Protocol.game_new_row>(req,(rsp =>
-            {
-                var data = rsp as C2S_SprotoType.game_new_row.response;
-                if (data.e == 0)
-                {
-                    Debug.LogError("从缓存数据中取出新一行blockData");
-                    BlockData[] newRowBlockData = SelfGameController.Inst
-                        .GenRowBlockDatasWith(SelfGameController.Inst.blockBufferWithNet).ToArray();
-                    callBack?.Invoke(newRowBlockData,genCount,isSelf);
-                }
-            }));
-        }
+        // /// <summary>
+        // /// 生成新的一行
+        // /// </summary>
+        // /// <param name="frame"></param>
+        // /// <param name="callBack"></param>
+        // [Obsolete]public void GameNewRow(int frame,int genCount,bool isSelf,Action<BlockData[],int,bool> callBack)
+        // {
+        //     var req = new C2S_SprotoType.game_new_row.request()
+        //     {
+        //         frame = frame
+        //     };
+        //     
+        //     NetSender.Send<C2S_Protocol.game_new_row>(req,(rsp =>
+        //     {
+        //         var data = rsp as C2S_SprotoType.game_new_row.response;
+        //         if (data.e == 0)
+        //         {
+        //             Debug.LogError("从缓存数据中取出新一行blockData");
+        //             BlockData[] newRowBlockData = SelfGameController.Inst
+        //                 .GenRowBlockDatasWith(SelfGameController.Inst.blockBufferWithNet).ToArray();
+        //             callBack?.Invoke(newRowBlockData,genCount,isSelf);
+        //         }
+        //     }));
+        // }
         
         private StringBuilder _builder = new StringBuilder();
         //更新本地棋子的日志

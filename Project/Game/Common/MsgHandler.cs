@@ -98,13 +98,13 @@ namespace Demo
                 return null;
             });
             
-            //数据同步：生成新的一行方块
-            NetReceiver.AddHandler<S2C_Protocol.game_new_row>((data) =>
-            {
-                Debug.LogError("========= game_new_row");
-                Debug.LogError("对手生成新的一行新的Blocks");
-                return null;
-            });
+            // //数据同步：生成新的一行方块
+            // NetReceiver.AddHandler<S2C_Protocol.game_new_row>((data) =>
+            // {
+            //     Debug.LogError("========= game_new_row");
+            //     Debug.LogError("对手生成新的一行新的Blocks");
+            //     return null;
+            // });
             
             //生成方块的buffer,第一次游戏没开始时做初始化，然后后面新来的再往里面加
             NetReceiver.AddHandler<S2C_Protocol.game_block_buffer>((data) =>
