@@ -113,14 +113,15 @@ namespace Demo
         private void UpDateBlockArea()
         {
             if (!BoardStopRise && !PreussUnlocking)
-             {
-                 BoardRise(riseUpBtn);
-                 if (!NetManager.Instance.Multiplayer)
-                 {
-                     OtherGameController.Inst.BoardRise(newRowBlockDatas,riseUpBtn);
-                 }
-                 riseUpBtn = false;
-             }
+            {
+                BoardRise(riseUpBtn);
+                if (!NetManager.Instance.Multiplayer)
+                {
+                    OtherGameController.Inst.BoardRise(newRowBlockDatas, riseUpBtn);
+                }
+
+                riseUpBtn = false;
+            }
             
             //检测每个block的自有逻辑
             foreach (var block in blockMatrix)
@@ -261,9 +262,9 @@ namespace Demo
             }
         }
         
+        int gameRiseType = 2;//默认是自动提升，多人模式下提升棋盘的操作类型
         private void BoardRise(bool btnRise = false)
         {
-            int gameRiseType = 2;//默认是自动提升，多人模式下提升棋盘的操作类型
             //TODO 到达顶部，就不上升了
             if (btnRise)
             {
@@ -281,6 +282,7 @@ namespace Demo
                         {
                             NetManager.Instance.GameRaiseReq(TimerMgr._Instance.Frame,gameRiseType,() =>
                             {
+                                gameRiseType = 2;
                                 GenNewRowBlocksMultiplayer(genNewRowCount);
                                 //压力块的Row也更新+1
                                 for (int i = 0; i < pressureBlocks.Count; i++)
