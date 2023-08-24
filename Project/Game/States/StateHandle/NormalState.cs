@@ -20,24 +20,12 @@ namespace Demo
         {
             if (block.Shape == BlockShape.None)
                 return;
-
-            var sameBlocks = (_controller as SelfGameController)?.GetSameBlocksWith(block);
+            var selfController = _controller as SelfGameController;
+            var sameBlocks = selfController.GetSameBlocksWith(block);
             if (sameBlocks.Count >= 3) //有可以匹配消除的block
             {
-                Debug.LogError("进入normal待转matched");
-                (_controller as SelfGameController)?.BlocksInSameFrame.Add(sameBlocks);
-                //单人模式下走本地的匹配逻辑
-                if (!NetManager.Instance.Multiplayer)
-                {
-                    for (int i = 0; i < sameBlocks.Count; i++)
-                    {
-                        var targetBlock = sameBlocks[i];
-                        Debug.LogError($"{targetBlock.name}-{targetBlock.Shape}-{sameBlocks.Count}");
-                        StateManger._instance.ChangeState(BlockState.Matched, targetBlock);
-                        //设置上方的棋子chain为true
-                        (_controller as SelfGameController)?.SetUpRowBlockChain(targetBlock);
-                    }
-                }
+                if(!selfController.IsBlockInSameFrame(block))
+                    selfController.BlocksInSameFrame.Add(block);
                 return;
             }
             
@@ -45,15 +33,15 @@ namespace Demo
             if (block.Row > 1)
             {
                 //改变空棋子上方所有棋子的状态为Hovering
-                var downBlock = (_controller as SelfGameController)?.blockMatrix[block.Row - 1, block.Col - 1];
+                var downBlock = selfController.blockMatrix[block.Row - 1, block.Col - 1];
                 if (downBlock.Shape == BlockShape.None &&
-                    !SelfGameController.Inst.CheckPressureBlockIncludeBlock(downBlock))
+                    !selfController.CheckPressureBlockIncludeBlock(downBlock))
                 {
                     int row = downBlock.Row + 1;
                     int col = downBlock.Col - 1;
                     for (int i = row; i < ConstValues.MAX_ROW; i++)
                     {
-                        var t_block = SelfGameController.Inst.blockMatrix[i, col];
+                        var t_block = selfController.blockMatrix[i, col];
                         if (t_block.Shape == BlockShape.None || t_block.State == BlockState.Hovering)
                             break;
                         StateManger._instance.ChangeState(BlockState.Hovering, t_block);

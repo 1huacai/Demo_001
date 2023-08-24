@@ -19,7 +19,7 @@ namespace Demo
         //需要解锁的压力块列表
         public List<PressureBlock> unlockPressBlocks = new List<PressureBlock>();
         //同一帧内的消除集合
-        public List<List<Block>> BlocksInSameFrame = new List<List<Block>>();
+        public List<Block> BlocksInSameFrame = new List<Block>();
         public string blockBufferWithNet;//多人模式下从服务器获取的block配置
         protected int genNewRowCount = 1; //构建新行的次数
 
@@ -512,19 +512,9 @@ namespace Demo
         }
         
         // 判断要找额block是否在同一帧要消除的棋子集合中
-        protected bool IsBlockInSameFrame(Block targetBlock)
+        public bool IsBlockInSameFrame(Block targetBlock)
         {
-            bool result = false;
-            foreach (var sameBlocks in BlocksInSameFrame)
-            {
-                if (sameBlocks.Contains(targetBlock))
-                {
-                    result = true;
-                    break;
-                }
-            }
-
-            return result;
+            return BlocksInSameFrame.Contains(targetBlock);
         }
         
         /// <summary>

@@ -145,69 +145,53 @@ namespace Demo
         
         private void LateUpdateBlockArea()
         {
-            if (BlocksInSameFrame.Count > 0)
+            if (BlocksInSameFrame.Count >= 3)
             {
                 Debug.LogError("同帧率多消组合FPS-" + TimerMgr._Instance.Frame);
                 comboCount = 0;
                 
-                if (NetManager.Instance.Multiplayer)
+                
+                for (int i = 0; i < BlocksInSameFrame.Count; i++)
                 {
-                    List<Block> matchedBlocks = new List<Block>();
-                    //同一帧的所有消除集合
-                    foreach (var arrray in BlocksInSameFrame)
-                    {
-                        matchedBlocks.AddRange(arrray);
-                    }
-                    //多人模式下对棋子匹配的处理
-                    NetManager.Instance.GameMatched(TimerMgr._Instance.Frame,matchedBlocks, 0,0,() =>
-                    {
-                        for (int i = 0; i < matchedBlocks.Count; i++)
-                        {
-                            var targetBlock = matchedBlocks[i];
-                            Debug.LogError($"{targetBlock.name}-{targetBlock.Shape}");
-                            StateManger._instance.ChangeState(BlockState.Matched, targetBlock);
-                            //设置该棋子上方的棋子chain为true
-                            SetUpRowBlockChain(targetBlock);
-                        }   
-                    });
-                    //TODO 多人模式下暂时不向下走
-                    BlocksInSameFrame.Clear();
-                    return;
+                    var targetBlock = BlocksInSameFrame[i];
+                    StateManger._instance.ChangeState(BlockState.Matched, targetBlock);
+                    //设置该棋子上方的棋子chain为true
+                    SetUpRowBlockChain(targetBlock);
                 }
                 
-                foreach (var blocksInFrame in BlocksInSameFrame)
+                if (NetManager.Instance.Multiplayer)
                 {
-                    //集合中的chain数量
-                    if (blocksInFrame.Find((block => block.Chain)))
+                    NetManager.Instance.GameMatched(TimerMgr._Instance.Frame,BlocksInSameFrame, 0,0,null);
+                }
+                
+                //集合中的chain数量
+                chainCount += BlocksInSameFrame.FindAll((block => block.Chain)).Count;
+                comboCount = BlocksInSameFrame.Count;
+                Debug.LogError(comboCount);
+                
+                foreach (var block in BlocksInSameFrame)
+                {
+                    //解锁压力块
+                    for (int k = 0; k < pressureBlocks.Count; k++)
                     {
-                        chainCount++;
-                    }
-
-                    foreach (var block in blocksInFrame)
-                    {
-                        comboCount++;
-                        //解锁压力块
-                        for (int k = 0; k < pressureBlocks.Count; k++)
+                        //单人镜像镜像敌方解锁压力块
+                        if (NetManager.Instance.Multiplayer)
                         {
-                            //单人镜像镜像敌方解锁压力块
-                            if (NetManager.Instance.Multiplayer)
-                            {
-                                // var pressureBlock_other = OtherGameController.Inst.pressureBlocks[k];
-                                // pressureBlock_other.UnlockPressureBlock(block.Row, block.Col);
-                            }
-                            else
-                            {
-                                var pressureBlock_self = pressureBlocks[k];
-                                pressureBlock_self.UnlockPressureBlock(block.Row, block.Col);
-                            }
+                            // var pressureBlock_other = OtherGameController.Inst.pressureBlocks[k];
+                            // pressureBlock_other.UnlockPressureBlock(block.Row, block.Col);
+                        }
+                        else
+                        {
+                            var pressureBlock_self = pressureBlocks[k];
+                            pressureBlock_self.UnlockPressureBlock(block.Row, block.Col);
                         }
                     }
                 }
-
+                
                 // combo压力块
-                if (comboCount >= 4) //原数字是4，暂时换3测试
+                if (comboCount >= 4) 
                 {
-                    var targetBlock_self = BlocksInSameFrame[0][0];
+                    var targetBlock_self = BlocksInSameFrame[0];
                     GenComboObj(comboCount, targetBlock_self.transform.localPosition,true);
 
                     if (!NetManager.Instance.Multiplayer)
@@ -237,7 +221,7 @@ namespace Demo
                 //chain压力块
                 if (chainCount >= 2)
                 {
-                    GenChainObj(chainCount, BlocksInSameFrame[0][0].transform.localPosition);
+                    GenChainObj(chainCount, BlocksInSameFrame[0].transform.localPosition);
                     chainCountArray.Add(chainCount);//chain 数量加入集合备用
                     
                     //chain达成

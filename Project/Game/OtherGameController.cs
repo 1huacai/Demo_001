@@ -136,62 +136,62 @@ namespace Demo
 
         private void LateUpdateBlockArea()
         {
-            if (BlocksInSameFrame.Count > 0)
-            {
-                Debug.LogError("同帧率多消组合FPS-" + TimerMgr._Instance.Frame);
-                comboCount = 0;
-                chainCount = 0;
-
-                for (int i = 0; i < BlocksInSameFrame.Count; i++)
-                {
-                    for (int j = 0; j < BlocksInSameFrame[i].Count; j++)
-                    {
-                        comboCount++;
-                        var block = BlocksInSameFrame[i][j];
-                        if (block.Chain)
-                            chainCount++;
-
-                        for (int k = 0; k < pressureBlocks.Count; k++)
-                        {
-                            var pressureBlock = pressureBlocks[k];
-                            pressureBlock.UnlockPressureBlock(block.Row, block.Col);
-                        }
-                    }
-                }
-
-                // combo压力块
-                if (comboCount >= 4) //原数字是4，暂时换3测试
-                {
-                    GenComboObj(comboCount, BlocksInSameFrame[0][0].transform.localPosition);
-
-                    //Combo达成，棋盘暂停移动
-                    BoardStopRise = true;
-                    TimerMgr._Instance.Schedule(() =>
-                    {
-                        BoardStopRise = false;
-                        //兴建压力块
-                        PressureBlock.CreatePressureBlock(true, comboCount, pressureBoard);
-                    }, (20 * comboCount - 20) * ConstValues.fpsTime);
-                }
-
-                //chain压力块
-                if (chainCount >= 2)
-                {
-                    GenChainObj(chainCount, BlocksInSameFrame[0][0].transform.localPosition);
-
-                    //chain达成
-                    BoardStopRise = true;
-                    TimerMgr._Instance.Schedule(() =>
-                    {
-                        Debug.LogError("生成chain的压力块");
-                        BoardStopRise = false;
-                        //兴建压力块
-                        PressureBlock.CreatePressureBlock(false, chainCount, pressureBoard);
-                    }, (20 * chainCount + 80) * ConstValues.fpsTime);
-                }
-
-                BlocksInSameFrame.Clear();
-            }
+            // if (BlocksInSameFrame.Count > 0)
+            // {
+            //     Debug.LogError("同帧率多消组合FPS-" + TimerMgr._Instance.Frame);
+            //     comboCount = 0;
+            //     chainCount = 0;
+            //
+            //     for (int i = 0; i < BlocksInSameFrame.Count; i++)
+            //     {
+            //         for (int j = 0; j < BlocksInSameFrame[i].Count; j++)
+            //         {
+            //             comboCount++;
+            //             var block = BlocksInSameFrame[i][j];
+            //             if (block.Chain)
+            //                 chainCount++;
+            //
+            //             for (int k = 0; k < pressureBlocks.Count; k++)
+            //             {
+            //                 var pressureBlock = pressureBlocks[k];
+            //                 pressureBlock.UnlockPressureBlock(block.Row, block.Col);
+            //             }
+            //         }
+            //     }
+            //
+            //     // combo压力块
+            //     if (comboCount >= 4) //原数字是4，暂时换3测试
+            //     {
+            //         GenComboObj(comboCount, BlocksInSameFrame[0][0].transform.localPosition);
+            //
+            //         //Combo达成，棋盘暂停移动
+            //         BoardStopRise = true;
+            //         TimerMgr._Instance.Schedule(() =>
+            //         {
+            //             BoardStopRise = false;
+            //             //兴建压力块
+            //             PressureBlock.CreatePressureBlock(true, comboCount, pressureBoard);
+            //         }, (20 * comboCount - 20) * ConstValues.fpsTime);
+            //     }
+            //
+            //     //chain压力块
+            //     if (chainCount >= 2)
+            //     {
+            //         GenChainObj(chainCount, BlocksInSameFrame[0][0].transform.localPosition);
+            //
+            //         //chain达成
+            //         BoardStopRise = true;
+            //         TimerMgr._Instance.Schedule(() =>
+            //         {
+            //             Debug.LogError("生成chain的压力块");
+            //             BoardStopRise = false;
+            //             //兴建压力块
+            //             PressureBlock.CreatePressureBlock(false, chainCount, pressureBoard);
+            //         }, (20 * chainCount + 80) * ConstValues.fpsTime);
+            //     }
+            //
+            //     BlocksInSameFrame.Clear();
+            // }
         }
 
         //棋盘上升
