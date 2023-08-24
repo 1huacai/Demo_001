@@ -231,7 +231,7 @@ namespace Demo
             //自身解锁或生成新的块
             BlockShape oldShape = (BlockShape) Random.Range(1, ConstValues.MAX_BLOCKTYPE);
             float animTime = 0f;
-            for (int i = 0; i < singleBlocks.Count; i++)
+            for (int i = singleBlocks.Count - 1; i >= 0; i--)
             {
                 var block = singleBlocks[i];
                 //播放解锁动画特效

@@ -42,7 +42,7 @@ namespace Demo.Tools
                     //TODO 把解锁的压力块集合排序
                     SelfGameController.Inst.unlockPressBlocks.Sort(((pressure_1, pressure_2) =>
                     {
-                        return pressure_1.OriginCol - pressure_2.OriginCol;
+                        return  pressure_2.OriginCol - pressure_1.OriginCol;
                     }));
                       
                     SelfGameController.Inst.unlockPressBlocks.Sort(((pressure_1, pressure_2) =>
