@@ -21,8 +21,8 @@ namespace Demo
         private bool isNeedFall = false;
         private bool isUnlocking = false;
         private bool isSelf = true;
-        
-        
+
+        #region Get/Set
         public int Row
         {
             get { return row; }
@@ -63,6 +63,7 @@ namespace Demo
             get { return isSelf; }
             set { isSelf = value; }
         }
+        #endregion
         
         public List<Transform> SingleBlocks
         {

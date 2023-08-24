@@ -393,7 +393,7 @@ namespace Demo
             {
                 var targetBlock = blockMatrix[row + 1, curCol];
                 var curBlock = blockMatrix[row, curCol];
-                if ((targetBlock && targetBlock.Shape == BlockShape.None) || !targetBlock)
+                if (targetBlock && targetBlock.Shape == BlockShape.None || targetBlock.GenByGarbage)
                     break;
                 
                 if ((curBlock.Shape == targetBlock.Shape)
@@ -414,7 +414,7 @@ namespace Demo
             {
                 var targetBlock = blockMatrix[row - 1, curCol];
                 var curBlock = blockMatrix[row, curCol];
-                if (targetBlock.Shape == BlockShape.None)
+                if (targetBlock.Shape == BlockShape.None || targetBlock.GenByGarbage)
                     break;
                 if ((curBlock.Shape == targetBlock.Shape)
                     && (curBlock.Shape == block.Shape)
@@ -434,7 +434,7 @@ namespace Demo
             {
                 var targetBlock = blockMatrix[curRow, col - 1];
                 var curBlock = blockMatrix[curRow, col];
-                if (targetBlock.Shape == BlockShape.None)
+                if (targetBlock.Shape == BlockShape.None || targetBlock.GenByGarbage)
                     break;
                 if ((curBlock.Shape == targetBlock.Shape)
                     && (curBlock.Shape == block.Shape)
@@ -454,7 +454,7 @@ namespace Demo
             {
                 var targetBlock = blockMatrix[curRow, col + 1];
                 var curBlock = blockMatrix[curRow, col];
-                if (targetBlock.Shape == BlockShape.None)
+                if (targetBlock.Shape == BlockShape.None || targetBlock.GenByGarbage)
                     break;
                 if ((curBlock.Shape == targetBlock.Shape)
                     && (curBlock.Shape == block.Shape)

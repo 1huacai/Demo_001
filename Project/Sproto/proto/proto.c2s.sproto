@@ -119,7 +119,9 @@ game_raise 1066 {
 game_matched 1067 {
     request {
         frame               0 : integer # 当前逻辑帧
-        matched_blocks      2 : *block_info # 匹配待消除的方块列表
+        matched_blocks      1 : *block_info # 匹配待消除的方块列表
+        metal_count         2 : integer # 消除的铁块数量
+        chain_count         3 : integer # 连锁计数
     }
     response {
         e                   0 : integer

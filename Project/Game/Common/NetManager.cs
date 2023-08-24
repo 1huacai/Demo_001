@@ -200,8 +200,15 @@ namespace Demo
             NetSender.Send<C2S_Protocol.game_raise>(req);
         }
         
-        //匹配消除请求
-        public void GameMatched(int frame, List<Block> blocks,Action callBack)
+       /// <summary>
+       /// 匹配消除请求
+       /// </summary>
+       /// <param name="frame"></param>
+       /// <param name="blocks"></param>
+       /// <param name="metalCount">金属块数量</param>
+       /// <param name="chainCount">chain数量</param>
+       /// <param name="callBack"></param>
+        public void GameMatched(int frame, List<Block> blocks,int metalCount,int chainCount,Action callBack)
         {
             callBack?.Invoke();
             
@@ -222,7 +229,9 @@ namespace Demo
             var req = new C2S_SprotoType.game_matched.request()
             {
                 frame = frame,
-                matched_blocks = blockInfos
+                matched_blocks = blockInfos,
+                metal_count = metalCount,
+                chain_count = chainCount
             };
             
             NetSender.Send<C2S_Protocol.game_matched>(req,(rsp =>
@@ -234,32 +243,7 @@ namespace Demo
                 }
             }));
         }
-        
-        // /// <summary>
-        // /// 生成新的一行
-        // /// </summary>
-        // /// <param name="frame"></param>
-        // /// <param name="callBack"></param>
-        // [Obsolete]public void GameNewRow(int frame,int genCount,bool isSelf,Action<BlockData[],int,bool> callBack)
-        // {
-        //     var req = new C2S_SprotoType.game_new_row.request()
-        //     {
-        //         frame = frame
-        //     };
-        //     
-        //     NetSender.Send<C2S_Protocol.game_new_row>(req,(rsp =>
-        //     {
-        //         var data = rsp as C2S_SprotoType.game_new_row.response;
-        //         if (data.e == 0)
-        //         {
-        //             Debug.LogError("从缓存数据中取出新一行blockData");
-        //             BlockData[] newRowBlockData = SelfGameController.Inst
-        //                 .GenRowBlockDatasWith(SelfGameController.Inst.blockBufferWithNet).ToArray();
-        //             callBack?.Invoke(newRowBlockData,genCount,isSelf);
-        //         }
-        //     }));
-        // }
-        
+       
         private StringBuilder _builder = new StringBuilder();
         //更新本地棋子的日志
         public void UpdateWebLogs(Block[,] blocks)

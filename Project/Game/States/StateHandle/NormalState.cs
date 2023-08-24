@@ -14,6 +14,12 @@ namespace Demo
             if (block.Shape == BlockShape.None)
                 return;
             block.State = BlockState.Normal;
+        }
+
+        public override void Update(Block block)
+        {
+            if (block.Shape == BlockShape.None)
+                return;
 
             var sameBlocks = (_controller as SelfGameController)?.GetSameBlocksWith(block);
             if (sameBlocks.Count >= 3) //有可以匹配消除的block
@@ -32,14 +38,9 @@ namespace Demo
                         (_controller as SelfGameController)?.SetUpRowBlockChain(targetBlock);
                     }
                 }
-            }
-        }
-
-        public override void Update(Block block)
-        {
-            if (block.Shape == BlockShape.None)
                 return;
-
+            }
+            
             // //下方棋子Type为None且block的row = 1
             if (block.Row > 1)
             {

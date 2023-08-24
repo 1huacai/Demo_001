@@ -467,7 +467,7 @@ namespace C2S_SprotoType {
 	public class game_matched {
 	
 		public class request : SprotoTypeBase {
-			private static int max_field_count = 3;
+			private static int max_field_count = 4;
 			
 			
 			private Int64 _frame; // tag 0
@@ -479,13 +479,31 @@ namespace C2S_SprotoType {
 				get { return base.has_field.has_field (0); }
 			}
 
-			private List<block_info> _matched_blocks; // tag 2
+			private List<block_info> _matched_blocks; // tag 1
 			public List<block_info> matched_blocks {
 				get { return _matched_blocks; }
 				set { base.has_field.set_field (1, true); _matched_blocks = value; }
 			}
 			public bool HasMatched_blocks {
 				get { return base.has_field.has_field (1); }
+			}
+
+			private Int64 _metal_count; // tag 2
+			public Int64 metal_count {
+				get { return _metal_count; }
+				set { base.has_field.set_field (2, true); _metal_count = value; }
+			}
+			public bool HasMetal_count {
+				get { return base.has_field.has_field (2); }
+			}
+
+			private Int64 _chain_count; // tag 3
+			public Int64 chain_count {
+				get { return _chain_count; }
+				set { base.has_field.set_field (3, true); _chain_count = value; }
+			}
+			public bool HasChain_count {
+				get { return base.has_field.has_field (3); }
 			}
 
 			public request () : base(max_field_count) {}
@@ -501,8 +519,14 @@ namespace C2S_SprotoType {
 					case 0:
 						this.frame = base.deserialize.read_integer ();
 						break;
-					case 2:
+					case 1:
 						this.matched_blocks = base.deserialize.read_obj_list<block_info> ();
+						break;
+					case 2:
+						this.metal_count = base.deserialize.read_integer ();
+						break;
+					case 3:
+						this.chain_count = base.deserialize.read_integer ();
 						break;
 					default:
 						base.deserialize.read_unknow_data ();
@@ -519,7 +543,15 @@ namespace C2S_SprotoType {
 				}
 
 				if (base.has_field.has_field (1)) {
-					base.serialize.write_obj (this.matched_blocks, 2);
+					base.serialize.write_obj (this.matched_blocks, 1);
+				}
+
+				if (base.has_field.has_field (2)) {
+					base.serialize.write_integer (this.metal_count, 2);
+				}
+
+				if (base.has_field.has_field (3)) {
+					base.serialize.write_integer (this.chain_count, 3);
 				}
 
 				return base.serialize.close ();

@@ -159,7 +159,7 @@ namespace Demo
                         matchedBlocks.AddRange(arrray);
                     }
                     //多人模式下对棋子匹配的处理
-                    NetManager.Instance.GameMatched(TimerMgr._Instance.Frame,matchedBlocks, () =>
+                    NetManager.Instance.GameMatched(TimerMgr._Instance.Frame,matchedBlocks, 0,0,() =>
                     {
                         for (int i = 0; i < matchedBlocks.Count; i++)
                         {
@@ -276,7 +276,7 @@ namespace Demo
             {
                 if (TimerMgr._Instance.Frame % ConstValues.Rise_Times[7] == 0)
                 {
-                    if (boards.transform.localPosition.y % ConstValues.SELF_BLOCK_Y_OFFSET == 0)
+                    if (boards.transform.localPosition.y %    ConstValues.SELF_BLOCK_Y_OFFSET == 0)
                     {
                         if (NetManager.Instance.Multiplayer)
                         {

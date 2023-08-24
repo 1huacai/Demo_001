@@ -40,7 +40,20 @@ namespace Demo.Tools
                 if (SelfGameController.Inst.unlockPressBlocks.Count > 0)
                 {
                     //TODO 把解锁的压力块集合排序
-                    // GameManger.Inst.unlockPressBlocks.Sort(((block, pressureBlock) => ));
+                    SelfGameController.Inst.unlockPressBlocks.Sort(((pressure_1, pressure_2) =>
+                    {
+                        return pressure_1.OriginCol - pressure_2.OriginCol;
+                    }));
+                      
+                    SelfGameController.Inst.unlockPressBlocks.Sort(((pressure_1, pressure_2) =>
+                    {
+                        return pressure_1.Row - pressure_2.Row;
+                    }));
+
+                    foreach (var pressureBlock in SelfGameController.Inst.unlockPressBlocks)
+                    {
+                        Debug.LogError(pressureBlock.name);
+                    }
                     
                     SelfGameController.Inst.PreussUnlocking = true;
                     StartCoroutine(UnlockPressBlocks());

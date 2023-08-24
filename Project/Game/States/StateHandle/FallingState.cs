@@ -71,7 +71,7 @@ namespace Demo
                 if (!pressureBlock.HasObstacleWithDown())
                 {
                     StateManger._instance.ChangeState(BlockState.Falling, pressureBlock);
-                }
+                }  
                 else
                 {
                     StateManger._instance.ChangeState(BlockState.Normal, pressureBlock);
