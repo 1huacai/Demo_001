@@ -93,7 +93,7 @@ namespace Demo
         {
             if (!SelfGameController.Inst.gameStart)
             {
-                Frame = 0;
+                Frame = 1;
                 return;
             }
 

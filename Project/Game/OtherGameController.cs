@@ -52,6 +52,7 @@ namespace Demo
             
             chainCount = 1;
             genNewRowCount = 1;
+            ClearPressureData();
             // //根据数据构建所有棋子obj
             //GenBlocks(blockDatas, gameView.Self_BlockBoard);
             // gameStart = true;

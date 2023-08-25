@@ -31,7 +31,11 @@ namespace Project
     {
         Normal,Swapping,Matched,Dimmed,Hovering,Falling,Landing,Popping,Popped
     }
-    
+    //产生压力块的类型
+    public enum PressureType
+    {
+        Chain,Combo,Metal    
+    }
     
     public static class ConstValues
     {

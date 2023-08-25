@@ -59,8 +59,8 @@ namespace Demo
             
             chainCount = 1;
             genNewRowCount = 1;
-            chainCountArray.Clear();
             pressureBlocks.Clear();
+            ClearPressureData();
         }
 
         private bool boardStopRise = false;
@@ -115,11 +115,16 @@ namespace Demo
             if (!BoardStopRise && !PreussUnlocking)
             {
                 BoardRise(riseUpBtn);
-                if (!NetManager.Instance.Multiplayer)
-                {
-                    OtherGameController.Inst.BoardRise(newRowBlockDatas, riseUpBtn);
-                }
-
+                //从数据中弹出压力块
+                var selfConfig = PopPressureDataWith();
+                PressureBlock.CreatePressureBlock(selfConfig,pressureBoard,true);
+                
+                // if (!NetManager.Instance.Multiplayer)
+                // {
+                //     var otherConfig = OtherGameController.Inst.PopPressureDataWith();
+                //     PressureBlock.CreatePressureBlock(otherConfig,OtherGameController.Inst.pressureBoard,false);
+                //     OtherGameController.Inst.BoardRise(newRowBlockDatas, riseUpBtn);
+                // }
                 riseUpBtn = false;
             }
             
@@ -137,19 +142,22 @@ namespace Demo
             {
                 pressureBlocks[i].LogicUpdate();
             }
+            
+            // //TODO 暂时放在这里执行对手压力块的逻辑
+            // for (int i = 0; i < OtherGameController.Inst.pressureBlocks.Count; i++)
+            // {
+            //     OtherGameController.Inst.pressureBlocks[i].LogicUpdate();
+            // }
         }
         
         private int comboCount = 0;
         private int chainCount = 1;
-        public List<int> chainCountArray = new List<int>();
-        
+
         private void LateUpdateBlockArea()
         {
             if (BlocksInSameFrame.Count >= 3)
             {
-                Debug.LogError("同帧率多消组合FPS-" + TimerMgr._Instance.Frame);
                 comboCount = 0;
-                
                 
                 for (int i = 0; i < BlocksInSameFrame.Count; i++)
                 {
@@ -167,8 +175,7 @@ namespace Demo
                 //集合中的chain数量
                 chainCount += BlocksInSameFrame.FindAll((block => block.Chain)).Count;
                 comboCount = BlocksInSameFrame.Count;
-                Debug.LogError(comboCount);
-                
+             
                 foreach (var block in BlocksInSameFrame)
                 {
                     //解锁压力块
@@ -193,12 +200,16 @@ namespace Demo
                 {
                     var targetBlock_self = BlocksInSameFrame[0];
                     GenComboObj(comboCount, targetBlock_self.transform.localPosition,true);
-
+                    //给对手添加压力块数据
+                    OtherGameController.Inst.PushPressureDataWith(PressureType.Combo,comboCount);
+                    
                     if (!NetManager.Instance.Multiplayer)
                     {
                         var otherController = OtherGameController.Inst;
                         var targetBlock_other = otherController.blockMatrix[targetBlock_self.Row, targetBlock_self.Col - 1];
                         otherController.GenComboObj(comboCount,targetBlock_other.transform.localPosition,false);
+                        //对手给玩家添加压力块数据
+                        SelfGameController.Inst.PushPressureDataWith(PressureType.Combo,comboCount);
                     }
                     
                     //Combo达成，棋盘暂停移动
@@ -206,33 +217,33 @@ namespace Demo
                     TimerMgr._Instance.Schedule(() =>
                     {
                         BoardStopRise = false;
-                        //兴建压力块
-                        PressureBlock.CreatePressureBlock(true, comboCount, pressureBoard,true);
 
-                        if (!NetManager.Instance.Multiplayer)
-                        {
-                            //单人模式下新建对手压力块
-                            PressureBlock.CreatePressureBlock(true,comboCount,OtherGameController.Inst.pressureBoard,false);
-                        }
-                        
                     }, (20 * comboCount - 20) * ConstValues.fpsTime);
                 }
 
                 //chain压力块
                 if (chainCount >= 2)
                 {
-                    GenChainObj(chainCount, BlocksInSameFrame[0].transform.localPosition);
-                    chainCountArray.Add(chainCount);//chain 数量加入集合备用
+                    var targetBlock_self = BlocksInSameFrame[0];
+                    GenChainObj(chainCount, targetBlock_self.transform.localPosition);
+                    //给对手添加压力块数据
+                    OtherGameController.Inst.PushPressureDataWith(PressureType.Chain,chainCount);
+                    
+                    if (!NetManager.Instance.Multiplayer)
+                    {
+                        var otherController = OtherGameController.Inst;
+                        var targetBlock_other = otherController.blockMatrix[targetBlock_self.Row, targetBlock_self.Col - 1];
+                        otherController.GenChainObj(chainCount,targetBlock_other.transform.localPosition,false);
+                        //对手给玩家添加压力块数据
+                        SelfGameController.Inst.PushPressureDataWith(PressureType.Chain,chainCount);
+                    }
+                    
                     
                     //chain达成
                     BoardStopRise = true;
                     TimerMgr._Instance.Schedule(() =>
                     {
                         BoardStopRise = false;
-                        //兴建压力块，从集合中弹出chain数量
-                        PressureBlock.CreatePressureBlock(false, chainCountArray[0], pressureBoard,true);
-                        chainCountArray.RemoveAt(0);
-                        
                         //检测chain结束
                         if (ChainEnd())
                         {

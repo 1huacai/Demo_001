@@ -14,7 +14,15 @@ namespace Demo
         
         //自身所有棋子的初始化数据
         public Block[,] blockMatrix = new Block[ConstValues.MAX_MATRIX_ROW, ConstValues.MAX_COL];
-        //压力块列表(场上显示出的压力块)
+        //待添加的压力块数据(场外)
+        public Dictionary<PressureType, Queue<string>> ToBeAddedPressBlocks = new Dictionary<PressureType, Queue<string>>()
+        {
+            {PressureType.Chain, new Queue<string>()},
+            {PressureType.Combo, new Queue<string>()},
+            {PressureType.Metal, new Queue<string>()}
+        };
+        
+        //压力块列表(场内显示出的压力块)
         public List<PressureBlock> pressureBlocks = new List<PressureBlock>();
         //需要解锁的压力块列表
         public List<PressureBlock> unlockPressBlocks = new List<PressureBlock>();
@@ -373,6 +381,59 @@ namespace Demo
         #endregion
         
         #region 工具部分
+        /// <summary>
+        /// 根据类型加入压力块数据
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="count"></param>
+        public void PushPressureDataWith(PressureType type, int count)
+        {
+            if (type == PressureType.Chain)
+            {
+                string config = $"{count - 1}_Rb";
+                ToBeAddedPressBlocks[PressureType.Chain].Enqueue(config);
+            }
+            else if (type == PressureType.Combo)
+            {
+                string config = count <= 27
+                    ? ConstValues.pressureConfWithCombo[count]
+                    : ConstValues.pressureConfWithCombo[28];
+                ToBeAddedPressBlocks[PressureType.Combo].Enqueue(config);
+            }else if (type == PressureType.Metal)
+            {
+                string config = $"{count - 2}*Rb";
+                ToBeAddedPressBlocks[PressureType.Metal].Enqueue(config);
+            }
+        }
+        
+        //按顺序弹出压力块数据
+        public string PopPressureDataWith()
+        {
+            string result = null;
+            if (ToBeAddedPressBlocks[PressureType.Chain].Count > 0)
+            {
+                result = ToBeAddedPressBlocks[PressureType.Chain].Dequeue();
+            }
+            else if (ToBeAddedPressBlocks[PressureType.Combo].Count > 0)
+            {
+                result = ToBeAddedPressBlocks[PressureType.Combo].Dequeue();
+            }
+            else if (ToBeAddedPressBlocks[PressureType.Metal].Count > 0)
+            {
+                result = ToBeAddedPressBlocks[PressureType.Metal].Dequeue();
+            }
+            
+            return result;
+        }
+
+        public void ClearPressureData()
+        {
+            foreach (var type in ToBeAddedPressBlocks.Keys)
+            {
+                ToBeAddedPressBlocks[type].Clear();
+            }
+        }
+        
         /// <summary>
         /// 获取当前block在横向纵向上与自己相邻的相同Type(非None)的block
         /// </summary>

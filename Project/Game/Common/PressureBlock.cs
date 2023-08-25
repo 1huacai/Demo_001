@@ -99,54 +99,41 @@ namespace Demo
             
         }
 
-        public static void CreatePressureBlock(bool isCombo, int c_count, Transform parent,bool isSelf = true)
+        public static void CreatePressureBlock(string config,Transform parent,bool isSelf = true)
         {
-            if (isCombo)
+            if(config == null)
+                return;
+            
+            if (config.Contains("+"))
             {
-                if(c_count < 4)
-                    return;
-                //combo 生成
-                Debug.LogError("-----C_Count----"+c_count);
-                string config = c_count <= 27
-                    ? ConstValues.pressureConfWithCombo[c_count]
-                    : ConstValues.pressureConfWithCombo[28];
-                if (config.Contains("+"))
+                var arrry = config.Split('+');
+                for (int i = 0; i < arrry.Length; i++)
                 {
-                    var arrry = config.Split('+');
-                    for (int i = 0; i < arrry.Length; i++)
-                    {
-                        var key = arrry[i];
-                        GameObject prefab = ConstValues.pressureBlocks[key];
-                        GenSinglePressuerBlock(key,prefab,parent,isSelf);
-                    }
-                }
-                else if (config.Contains("*"))
-                {
-                    var arrry = config.Split('*');
-                    int pressblockCount = Convert.ToInt32(arrry[0]);
-                    var key = arrry[1];
-                    for (int i = 0; i < pressblockCount; i++)
-                    {
-                        GameObject prefab = ConstValues.pressureBlocks[key];
-                        GenSinglePressuerBlock(key,prefab,parent,isSelf);
-                    }
-                }
-                else
-                {
-                    var key = config;
+                    var key = arrry[i];
                     GameObject prefab = ConstValues.pressureBlocks[key];
                     GenSinglePressuerBlock(key,prefab,parent,isSelf);
                 }
             }
+            else if (config.Contains("*"))
+            {
+                var arrry = config.Split('*');
+                int pressblockCount = Convert.ToInt32(arrry[0]);
+                var key = arrry[1];
+                for (int i = 0; i < pressblockCount; i++)
+                {
+                    GameObject prefab = ConstValues.pressureBlocks[key];
+                    GenSinglePressuerBlock(key,prefab,parent,isSelf);
+                }
+            }else if (config.Contains("_"))
+            {
+                //chain产生的大压力块
+                
+            }
             else
             {
-                //chain 生成
-                for (int i = 0; i < c_count - 1; i++)
-                {
-                    GameObject prefab = ConstValues.pressureBlocks["Rb"];
-                    //TODO 新建pressueBlock
-                    GenSinglePressuerBlock("Rb",prefab,parent,isSelf);
-                }
+                var key = config;
+                GameObject prefab = ConstValues.pressureBlocks[key];
+                GenSinglePressuerBlock(key,prefab,parent,isSelf);
             }
         }
         
@@ -171,19 +158,13 @@ namespace Demo
             pressureBlockCom.Row = row;
             pressureBlockCom.OriginCol = col;
             pressureBlockCom.x_Num = obj.transform.childCount;
-            // pressureBlockCom.transform.localPosition = new Vector3(
-            //     (col - 1) * (isSelf ? ConstValues.SELF_BLOCK_X_OFFSET : ConstValues.OTHER_BLOCK_X_OFFSET),
-            //     (isSelf ? ConstValues.SELF_BLOCK_Y_ORIGINPOS : ConstValues.OTHER_BLOCK_Y_ORIGINPOS) + 
-            //     (row - (SelfGameController.Inst.GenNewRowCount - 1)) * (isSelf ? ConstValues.SELF_PRESSURE_Y_OFFSET : ConstValues.OTHER_PRESSURE_Y_OFFSET),
-            //     0f
-            // );
-
+           
             pressureBlockCom.transform.localPosition = GetPos(isSelf, row, col);
             float scale = isSelf ? 1f : (float)ConstValues.OTHER_BLOCK_WIDTH / ConstValues.SELF_BLOCK_WIDTH;
             pressureBlockCom.transform.localScale = new Vector3(scale, scale, scale);
             pressureBlockCom.name = $"{pressureBlockCom.x_Num}B - {pressureBlockCom.Row}";
-            
             pressureBlockCom.State = BlockState.Normal;
+            pressureBlockCom.isSelf = isSelf;
             for (int i = 0; i < pressureBlockCom.transform.childCount; i++)
             {
                 var childBlockTran = pressureBlockCom.transform.GetChild(i);
