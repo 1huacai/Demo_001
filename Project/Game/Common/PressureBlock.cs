@@ -185,13 +185,20 @@ namespace Demo
 
         private static Vector3 GetPos(bool isSelf, int row, int col)
         {
+            // return new Vector3(
+            //     (col - 1) * (isSelf ? ConstValues.SELF_BLOCK_X_OFFSET : ConstValues.OTHER_BLOCK_X_OFFSET),
+            //     (isSelf ? ConstValues.SELF_BLOCK_Y_ORIGINPOS : ConstValues.OTHER_BLOCK_Y_ORIGINPOS) +
+            //     (row - (SelfGameController.Inst.GenNewRowCount - 1)) *
+            //     (isSelf ? ConstValues.SELF_PRESSURE_Y_OFFSET : ConstValues.OTHER_PRESSURE_Y_OFFSET),
+            //     0f
+            // );
             return new Vector3(
                 (col - 1) * (isSelf ? ConstValues.SELF_BLOCK_X_OFFSET : ConstValues.OTHER_BLOCK_X_OFFSET),
-                (isSelf ? ConstValues.SELF_BLOCK_Y_ORIGINPOS : ConstValues.OTHER_BLOCK_Y_ORIGINPOS) +
-                (row - (SelfGameController.Inst.GenNewRowCount - 1)) *
+                (row - (SelfGameController.Inst.GenNewRowCount - 1)) * 
                 (isSelf ? ConstValues.SELF_PRESSURE_Y_OFFSET : ConstValues.OTHER_PRESSURE_Y_OFFSET),
                 0f
             );
+            
         }
         
         public void UnlockPressureBlock(int targetRow,int targetCol)
