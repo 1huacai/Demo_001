@@ -26,6 +26,7 @@ namespace Demo
         public List<PressureBlock> pressureBlocks = new List<PressureBlock>();
         //需要解锁的压力块列表
         public List<PressureBlock> unlockPressBlocks = new List<PressureBlock>();
+        public List<Block> genBlocksByPressure = new List<Block>();
         //同一帧内的消除集合
         public List<Block> BlocksInSameFrame = new List<Block>();
         public string blockBufferWithNet;//多人模式下从服务器获取的block配置

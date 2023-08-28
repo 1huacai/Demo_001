@@ -209,7 +209,7 @@ namespace Demo
                         var targetBlock_other = otherController.blockMatrix[targetBlock_self.Row, targetBlock_self.Col - 1];
                         otherController.GenComboObj(comboCount,targetBlock_other.transform.localPosition,false);
                         //对手给玩家添加压力块数据
-                        SelfGameController.Inst.PushPressureDataWith(PressureType.Chain,comboCount);
+                        SelfGameController.Inst.PushPressureDataWith(PressureType.Combo,comboCount);
                     }
                     
                     //Combo达成，棋盘暂停移动
@@ -222,36 +222,36 @@ namespace Demo
                 }
 
                 //chain压力块
-                if (chainCount >= 2)
-                {
-                    var targetBlock_self = BlocksInSameFrame[0];
-                    GenChainObj(chainCount, targetBlock_self.transform.localPosition);
-                    //给对手添加压力块数据
-                    OtherGameController.Inst.PushPressureDataWith(PressureType.Chain,chainCount);
-                    
-                    if (!NetManager.Instance.Multiplayer)
-                    {
-                        var otherController = OtherGameController.Inst;
-                        var targetBlock_other = otherController.blockMatrix[targetBlock_self.Row, targetBlock_self.Col - 1];
-                        otherController.GenChainObj(chainCount,targetBlock_other.transform.localPosition,false);
-                        //对手给玩家添加压力块数据
-                        SelfGameController.Inst.PushPressureDataWith(PressureType.Chain,chainCount);
-                    }
-                    
-                    
-                    //chain达成
-                    BoardStopRise = true;
-                    TimerMgr._Instance.Schedule(() =>
-                    {
-                        BoardStopRise = false;
-                        //检测chain结束
-                        if (ChainEnd())
-                        {
-                            chainCount = 1;
-                        }
-                        
-                    }, (20 * chainCount + 80) * ConstValues.fpsTime);
-                }
+                // if (chainCount >= 2)
+                // {
+                //     var targetBlock_self = BlocksInSameFrame[0];
+                //     GenChainObj(chainCount, targetBlock_self.transform.localPosition);
+                //     //给对手添加压力块数据
+                //     OtherGameController.Inst.PushPressureDataWith(PressureType.Chain,chainCount);
+                //     
+                //     if (!NetManager.Instance.Multiplayer)
+                //     {
+                //         var otherController = OtherGameController.Inst;
+                //         var targetBlock_other = otherController.blockMatrix[targetBlock_self.Row, targetBlock_self.Col - 1];
+                //         otherController.GenChainObj(chainCount,targetBlock_other.transform.localPosition,false);
+                //         //对手给玩家添加压力块数据
+                //         SelfGameController.Inst.PushPressureDataWith(PressureType.Chain,chainCount);
+                //     }
+                //     
+                //     
+                //     //chain达成
+                //     BoardStopRise = true;
+                //     TimerMgr._Instance.Schedule(() =>
+                //     {
+                //         BoardStopRise = false;
+                //         //检测chain结束
+                //         if (ChainEnd())
+                //         {
+                //             chainCount = 1;
+                //         }
+                //         
+                //     }, (20 * chainCount + 80) * ConstValues.fpsTime);
+                // }
 
                 BlocksInSameFrame.Clear();
             }
