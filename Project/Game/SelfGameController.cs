@@ -209,7 +209,7 @@ namespace Demo
                         var targetBlock_other = otherController.blockMatrix[targetBlock_self.Row, targetBlock_self.Col - 1];
                         otherController.GenComboObj(comboCount,targetBlock_other.transform.localPosition,false);
                         //对手给玩家添加压力块数据
-                        SelfGameController.Inst.PushPressureDataWith(PressureType.Combo,comboCount);
+                        SelfGameController.Inst.PushPressureDataWith(PressureType.Chain,comboCount);
                     }
                     
                     //Combo达成，棋盘暂停移动

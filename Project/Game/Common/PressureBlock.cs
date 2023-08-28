@@ -14,14 +14,16 @@ namespace Demo
     {
         [SerializeField]private int row;
         [SerializeField]private int originCol;//压力块内第一个子块的col，
-        [SerializeField]private int x_Num;//里面小压力块的个数
+        [SerializeField]private int x_Width;//里面横向小压力块的个数（宽）
+        [SerializeField] private int y_Height = 1;//里面纵向小压力块的个数(高)
         [SerializeField]public List<Block> genBlocks = new List<Block>();//压力块消除新生成的blocks
         private List<Transform> singleBlocks = new List<Transform>();
         [SerializeField]private BlockState _state;
         private bool isNeedFall = false;
         private bool isUnlocking = false;
         private bool isSelf = true;
-
+        private bool isChain = false;//由chain产生
+        
         #region Get/Set
         public int Row
         {
@@ -37,7 +39,7 @@ namespace Demo
 
         public int TriggerRange
         {
-            get { return originCol + x_Num - 1; }
+            get { return originCol + x_Width - 1; }
         }
 
         public BlockState State
@@ -63,6 +65,12 @@ namespace Demo
             get { return isSelf; }
             set { isSelf = value; }
         }
+
+        public bool IsChain
+        {
+            get { return isChain; }
+            set { isChain = value; }
+        }
         #endregion
         
         public List<Transform> SingleBlocks
@@ -77,7 +85,7 @@ namespace Demo
             if (isUnlocking)
             {
                 isUnlocking = false;
-                StartCoroutine(UnlockPressureAnim());
+                UnlockPressureAnim();
                 return;
             }
             
@@ -93,7 +101,7 @@ namespace Demo
                 if (Row <= 1)
                     return;
                 Row--;
-                gameObject.name = $"{x_Num}B - {Row}";
+                gameObject.name = $"{x_Width}B - {Row}";
                 transform.localPosition = GetPos(isSelf, Row, OriginCol);
             }
             
@@ -127,13 +135,64 @@ namespace Demo
             }else if (config.Contains("_"))
             {
                 //chain产生的大压力块
-                
+                var array = config.Split('_');
+                int K_Count = Convert.ToInt32(array[0]);
+                var RbsPre = ConstValues.pressureBlocks["Rbs"];
+                GenBigPressureBlock(K_Count, RbsPre, parent, isSelf);
             }
             else
             {
                 var key = config;
                 GameObject prefab = ConstValues.pressureBlocks[key];
                 GenSinglePressuerBlock(key,prefab,parent,isSelf);
+            }
+        }
+        
+        //构建大压力块-chain
+        private static void GenBigPressureBlock(int k_count, GameObject prefab, Transform parent, bool isSelf = true)
+        {
+            var RbsTran = Instantiate(prefab, parent).GetComponent<RectTransform>();
+            RbsTran.sizeDelta = new Vector2(ConstValues.SELF_BLOCK_WIDTH * 6, k_count * ConstValues.SELF_BLOCK_HEIGHT);
+            int maxCol = ConstValues.pressureOriginCol["Rb"];
+            int col = Random.Range(1, maxCol + 1);
+            int row = ConstValues.MAX_ROW;
+            var pressureBlockCom = RbsTran.GetComponent<PressureBlock>();
+            pressureBlockCom.Row = ConstValues.MAX_ROW;
+            pressureBlockCom.OriginCol = col;
+            pressureBlockCom.x_Width = 6;
+            pressureBlockCom.y_Height = k_count;
+            pressureBlockCom.transform.localPosition = GetPos(isSelf, row, col);
+            float scale = isSelf ? 1f : (float) ConstValues.OTHER_BLOCK_WIDTH / ConstValues.SELF_BLOCK_WIDTH;
+            pressureBlockCom.transform.localScale = new Vector3(scale, scale, scale);
+            pressureBlockCom.name = $"{pressureBlockCom.x_Width}-{pressureBlockCom.y_Height}B - {pressureBlockCom.Row}";
+            pressureBlockCom.State = BlockState.Normal;
+            pressureBlockCom.isSelf = isSelf;
+            pressureBlockCom.IsChain = true;
+
+            RectTransform rb_part = RbsTran.Find("RbPart").GetComponent<RectTransform>();
+            rb_part.sizeDelta = new Vector2(ConstValues.SELF_BLOCK_WIDTH * 6, k_count * ConstValues.SELF_BLOCK_HEIGHT);
+            var singlePre = ConstValues.pressureBlocks["Rb"];
+            for (int i = 0; i < k_count; i++)
+            {
+                var rbTran = Instantiate(singlePre, rb_part).transform;
+                Destroy(rbTran.GetComponent<PressureBlock>());
+                rbTran.localPosition = new Vector3(0f, i * ConstValues.SELF_BLOCK_HEIGHT, 0f);
+                for (int k = 0; k < rbTran.childCount; k++)
+                {
+                    var blockTran = rbTran.GetChild(k);
+                    pressureBlockCom.SingleBlocks.Add(blockTran);
+                }
+            }
+
+            if (isSelf)
+            {
+                //己方压力块集合添加
+                SelfGameController.Inst.pressureBlocks.Add(pressureBlockCom);
+            }
+            else
+            {
+                //敌方压力块集合添加
+                OtherGameController.Inst.pressureBlocks.Add(pressureBlockCom);
             }
         }
         
@@ -157,14 +216,16 @@ namespace Demo
             var pressureBlockCom = obj.GetComponent<PressureBlock>();
             pressureBlockCom.Row = row;
             pressureBlockCom.OriginCol = col;
-            pressureBlockCom.x_Num = obj.transform.childCount;
-           
+            pressureBlockCom.x_Width = obj.transform.childCount;
+            pressureBlockCom.y_Height = 1;
+            
             pressureBlockCom.transform.localPosition = GetPos(isSelf, row, col);
             float scale = isSelf ? 1f : (float)ConstValues.OTHER_BLOCK_WIDTH / ConstValues.SELF_BLOCK_WIDTH;
             pressureBlockCom.transform.localScale = new Vector3(scale, scale, scale);
-            pressureBlockCom.name = $"{pressureBlockCom.x_Num}B - {pressureBlockCom.Row}";
+            pressureBlockCom.name = $"{pressureBlockCom.x_Width}-{pressureBlockCom.y_Height}B - {pressureBlockCom.Row}";
             pressureBlockCom.State = BlockState.Normal;
             pressureBlockCom.isSelf = isSelf;
+            pressureBlockCom.IsChain = false;
             for (int i = 0; i < pressureBlockCom.transform.childCount; i++)
             {
                 var childBlockTran = pressureBlockCom.transform.GetChild(i);
@@ -214,19 +275,32 @@ namespace Demo
         /// 压力块解锁动画
         /// </summary>
         /// <returns></returns>
-        public IEnumerator UnlockPressureAnim()
+        public void UnlockPressureAnim()
         {
-            //自身解锁或生成新的块
-            BlockShape oldShape = (BlockShape) Random.Range(1, ConstValues.MAX_BLOCKTYPE);
-            float animTime = 0f;
-            for (int i = singleBlocks.Count - 1; i >= 0; i--)
+            //自身解锁或生成新的
+            if (isChain)
             {
-                var block = singleBlocks[i];
+                var blocks = singleBlocks.GetRange(0, 6);
+                singleBlocks.RemoveRange(0,6);
+                StartCoroutine(NormalAnim(blocks));
+            }
+            else
+            {
+                StartCoroutine(NormalAnim(singleBlocks));
+            }
+        }
+
+        private IEnumerator  NormalAnim(List<Transform> blocks)
+        {
+            BlockShape oldShape = (BlockShape) Random.Range(1, ConstValues.MAX_BLOCKTYPE);
+            for (int i = blocks.Count - 1; i >= 0; i--)
+            {
+                var block = blocks[i];
                 //播放解锁动画特效
                 var s_anim = block.Find("LockAnim").GetComponent<SkeletonGraphic>();
                 s_anim.timeScale = 2f; 
                 s_anim.gameObject.SetActive(true);
-                animTime = s_anim.AnimationState.SetAnimation(0, "animation", false).Animation.Duration;
+                float animTime = s_anim.AnimationState.SetAnimation(0, "animation", false).Animation.Duration;
                 s_anim.AnimationState.Complete += (entry =>
                 { 
                     block.gameObject.SetActive(false);
@@ -238,7 +312,37 @@ namespace Demo
                 oldShape = SelfGameController.Inst.GetDiffTypeFrom(oldShape);
                 yield return new WaitForSeconds(animTime);
             }
+            ResetChainBlock();//重置大压力块数据
             
+        }
+
+
+        private void ResetChainBlock()
+        {
+            if (isChain)
+            {
+                var RbPart = transform.Find("RbPart").GetComponent<RectTransform>();
+                if (RbPart.childCount > 0)
+                {
+                    var needDestoryRB = RbPart.GetChild(0);
+                    Destroy(needDestoryRB.gameObject);
+                    Row++;
+                    y_Height--;
+                    transform.GetComponent<RectTransform>().sizeDelta =
+                        new Vector2(ConstValues.SELF_BLOCK_WIDTH * 6, y_Height * ConstValues.SELF_BLOCK_HEIGHT);
+                    RbPart.sizeDelta = 
+                        new Vector2(ConstValues.SELF_BLOCK_WIDTH * 6, y_Height * ConstValues.SELF_BLOCK_HEIGHT);
+                    transform.localPosition = GetPos(true, Row, OriginCol);
+                    
+                    //重置剩余子压力块的位置
+                    for (int i = 1; i < RbPart.childCount; i++)
+                    {
+                        var childBlock = RbPart.GetChild(i);
+                        childBlock.localPosition = new Vector3(0f, (i-1) * ConstValues.SELF_BLOCK_HEIGHT, 0f);
+                    }
+                    Debug.LogError("1_C_"+RbPart.childCount);
+                }
+            }
         }
         
         //获取四个方向的相邻压力块

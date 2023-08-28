@@ -65,7 +65,7 @@ namespace Demo.Tools
             {
                 var targetPressureBlock = SelfGameController.Inst.unlockPressBlocks[i];
                 targetPressureBlock.IsUnlocking = true;
-                float waittime = lockAnimTime * targetPressureBlock.SingleBlocks.Count;
+                float waittime = lockAnimTime * (targetPressureBlock.IsChain ? 6 : targetPressureBlock.SingleBlocks.Count);
                 yield return new WaitForSeconds(waittime);
             }
 
@@ -78,8 +78,22 @@ namespace Demo.Tools
                 {
                     block.GenByGarbage = false;
                 }
+
+                if (pressureBlock.IsChain)
+                {
+                    genBlocks.Clear();
+                    Debug.LogError("2_C_"+pressureBlock.transform.Find("RbPart").childCount);
+                    if (pressureBlock.transform.Find("RbPart").childCount > 0)
+                    {
+                        //大块还没消除干净防止被误删除
+                        SelfGameController.Inst.unlockPressBlocks.Remove(pressureBlock);
+                    }
+                }
+                else
+                {
+                    SelfGameController.Inst.pressureBlocks.Remove(pressureBlock);
+                }
                 
-                SelfGameController.Inst.pressureBlocks.Remove(pressureBlock);
             }
             
             SelfGameController.Inst.PreussUnlocking = false;

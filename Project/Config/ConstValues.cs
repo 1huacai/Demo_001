@@ -270,12 +270,14 @@ namespace Project
             Resources.Load<GameObject>(pressurePrefabPath + "3B"),
             Resources.Load<GameObject>(pressurePrefabPath + "4B"),
             Resources.Load<GameObject>(pressurePrefabPath + "5B"),
-            Resources.Load<GameObject>(pressurePrefabPath + "RB")
+            Resources.Load<GameObject>(pressurePrefabPath + "RB"),
+            Resources.Load<GameObject>(pressurePrefabPath + "RBS")
         };
         
         public static Dictionary<string, GameObject> pressureBlocks = new Dictionary<string, GameObject>()
         {
-            {"3b",pressureBlcokObjs[0]},{"4b",pressureBlcokObjs[1]},{"5b",pressureBlcokObjs[2]},{"Rb",pressureBlcokObjs[3]}
+            {"3b",pressureBlcokObjs[0]},{"4b",pressureBlcokObjs[1]},{"5b",pressureBlcokObjs[2]},{"Rb",pressureBlcokObjs[3]},
+            {"Rbs",pressureBlcokObjs[4]}
         };
 
         public static Dictionary<int, string> pressureConfWithCombo = new Dictionary<int, string>()
