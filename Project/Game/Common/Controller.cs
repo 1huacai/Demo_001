@@ -5,6 +5,7 @@ using UnityEngine;
 using Project;
 using FrameWork.Manager;
 using ResourceLoad;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace Demo
@@ -14,6 +15,8 @@ namespace Demo
         
         //自身所有棋子的初始化数据
         public Block[,] blockMatrix = new Block[ConstValues.MAX_MATRIX_ROW, ConstValues.MAX_COL];
+        //自身待删除的blocks
+        public List<Block> waitToDestoryBlocks = new List<Block>();
         //待添加的压力块数据(场外)
         public Dictionary<PressureType, Queue<string>> ToBeAddedPressBlocks = new Dictionary<PressureType, Queue<string>>()
         {
@@ -31,6 +34,14 @@ namespace Demo
         public List<Block> BlocksInSameFrame = new List<Block>();
         public string blockBufferWithNet;//多人模式下从服务器获取的block配置
         protected int genNewRowCount = 1; //构建新行的次数
+        public Slider Hp_Slider;
+        protected int Hp;
+
+        public int HP
+        {
+            get { return Hp; }
+            set { Hp = value; }
+        }
 
         public int GenNewRowCount
         {
@@ -697,7 +708,57 @@ namespace Demo
             BlocksInSameFrame.Clear();
         }
         
+        /// <summary>
+        /// 检测block是否在集合中
+        /// </summary>
+        /// <param name="targetBlock"></param>
+        /// <returns></returns>
+        public bool CheckBlcokInBlocks(Block targetBlock)
+        {
+            bool result = false;
+            foreach (var block in blockMatrix)
+            {
+                if (block == targetBlock)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
         
+        /// <summary>
+        /// 获取blocks中最高层数
+        /// </summary>
+        /// <returns></returns>
+        public int GetMaxRowOfBlocks()
+        {
+            int maxRow = 1;
+            foreach (var block in blockMatrix)
+            {
+                if (block)
+                {
+                    if(block.Shape != BlockShape.None)
+                        maxRow = block.Row > maxRow ? block.Row : maxRow;
+                }
+                    
+            }
+
+            return maxRow;
+        }
+        
+        //获取压力快总层数
+        public int GetTotalRowOfPressure()
+        {
+            int totalRows = 0;
+            foreach (var pressure_b in pressureBlocks)
+            {
+                if(pressure_b.State == BlockState.Normal && pressure_b.Row > GetMaxRowOfBlocks())
+                    totalRows += pressure_b.Y_Height;
+            }
+
+            return totalRows;
+        }
         
         #endregion
     }

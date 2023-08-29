@@ -71,6 +71,11 @@ namespace Demo
             set { isChain = value; }
         }
 
+        public int Y_Height
+        {
+            set { y_Height = value;}
+            get { return y_Height; }
+        }
         #endregion
 
         public List<Transform> SingleBlocks

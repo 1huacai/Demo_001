@@ -52,9 +52,7 @@ namespace Demo.Tools
                 }
             }
         }
-
-        private float lockAnimTime = 0.57f; //当个小压力快的动画时间
-
+        
         private void UnlockPressBlocks()
         {
             // Debug.LogError("待解锁的压力块个数----" + GameManger.Inst.unlockPressBlocks.Count);

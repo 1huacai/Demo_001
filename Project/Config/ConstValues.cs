@@ -41,6 +41,8 @@ namespace Project
     {
         public const string serverIp = "101.201.116.189";
         public const int serverPort = 23001;
+
+        public const int Max_Player_Hp = 500;
         
         // 己方棋盘棋子数据
         public const int SELF_BLOCK_X_OFFSET = 110; //棋子横向偏移

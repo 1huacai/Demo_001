@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Project;
-using FrameWork.Manager;
-using ResourceLoad;
-using Random = UnityEngine.Random;
-using Spine.Unity;
+
 
 namespace Demo
 {
@@ -36,8 +31,9 @@ namespace Demo
             ConstValues.stage_1, ConstValues.stage_2
         };
 
-        public Transform boards = null;
-        public Transform pressureBoard = null;
+        public Transform boards;
+        public Transform blockBoard;
+        public Transform pressureBoard;
         public float blockBoardOffsetX;
         private BlockData[] newRowBlockDatas;
 
@@ -45,24 +41,6 @@ namespace Demo
         public string selfUserName;
         public string otehrUserName;
         
-        #region 游戏逻辑部分
-
-        //初始化游戏
-        public void InitGame()
-        {
-            Application.targetFrameRate = ConstValues.targetPlatformFps;
-            boards = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_Board;
-            pressureBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_PressureBoard;
-            blockBoardOffsetX = UIManager.Inst.GetUI<GameView>(UIDef.GameView).SelfBlockBoardOffsetX;
-            
-            boards.localPosition = Vector3.zero;
-            
-            chainCount = 1;
-            genNewRowCount = 1;
-            pressureBlocks.Clear();
-            ClearPressureData();
-        }
-
         private bool boardStopRise = false;
 
         public bool BoardStopRise 
@@ -72,7 +50,7 @@ namespace Demo
         }
 
         private bool preussUnlocking = false; // 一堆压力块正在解锁的标志
-
+        
         public bool PreussUnlocking
         {
             get { return preussUnlocking; }
@@ -86,8 +64,39 @@ namespace Demo
             get { return _riseUpBtn; }
             set { _riseUpBtn = value; }
         }
+        
+        //棋盘进入最高行，顶格状态
+        private bool enterTopRow = false;
 
+        public bool EnterTopRow
+        {
+            get { return enterTopRow; }
+            set { enterTopRow = value; }
+        }
+        
+        #region 游戏逻辑部分
 
+        //初始化游戏
+        public void InitGame()
+        {
+            Application.targetFrameRate = ConstValues.targetPlatformFps;
+            boards = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_Board;
+            blockBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_BlockBoard;
+            pressureBoard = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_PressureBoard;
+            blockBoardOffsetX = UIManager.Inst.GetUI<GameView>(UIDef.GameView).SelfBlockBoardOffsetX;
+            Hp_Slider = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_Hp_Slider;
+            Hp_Slider.maxValue = ConstValues.Max_Player_Hp;
+            Hp_Slider.value = ConstValues.Max_Player_Hp;
+            HP = ConstValues.Max_Player_Hp;
+            
+            boards.localPosition = Vector3.zero;
+            
+            chainCount = 1;
+            genNewRowCount = 1;
+            pressureBlocks.Clear();
+            ClearPressureData();
+        }
+        
         public void FiexdUpdate()
         {
             if (!gameStart)
@@ -96,7 +105,13 @@ namespace Demo
                 return;
             }
 
-            UpDateBlockArea();
+            //更新棋盘状态
+            UpdateBoardState();
+            
+            UpdateBlockArea();
+            //自动清除待删除的block
+            UpdateWaitToDestoryBlocks();
+            
             
             if(NetManager.Instance.Multiplayer)
                 NetManager.Instance.UpdateWebLogs(blockMatrix);
@@ -110,9 +125,9 @@ namespace Demo
         }
 
         //更新棋盘区域逻辑
-        private void UpDateBlockArea()
+        private void UpdateBlockArea()
         {
-            if (!BoardStopRise && !PreussUnlocking)
+            if (!BoardStopRise && !PreussUnlocking && !EnterTopRow)
             {
                 BoardRise(riseUpBtn);
                 //从数据中弹出压力块
@@ -148,6 +163,62 @@ namespace Demo
             // {
             //     OtherGameController.Inst.pressureBlocks[i].LogicUpdate();
             // }
+        }
+        
+        /// <summary>
+        /// 更新待删除的blocks
+        /// </summary>
+        private void UpdateWaitToDestoryBlocks()
+        {
+            waitToDestoryBlocks.Clear();
+            for (int i = 0; i < blockBoard.childCount; i++)
+            {
+                var block = blockBoard.GetChild(i).GetComponent<Block>();
+                if(!CheckBlcokInBlocks(block))
+                    waitToDestoryBlocks.Add(block);//不在集合中，那么就加入待删除集合
+            }
+            
+            //删除待消除的集合
+            foreach (var destoryBlock in waitToDestoryBlocks)
+            {
+                GameObject.Destroy(destoryBlock.gameObject);
+            }
+        }
+
+        private int curHeight = 0;
+        /// <summary>
+        /// 更新棋盘状态
+        /// </summary>
+        private void UpdateBoardState()
+        {
+            curHeight = GetMaxRowOfBlocks() + GetTotalRowOfPressure();
+            if (curHeight == ConstValues.MAX_ROW - 1)
+            {
+                //TODO 危险状态，处于危险状态的的同列棋子开始闪烁
+                Debug.LogError("进入危险状态");
+            }
+
+            if (curHeight >= ConstValues.MAX_ROW)
+            {
+                Debug.LogError("进入顶格状态");
+                EnterTopRow = true;
+                //己方扣血
+                //如果处于压力快解锁状态就不扣血
+                if (!preussUnlocking)
+                {
+                    Hp--;
+                    Hp_Slider.value = Hp;
+                    if (Hp <= 0)
+                    {
+                        gameStart = false;
+                    }
+                }
+            }
+            else
+            {
+                EnterTopRow = false;
+            }
+            
         }
         
         private int comboCount = 0;

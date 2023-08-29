@@ -23,6 +23,9 @@ namespace Demo
 
         private Text self_UserName;
         private Text other_UserName;
+
+        private Slider self_Hp_Slider;
+        private Slider other_Hp_Slider;
         
         private Button reGenBlockBtn;
         private Button riseBoardBtn;
@@ -76,6 +79,16 @@ namespace Demo
         {
             get { return selfBlockBoardOffsetX; }
         }
+
+        public Slider Self_Hp_Slider
+        {
+            get { return self_Hp_Slider; }
+        }
+
+        public Slider Other_Hp_Slider
+        {
+            get { return other_Hp_Slider; }
+        }
         
         #endregion
         
@@ -89,6 +102,7 @@ namespace Demo
             self_EffectArea = self_Board.Find("EffectArea");
             self_UserPart = transform.Find("MyUserPart");
             self_UserName = self_UserPart.Find("UserName").GetComponent<Text>();
+            self_Hp_Slider = self_UserPart.Find("HpSlider").GetComponent<Slider>();
             selfBlockBoardOffsetX = (Screen.width - self_BlockBoard.GetComponent<RectTransform>().sizeDelta.x)/2f;
             
             
@@ -99,6 +113,7 @@ namespace Demo
             other_EffectArea = other_Board.Find("EffectArea");
             other_Userpart = transform.Find("OtherUserPart");
             other_UserName = other_Userpart.Find("UserName").GetComponent<Text>();
+            other_Hp_Slider = other_Userpart.Find("HpSlider").GetComponent<Slider>();
             
             reGenBlockBtn = transform.Find("ReGenBlockBtn").GetComponent<Button>();
             riseBoardBtn = transform.Find("RiseBoardBtn").GetComponent<Button>();
