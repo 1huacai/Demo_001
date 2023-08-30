@@ -194,6 +194,9 @@ namespace Demo
             set
             {
                 state = value;
+                if (image == null)
+                    return;
+
                 image.sprite = state == BlockState.Dimmed
                     ? ConstValues._lockSprites[(int) Shape]
                     : ConstValues._sprites[(int) Shape];
