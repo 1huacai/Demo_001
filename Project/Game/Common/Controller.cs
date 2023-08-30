@@ -551,7 +551,7 @@ namespace Demo
             for (int row = beginRow + 1; row <= ConstValues.MAX_ROW; row++)
             {
                 var targetBlock = blockMatrix[row, beginCol];
-                if(targetBlock.Shape == BlockShape.None || IsBlockInSameFrame(targetBlock))
+                if(targetBlock.Shape == BlockShape.None /*|| IsBlockInSameFrame(targetBlock)*/)
                     break;
                 targetBlock.Chain = true;
                 //Debug.LogError($"{targetBlock.name}-chain-{targetBlock.Chain}");

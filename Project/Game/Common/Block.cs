@@ -328,7 +328,6 @@ namespace Demo
             // //实时监测自己自身的状态，除去swaping
             if (state == BlockState.Normal)
                 StateManger._instance.ChangeStageUpdate(BlockState.Normal, this);
-
             if (IsNeedFall)
             {
                 IsNeedFall = false;
