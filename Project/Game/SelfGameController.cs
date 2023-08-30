@@ -238,15 +238,17 @@ namespace Demo
                     SetUpRowBlockChain(targetBlock);
                 }
                 
-                if (NetManager.Instance.Multiplayer)
-                {
-                    NetManager.Instance.GameMatched(TimerMgr._Instance.Frame,BlocksInSameFrame, 0,0,null);
-                }
                 
                 //集合中的chain数量
                 chainCount += BlocksInSameFrame.FindAll((block => block.Chain)).Count;
                 comboCount = BlocksInSameFrame.Count;
              
+                if (NetManager.Instance.Multiplayer)
+                {
+                    NetManager.Instance.GameMatched(TimerMgr._Instance.Frame,BlocksInSameFrame, 0,chainCount,null);
+                }
+                
+                
                 foreach (var block in BlocksInSameFrame)
                 {
                     //解锁压力块
@@ -293,37 +295,31 @@ namespace Demo
                 }
 
                 //chain压力块
-                // if (chainCount >= 2)
-                // {
-                //     var targetBlock_self = BlocksInSameFrame[0];
-                //     GenChainObj(chainCount, targetBlock_self.transform.localPosition);
-                //     //给对手添加压力块数据
-                //     OtherGameController.Inst.PushPressureDataWith(PressureType.Chain,chainCount);
-                //     
-                //     if (!NetManager.Instance.Multiplayer)
-                //     {
-                //         var otherController = OtherGameController.Inst;
-                //         var targetBlock_other = otherController.blockMatrix[targetBlock_self.Row, targetBlock_self.Col - 1];
-                //         otherController.GenChainObj(chainCount,targetBlock_other.transform.localPosition,false);
-                //         //对手给玩家添加压力块数据
-                //         SelfGameController.Inst.PushPressureDataWith(PressureType.Chain,chainCount);
-                //     }
-                //     
-                //     
-                //     //chain达成
-                //     BoardStopRise = true;
-                //     TimerMgr._Instance.Schedule(() =>
-                //     {
-                //         BoardStopRise = false;
-                //         //检测chain结束
-                //         if (ChainEnd())
-                //         {
-                //             chainCount = 1;
-                //         }
-                //         
-                //     }, (20 * chainCount + 80) * ConstValues.fpsTime);
-                // }
-
+                if (chainCount >= 2)
+                {
+                    var targetBlock_self = BlocksInSameFrame[0];
+                    GenChainObj(chainCount, targetBlock_self.transform.localPosition);
+                    //给对手添加压力块数据
+                    //OtherGameController.Inst.PushPressureDataWith(PressureType.Chain,chainCount);
+                    
+                    // if (!NetManager.Instance.Multiplayer)
+                    // {
+                    //     var otherController = OtherGameController.Inst;
+                    //     var targetBlock_other = otherController.blockMatrix[targetBlock_self.Row, targetBlock_self.Col - 1];
+                    //     otherController.GenChainObj(chainCount,targetBlock_other.transform.localPosition,false);
+                    //     //对手给玩家添加压力块数据
+                    //     SelfGameController.Inst.PushPressureDataWith(PressureType.Chain,chainCount);
+                    // }
+                    
+                    
+                    //chain达成
+                    BoardStopRise = true;
+                    TimerMgr._Instance.Schedule(() =>
+                    {
+                        BoardStopRise = false;
+                        ChainEnd();
+                    }, (20 * chainCount + 80) * ConstValues.fpsTime);
+                }
                 BlocksInSameFrame.Clear();
             }
         }
@@ -374,31 +370,16 @@ namespace Demo
             }
         }
 
-        //如果现在棋盘里所有棋子chain标签为false。那chain就结束
-        public bool ChainEnd()
+        //设置chain结束
+        public void ChainEnd()
         {
-            bool result = false;
-            for (int row = 1; row <= ConstValues.MAX_ROW; row++)
+            foreach (var block in blockMatrix)
             {
-                for (int col = 0; col < ConstValues.MAX_COL; col++)
-                {
-                    var block = blockMatrix[row, col];
-                    if (block.Shape != BlockShape.None)
-                    {
-                        if (block.Chain)
-                        {
-                            result = false;
-                            break;
-                        }
-                        else
-                        {
-                            result = true;
-                        }
-                    }
-                }
+                if(block != null) 
+                    block.Chain = false;
             }
 
-            return result;
+            chainCount = 1;
         }
         
         #endregion

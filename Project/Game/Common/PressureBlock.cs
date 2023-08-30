@@ -202,7 +202,7 @@ namespace Demo
             }
         }
 
-        private static void GenSinglePressuerBlock(string key, GameObject prefab, Transform parent, bool isSelf = true)
+        private static void   GenSinglePressuerBlock(string key, GameObject prefab, Transform parent, bool isSelf = true)
         {
             GameObject obj = Instantiate(prefab, parent);
             int maxCol = ConstValues.pressureOriginCol[key];

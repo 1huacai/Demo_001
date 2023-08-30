@@ -332,8 +332,12 @@ namespace Demo
                     StateManger._instance.ChangeState(BlockState.Landing, this);
                     return;
                 }
-                if(downBlock_Self.shape != BlockShape.None)
+
+                if (downBlock_Self.shape != BlockShape.None)
+                {
                     return;
+                }
+                   
                 
                 var pos1_self = GetSelfPos(Row,Col);
                 var pos2_self = GetSelfPos(downBlock_Self.Row, downBlock_Self.Col); 

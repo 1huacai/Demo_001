@@ -342,37 +342,43 @@ namespace Demo
         
         public Block GenNewBlock(int row, int col, BlockShape shape, bool genByGarbage,bool chain,bool isSelf = true)
         {
-            Block block = null;
-            if (blockMatrix[row, col - 1] != null)
-            {
-                block = blockMatrix[row, col - 1];
-                // GameObject.Destroy(blockMatrix[row, col - 1].gameObject);
-                // blockMatrix[row, col - 1] = null;
-                block.State = BlockState.Normal;
-                block.Shape = shape;
-                block.GenByGarbage = genByGarbage;
-                block.Chain = true;
-            }
-            else
-            {
-                
-                var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_BlockBoard;
-                GameObject prefabObj = ConstValues.BlockPrefabs[(int) shape];
+            // Block block = null;
+            // if (blockMatrix[row, col - 1] != null)
+            // {
+            //     block = blockMatrix[row, col - 1];
+            //     // GameObject.Destroy(blockMatrix[row, col - 1].gameObject);
+            //     // blockMatrix[row, col - 1] = null;
+            //     block.State = BlockState.Normal;
+            //     block.Shape = shape;
+            //     block.GenByGarbage = genByGarbage;
+            //     block.Chain = true;
+            // }
+            // else
+            // {
+            //     
+            //     var boardTran = UIManager.Inst.GetUI<GameView>(UIDef.GameView).Self_BlockBoard;
+            //     GameObject prefabObj = ConstValues.BlockPrefabs[(int) shape];
+            //
+            //     block = Block.CreateBlockObject(prefabObj, row, col, false, shape, BlockState.Normal, boardTran, isSelf);
+            //     //设置棋子位置
+            //     block.transform.localPosition = new Vector3(
+            //         (isSelf ? ConstValues.SELF_BLOCK_X_ORIGINPOS : ConstValues.OTHER_BLOCK_X_ORIGINPOS) + (col - 1) * (isSelf ? ConstValues.SELF_BLOCK_X_OFFSET : ConstValues.OTHER_BLOCK_X_OFFSET),
+            //         (isSelf ? ConstValues.SELF_BLOCK_Y_ORIGINPOS : ConstValues.OTHER_BLOCK_Y_ORIGINPOS )+ (row - genNewRowCount + 1) * (isSelf ? ConstValues.SELF_BLOCK_Y_OFFSET : ConstValues.OTHER_BLOCK_Y_OFFSET),
+            //         0f
+            //     );
+            //     block.GenByGarbage = genByGarbage;
+            //     block.Chain = chain;
+            //     
+            //     blockMatrix[row, col - 1] = block;
+            //     block.BlockOperationEvent += OnBlockOperation;
+            // }
 
-                block = Block.CreateBlockObject(prefabObj, row, col, false, shape, BlockState.Normal, boardTran, isSelf);
-                //设置棋子位置
-                block.transform.localPosition = new Vector3(
-                    (isSelf ? ConstValues.SELF_BLOCK_X_ORIGINPOS : ConstValues.OTHER_BLOCK_X_ORIGINPOS) + (col - 1) * (isSelf ? ConstValues.SELF_BLOCK_X_OFFSET : ConstValues.OTHER_BLOCK_X_OFFSET),
-                    (isSelf ? ConstValues.SELF_BLOCK_Y_ORIGINPOS : ConstValues.OTHER_BLOCK_Y_ORIGINPOS )+ (row - genNewRowCount + 1) * (isSelf ? ConstValues.SELF_BLOCK_Y_OFFSET : ConstValues.OTHER_BLOCK_Y_OFFSET),
-                    0f
-                );
-                block.GenByGarbage = genByGarbage;
-                block.Chain = chain;
-                
-                blockMatrix[row, col - 1] = block;
-                block.BlockOperationEvent += OnBlockOperation;
-            }
-            
+            Block block = blockMatrix[row, col - 1];
+            block.State = BlockState.Normal;
+            block.Shape = shape;
+            block.GenByGarbage = genByGarbage;
+            block.Chain = true;
+         
             return block;
         }
         
