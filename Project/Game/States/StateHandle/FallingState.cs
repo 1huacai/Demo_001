@@ -52,9 +52,9 @@ namespace Demo
                 else if (downBlock.Shape != BlockShape.None && downBlock.State == BlockState.Landing)
                 {
                     StateManger._instance.ChangeState(BlockState.Landing, block);
-                }else if (downBlock.Shape != BlockShape.None && downBlock.State == BlockState.Matched)
+                }else if (downBlock.Shape != BlockShape.None && downBlock.State != BlockState.Hovering)
                 {
-                    StateManger._instance.ChangeState(BlockState.Falling, block);
+                    StateManger._instance.ChangeState(BlockState.Landing, block);
                 }
             }, ConstValues.fallingFps * ConstValues.fpsTime);
         }
