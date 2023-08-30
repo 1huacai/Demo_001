@@ -343,10 +343,10 @@ namespace Demo
         public Block GenNewBlock(int row, int col, BlockShape shape, bool genByGarbage,bool chain,bool isSelf = true)
         {
             Block block = blockMatrix[row, col - 1];
-            block.State = BlockState.Normal;
             block.Shape = shape;
             block.GenByGarbage = genByGarbage;
             block.Chain = true;
+            StateManger._instance.ChangeStageEnter(BlockState.Hovering,block);
             return block;
         }
         

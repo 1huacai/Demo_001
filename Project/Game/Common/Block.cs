@@ -47,6 +47,7 @@ namespace Demo
             Block block = blockObj.GetComponent<Block>();
             block.row = row;
             block.col = col;
+            block.image = blockObj.GetComponent<Image>();
             block.Shape = shape;
             block.slectImg = blockObj.transform.Find("Select").gameObject;
             block.State = state;
@@ -193,10 +194,6 @@ namespace Demo
             set
             {
                 state = value;
-
-                if (image == null)
-                    image = transform.GetComponent<Image>();
-
                 image.sprite = state == BlockState.Dimmed
                     ? ConstValues._lockSprites[(int) Shape]
                     : ConstValues._sprites[(int) Shape];
@@ -209,8 +206,6 @@ namespace Demo
             set
             {
                 shape = value;
-                if (image == null)
-                    image = GetComponent<Image>();
                 image.sprite = ConstValues._sprites[(int) value];
             }
         }
@@ -312,11 +307,6 @@ namespace Demo
             //由压力块生成时暂时不下落
             if (GenByGarbage)
             {
-                var downBlock_Self = SelfGameController.Inst.blockMatrix[row - 1, col - 1];
-                if (downBlock_Self.shape != BlockShape.None && downBlock_Self.shape != shape)
-                {
-                    chain = false;
-                }
                 return;
             }
               

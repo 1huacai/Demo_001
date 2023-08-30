@@ -337,6 +337,8 @@ namespace Demo
                 {
                     var block = SelfGameController.Inst.genBlocksByPressure[i];
                     block.GenByGarbage = false;
+                    //进入hoveringstate逻辑
+                    StateManger._instance.ChangeState(BlockState.Hovering,block);
                 }
 
                 SelfGameController.Inst.unlockPressBlocks.Clear();

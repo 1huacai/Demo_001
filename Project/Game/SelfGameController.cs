@@ -336,11 +336,12 @@ namespace Demo
                     TimerMgr._Instance.Schedule(() =>
                     {
                         BoardStopRise = false;
-                        ChainEnd();
                     }, (20 * chainCount + 80) * ConstValues.fpsTime);
                 }
                 BlocksInSameFrame.Clear();
             }
+            
+            ChainEnd();
         }
         
         int gameRiseType = 2;//默认是自动提升，多人模式下提升棋盘的操作类型
@@ -392,13 +393,20 @@ namespace Demo
         //设置chain结束
         public void ChainEnd()
         {
+            bool chain = false;
             foreach (var block in blockMatrix)
             {
-                if(block != null) 
-                    block.Chain = false;
+                if (block != null)
+                {
+                    if (block.Chain)
+                        chain = true;
+                }
             }
-
-            chainCount = 1;
+            
+            if (!chain)
+            {
+                chainCount = 1;
+            }
         }
         
         #endregion

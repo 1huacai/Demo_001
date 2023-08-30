@@ -1,5 +1,4 @@
 ﻿using Project;
-using UnityEngine;
 
 namespace Demo
 {
@@ -21,6 +20,7 @@ namespace Demo
         {
             if (block.Shape == BlockShape.None)
                 return;
+
             timerID = TimerMgr._Instance.Schedule(() =>
             {
                 StateManger._instance.ChangeState(BlockState.Falling, block);
