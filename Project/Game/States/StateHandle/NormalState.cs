@@ -28,7 +28,7 @@ namespace Demo
                     selfController.BlocksInSameFrame.Add(block);
                 return;
             }
-            
+
             // //下方棋子Type为None且block的row = 1
             if (block.Row > 1)
             {

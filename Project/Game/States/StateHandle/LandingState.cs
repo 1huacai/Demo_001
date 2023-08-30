@@ -39,6 +39,7 @@ namespace Demo
                     otherBlock = OtherGameController.Inst.blockMatrix[block.Row, block.Col - 1];
                     otherBlock._Animation.StopAnimation(()=>{otherBlock.ResetOriginImg();});
                     StateManger._instance.ChangeState(BlockState.Normal, block);
+                    block.Chain = false;
                 }, ConstValues.landingFps * ConstValues.fpsTime);
             }
             else

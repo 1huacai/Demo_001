@@ -41,9 +41,9 @@ namespace Demo
                 {
                     StateManger._instance.ChangeState(BlockState.Hovering, block);
                 }
-                else if (downBlock.Shape != BlockShape.None && downBlock.State != BlockState.Hovering)
+                else if (downBlock.Shape != BlockShape.None && downBlock.State == BlockState.Swapping)
                 {
-                    StateManger._instance.ChangeState(BlockState.Landing, block);
+                    StateManger._instance.ChangeState(BlockState.Hovering, block);
                 }
                 else if (downBlock.Shape != BlockShape.None && downBlock.State == BlockState.Normal)
                 {

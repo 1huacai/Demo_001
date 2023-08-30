@@ -17,6 +17,7 @@ namespace Demo
         public Image image;
         private Sprite originSprite;//棋子原始图片
         public GameObject slectImg;
+        public Text state_Text;
         public Vector3 dragBeginPos; //拖拽的起始位置
         private FrameAnimation _animation;
         
@@ -49,6 +50,7 @@ namespace Demo
             block.Shape = shape;
             block.slectImg = blockObj.transform.Find("Select").gameObject;
             block.State = state;
+            block.state_Text = block.transform.Find("Text").GetComponent<Text>();
             block.transform.GetComponent<RectTransform>().sizeDelta = (isSelf ? ConstValues.SELF_BLOCK_SIZE : ConstValues.OTHER_BLOCK_SIZE);
 
             blockObj.name = $"{row}-{col}";
@@ -297,9 +299,27 @@ namespace Demo
         
         public void LogicUpdate()
         {
+            if (shape != BlockShape.None)
+            {
+                state_Text.color = chain ? Color.white : Color.black;
+                state_Text.text = $"{state.ToString()[0]}";
+            }
+            else
+            {
+                state_Text.text = string.Empty;
+            }
+            
             //由压力块生成时暂时不下落
             if (GenByGarbage)
+            {
+                var downBlock_Self = SelfGameController.Inst.blockMatrix[row - 1, col - 1];
+                if (downBlock_Self.shape != BlockShape.None && downBlock_Self.shape != shape)
+                {
+                    chain = false;
+                }
                 return;
+            }
+              
 
             //空牌就直接跳过
             if (shape == BlockShape.None)
@@ -337,7 +357,6 @@ namespace Demo
                 {
                     return;
                 }
-                   
                 
                 var pos1_self = GetSelfPos(Row,Col);
                 var pos2_self = GetSelfPos(downBlock_Self.Row, downBlock_Self.Col); 
