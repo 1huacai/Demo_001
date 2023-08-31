@@ -238,27 +238,8 @@ namespace Demo
                     SetUpRowBlockChain(targetBlock);
                 }
 
-                Dictionary<BlockShape, List<Block>> tempDict = new Dictionary<BlockShape, List<Block>>();
-                foreach (var block in BlocksInSameFrame)
-                {
-                    if (!tempDict.ContainsKey(block.Shape))
-                    {
-                        tempDict.Add(block.Shape,new List<Block>(){block});
-                    }
-                    else
-                    {
-                        tempDict[block.Shape].Add(block);
-                    }
-                }
-
-                foreach (var key in tempDict.Keys)
-                {
-                    var blockList = tempDict[key];
-                    if (blockList.Find((block => block.Chain)) != null)
-                    {
-                        chainCount++;
-                    }
-                }
+                if (BlocksInSameFrame.Find(block => block.Chain) != null)
+                    chainCount++;
                 
                 //集合中的chain数量
                 // chainCount += BlocksInSameFrame.FindAll((block => block.Chain)).Count;
@@ -317,7 +298,7 @@ namespace Demo
                 //chain压力块
                 if (chainCount >= 2)
                 {
-                    var targetBlock_self = BlocksInSameFrame[0];
+                    var targetBlock_self = BlocksInSameFrame[1];
                     GenChainObj(chainCount, targetBlock_self.transform.localPosition);
                     //给对手添加压力块数据
                     //OtherGameController.Inst.PushPressureDataWith(PressureType.Chain,chainCount);
