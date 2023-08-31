@@ -46,7 +46,15 @@ namespace Demo
                             break;
                         StateManger._instance.ChangeState(BlockState.Hovering, t_block);
                     }
+                }else if (downBlock.Shape != BlockShape.None && downBlock.State == BlockState.Normal &&
+                          !downBlock.Chain)
+                {
+                    block.Chain = false;
                 }
+            }
+            else
+            {
+                block.Chain = false;
             }
         }
 
