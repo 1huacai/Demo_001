@@ -234,8 +234,6 @@ namespace Demo
                 {
                     var targetBlock = BlocksInSameFrame[i];
                     StateManger._instance.ChangeState(BlockState.Matched, targetBlock);
-                    //设置该棋子上方的棋子chain为true
-                    SetUpRowBlockChain(targetBlock);
                 }
 
                 if (BlocksInSameFrame.Find(block => block.Chain) != null)
