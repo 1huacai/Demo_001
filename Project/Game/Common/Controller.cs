@@ -338,8 +338,6 @@ namespace Demo
             genNewRowCount++;
         }
         
-        
-        
         public Block GenNewBlock(int row, int col, BlockShape shape, bool genByGarbage,bool chain,bool isSelf = true)
         {
             Block block = blockMatrix[row, col - 1];

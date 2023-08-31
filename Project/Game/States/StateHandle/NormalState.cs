@@ -53,8 +53,8 @@ namespace Demo
                     for (int i = row; i < ConstValues.MAX_ROW; i++)
                     {
                         var t_block = selfController.blockMatrix[i, col];
-                        if (t_block.Shape == BlockShape.None || t_block.State == BlockState.Hovering)
-                            break;
+                        if (t_block.Shape == BlockShape.None || t_block.State == BlockState.Hovering || t_block.State == BlockState.Matched || t_block.State == BlockState.Popping)
+                            continue;
                         StateManger._instance.ChangeState(BlockState.Hovering, t_block);
                     }
                 }else if (downBlock.Shape != BlockShape.None && downBlock.State == BlockState.Normal &&
