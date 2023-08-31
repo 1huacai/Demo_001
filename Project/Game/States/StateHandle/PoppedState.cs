@@ -12,6 +12,9 @@ namespace Demo
         {
             if (block.Shape == BlockShape.None)
                 return;
+            
+            //设置该棋子上方的棋子chain为true
+            SelfGameController.Inst.SetUpRowBlockChain(block);
             //己方棋子
             block.State = BlockState.Popped;
             block.Shape = BlockShape.None;
@@ -21,9 +24,6 @@ namespace Demo
             //对手棋子
             var otherBlock = OtherGameController.Inst.blockMatrix[block.Row, block.Col - 1];
             otherBlock.Shape = BlockShape.None;
-            
-            //设置该棋子上方的棋子chain为true
-            SelfGameController.Inst.SetUpRowBlockChain(block);
             
         }
 
