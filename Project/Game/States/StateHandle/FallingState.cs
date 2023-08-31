@@ -54,7 +54,7 @@ namespace Demo
                     StateManger._instance.ChangeState(BlockState.Landing, block);
                 }else if (downBlock.Shape != BlockShape.None && downBlock.State != BlockState.Hovering)
                 {
-                    StateManger._instance.ChangeState(BlockState.Hovering, block);
+                    StateManger._instance.ChangeState(BlockState.Landing, block);
                 }
             }, ConstValues.fallingFps * ConstValues.fpsTime);
         }

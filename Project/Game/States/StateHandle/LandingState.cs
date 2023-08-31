@@ -38,8 +38,21 @@ namespace Demo
                     block._Animation.StopAnimation(()=>{block.ResetOriginImg();});
                     otherBlock = OtherGameController.Inst.blockMatrix[block.Row, block.Col - 1];
                     otherBlock._Animation.StopAnimation(()=>{otherBlock.ResetOriginImg();});
+                    
+                    var downBlock = (_controller as SelfGameController).blockMatrix[block.Row - 1, block.Col - 1];
+
+                    if (downBlock.State == BlockState.Matched || downBlock.Chain)
+                    {
+                        block.Chain = true;
+                    }
+                    else
+                    {
+                        block.Chain = false;
+                    }
+                    
+                    
                     StateManger._instance.ChangeState(BlockState.Normal, block);
-                    block.Chain = false;
+
                 }, ConstValues.landingFps * ConstValues.fpsTime);
             }
             else
