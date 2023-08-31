@@ -195,12 +195,12 @@ namespace Demo
             if (curHeight == ConstValues.MAX_ROW - 1)
             {
                 //TODO 危险状态，处于危险状态的的同列棋子开始闪烁
-                Debug.LogError("进入危险状态");
+                // Debug.LogError("进入危险状态");
             }
 
             if (curHeight >= ConstValues.MAX_ROW)
             {
-                Debug.LogError("进入顶格状态");
+                // Debug.LogError("进入顶格状态");
                 EnterTopRow = true;
                 //己方扣血
                 //如果处于压力快解锁状态就不扣血
