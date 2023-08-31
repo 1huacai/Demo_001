@@ -38,29 +38,41 @@ namespace Demo
                 otherBlock = OtherGameController.Inst.blockMatrix[block.Row, block.Col - 1];
                 otherBlock._Animation.StopAnimation(() => { otherBlock.ResetOriginImg(); });
 
-                var selfController = _controller as SelfGameController;
-                var sameBlocks = selfController.GetSameBlocksWith(block);
+                //var selfController = _controller as SelfGameController;
+                // var sameBlocks = selfController.GetSameBlocksWith(block);
 
-                if (sameBlocks.Count < 3)
+                var downBlock = (_controller as SelfGameController).blockMatrix[block.Row - 1, block.Col - 1];
+                if (downBlock.State == BlockState.Matched || downBlock.Chain)
                 {
-                    var downBlock = (_controller as SelfGameController).blockMatrix[block.Row - 1, block.Col - 1];
-
-                    if (downBlock.State == BlockState.Matched || downBlock.Chain)
-                    {
-                        block.Chain = true;
-                    }
-                    else
-                    {
-                        block.Chain = false;
-                    }
-
-                    StateManger._instance.ChangeState(BlockState.Normal, block);
+                    block.Chain = true;
                 }
                 else
                 {
-                    if (!selfController.IsBlockInSameFrame(block))
-                        selfController.BlocksInSameFrame.Add(block);
+                    block.Chain = false;
                 }
+                StateManger._instance.ChangeState(BlockState.Normal, block);
+                
+                
+                // if (sameBlocks.Count < 3)
+                // {
+                //     var downBlock = (_controller as SelfGameController).blockMatrix[block.Row - 1, block.Col - 1];
+                //
+                //     if (downBlock.State == BlockState.Matched || downBlock.Chain)
+                //     {
+                //         block.Chain = true;
+                //     }
+                //     else
+                //     {
+                //         block.Chain = false;
+                //     }
+                //
+                //     StateManger._instance.ChangeState(BlockState.Normal, block);
+                // }
+                // else
+                // {
+                //     // if (!selfController.IsBlockInSameFrame(block))
+                //         selfController.BlocksInSameFrame.AddRange(sameBlocks);
+                // }
             }, ConstValues.landingFps * ConstValues.fpsTime);
         }
     }

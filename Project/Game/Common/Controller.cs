@@ -445,8 +445,8 @@ namespace Demo
                 
                 if ((curBlock.Shape == targetBlock.Shape)
                     && (curBlock.Shape == block.Shape)
-                    && (targetBlock.State == BlockState.Normal ||
-                        targetBlock.State == BlockState.Landing))
+                    && (targetBlock.State == BlockState.Normal /*||
+                        targetBlock.State == BlockState.Landing*/))
                 {
                     v_blocks.Add(targetBlock);
                 }

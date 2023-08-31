@@ -25,7 +25,7 @@ namespace Demo
             if (sameBlocks.Count >= 3) //有可以匹配消除的block
             {
                 if(!selfController.IsBlockInSameFrame(block))
-                    selfController.BlocksInSameFrame.Add(block);
+                    selfController.BlocksInSameFrame.AddRange(sameBlocks);
                 return;
             }
 
