@@ -1,4 +1,5 @@
-﻿using Project;
+﻿using System.Text;
+using Project;
 using UnityEngine;
 
 namespace Demo
@@ -21,13 +22,23 @@ namespace Demo
             if (block.Shape == BlockShape.None)
                 return;
             var selfController = _controller as SelfGameController;
-            var sameBlocks = selfController.GetSameBlocksWith(block);
-            if (sameBlocks.Count >= 3) //有可以匹配消除的block
+            if (!selfController.IsBlockInSameFrame(block))
             {
-                if(!selfController.IsBlockInSameFrame(block))
-                    selfController.BlocksInSameFrame.Add(block);
-                return;
+                var sameBlocks = selfController.GetSameBlocksWith(block);
+                if (sameBlocks.Count >= 3) //有可以匹配消除的block
+                {
+                    StringBuilder builder = new StringBuilder();
+                    foreach (var block_d in sameBlocks)
+                    {
+                        builder.Append($"{block_d.Row}-{block_d.Col}+");
+                    }
+                    Debug.LogError(builder.ToString());
+                    // if(!selfController.IsBlockInSameFrame(block))
+                    selfController.BlocksInSameFrame.AddRange(sameBlocks);
+                    return;
+                }
             }
+            
 
             // //下方棋子Type为None且block的row = 1
             if (block.Row > 1)

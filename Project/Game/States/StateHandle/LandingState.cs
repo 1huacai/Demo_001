@@ -59,28 +59,6 @@ namespace Demo
                     StateManger._instance.ChangeState(BlockState.Normal, block);
                 }
                 
-                
-                
-                // if (sameBlocks.Count < 3)
-                // {
-                //     var downBlock = (_controller as SelfGameController).blockMatrix[block.Row - 1, block.Col - 1];
-                //
-                //     if (downBlock.State == BlockState.Matched || downBlock.Chain)
-                //     {
-                //         block.Chain = true;
-                //     }
-                //     else
-                //     {
-                //         block.Chain = false;
-                //     }
-                //
-                //     StateManger._instance.ChangeState(BlockState.Normal, block);
-                // }
-                // else
-                // {
-                //     // if (!selfController.IsBlockInSameFrame(block))
-                //         selfController.BlocksInSameFrame.AddRange(sameBlocks);
-                // }
             }, ConstValues.landingFps * ConstValues.fpsTime);
         }
     }
