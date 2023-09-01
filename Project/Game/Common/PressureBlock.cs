@@ -202,7 +202,7 @@ namespace Demo
             }
         }
 
-        private static void   GenSinglePressuerBlock(string key, GameObject prefab, Transform parent, bool isSelf = true)
+        private static void  GenSinglePressuerBlock(string key, GameObject prefab, Transform parent, bool isSelf = true)
         {
             GameObject obj = Instantiate(prefab, parent);
             int maxCol = ConstValues.pressureOriginCol[key];
@@ -440,11 +440,10 @@ namespace Demo
                 var block = SelfGameController.Inst.blockMatrix[downRow, i];
                 if (block)
                 {
-                    if (block.Shape != BlockShape.None &&
-                        block.State != BlockState.Falling &&
-                        (block.Col >= OriginCol && block.Col <= TriggerRange))
+                    if (block.Shape != BlockShape.None && (block.Col >= OriginCol && block.Col <= TriggerRange))
                     {
                         hasDownBlock = true;
+                        break;
                     }
                 }
             }
@@ -462,7 +461,6 @@ namespace Demo
                     }
                 }
             }
-
             return hasDownBlock || hasDownPressureBlock;
         }
     }
