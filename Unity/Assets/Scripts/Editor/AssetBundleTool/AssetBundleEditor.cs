@@ -648,17 +648,17 @@ public class AssetBundleEditor : EditorWindow
             _ab.assetNames = _pathList.ToArray();
             createTargetAssetBundle(new AssetBundleBuild[1] { _ab });
         }
-        else if (AssetBundleTool.CodeType == codeType.xlua)
-        {
-            string _assetBundleName = "luascriptsbyte" + EditorPackDef.AssetBundleSuffix;
-            List<string> _pathList = HandleLua();
+        //else if (AssetBundleTool.CodeType == codeType.xlua)
+        //{
+        //    string _assetBundleName = "luascriptsbyte" + EditorPackDef.AssetBundleSuffix;
+        //    List<string> _pathList = HandleLua();
 
-            AssetBundleBuild _ab = new AssetBundleBuild();
-            _ab.assetBundleName = _assetBundleName;
-            _ab.assetNames = _pathList.ToArray();
+        //    AssetBundleBuild _ab = new AssetBundleBuild();
+        //    _ab.assetBundleName = _assetBundleName;
+        //    _ab.assetNames = _pathList.ToArray();
 
-            createTargetAssetBundle(new AssetBundleBuild[1] { _ab });
-        }
+        //    createTargetAssetBundle(new AssetBundleBuild[1] { _ab });
+        //}
         else
         {
             List<string> _pathList = HandleScripts();
@@ -680,18 +680,18 @@ public class AssetBundleEditor : EditorWindow
             _ab.assetNames = _pathList.ToArray();
             createTargetAssetBundle(new AssetBundleBuild[1] { _ab });
         }
-        else if (AssetBundleTool.CodeType == codeType.xlua)
-        {
-            string _assetBundleName = "luascriptsbyte" + EditorPackDef.AssetBundleSuffix;
-            List<string> _pathList = HandleLua();
+        //else if (AssetBundleTool.CodeType == codeType.xlua)
+        //{
+        //    string _assetBundleName = "luascriptsbyte" + EditorPackDef.AssetBundleSuffix;
+        //    List<string> _pathList = HandleLua();
 
-            AssetBundleBuild _ab = new AssetBundleBuild();
-            _ab.assetBundleName = _assetBundleName;
-            _ab.assetNames = _pathList.ToArray();
+        //    AssetBundleBuild _ab = new AssetBundleBuild();
+        //    _ab.assetBundleName = _assetBundleName;
+        //    _ab.assetNames = _pathList.ToArray();
 
-            createTargetAssetBundle(new AssetBundleBuild[1] { _ab });
-            //AssetBundleTool.EncryptyGameFiles(Application.dataPath + "/StreamingAssets/StreamingResources/" + _assetBundleName);
-        }
+        //    createTargetAssetBundle(new AssetBundleBuild[1] { _ab });
+        //    //AssetBundleTool.EncryptyGameFiles(Application.dataPath + "/StreamingAssets/StreamingResources/" + _assetBundleName);
+        //}
         else
         {
             List<string> _pathList = HandleScripts();

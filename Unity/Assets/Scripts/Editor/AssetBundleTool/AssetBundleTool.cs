@@ -14,7 +14,7 @@ using FrameWork.Scripts.ResourceLoad;
 /// </summary>
 public class AssetBundleTool : MonoBehaviour
 {
-    public static codeType CodeType = codeType.xlua;
+    public static codeType CodeType = codeType.injectFix;
     private static List<string> m_folderPathList = new List<string>();
 
     public static void Init()

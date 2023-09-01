@@ -21,11 +21,13 @@ MonoBehaviour:
   - sound/dialog/battlewin.assetbundle
   - textures/back_activity.assetbundle
   - textures/sociatyarea2v2bg.assetbundle
+  - tsuprefabs/gameview.assetbundle
   - tsuprefabs/image.assetbundle
   - tsuprefabs/image1.assetbundle
   - tsuprefabs/loginview.assetbundle
   - tsuprefabs/uisystemroot.assetbundle
   AssetBundlePathList:
+  - Data: []
   - Data: []
   - Data: []
   - Data: []
@@ -53,10 +55,12 @@ MonoBehaviour:
   - Sound/Dialog/BattleWin
   - Textures/back_activity
   - Textures/SociatyArea2V2BG
+  - TSUprefabs/GameView
   - TSUprefabs/Image
   - TSUprefabs/Image1
   - TSUprefabs/LoginView
   - TSUprefabs/UISystemRoot
+  - Texture/game/qipange_bg
   m_value:
   - allshaders.assetbundle
   - configbyte/configbyte_bundle.assetbundle
@@ -67,9 +71,11 @@ MonoBehaviour:
   - sound/dialog/battlewin.assetbundle
   - textures/back_activity.assetbundle
   - textures/sociatyarea2v2bg.assetbundle
+  - tsuprefabs/gameview.assetbundle
   - tsuprefabs/image.assetbundle
   - tsuprefabs/image1.assetbundle
   - tsuprefabs/loginview.assetbundle
   - tsuprefabs/uisystemroot.assetbundle
+  - tsuprefabs/gameview.assetbundle
   ShaderName: []
   ShaderAsset: []

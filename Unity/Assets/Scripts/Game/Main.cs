@@ -25,7 +25,6 @@ using ResourceLoad;
 public enum codeType
 {
     injectFix,//injectfix热更代码
-    xlua,//xlua框架
     abHotFix,//ab包热更代码
 }
 public class Main : ApplicationCore

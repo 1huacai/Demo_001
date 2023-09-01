@@ -79,7 +79,7 @@ public class ExportPackage : EditorWindow
         }
         string[] _data = File.ReadAllLines(Application.dataPath + "/Plugins/SDKInfo.txt");
         m_platformpath = _data[0]+ "/platform.txt";
-        m_sdkPach = _data[1];
+        //m_sdkPach = _data[1];
         if (!File.Exists(m_platformpath))
         {
             SavePlatformConfigs();
@@ -97,15 +97,15 @@ public class ExportPackage : EditorWindow
             if (line.StartsWith("#"))
             {
                 Config _config = new Config(line);
-                if (_config.platformName.Contains("xinghan_testbird") || _config.platformName.Contains("xinghan_jianxiu") ||
-                    _config.platformName.Contains("xinghan_xianxingfu") || _config.platformName.Contains("xinghan_unity2018"))
-                {
-                    list0.Add(_config);
-                }
-                else
-                {
-                    list1.Add(_config);
-                }
+                list0.Add(_config);
+                //if (_config.platformName.Contains("xiaoxiaole"))
+                //{
+                //    list0.Add(_config);
+                //}
+                //else
+                //{
+                //    list1.Add(_config);
+                //}
             }
         }
 
@@ -456,7 +456,7 @@ public class ExportPackage : EditorWindow
     {
         string url = "Assets/Resources/Launcher/splash{0}.jpg";
 
-        GameObject prefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Resources/Launcher/Loading.prefab", typeof(GameObject));
+        GameObject prefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Resources/Launcher/Prefabs/Loading.prefab", typeof(GameObject));
         GameObject prefab2 = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
 
         Texture tex = (Texture)AssetDatabase.LoadAssetAtPath(string.Format(url, ""), typeof(Texture));
@@ -494,28 +494,28 @@ public class ExportPackage : EditorWindow
         string _path = string.Empty;
 
         _path = Application.dataPath + "/Resources/Icon";
-        DirectoryInfo _info = new DirectoryInfo(_path);
-        FileInfo[] _array = _info.GetFiles();
-        foreach (FileInfo f in _array)
-        {
-            if (f.FullName.Contains("*.meta"))
-            {
-                continue;
-            }
-            f.Delete();
-        }
+        //DirectoryInfo _info = new DirectoryInfo(_path);
+        //FileInfo[] _array = _info.GetFiles();
+        //foreach (FileInfo f in _array)
+        //{
+        //    if (f.FullName.Contains("*.meta"))
+        //    {
+        //        continue;
+        //    }
+        //    f.Delete();
+        //}
 
 
-        _path = m_sdkPach + "/Icon/" + config.platformName;
-        _info = new DirectoryInfo(_path);
-        _array = _info.GetFiles();
+        //_path = m_sdkPach + "/Icon/" + config.platformName;
+        //_info = new DirectoryInfo(_path);
+        //_array = _info.GetFiles();
 
-        foreach (FileInfo f in _array)
-        {
-            f.CopyTo(Application.dataPath + "/Resources/Icon/" + f.Name, true);
-        }
-        AssetDatabase.Refresh();
-        return true;
+        //foreach (FileInfo f in _array)
+        //{
+        //    f.CopyTo(Application.dataPath + "/Resources/Icon/" + f.Name, true);
+        //}
+        //AssetDatabase.Refresh();
+        //return true;
 
 
         TextureImporter _importer = AssetImporter.GetAtPath("Assets/Resources/Icon/ic_launcher.png") as TextureImporter;
@@ -557,10 +557,10 @@ public class ExportPackage : EditorWindow
     /// <returns></returns>
     private List<string> SetBuildingSetting(Config conf)
     {
-        if (!CopySdk(conf))
-        {
-            return null;
-        }
+        //if (!CopySdk(conf))
+        //{
+        //    return null;
+        //}
 
 
 
@@ -669,10 +669,10 @@ public class ExportPackage : EditorWindow
         }
         else
             PlayerSettings.SetPropertyInt("ScriptingBackend", (int)ScriptingImplementation.Mono2x, BuildTarget.Android);
-        if (!SetKeyStore(conf))
-        {
-            return null;
-        }
+        //if (!SetKeyStore(conf))
+        //{
+        //    return null;
+        //}
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
@@ -732,10 +732,10 @@ public class ExportPackage : EditorWindow
         List<string> scenes = SetBuildingSetting(conf);
         if (scenes == null)
             return false;
-        string sdkDst = Application.dataPath + "/Plugins/Android";
-        string apkName = saveDir + "/sgz2017" + "_" + conf.platformName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss");
-        string apkName1 = saveDir + "/sgz2017" + "_" + conf.platformName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".apk";
-        string apkName2 = saveDir1 + "/sgz2017" + "_" + conf.platformName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss");
+        //string sdkDst = Application.dataPath + "/Plugins/Android";
+        //string apkName = saveDir + "/xiaoxiaole" + "_" + conf.platformName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss");
+        string apkName1 = saveDir + "/xiaoxiaole" + "_" + conf.platformName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".apk";
+        string apkName2 = saveDir1 + "/xiaoxiaole" + "_" + conf.platformName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss");
         BuildPipeline.BuildPlayer(scenes.ToArray(), apkName1, BuildTarget.Android, BuildOptions.None);
         Caching.ClearCache();
         AssetDatabase.Refresh();
