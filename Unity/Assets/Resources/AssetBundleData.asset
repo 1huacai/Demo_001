@@ -21,6 +21,7 @@ MonoBehaviour:
   - sound/dialog/battlewin.assetbundle
   - textures/back_activity.assetbundle
   - textures/sociatyarea2v2bg.assetbundle
+  - textures/uibg.assetbundle
   - tsuprefabs/gameview.assetbundle
   - tsuprefabs/image.assetbundle
   - tsuprefabs/image1.assetbundle
@@ -36,14 +37,13 @@ MonoBehaviour:
   - Data: []
   - Data: []
   - Data: []
+  - Data: []
   - Data:
     - textures/back_activity.assetbundle
   - Data:
     - tsuprefabs/image.assetbundle
     - textures/back_activity.assetbundle
-  - Data:
-    - textures/sociatyarea2v2bg.assetbundle
-    - textures/back_activity.assetbundle
+  - Data: []
   - Data: []
   m_key:
   - AllShaders
@@ -55,12 +55,19 @@ MonoBehaviour:
   - Sound/Dialog/BattleWin
   - Textures/back_activity
   - Textures/SociatyArea2V2BG
+  - Textures/UIBG
   - TSUprefabs/GameView
   - TSUprefabs/Image
   - TSUprefabs/Image1
   - TSUprefabs/LoginView
   - TSUprefabs/UISystemRoot
+  - Texture/UI/battle_bg
+  - Texture/common/p1
+  - Texture/common/p2
   - Texture/game/qipange_bg
+  - Texture/UI/home_bg
+  - Texture/UI/home_btn2
+  - Texture/UI/home_btn1
   m_value:
   - allshaders.assetbundle
   - configbyte/configbyte_bundle.assetbundle
@@ -71,11 +78,18 @@ MonoBehaviour:
   - sound/dialog/battlewin.assetbundle
   - textures/back_activity.assetbundle
   - textures/sociatyarea2v2bg.assetbundle
+  - textures/uibg.assetbundle
   - tsuprefabs/gameview.assetbundle
   - tsuprefabs/image.assetbundle
   - tsuprefabs/image1.assetbundle
   - tsuprefabs/loginview.assetbundle
   - tsuprefabs/uisystemroot.assetbundle
   - tsuprefabs/gameview.assetbundle
+  - tsuprefabs/gameview.assetbundle
+  - tsuprefabs/gameview.assetbundle
+  - tsuprefabs/gameview.assetbundle
+  - tsuprefabs/loginview.assetbundle
+  - tsuprefabs/loginview.assetbundle
+  - tsuprefabs/loginview.assetbundle
   ShaderName: []
   ShaderAsset: []

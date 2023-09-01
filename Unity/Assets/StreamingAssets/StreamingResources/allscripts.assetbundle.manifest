@@ -1,0 +1,37 @@
+ManifestFileVersion: 0
+CRC: 2024974697
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a4e93526cf590bb60afc24f59f682908
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/tmp/System.Xml.XPath.XDocument.bytes
+- Assets/tmp/CoreFrameWork.bytes
+- Assets/tmp/IFix.Core.bytes
+- Assets/tmp/System.Globalization.Extensions.bytes
+- Assets/tmp/FrameWork.bytes
+- Assets/tmp/zlib.net.bytes
+- Assets/tmp/DOTween46.bytes
+- Assets/tmp/System.Diagnostics.StackTrace.bytes
+- Assets/tmp/System.Runtime.Serialization.Primitives.bytes
+- Assets/tmp/DOTween.bytes
+- Assets/tmp/System.IO.Compression.bytes
+- Assets/tmp/System.Threading.Overlapped.bytes
+- Assets/tmp/System.Security.Cryptography.Algorithms.bytes
+- Assets/tmp/protobuf-net.bytes
+- Assets/tmp/System.Net.Sockets.bytes
+- Assets/tmp/System.Net.Http.bytes
+- Assets/tmp/Demo.bytes
+- Assets/tmp/System.Security.SecureString.bytes
+- Assets/tmp/System.Diagnostics.Tracing.bytes
+- Assets/tmp/DOTween43.bytes
+- Assets/tmp/System.Data.Common.bytes
+Dependencies: []

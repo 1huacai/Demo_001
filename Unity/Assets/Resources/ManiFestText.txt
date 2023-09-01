@@ -1,7 +1,14 @@
 资源路径	资源类型	是否为公共资源(1 true, 0 false)	不丢包(1 true, 0 false)	资源所属AssetBundle包名
-Textures/back_activity.png	UnityEngine.Texture2D	1	0	textures/back_activity.assetbundle
-Textures/SociatyArea2V2BG.png	UnityEngine.Texture2D	0	1	textures/sociatyarea2v2bg.assetbundle
+Textures/back_activity.png	UnityEngine.Texture2D	0	1	textures/back_activity.assetbundle
+Textures/SociatyArea2V2BG.png	UnityEngine.Texture2D	0	0	textures/sociatyarea2v2bg.assetbundle
+Textures/UIBG.png	UnityEngine.Texture2D	0	0	textures/uibg.assetbundle
+Texture/UI/battle_bg.png	UnityEngine.Texture2D	0	0	tsuprefabs/gameview.assetbundle
+Texture/common/p1.png	UnityEngine.Texture2D	0	0	tsuprefabs/gameview.assetbundle
+Texture/common/p2.png	UnityEngine.Texture2D	0	0	tsuprefabs/gameview.assetbundle
 Texture/game/qipange_bg.png	UnityEngine.Texture2D	0	0	tsuprefabs/gameview.assetbundle
+Texture/UI/home_bg.png	UnityEngine.Texture2D	0	0	tsuprefabs/loginview.assetbundle
+Texture/UI/home_btn2.png	UnityEngine.Texture2D	0	0	tsuprefabs/loginview.assetbundle
+Texture/UI/home_btn1.png	UnityEngine.Texture2D	0	0	tsuprefabs/loginview.assetbundle
 ConfigByte/VersionConfig.bytes	UnityEngine.TextAsset	0	0	configbyte/configbyte_bundle.assetbundle
 ConfigByte/Language/Language.bytes	UnityEngine.TextAsset	0	0	configbyte/language/language_bundle.assetbundle
 ConfigByte/Language/LanguagePackage.bytes	UnityEngine.TextAsset	0	0	configbyte/language/language_bundle.assetbundle

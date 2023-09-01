@@ -92,7 +92,10 @@ namespace Demo
                 UnlockPressureAnim();
                 return;
             }
-
+            
+            if(SelfGameController.Inst.PreussUnlocking)
+                return;
+            
             if (State == BlockState.Normal)
             {
                 StateManger._instance.ChangeStageUpdate(BlockState.Normal, this);

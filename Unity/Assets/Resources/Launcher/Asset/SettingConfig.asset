@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: -659030302, guid: be0ca26c6d02ce74c9d8e2297dd089bb, type: 3}
   m_Name: SettingConfig
   m_EditorClassIdentifier: 
-  codeType: 1
+  codeType: 2
   resourceLoadMode: 1
   isSDK: 0
   webGL: 0
   logLevel: 4294967295
   isShowSplash: 0
-  releaseDate: 
+  releaseDate: 20230901172313
   isWriteLog: 0
   isDropRecv: 0
   isDropSend: 0
