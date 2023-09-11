@@ -28,7 +28,7 @@ MonoBehaviour:
   AB_NEST_NAME: StreamingResources
   SHADER_AB_RELATIVE_PATH: AllShaders
   RES_LOCAL_ASSETDATABASE_RELATIVE_PATH: 
-  RES_StreamingAssets_PATH: StreamingResources/
+  RES_StreamingAssets_PATH: StreamingResources
   RES_PERSISTENT_RELATIVE_PATH: ClientRes/Android/
   RECYBLEBIN_RES_DESTROY_TIME: 10
   RECYBLEBIN_MAX_DESTROY_AB_COUNT_PER_FRAME: 15

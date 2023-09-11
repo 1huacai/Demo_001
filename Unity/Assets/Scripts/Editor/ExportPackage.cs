@@ -592,7 +592,7 @@ public class ExportPackage : EditorWindow
         SwitchSplash(conf.platformName);
         //设置打包参数
         SettingConfig _settingConfig = (SettingConfig)AssetDatabase.LoadAssetAtPath("Assets/Resources/Launcher/Asset/SettingConfig.asset", typeof(ScriptableObject));
-        _settingConfig.isSDK = true;
+        _settingConfig.isSDK = false;
         _settingConfig.isDropRecv = false;
         _settingConfig.isDropSend = false;
         _settingConfig.releaseDate = DateTime.Now.ToString("yyyyMMddHHmmss");
