@@ -65,7 +65,7 @@ namespace ResourceLoad
         /// <summary>
         /// StreamingAssets 相对路径
         /// </summary>
-        public string RES_StreamingAssets_PATH = "StreamingResources/";
+        public string RES_StreamingAssets_PATH = "StreamingResources";
 
         /// <summary>
         /// 沙盒资源相对路径
